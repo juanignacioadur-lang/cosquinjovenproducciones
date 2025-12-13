@@ -1,0 +1,18 @@
+/* Reemplaza la regla #root (que generaba conflictos) por .app-root si quieres reglas generales */
+.app-root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0; /* el padding lo maneja cada componente; evita empujar la altura */
+  width: 100%;
+}
+
+/* conservar logo hover si lo usas en otros componentes */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}

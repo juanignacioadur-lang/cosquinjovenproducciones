@@ -1,0 +1,104 @@
+/* Inicio.css completo - optimizado para móvil y centrado */
+
+/* Fuente serif elegante específicamente usada para el subtítulo */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap');
+
+:root {
+  --cj-navbar-height: 76px; /* sincronizalo si navbar cambia */
+  --hero-padding-vertical: 20px;
+  --hero-padding-horizontal: 16px;
+  --logo-min: 250px; /* base aumentado +25% */
+  --logo-max: 450px;
+  --bg-overlay: rgba(0,0,0,0.6);
+}
+
+/* Video + overlay same as global but included here for safety */
+.video-fondo {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
+}
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  z-index: -1;
+}
+
+/* Hero container */
+.inicio-hero {
+  min-height: calc(100vh - var(--cj-navbar-height));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--hero-padding-vertical) var(--hero-padding-horizontal);
+  box-sizing: border-box;
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+}
+
+/* Logo responsive: uses clamp but never overflows on tiny screens */
+.inicio-hero .inicio-logo {
+  width: clamp(150px, 30vw, 420px);
+  max-width: 92%;
+  height: auto !important;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 10px 36px rgba(0,0,0,0.6));
+  border-radius: 6px;
+}
+
+/* Subtitle style: elegant italic semi-bold */
+.inicio-subtext {
+  margin-top: 14px;
+  width: 100%;
+  max-width: 720px;
+  color: rgba(255,255,255,0.96);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  background: rgba(0,0,0,0.24);
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+
+  font-style: italic;
+  font-weight: 600;
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  letter-spacing: 0.2px;
+  text-rendering: optimizeLegibility;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+  word-break: break-word;
+}
+
+/* Mobile tweaks */
+@media (max-width: 480px) {
+  :root { --logo-min: 150px; --logo-max: 260px; }
+  .inicio-hero { padding: 16px 12px; min-height: calc(100vh - var(--cj-navbar-height)); }
+  .inicio-hero .inicio-logo { width: clamp(140px, 36vw, 240px); max-width: 88%; }
+  .inicio-subtext { font-size: 0.95rem; padding: 10px 12px; line-height: 1.45; }
+}
+
+/* Mid-size devices (phones large / small tablets) */
+@media (min-width: 481px) and (max-width: 820px) {
+  :root { --logo-min: 175px; --logo-max: 325px; }
+  .inicio-hero { padding: 18px 14px; min-height: calc(100vh - var(--cj-navbar-height)); }
+  .inicio-hero .inicio-logo { width: clamp(175px, 34vw, 325px); max-width: 90%; }
+  .inicio-subtext { font-size: 1rem; padding: 11px 14px; }
+}
+
+/* Desktop */
+@media (min-width: 821px) {
+  .inicio-hero .inicio-logo { width: clamp(250px, 28vw, 450px); max-width: 450px; }
+  .inicio-subtext { font-size: 1.05rem; padding: 12px 16px; }
+}
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .inicio-hero .inicio-logo, .inicio-subtext { transition: none !important; }
+}

@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Roboto:wght@300;400;700&display=swap');
+
+:root {
+  --accent: #d00000;
+  --bg-dark: #0b0404;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: 'Roboto', Arial, sans-serif;
+  background: transparent; 
+  color: white;
+  scroll-behavior: smooth; /* Scroll suave nativo */
+  text-rendering: optimizeLegibility; /* Texto más nítido */
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Oswald', sans-serif;
+}
+
+.video-fondo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2; 
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  z-index: -1;
+}

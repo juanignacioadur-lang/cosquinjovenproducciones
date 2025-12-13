@@ -1,0 +1,299 @@
+/* Contacto.css */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');
+
+:root {
+  --accent: #d00000;
+  --bg-dark: #0b0404;
+  --glass: rgba(255, 255, 255, 0.03);
+  --border: rgba(255, 255, 255, 0.1);
+}
+
+.ct-page {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #2b0f0f 0%, #3d1414 55%, #0b0404 100%);
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+/* --- CONTENEDOR CENTRAL --- */
+.ct-container {
+  width: 100%;
+  max-width: 1200px;
+  background: rgba(0, 0, 0, 0.3);
+  border-left: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  box-shadow: 0 0 60px rgba(0,0,0,0.8);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 100px 40px 80px 40px; /* Padding superior para compensar navbar */
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* --- HERO CON LOGO --- */
+.ct-hero {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.ct-hero-logo {
+  width: 280px; /* Logo grande */
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(208,0,0,0.3));
+  margin-bottom: 10px;
+}
+
+.ct-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 3.5rem;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  line-height: 1;
+}
+
+.ct-title span {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--accent);
+  text-shadow: 0 0 25px rgba(208,0,0,0.5);
+}
+
+.ct-subtitle {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem;
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+/* --- GRILLA PRINCIPAL --- */
+.ct-content {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* Columna info más chica, form más grande */
+  gap: 50px;
+  align-items: start;
+}
+
+/* --- COLUMNA INFORMACIÓN --- */
+.ct-info-col {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.ct-info-card {
+  background: var(--glass);
+  border: 1px solid var(--border);
+  padding: 25px;
+  border-radius: 12px;
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+.ct-info-card:hover {
+  transform: translateX(5px);
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.05);
+}
+
+.ct-card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.ct-icon-box {
+  width: 45px;
+  height: 45px;
+  background: rgba(208,0,0,0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+  border: 1px solid rgba(208,0,0,0.3);
+}
+
+.ct-card-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  margin: 0;
+  color: #fff;
+}
+
+.ct-card-content p {
+  color: rgba(255,255,255,0.8);
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.ct-link {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+.ct-link:hover { color: var(--accent); }
+
+/* Redes Sociales */
+.ct-social-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.ct-social-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.ct-social-btn.insta {
+  background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+}
+
+.ct-social-btn.face {
+  background: #1877F2;
+}
+
+.ct-social-btn:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.2);
+}
+
+/* --- COLUMNA FORMULARIO --- */
+.ct-form-wrapper {
+  background: rgba(0,0,0,0.6);
+  padding: 40px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+.ct-form-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 25px;
+  color: #fff;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 15px;
+}
+
+.ct-form-group {
+  margin-bottom: 20px;
+}
+
+.ct-label {
+  display: block;
+  margin-bottom: 8px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.ct-input, .ct-select, .ct-textarea {
+  width: 100%;
+  padding: 14px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Asegura que no se salga */
+}
+
+.ct-input:focus, .ct-select:focus, .ct-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.1);
+  box-shadow: 0 0 15px rgba(208,0,0,0.2);
+}
+
+.ct-select option {
+  background: #111;
+  color: #fff;
+}
+
+.ct-textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.ct-submit-btn {
+  width: 100%;
+  padding: 16px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.ct-submit-btn:hover {
+  background: #b00000;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 20px rgba(208,0,0,0.4);
+}
+
+/* --- ANIMACIONES --- */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .ct-content {
+    grid-template-columns: 1fr; /* Una columna en tablet */
+    gap: 40px;
+  }
+  
+  .ct-hero-logo { width: 220px; }
+  .ct-title { font-size: 2.8rem; }
+  
+  .ct-form-wrapper { padding: 25px; }
+}
+
+@media (max-width: 600px) {
+  .ct-container { padding: 100px 20px 80px 20px; gap: 40px; }
+  
+  .ct-title { font-size: 2.2rem; }
+  .ct-hero-logo { width: 180px; }
+  
+  .ct-social-grid { grid-template-columns: 1fr; } /* Botones sociales uno abajo del otro */
+}

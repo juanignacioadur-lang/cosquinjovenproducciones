@@ -1,0 +1,108 @@
+/* Navbar.css - completo, responsive y con buena experiencia táctil.
+   Mantiene tu diseño pero hace el menú usable en móviles. */
+
+:root {
+  --nav-bg: rgba(0,0,0,0.7);
+  --nav-height: 76px; /* mantén sincronizado con --site-navbar-height si usas esa variable */
+  --accent: #d00000;
+  --link-color: #fff;
+}
+
+/* Navbar base */
+.navbar {
+  position: fixed;
+  inset: 0 auto auto 0; /* top:0, left:0; */
+  width: 100%;
+  background: var(--nav-bg);
+  backdrop-filter: blur(8px);
+  z-index: 1100;
+}
+
+/* Container within navbar */
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* Logo */
+.logo-img {
+  height: 56px;
+  width: auto;
+  cursor: pointer;
+  flex: 0 0 auto;
+  display: block;
+}
+
+/* Links group */
+.nav-links {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Link base */
+.nav-link {
+  color: var(--accent); /* rojo por defecto */
+  font-size: 16px;
+  text-decoration: none;
+  padding: 10px 8px;
+  border-radius: 8px;
+  position: relative;
+  display: inline-block;
+  min-height: 36px;
+  line-height: 1.1;
+}
+
+/* Inicio link white */
+.nav-link.home { color: var(--link-color); }
+
+/* Hover / active */
+.nav-link:hover { background: rgba(255,255,255,0.04); }
+.nav-link::after{
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: -6px;
+  height: 3px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 180ms cubic-bezier(.2,.8,.2,1);
+  border-radius: 2px;
+}
+.nav-link.active::after { transform: scaleX(1); }
+.nav-link.active { font-weight: 700; }
+
+/* Mobile: stack nav items below logo and increase spacing */
+@media (max-width: 880px) {
+  .nav-container {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 12px;
+  }
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+  }
+  .logo-img { height: 48px; }
+  .nav-link { font-size: 17px; padding: 12px 10px; }
+}
+
+/* Small mobile: larger tap targets */
+@media (max-width: 420px) {
+  .nav-links { gap: 8px; }
+  .nav-link { padding: 14px 12px; font-size: 16px; border-radius: 10px; }
+  .logo-img { height: 44px; }
+}

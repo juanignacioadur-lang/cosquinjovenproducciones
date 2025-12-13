@@ -1,0 +1,96 @@
+/* InfoBox.css - caja fija con logo */
+
+/* --- ESTILOS GENERALES (PC) --- */
+.info-box {
+  position: fixed;
+  right: 16px;
+  bottom: 100px; /* Arriba del footer */
+  
+  width: 350px; 
+  max-width: calc(100vw - 40px);
+  padding: 20px;
+  
+  background: rgba(0,0,0,0.86);
+  color: #fff;
+  border-radius: 12px;
+  
+  /* Flex vertical para PC */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  
+  z-index: 1200;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Logo en PC (Grande) */
+.info-logo {
+  width: 240px; 
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+.info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.info-title {
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin: 0;
+  color: #fff;
+}
+
+.info-subtitle {
+  font-size: 0.9rem;
+  margin: 0;
+  color: #ccc;
+  line-height: 1.4;
+}
+
+/* --- ADAPTACIÓN MÓVIL (Celulares y Tablets chicas) --- */
+@media (max-width: 850px) {
+  .info-box {
+    /* Hacemos que aparezca (antes estaba none) */
+    display: flex !important;
+    
+    /* Cambiamos a diseño HORIZONTAL para ahorrar espacio vertical */
+    flex-direction: row; 
+    text-align: left;
+    
+    /* Centramos el cuadro en la pantalla */
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+    
+    /* Lo pegamos justo arriba del footer móvil (aprox 60-70px) */
+    bottom: 70px;
+    
+    /* Ancho casi total pero con márgenes */
+    width: 95%;
+    max-width: 400px;
+    
+    padding: 10px 15px;
+    gap: 15px;
+  }
+
+  /* Achicamos el logo para móvil (si es muy grande tapa todo) */
+  .info-logo {
+    width: 80px; /* Tamaño icono */
+  }
+
+  .info-title {
+    font-size: 0.9rem;
+  }
+
+  .info-subtitle {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+}
