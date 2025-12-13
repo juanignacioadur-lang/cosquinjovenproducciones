@@ -1,12 +1,15 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar.jsx";
-import Footer from "./components/Footer.jsx";
-import InfoBox from "./components/InfoBox.jsx";  // <-- importamos el cuadro fijo
 
-import Inicio from "./pages/Inicio.jsx";
-import Informacion from "./pages/Informacion.jsx";
-import Noticias from "./pages/Noticias.jsx";
-import Contacto from "./pages/Contacto.jsx";
+// Nuevos nombres de archivos
+import Navbar from "./components/Navigation.jsx";
+import Footer from "./components/PageFooter.jsx";
+import InfoBox from "./components/InfoCard.jsx"; 
+
+import Inicio from "./pages/HomePage.jsx";
+import Noticias from "./pages/EventsPage.jsx";
+import Contacto from "./pages/ContactPage.jsx";
+
+import "./App.css"; // Si tienes estilos globales aquí
 
 export default function App() {
   return (
@@ -15,12 +18,16 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<Inicio />} />
-        <Route path="/Informacion" element={<Informacion />} />
-        <Route path="/Noticias" element={<Noticias />} />
-        <Route path="/Contacto" element={<Contacto />} />
+        {/* Mantenemos las rutas url igual (/informacion, /noticias) pero cargan los nuevos archivos */}
+        <Route path="/informacion" element={<Informacion />} /> 
+        {/* OJO: Si tenías una página "Informacion.jsx", asegúrate de que esté importada. 
+           Si no la renombraste en el paso 1, déjala como estaba. 
+           Si la renombraste, actualiza aquí. */}
+        <Route path="/noticias" element={<Noticias />} />
+        <Route path="/contacto" element={<Contacto />} />
       </Routes>
 
-      <InfoBox />   {/* <-- agregamos el cuadro fijo aquí */}
+      <InfoBox />
       <Footer />
     </BrowserRouter>
   );
