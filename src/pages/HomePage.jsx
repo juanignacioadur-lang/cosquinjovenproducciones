@@ -4,18 +4,22 @@ import "./HomePage.css";
 export default function Inicio() {
   return (
     <>
-      {/* El video y el overlay van "sueltos" para fijarse al fondo */}
+      {/* VIDEO DE FONDO */}
+      {/* Cambiamos la ruta al nuevo nombre 'background.mp4' */}
       <video 
         className="video-fondo" 
-        src="/video.mp4" 
+        src="/background.mp4" 
         autoPlay 
         muted 
         loop 
         playsInline 
+        // Agregamos poster para que se vea una imagen mientras carga el video pesado
+        poster="/logo.png" 
       />
+      
       <div className="overlay" />
 
-      {/* Contenido de la página de inicio */}
+      {/* CONTENIDO PRINCIPAL */}
       <main className="inicio-hero" role="main" aria-labelledby="inicio-titulo">
         <img
           src="/logo.png"
