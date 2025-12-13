@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import "./informacion.css";
+import "./AboutPage.css";
 
 /* --- Tarjeta de Valor --- */
 function Card({ icon, title, text }) {
