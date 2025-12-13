@@ -1,5 +1,5 @@
 import React from "react";
-import "./inicio.css";
+import "./HomePage.css";
 
 export default function Inicio() {
   return (

@@ -1,4 +1,4 @@
-import "./InfoBox.css";
+import "./InfoCard.css";
 import logo from "/logofundacion.png";
 
 export default function InfoBox() {

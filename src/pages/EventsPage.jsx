@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./noticias.css";
+import "./EventsPage.css";
 
 /* ---------- Carousel Reutilizable ---------- */
 function Carousel({ images = [], autoPlay = true, autoPlayMs = 3500, initialIndex = 0 }) {
