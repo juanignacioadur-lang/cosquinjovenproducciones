@@ -48,18 +48,8 @@ function Carousel({ images = [], autoPlay = true, autoPlayMs = 3500, initialInde
 
 /* ---------- Detalle del Evento ---------- */
 function EventDetail({ event, onClose, initialSlide = 0 }) {
-  const panelRef = useRef(null);
+  // Eliminado el useEffect de scroll automático para evitar saltos ("bugs") visuales.
   
-  // Al abrir o cambiar evento, scrollear suave hacia el panel
-  useEffect(() => { 
-    if (panelRef.current) {
-        // Un pequeño timeout ayuda a que la animación de apertura no choque con el scroll
-        setTimeout(() => {
-            panelRef.current.scrollIntoView({ behavior: "smooth", block: "center" }); 
-        }, 100);
-    } 
-  }, [event]);
-
   if (!event) return null;
   const images = event.images || [];
   const fullDetails = event.fullDetails || [];
@@ -67,7 +57,7 @@ function EventDetail({ event, onClose, initialSlide = 0 }) {
   const prizes = event.prizes || [];
 
   return (
-    <div className="nt-detail-panel" ref={panelRef}>
+    <div className="nt-detail-panel" id="detail-panel">
       <div className="nt-detail-head">
         <h3 className="nt-detail-title">{event.title}</h3>
         <button className="nt-hide-btn" onClick={onClose}>Cerrar</button>
@@ -211,9 +201,7 @@ export default function Noticias() {
   const handleNext3D = () => { setActiveIndex((prev) => (prev + 1) % eventsData.length); };
   const handlePrev3D = () => { setActiveIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length); };
 
-  // --- SOLUCIÓN PROBLEMA 2: Sincronizar Info al girar ---
-  // Este useEffect escucha el cambio de 'activeIndex' (cuando el carrusel gira).
-  // Si 'activeEvent' tiene datos (panel abierto), actualizamos el panel al nuevo evento central.
+  // Sincronizar Info al girar (Si el panel YA está abierto, se actualiza, pero sin saltar)
   useEffect(() => {
     if (activeEvent) {
       setActiveEvent(eventsData[activeIndex]);
@@ -232,7 +220,16 @@ export default function Noticias() {
 
   const openDetails = (eventId) => {
     const ev = eventsData.find((e) => e.id === eventId);
-    if (ev) { setActiveEvent(ev); setInitialSlide(0); }
+    if (ev) { 
+        setActiveEvent(ev); 
+        setInitialSlide(0); 
+        
+        // Hacemos scroll suave hacia el detalle SOLO cuando se abre explícitamente
+        setTimeout(() => {
+            const detailPanel = document.getElementById("detail-panel");
+            if (detailPanel) detailPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 100);
+    }
   };
 
   const closeDetails = () => {
@@ -259,7 +256,7 @@ export default function Noticias() {
           <p className="nt-hero-sub">Descubre todos los detalles de nuestros eventos: precios, categorías, premios y más</p>
         </section>
 
-        {/* --- DESKTOP VIEW: CAROUSEL 3D (Se oculta en móvil con CSS) --- */}
+        {/* --- DESKTOP VIEW: CAROUSEL 3D --- */}
         <section className="nt-cards-area desktop-3d-view">
           <div className="nt-cards-3d">
             <button className="nt-3d-btn nt-3d-prev" onClick={handlePrev3D}>‹</button>
@@ -289,7 +286,7 @@ export default function Noticias() {
           </div>
         </section>
 
-        {/* --- MOBILE VIEW: LISTA VERTICAL (Se oculta en PC con CSS) --- */}
+        {/* --- MOBILE VIEW: LISTA VERTICAL --- */}
         <section className="nt-cards-area mobile-list-view">
            <div className="mobile-event-list">
               {eventsData.map((ev) => (
