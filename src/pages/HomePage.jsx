@@ -27,17 +27,7 @@ export default function Inicio() {
           loading="eager"
         />
 
-        {/* BOTONES DE ACCIÓN */}
-        <div className="inicio-actions">
-          <Link to="/noticias" className="cj-btn cj-btn-primary">
-            Ver Próximos Eventos
-          </Link>
-          <Link to="/contacto" className="cj-btn cj-btn-outline">
-            Contactar
-          </Link>
-        </div>
-
-        {/* ESTADÍSTICAS */}
+        {/* 1. ESTADÍSTICAS (AHORA ARRIBA) */}
         <div className="inicio-stats">
           <div className="stat-item">
             <span className="stat-number">+30</span>
@@ -50,6 +40,16 @@ export default function Inicio() {
             <span className="stat-number">+5000</span>
             <span className="stat-label">Participantes</span>
           </div>
+        </div>
+
+        {/* 2. BOTONES DE ACCIÓN (AHORA ABAJO) */}
+        <div className="inicio-actions">
+          <Link to="/noticias" className="cj-btn cj-btn-primary">
+            Ver Próximos Eventos
+          </Link>
+          <Link to="/contacto" className="cj-btn cj-btn-outline">
+            Contactar
+          </Link>
         </div>
 
       </main>

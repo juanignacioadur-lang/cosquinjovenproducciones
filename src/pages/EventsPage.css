@@ -19,15 +19,27 @@ html { scroll-padding-top: calc(var(--site-navbar-height) + 18px); }
   display: flex; 
   justify-content: center; 
   align-items: stretch; 
-  
-  /* FONDO CONTINUO */
-  padding-bottom: 120px;
 }
 
-.nt-container { width: 100%; max-width: 1200px; background: rgba(0, 0, 0, 0.3); border-left: 1px solid rgba(255, 255, 255, 0.05); border-right: 1px solid rgba(255, 255, 255, 0.05); box-shadow: 0 0 60px rgba(0,0,0,0.6); min-height: 100vh; margin: 0 auto; padding: calc(var(--site-navbar-height) + 30px) 20px 60px 20px; display: flex; flex-direction: column; align-items: center; }
+.nt-container { 
+  width: 100%; 
+  max-width: 1200px; 
+  background: rgba(0, 0, 0, 0.3); 
+  border-left: 1px solid rgba(255, 255, 255, 0.05); 
+  border-right: 1px solid rgba(255, 255, 255, 0.05); 
+  box-shadow: 0 0 60px rgba(0,0,0,0.6); 
+  min-height: 100vh; 
+  margin: 0 auto; 
+  
+  /* Padding base para PC */
+  padding: calc(var(--site-navbar-height) + 30px) 20px 140px 20px; 
+  
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+}
 
-/* ... resto del archivo EventsPage.css igual ... */
-/* Asegúrate de mantener los cambios de la tarjeta 3D sin bordes que te pasé antes */
+/* ... Estilos generales (hero, cards, etc) sin cambios ... */
 .nt-hero { width: 100%; display: flex; flex-direction: column; align-items: center; margin-bottom: 50px; text-align: center; z-index: 1; }
 .nt-hero-badge { display: inline-block; background: rgba(208, 0, 0, 0.1); color: var(--accent); border: 1px solid rgba(208, 0, 0, 0.3); padding: 6px 18px; border-radius: 30px; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 15px; }
 .nt-hero-title { font-family: "Oswald", sans-serif; font-size: 3rem; text-transform: uppercase; margin: 0 0 10px 0; color: #fff; letter-spacing: 1px; }
@@ -128,14 +140,22 @@ html { scroll-padding-top: calc(var(--site-navbar-height) + 18px); }
 .news-link { color: #fff; text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 10px; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; padding-bottom: 5px; border-bottom: 2px solid var(--accent); transition: all 0.3s; }
 .news-link:hover { gap: 15px; color: var(--accent); border-color: #fff; }
 
+/* MEDIA QUERIES GENERALES */
 @media (max-width: 980px) { 
   .nt-detail-grid { grid-template-columns: 1fr; } 
   .nt-carousel-window { height: 400px; } 
 }
 
+/* --- MEDIA QUERIES MÓVIL ESPECÍFICO (768px o menos) --- */
 @media (max-width: 768px) {
   .desktop-3d-view { display: none !important; }
   .mobile-list-view { display: flex !important; }
+  
+  /* CAMBIO CLAVE MÓVIL: Padding bottom gigante para que no tape el InfoBox */
+  .nt-container { 
+    padding: calc(var(--site-navbar-height) + 30px) 20px 220px 20px; 
+  }
+  
   .news-item { grid-template-columns: 1fr; min-height: auto; }
   .news-image-wrapper { height: 220px; }
   .news-content-wrapper { padding: 25px 20px; }
