@@ -69,13 +69,15 @@ function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
   );
 }
 
-/* --- Galería VIDEOS OPTIMIZADA (Desktop) --- */
+/* --- Galería VIDEOS SUPER OPTIMIZADA (Desktop) --- */
 function VideoGallery({ videos = [] }) {
   const [index, setIndex] = useState(0);
+  const [error, setError] = useState(false); // Estado para detectar error de video
   const len = videos.length;
   const scrollRef = useRef(null);
 
   useEffect(() => {
+    setError(false); // Resetear error al cambiar video
     if (scrollRef.current) {
       const container = scrollRef.current;
       const thumb = container.children[index];
@@ -97,24 +99,31 @@ function VideoGallery({ videos = [] }) {
 
   return (
     <div className="cj-gallery-container">
-      <div className="cj-gallery-display">
+      <div className="cj-gallery-display" style={{ background: '#000' }}>
         {len > 1 && <button className="cj-gallery-btn cj-prev" onClick={handlePrev}>‹</button>}
         
-        {/* VIDEO PRINCIPAL */}
-        <video 
-          key={index}
-          src={videos[index]} 
-          className="cj-gallery-img" 
-          controls 
-          autoPlay 
-          playsInline
-          disablePictureInPicture 
-          controlsList="nodownload noplaybackrate"
-          preload="auto"
-          style={{ background: "#000" }}
-        >
-          Tu navegador no soporta videos.
-        </video>
+        {error ? (
+          <div style={{ color: 'white', textAlign: 'center', padding: '20px' }}>
+            <p>⚠️ No se pudo reproducir este video.</p>
+            <small style={{ color: '#aaa' }}>Posible formato no compatible (Use H.264)</small>
+          </div>
+        ) : (
+          <video 
+            key={index}
+            src={videos[index]} 
+            className="cj-gallery-img" 
+            controls 
+            autoPlay 
+            playsInline
+            disablePictureInPicture 
+            controlsList="nodownload noplaybackrate"
+            preload="metadata"
+            style={{ background: "#000" }}
+            onError={() => setError(true)} // Detecta si falla la carga
+          >
+            Tu navegador no soporta videos.
+          </video>
+        )}
         
         {len > 1 && <button className="cj-gallery-btn cj-next" onClick={handleNext}>›</button>}
       </div>
@@ -125,15 +134,19 @@ function VideoGallery({ videos = [] }) {
           <div className="cj-thumbs-track" ref={scrollRef}>
             {videos.map((vid, i) => (
               <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
-                {/* TRUCO #t=0.001 para forzar la carga de la imagen inicial sin cargar todo el video */}
+                {/* Sin truco de tiempo para mayor compatibilidad, solo metadata */}
                 <video 
-                  src={`${vid}#t=0.001`} 
+                  src={vid} 
                   muted 
                   playsInline 
                   preload="metadata"
                   disablePictureInPicture
-                  controls={false} /* Desactiva controles nativos */
+                  controls={false}
                   className="cj-video-thumb"
+                  onLoadedData={(e) => {
+                    // Truco: Al cargar metadata, saltar al frame 0.1 para que se vea imagen
+                    e.target.currentTime = 0.1;
+                  }}
                 />
                 <div className="cj-play-icon">▶</div>
               </div>
