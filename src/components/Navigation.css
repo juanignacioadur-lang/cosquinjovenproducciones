@@ -1,24 +1,19 @@
-/* Navbar.css - completo, responsive y con buena experiencia táctil.
-   Mantiene tu diseño pero hace el menú usable en móviles. */
-
 :root {
   --nav-bg: rgba(0,0,0,0.7);
-  --nav-height: 76px; /* mantén sincronizado con --site-navbar-height si usas esa variable */
+  --nav-height: 76px;
   --accent: #d00000;
   --link-color: #fff;
 }
 
-/* Navbar base */
 .navbar {
   position: fixed;
-  inset: 0 auto auto 0; /* top:0, left:0; */
+  inset: 0 auto auto 0;
   width: 100%;
   background: var(--nav-bg);
   backdrop-filter: blur(8px);
   z-index: 1100;
 }
 
-/* Container within navbar */
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -29,7 +24,6 @@
   gap: 12px;
 }
 
-/* Logo */
 .logo-img {
   height: 56px;
   width: auto;
@@ -38,7 +32,6 @@
   display: block;
 }
 
-/* Links group */
 .nav-links {
   display: flex;
   gap: 28px;
@@ -48,9 +41,8 @@
   margin: 0;
 }
 
-/* Link base */
 .nav-link {
-  color: var(--accent); /* rojo por defecto */
+  color: var(--accent);
   font-size: 16px;
   text-decoration: none;
   padding: 10px 8px;
@@ -61,18 +53,13 @@
   line-height: 1.1;
 }
 
-/* Inicio link white */
 .nav-link.home { color: var(--link-color); }
-
-/* Hover / active */
 .nav-link:hover { background: rgba(255,255,255,0.04); }
+
 .nav-link::after{
   content: "";
   position: absolute;
-  left: 12%;
-  right: 12%;
-  bottom: -6px;
-  height: 3px;
+  left: 12%; right: 12%; bottom: -6px; height: 3px;
   background: var(--accent);
   transform: scaleX(0);
   transform-origin: center;
@@ -82,27 +69,40 @@
 .nav-link.active::after { transform: scaleX(1); }
 .nav-link.active { font-weight: 700; }
 
-/* Mobile: stack nav items below logo and increase spacing */
+.hamburger-btn { display: none; background: transparent; border: none; color: #fff; cursor: pointer; padding: 5px; }
+
+/* --- RESPONSIVE MOBILE --- */
 @media (max-width: 880px) {
-  .nav-container {
+  .hamburger-btn { display: block; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #000; /* Fondo negro sólido en móvil */
     flex-direction: column;
     align-items: center;
-    padding: 10px 12px;
+    padding: 30px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.9);
+    height: calc(100vh - 76px); /* Ocupa toda la pantalla restante */
   }
-  .nav-links {
-    width: 100%;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 8px;
-  }
+
+  .nav-links.open { display: flex; animation: slideDown 0.3s ease forwards; }
+
   .logo-img { height: 48px; }
-  .nav-link { font-size: 17px; padding: 12px 10px; }
+  .nav-link { 
+    font-size: 20px; 
+    padding: 20px; 
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
 }
 
-/* Small mobile: larger tap targets */
-@media (max-width: 420px) {
-  .nav-links { gap: 8px; }
-  .nav-link { padding: 14px 12px; font-size: 16px; border-radius: 10px; }
-  .logo-img { height: 44px; }
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

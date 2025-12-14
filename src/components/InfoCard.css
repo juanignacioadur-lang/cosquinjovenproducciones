@@ -1,52 +1,100 @@
-/* InfoBox.css - caja fija con logo */
-
 /* --- ESTILOS GENERALES (PC) --- */
 .info-box {
   position: fixed;
   right: 16px;
-  bottom: 100px; /* Arriba del footer */
-  
-  width: 350px; 
+  bottom: 100px; /* Arriba del footer desktop */
+  width: 350px;
   max-width: calc(100vw - 40px);
   padding: 20px;
-  
   background: rgba(0,0,0,0.86);
   color: #fff;
   border-radius: 12px;
   
-  /* Flex vertical para PC */
   display: flex;
   flex-direction: column;
   gap: 12px;
   align-items: center;
-  
   z-index: 1200;
   box-shadow: 0 6px 20px rgba(0,0,0,0.6);
   text-align: center;
   border: 1px solid rgba(255,255,255,0.1);
+  
+  /* Transición suave al desaparecer */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* Logo en PC (Grande) */
+/* Estado Minimizado (se esconde) */
+.info-box.minimized {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(20px) scale(0.9);
+}
+
+/* Botón 'X' dentro de la caja */
+.info-toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.info-toggle-btn:hover {
+  background: #d00000;
+}
+
+/* Botón flotante para restaurar (aparece cuando se minimiza) */
+.info-restore-btn {
+  position: fixed;
+  right: 16px;
+  bottom: 100px; /* Misma posición base */
+  background: #d00000;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  z-index: 1200;
+  cursor: pointer;
+  animation: popIn 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes popIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+/* Logo en PC */
 .info-logo {
-  width: 240px; 
+  width: 240px;
   height: auto;
   object-fit: contain;
   filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
 }
-
 .info-text {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
-
 .info-title {
   font-weight: 700;
   font-size: 1.1rem;
   margin: 0;
   color: #fff;
 }
-
 .info-subtitle {
   font-size: 0.9rem;
   margin: 0;
@@ -54,41 +102,43 @@
   line-height: 1.4;
 }
 
-/* --- ADAPTACIÓN MÓVIL (Celulares y Tablets chicas) --- */
+/* --- ADAPTACIÓN MÓVIL --- */
 @media (max-width: 850px) {
   .info-box {
-    /* Hacemos que aparezca (antes estaba none) */
-    display: flex !important;
-    
-    /* Cambiamos a diseño HORIZONTAL para ahorrar espacio vertical */
+    /* Flex row para ahorrar espacio vertical */
     flex-direction: row; 
     text-align: left;
     
-    /* Centramos el cuadro en la pantalla */
+    /* Centrado en móvil */
     left: 50%;
     transform: translateX(-50%);
     right: auto;
+    bottom: 40px; /* Un poco más abajo en móvil */
     
-    /* Lo pegamos justo arriba del footer móvil (aprox 60-70px) */
-    bottom: 70px;
-    
-    /* Ancho casi total pero con márgenes */
     width: 95%;
     max-width: 400px;
-    
     padding: 10px 15px;
     gap: 15px;
   }
-
-  /* Achicamos el logo para móvil (si es muy grande tapa todo) */
-  .info-logo {
-    width: 80px; /* Tamaño icono */
+  
+  /* Ajuste para el estado minimizado en móvil (mantener centrado horizontal mientras se oculta) */
+  .info-box.minimized {
+    transform: translateX(-50%) translateY(20px) scale(0.9);
   }
 
+  /* Ajuste del botón restaurar en móvil */
+  .info-restore-btn {
+    right: 20px;
+    bottom: 80px;
+  }
+
+  .info-logo {
+    width: 80px; /* Logo chico */
+  }
   .info-title {
     font-size: 0.9rem;
+    padding-right: 20px; /* Espacio para que no se choque con la X */
   }
-
   .info-subtitle {
     font-size: 0.75rem;
     line-height: 1.2;
