@@ -12,7 +12,7 @@ function Card({ icon, title, text }) {
   );
 }
 
-/* --- Galería Premium --- */
+/* --- Galería Premium (Desktop) --- */
 function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
   const [index, setIndex] = useState(0);
   const len = images.length;
@@ -41,63 +41,43 @@ function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
     }
   }, [index]);
 
-  const handlePrev = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    setIndex((prev) => (prev - 1 + len) % len);
-  };
-
-  const handleNext = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    setIndex((prev) => (prev + 1) % len);
-  };
-
-  const goTo = (i) => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    setIndex(i);
-  };
+  const handlePrev = () => { if (intervalRef.current) clearInterval(intervalRef.current); setIndex((prev) => (prev - 1 + len) % len); };
+  const handleNext = () => { if (intervalRef.current) clearInterval(intervalRef.current); setIndex((prev) => (prev + 1) % len); };
+  const goTo = (i) => { if (intervalRef.current) clearInterval(intervalRef.current); setIndex(i); };
 
   if (len === 0) return null;
 
   return (
     <div className="cj-gallery-container">
-      {/* Visor Principal */}
       <div className="cj-gallery-display">
         {len > 1 && <button className="cj-gallery-btn cj-prev" onClick={handlePrev}>‹</button>}
-        
-        <img 
-          key={index} 
-          src={images[index]} 
-          alt={`Galería ${index + 1}`} 
-          className="cj-gallery-img"
-          loading="lazy"
-          onError={(e) => {
-            if (!e.target.src.includes('.JPG')) {
-               e.target.src = e.target.src.replace('.jpg', '.JPG');
-            } else {
-               e.target.style.display = 'none';
-            }
-          }}
-        />
-        
+        <img key={index} src={images[index]} alt={`Galería ${index + 1}`} className="cj-gallery-img" loading="lazy" onError={(e) => { if (!e.target.src.includes('.JPG')) { e.target.src = e.target.src.replace('.jpg', '.JPG'); } else { e.target.style.display = 'none'; } }} />
         {len > 1 && <button className="cj-gallery-btn cj-next" onClick={handleNext}>›</button>}
       </div>
-
-      {/* Tira de Miniaturas */}
       {len > 1 && (
         <div className="cj-thumbs-wrapper">
           <div className="cj-thumbs-track" ref={scrollRef}>
             {images.map((img, i) => (
-              <div 
-                key={i} 
-                className={`cj-thumb ${i === index ? "active" : ""}`}
-                onClick={() => goTo(i)}
-              >
+              <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
                 <img src={img} alt={`Thumb ${i + 1}`} loading="lazy" />
               </div>
             ))}
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+/* --- Galería Simple (Móvil) --- */
+function MobileGallery({ images = [] }) {
+  return (
+    <div className="mobile-gallery-track">
+      {images.map((img, i) => (
+        <div key={i} className="mobile-gallery-item">
+          <img src={img} alt={`Galería Móvil ${i}`} loading="lazy" onError={(e) => { if (!e.target.src.includes('.JPG')) { e.target.src = e.target.src.replace('.jpg', '.JPG'); } else { e.target.style.display = 'none'; } }} />
+        </div>
+      ))}
     </div>
   );
 }
@@ -116,7 +96,6 @@ export default function Informacion() {
     <section className="cj-section">
       <div className="cj-container">
         
-        {/* BIOGRAFÍA */}
         <div className="cj-bio-section">
           <div className="cj-bio-content">
             <h1 className="cj-main-title">NUESTRA <span>HISTORIA</span></h1>
@@ -133,7 +112,6 @@ export default function Informacion() {
           </div>
         </div>
 
-        {/* VALORES */}
         <div className="cj-values-section">
           <div className="cj-section-header">
             <h2 className="cj-section-title">NUESTROS PILARES</h2>
@@ -145,7 +123,6 @@ export default function Informacion() {
           </div>
         </div>
 
-        {/* GALERÍA */}
         <div className="cj-projects">
           <div className="cj-projects-panel">
             <div className="cj-projects-header">
@@ -156,8 +133,16 @@ export default function Informacion() {
                 Revive la emoción de nuestros eventos. Galas, competencias y el encuentro de miles de almas unidas por la danza.
               </p>
             </div>
+            
             <div className="cj-projects-inner">
-              <Gallery images={galleryImages} />
+              {/* DESKTOP GALLERY */}
+              <div className="desktop-gallery-view">
+                 <Gallery images={galleryImages} />
+              </div>
+              {/* MOBILE GALLERY */}
+              <div className="mobile-gallery-view">
+                 <MobileGallery images={galleryImages} />
+              </div>
             </div>
           </div>
         </div>

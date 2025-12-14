@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./EventsPage.css";
 
-/* ---------- Carousel Reutilizable (Detalles) ---------- */
+/* ---------- Carousel Reutilizable (Para dentro del Panel de Detalles) ---------- */
 function Carousel({ images = [], autoPlay = true, autoPlayMs = 3500, initialIndex = 0 }) {
   const [index, setIndex] = useState(initialIndex % Math.max(images.length, 1));
   const [paused, setPaused] = useState(false);
@@ -26,7 +26,6 @@ function Carousel({ images = [], autoPlay = true, autoPlayMs = 3500, initialInde
     <div className="nt-carousel" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocus={() => setPaused(true)} onBlur={() => setPaused(false)}>
       <div className="nt-carousel-window">
         {len > 1 && <button className="nt-carousel-btn nt-prev" onClick={goPrev}>‹</button>}
-        
         <div className="nt-track" style={{ transform: `translateX(-${index * 100}%)` }}>
           {images.map((src, i) => (
             <div className="nt-slide" key={src + i}>
@@ -34,10 +33,8 @@ function Carousel({ images = [], autoPlay = true, autoPlayMs = 3500, initialInde
             </div>
           ))}
         </div>
-
         {len > 1 && <button className="nt-carousel-btn nt-next" onClick={goNext}>›</button>}
       </div>
-      
       {len > 1 && (
         <div className="nt-dots">
           {images.map((_, i) => (
@@ -52,7 +49,16 @@ function Carousel({ images = [], autoPlay = true, autoPlayMs = 3500, initialInde
 /* ---------- Detalle del Evento ---------- */
 function EventDetail({ event, onClose, initialSlide = 0 }) {
   const panelRef = useRef(null);
-  useEffect(() => { if (panelRef.current) panelRef.current.scrollIntoView({ behavior: "smooth", block: "start" }); }, [event]);
+  
+  // Al abrir o cambiar evento, scrollear suave hacia el panel
+  useEffect(() => { 
+    if (panelRef.current) {
+        // Un pequeño timeout ayuda a que la animación de apertura no choque con el scroll
+        setTimeout(() => {
+            panelRef.current.scrollIntoView({ behavior: "smooth", block: "center" }); 
+        }, 100);
+    } 
+  }, [event]);
 
   if (!event) return null;
   const images = event.images || [];
@@ -70,14 +76,12 @@ function EventDetail({ event, onClose, initialSlide = 0 }) {
       <div className="nt-detail-grid">
         <div className="nt-detail-left">
           <Carousel images={images} initialIndex={initialSlide} autoPlay={false} />
-          
           <div className="nt-intro-box">
              <h4 className="nt-detail-heading">📢 RESEÑA DEL EVENTO</h4>
             {event.longDescription && event.longDescription.split("\n").map((p, i) => (
                <p key={i} className="nt-intro-text">{p}</p>
             ))}
           </div>
-
           {fullDetails.length > 0 && (
             <div className="nt-full-details">
               {fullDetails.map((section, idx) => (
@@ -110,17 +114,13 @@ function EventDetail({ event, onClose, initialSlide = 0 }) {
             <div className="nt-meta-row"><span className="nt-icon">📅</span> <span>{event.date}</span></div>
             <div className="nt-meta-row"><span className="nt-icon">📍</span> <span>{event.location}</span></div>
           </div>
-          
           {packs.length > 0 && (
             <div className="nt-section"><h4 className="nt-section-title">Packs Disponibles</h4><div className="nt-packs">{packs.map((p, i) => (<div className="nt-pack" key={i}><div className="nt-pack-head"><div className="nt-pack-title">{p.title}</div><div className="nt-pack-price">{p.price}</div></div>{p.items && <ul className="nt-pack-list">{p.items.map((it, j) => <li key={j}>{it}</li>)}</ul>}</div>))}</div></div>
           )}
-          
           {prizes.length > 0 && (
             <div className="nt-section"><h4 className="nt-section-title">Beneficios y Premios</h4><div className="nt-prizes">{prizes.map((pr, i) => (<div className="nt-prize" key={i}><strong>{pr.place}</strong><span>{pr.reward}</span></div>))}</div></div>
           )}
-          
           {event.reglamentoLink && (<div style={{ marginTop: 20 }}><a className="nt-reglamento" href={event.reglamentoLink} target="_blank" rel="noreferrer">Descargar PDF</a></div>)}
-
           {event.instagramLink && (
             <a href={event.instagramLink} target="_blank" rel="noreferrer" className="nt-instagram-btn">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
@@ -206,12 +206,20 @@ const newsData = [
 export default function Noticias() {
   const [activeEvent, setActiveEvent] = useState(null);
   const [initialSlide, setInitialSlide] = useState(0);
-  const [activeIndex, setActiveIndex] = useState(1); // Índice central por defecto
+  const [activeIndex, setActiveIndex] = useState(1);
 
   const handleNext3D = () => { setActiveIndex((prev) => (prev + 1) % eventsData.length); };
   const handlePrev3D = () => { setActiveIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length); };
 
-  // Esta función decide qué clase tiene la tarjeta para el efecto 3D
+  // --- SOLUCIÓN PROBLEMA 2: Sincronizar Info al girar ---
+  // Este useEffect escucha el cambio de 'activeIndex' (cuando el carrusel gira).
+  // Si 'activeEvent' tiene datos (panel abierto), actualizamos el panel al nuevo evento central.
+  useEffect(() => {
+    if (activeEvent) {
+      setActiveEvent(eventsData[activeIndex]);
+    }
+  }, [activeIndex]);
+
   const getCardClass = (index) => {
     const total = eventsData.length;
     if (index === activeIndex) return "active";
@@ -233,19 +241,11 @@ export default function Noticias() {
     setTimeout(() => setActiveEvent(null), 420);
   };
 
-  // Manejar click: Si es central -> Detalles. Si no -> Rotar.
-  // EN MÓVIL: Siempre abre detalles (controlado por CSS que quita el evento de puntero en los costados)
   const handleCardClick = (i) => {
     if (i === activeIndex) {
-      if (!activeEvent) {
-        openDetails(eventsData[i].id);
-      }
+      if (!activeEvent) openDetails(eventsData[i].id);
     } else {
       setActiveIndex(i);
-      // Opcional: Si quieres que al tocar uno de costado también se abra directo en móvil:
-      if (window.innerWidth <= 768) {
-         openDetails(eventsData[i].id);
-      }
     }
   };
 
@@ -253,49 +253,61 @@ export default function Noticias() {
     <main className="nt-page">
       <div className="nt-container">
         
-        {/* HEADER */}
         <section className="nt-hero">
           <div className="nt-hero-badge">Nuestros Eventos</div>
           <h1 className="nt-hero-title"><span>PRÓXIMOS</span> <span className="nt-accent">EVENTOS</span></h1>
           <p className="nt-hero-sub">Descubre todos los detalles de nuestros eventos: precios, categorías, premios y más</p>
         </section>
 
-        {/* 3D AREA / LISTA MÓVIL */}
-        <section className="nt-cards-area">
+        {/* --- DESKTOP VIEW: CAROUSEL 3D (Se oculta en móvil con CSS) --- */}
+        <section className="nt-cards-area desktop-3d-view">
           <div className="nt-cards-3d">
             <button className="nt-3d-btn nt-3d-prev" onClick={handlePrev3D}>‹</button>
-            
-            {eventsData.map((ev, i) => {
-              const cardClass = getCardClass(i);
-              return (
-                <article 
-                  className={`nt-card ${cardClass}`} 
-                  key={ev.id}
-                  onClick={() => handleCardClick(i)} 
-                >
-                  <div className="nt-card-media">
-                    <img src={ev.image} alt={ev.title} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+            {eventsData.map((ev, i) => (
+              <article 
+                className={`nt-card ${getCardClass(i)}`} 
+                key={ev.id}
+                onClick={() => handleCardClick(i)} 
+              >
+                <div className="nt-card-media">
+                  <img src={ev.image} alt={ev.title} onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                </div>
+                <div className="nt-card-body">
+                  <h3 className="nt-card-title">{ev.title}</h3>
+                  <div className="nt-card-meta">
+                    <div className="nt-meta-item"><span className="nt-icon">📅</span>{ev.date}</div>
+                    <div className="nt-meta-item"><span className="nt-icon">📍</span>{ev.location}</div>
                   </div>
-                  <div className="nt-card-body">
-                    <h3 className="nt-card-title">{ev.title}</h3>
-                    <div className="nt-card-meta">
-                      <div className="nt-meta-item"><span className="nt-icon">📅</span>{ev.date}</div>
-                      <div className="nt-meta-item"><span className="nt-icon">📍</span>{ev.location}</div>
-                    </div>
-                    <p className="nt-card-text">{ev.short}</p>
-                    
-                    <div className="nt-card-actions">
-                      <button className="nt-btn">
-                        Ver Información Completa
-                      </button>
-                    </div>
+                  <p className="nt-card-text">{ev.short}</p>
+                  <div className="nt-card-actions">
+                    <button className="nt-btn">Ver Información Completa</button>
                   </div>
-                </article>
-              );
-            })}
-
+                </div>
+              </article>
+            ))}
             <button className="nt-3d-btn nt-3d-next" onClick={handleNext3D}>›</button>
           </div>
+        </section>
+
+        {/* --- MOBILE VIEW: LISTA VERTICAL (Se oculta en PC con CSS) --- */}
+        <section className="nt-cards-area mobile-list-view">
+           <div className="mobile-event-list">
+              {eventsData.map((ev) => (
+                <div className="mobile-event-card" key={ev.id}>
+                   <div className="mobile-event-img">
+                      <img src={ev.image} alt={ev.title} />
+                      <span className="mobile-date-badge">{ev.date}</span>
+                   </div>
+                   <div className="mobile-event-content">
+                      <h3 className="mobile-event-title">{ev.title}</h3>
+                      <p className="mobile-event-desc">{ev.short}</p>
+                      <button className="mobile-event-btn" onClick={() => openDetails(ev.id)}>
+                        Ver Más Información
+                      </button>
+                   </div>
+                </div>
+              ))}
+           </div>
         </section>
 
         {/* DETALLES */}
