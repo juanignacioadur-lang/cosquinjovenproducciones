@@ -1,30 +1,30 @@
 import React, { useState } from "react";
 import "./InfoCard.css";
-import logo from "/logofundacion.png"; // Ajusta esta ruta si es necesario
+import logo from "/logofundacion.png"; 
 
 export default function InfoBox() {
-  // Estado para saber si está minimizado (visible por defecto)
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const toggleInfo = () => {
-    setIsMinimized(!isMinimized);
+    setIsOpen(!isOpen);
   };
 
   return (
     <>
-      {/* Caja Principal */}
-      <div className={`info-box ${isMinimized ? "minimized" : ""}`}>
+      {/* CAJA PRINCIPAL */}
+      <div className={`info-box ${isOpen ? "open" : "closed"}`}>
         
-        {/* Botón de cerrar/minimizar */}
+        {/* Botón para esconder (Flecha derecha) */}
         <button 
-            className="info-toggle-btn" 
+            className="info-hide-btn" 
             onClick={toggleInfo}
-            aria-label="Minimizar información"
+            aria-label="Ocultar a la derecha"
         >
-          ✕
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
 
-        <img src={logo} alt="Logo" className="info-logo" />
+        <img src={logo} alt="Logo Fundación" className="info-logo" />
+        
         <div className="info-text">
           <p className="info-title">
             <span className="info-icon">❤️</span> FUNDACIÓN COSQUIN EN ACCIÓN
@@ -35,12 +35,15 @@ export default function InfoBox() {
         </div>
       </div>
 
-      {/* Botón Flotante para volver a abrir (solo si está minimizado) */}
-      {isMinimized && (
-        <button className="info-restore-btn" onClick={toggleInfo}>
-          <span className="info-icon">←</span>❤️ COSQUIN EN ACCION
-        </button>
-      )}
+      {/* BOTÓN FLOTANTE (NEGRO, estilo barra) */}
+      <button 
+        className={`info-restore-btn ${!isOpen ? "visible" : ""}`} 
+        onClick={toggleInfo}
+        aria-label="Mostrar información"
+      >
+        <span className="info-arrow">←</span> 
+        <span className="info-label">COSQUIN EN ACCION</span>
+      </button>
     </>
   );
 }

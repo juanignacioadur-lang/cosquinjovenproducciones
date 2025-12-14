@@ -1,146 +1,205 @@
 /* --- ESTILOS GENERALES (PC) --- */
 .info-box {
   position: fixed;
-  right: 16px;
-  bottom: 100px; /* Arriba del footer desktop */
-  width: 350px;
-  max-width: calc(100vw - 40px);
-  padding: 20px;
-  background: rgba(0,0,0,0.86);
+  right: 20px;
+  bottom: 100px;
+  width: 300px; /* Ancho compacto y elegante */
+  padding: 25px 20px;
+  background: rgba(10, 10, 10, 0.95);
   color: #fff;
-  border-radius: 12px;
+  border-radius: 16px;
   
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  align-items: center;
+  gap: 15px;
+  align-items: center; /* Centrado horizontal */
+  justify-content: center; /* Centrado vertical */
   z-index: 1200;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.6);
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.1);
   
-  /* Transición suave al desaparecer */
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  
+  /* Animación */
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.5s ease;
+  transform: translateX(0);
+  opacity: 1;
 }
 
-/* Estado Minimizado (se esconde) */
-.info-box.minimized {
+/* Estado Cerrado */
+.info-box.closed {
+  transform: translateX(120%);
   opacity: 0;
   pointer-events: none;
-  transform: translateY(20px) scale(0.9);
 }
 
-/* Botón 'X' dentro de la caja */
-.info-toggle-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(255,255,255,0.1);
-  border: none;
-  color: #fff;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s;
-}
-.info-toggle-btn:hover {
-  background: #d00000;
-}
-
-/* Botón flotante para restaurar (aparece cuando se minimiza) */
-.info-restore-btn {
-  position: fixed;
-  right: 16px;
-  bottom: 100px; /* Misma posición base */
-  background: #d00000;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 30px;
-  font-weight: bold;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  z-index: 1200;
-  cursor: pointer;
-  animation: popIn 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-@keyframes popIn {
-  from { transform: scale(0); }
-  to { transform: scale(1); }
-}
-
-/* Logo en PC */
+/* --- ELEMENTOS INTERNOS --- */
 .info-logo {
-  width: 240px;
+  width: 200px; /* Tamaño ajustado para presencia */
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+  margin: 0 auto 5px auto; /* Centrado extra por si acaso */
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+  display: block;
 }
+
 .info-text {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
 }
+
 .info-title {
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   margin: 0;
   color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
 }
+
 .info-subtitle {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   margin: 0;
   color: #ccc;
-  line-height: 1.4;
+  line-height: 1.5;
+  max-width: 95%;
 }
 
-/* --- ADAPTACIÓN MÓVIL --- */
+/* Botón cerrar (X o Flecha) dentro de la caja */
+.info-hide-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255,255,255,0.08);
+  border: none;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.info-hide-btn:hover {
+  background: #d00000;
+}
+
+/* --- BOTÓN FLOTANTE (RESTAURAR) --- */
+.info-restore-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 100px;
+  z-index: 1100;
+  
+  /* Estética idéntica a la caja: Negro */
+  background: rgba(10, 10, 10, 0.95);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+  
+  padding: 12px 20px;
+  border-radius: 12px;
+  
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+  
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  
+  /* Animación de entrada */
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateX(150%); /* Oculto a la derecha */
+  opacity: 0;
+}
+
+.info-restore-btn.visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.info-restore-btn:hover {
+  border-color: #d00000;
+  transform: translateX(-5px);
+}
+
+.info-arrow {
+  color: #d00000;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* --- MÓVIL --- */
 @media (max-width: 850px) {
   .info-box {
-    /* Flex row para ahorrar espacio vertical */
     flex-direction: row; 
     text-align: left;
-    
-    /* Centrado en móvil */
-    left: 50%;
-    transform: translateX(-50%);
-    right: auto;
-    bottom: 40px; /* Un poco más abajo en móvil */
-    
-    width: 95%;
+    left: 50%; 
+    right: auto; 
+    bottom: 20px; 
+    width: 95%; 
     max-width: 400px;
-    padding: 10px 15px;
+    padding: 12px 15px; 
     gap: 15px;
+    /* Ajuste de centrado en móvil */
+    transform: translateX(-50%);
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .info-box.closed {
+    /* Mover a la derecha desde el centro */
+    transform: translateX(120%);
+  }
+
+  .info-logo { 
+    width: 60px; 
+    margin-bottom: 0; 
+  }
+  .info-text { 
+    align-items: flex-start; 
+  }
+  .info-title { 
+    font-size: 0.85rem; 
+    justify-content: flex-start; 
+  }
+  .info-subtitle { 
+    font-size: 0.75rem; 
+    text-align: left; 
+    max-width: 100%; 
   }
   
-  /* Ajuste para el estado minimizado en móvil (mantener centrado horizontal mientras se oculta) */
-  .info-box.minimized {
-    transform: translateX(-50%) translateY(20px) scale(0.9);
+  .info-hide-btn {
+    width: 40px; 
+    height: 100%; 
+    top: 0; 
+    right: 0;
+    border-radius: 0 16px 16px 0;
+    background: transparent;
   }
 
-  /* Ajuste del botón restaurar en móvil */
+  /* Botón restaurar móvil */
   .info-restore-btn {
-    right: 20px;
-    bottom: 80px;
-  }
-
-  .info-logo {
-    width: 80px; /* Logo chico */
-  }
-  .info-title {
-    font-size: 0.9rem;
-    padding-right: 20px; /* Espacio para que no se choque con la X */
-  }
-  .info-subtitle {
-    font-size: 0.75rem;
-    line-height: 1.2;
+    bottom: 25px;
+    right: 10px;
+    padding: 12px 20px;
+    font-size: 0.85rem;
   }
 }
