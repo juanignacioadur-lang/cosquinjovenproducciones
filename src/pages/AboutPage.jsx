@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./AboutPage.css";
 
-/* --- Tarjeta de Valor --- */
+/* --- Tarjeta de Valor (Sin cambios) --- */
 function Card({ icon, title, text }) {
   return (
     <article className="cj-card">
@@ -12,7 +12,7 @@ function Card({ icon, title, text }) {
   );
 }
 
-/* --- Galería Premium (Desktop) --- */
+/* --- Galería de FOTOS Premium (Desktop) --- */
 function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
   const [index, setIndex] = useState(0);
   const len = images.length;
@@ -69,7 +69,69 @@ function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
   );
 }
 
-/* --- Galería Simple (Móvil) --- */
+/* --- Galería de VIDEOS Premium (Desktop) --- */
+function VideoGallery({ videos = [] }) {
+  const [index, setIndex] = useState(0);
+  const len = videos.length;
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      const container = scrollRef.current;
+      const thumb = container.children[index];
+      if (thumb) {
+        const thumbLeft = thumb.offsetLeft;
+        const thumbWidth = thumb.offsetWidth;
+        const containerWidth = container.offsetWidth;
+        const newScrollPos = thumbLeft - (containerWidth / 2) + (thumbWidth / 2);
+        container.scrollTo({ left: newScrollPos, behavior: 'smooth' });
+      }
+    }
+  }, [index]);
+
+  const handlePrev = () => setIndex((prev) => (prev - 1 + len) % len);
+  const handleNext = () => setIndex((prev) => (prev + 1) % len);
+  const goTo = (i) => setIndex(i);
+
+  if (len === 0) return null;
+
+  return (
+    <div className="cj-gallery-container">
+      <div className="cj-gallery-display">
+        {len > 1 && <button className="cj-gallery-btn cj-prev" onClick={handlePrev}>‹</button>}
+        
+        {/* Usamos key={index} para forzar que el video se recargue al cambiar */}
+        <video 
+          key={index}
+          src={videos[index]} 
+          className="cj-gallery-img" 
+          controls 
+          autoPlay 
+          muted={false} // Autoplay con sonido suele bloquearse, mejor dejar que el usuario active
+          playsInline
+        />
+        
+        {len > 1 && <button className="cj-gallery-btn cj-next" onClick={handleNext}>›</button>}
+      </div>
+
+      {len > 1 && (
+        <div className="cj-thumbs-wrapper">
+          <div className="cj-thumbs-track" ref={scrollRef}>
+            {videos.map((vid, i) => (
+              <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
+                {/* Miniatura del video (sin controles, mudo) */}
+                <video src={vid} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <div className="cj-play-icon">▶</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* --- Galería FOTOS Simple (Móvil) --- */
 function MobileGallery({ images = [] }) {
   return (
     <div className="mobile-gallery-track">
@@ -82,8 +144,26 @@ function MobileGallery({ images = [] }) {
   );
 }
 
+/* --- Galería VIDEOS Simple (Móvil) --- */
+function MobileVideoGallery({ videos = [] }) {
+  return (
+    <div className="mobile-gallery-track">
+      {videos.map((vid, i) => (
+        <div key={i} className="mobile-gallery-item">
+          <video src={vid} controls style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* --- COMPONENTE PRINCIPAL --- */
 export default function Informacion() {
+  const [activeTab, setActiveTab] = useState('photos'); // 'photos' | 'videos'
+
+  // Arrays de medios
   const galleryImages = useMemo(() => Array.from({ length: 44 }, (_, i) => `/sobre nosotros/${i + 1}.jpg`), []);
+  const galleryVideos = useMemo(() => Array.from({ length: 10 }, (_, i) => `/videos/${i + 1}.mp4`), []);
   
   const cards = [
     { icon: "❤️", title: "ADN FAMILIAR", text: "Todo lo que hacemos nace desde lo familiar: nuestra manera de trabajar, de recibir a cada delegación y de construir encuentros donde la cultura se sienta como un hogar." },
@@ -96,6 +176,7 @@ export default function Informacion() {
     <section className="cj-section">
       <div className="cj-container">
         
+        {/* BIO */}
         <div className="cj-bio-section">
           <div className="cj-bio-content">
             <h1 className="cj-main-title">NUESTRA <span>HISTORIA</span></h1>
@@ -112,6 +193,7 @@ export default function Informacion() {
           </div>
         </div>
 
+        {/* VALORES */}
         <div className="cj-values-section">
           <div className="cj-section-header">
             <h2 className="cj-section-title">NUESTROS PILARES</h2>
@@ -123,6 +205,7 @@ export default function Informacion() {
           </div>
         </div>
 
+        {/* GALERÍA MULTIMEDIA */}
         <div className="cj-projects">
           <div className="cj-projects-panel">
             <div className="cj-projects-header">
@@ -134,15 +217,46 @@ export default function Informacion() {
               </p>
             </div>
             
+            {/* BOTONES DE PESTAÑA */}
+            <div className="cj-gallery-tabs">
+              <button 
+                className={`cj-tab-btn ${activeTab === 'photos' ? 'active' : ''}`} 
+                onClick={() => setActiveTab('photos')}
+              >
+                FOTOS
+              </button>
+              <button 
+                className={`cj-tab-btn ${activeTab === 'videos' ? 'active' : ''}`} 
+                onClick={() => setActiveTab('videos')}
+              >
+                VIDEOS
+              </button>
+            </div>
+
             <div className="cj-projects-inner">
-              {/* DESKTOP GALLERY */}
-              <div className="desktop-gallery-view">
-                 <Gallery images={galleryImages} />
-              </div>
-              {/* MOBILE GALLERY */}
-              <div className="mobile-gallery-view">
-                 <MobileGallery images={galleryImages} />
-              </div>
+              {/* VISTA FOTOS */}
+              {activeTab === 'photos' && (
+                <>
+                  <div className="desktop-gallery-view">
+                     <Gallery images={galleryImages} />
+                  </div>
+                  <div className="mobile-gallery-view">
+                     <MobileGallery images={galleryImages} />
+                  </div>
+                </>
+              )}
+
+              {/* VISTA VIDEOS */}
+              {activeTab === 'videos' && (
+                <>
+                  <div className="desktop-gallery-view">
+                     <VideoGallery videos={galleryVideos} />
+                  </div>
+                  <div className="mobile-gallery-view">
+                     <MobileVideoGallery videos={galleryVideos} />
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>
