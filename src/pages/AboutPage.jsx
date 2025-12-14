@@ -100,7 +100,7 @@ function VideoGallery({ videos = [] }) {
       <div className="cj-gallery-display">
         {len > 1 && <button className="cj-gallery-btn cj-prev" onClick={handlePrev}>‹</button>}
         
-        {/* OPTIMIZACIÓN: preload="auto" solo en el video principal */}
+        {/* VIDEO PRINCIPAL */}
         <video 
           key={index}
           src={videos[index]} 
@@ -108,6 +108,8 @@ function VideoGallery({ videos = [] }) {
           controls 
           autoPlay 
           playsInline
+          disablePictureInPicture 
+          controlsList="nodownload noplaybackrate"
           preload="auto"
           style={{ background: "#000" }}
         >
@@ -117,20 +119,21 @@ function VideoGallery({ videos = [] }) {
         {len > 1 && <button className="cj-gallery-btn cj-next" onClick={handleNext}>›</button>}
       </div>
 
+      {/* TIRA DE MINIATURAS (Desktop) */}
       {len > 1 && (
         <div className="cj-thumbs-wrapper">
           <div className="cj-thumbs-track" ref={scrollRef}>
             {videos.map((vid, i) => (
               <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
-                {/* OPTIMIZACIÓN: preload="metadata" para que no descargue todo el video en la miniatura */}
+                {/* TRUCO #t=0.001 para forzar la carga de la imagen inicial sin cargar todo el video */}
                 <video 
-                  src={vid} 
+                  src={`${vid}#t=0.001`} 
                   muted 
                   playsInline 
-                  preload="metadata" 
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
-                  onMouseOver={(e) => e.target.play().catch(() => {})} // Play al pasar el mouse (opcional)
-                  onMouseOut={(e) => e.target.pause()} 
+                  preload="metadata"
+                  disablePictureInPicture
+                  controls={false} /* Desactiva controles nativos */
+                  className="cj-video-thumb"
                 />
                 <div className="cj-play-icon">▶</div>
               </div>
@@ -161,12 +164,13 @@ function MobileVideoGallery({ videos = [] }) {
     <div className="mobile-gallery-track">
       {videos.map((vid, i) => (
         <div key={i} className="mobile-gallery-item">
-          {/* OPTIMIZACIÓN: preload metadata para móvil también */}
           <video 
             src={vid} 
             controls 
             preload="metadata"
             playsInline
+            disablePictureInPicture
+            controlsList="nodownload"
             style={{ width: '100%', height: '100%', objectFit: 'cover', background: '#000' }} 
           />
         </div>
@@ -179,8 +183,6 @@ export default function Informacion() {
   const [activeTab, setActiveTab] = useState('photos');
 
   const galleryImages = useMemo(() => Array.from({ length: 44 }, (_, i) => `/sobre nosotros/${i + 1}.jpg`), []);
-  
-  // NOTA: Asegúrate que tus archivos en public/videos sean 1.mp4, 2.mp4 (minúsculas)
   const galleryVideos = useMemo(() => Array.from({ length: 10 }, (_, i) => `/videos/${i + 1}.mp4`), []);
   
   const cards = [
