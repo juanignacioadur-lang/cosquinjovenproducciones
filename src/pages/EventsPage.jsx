@@ -198,7 +198,7 @@ const newsData = [
     title: "COSQUIN JOVEN 2026: INSCRIPCIONES ABIERTAS",
     date: "15 de Noviembre, 2024",
     category: "Inscripciones",
-    image: "/informacion1.png",
+    image: "/imagen1.png",
     excerpt: "Ya están abiertas las inscripciones para Cosquin Joven 2026. No te pierdas la oportunidad de participar en el evento folklórico más importante del año."
   },
 ];
