@@ -105,7 +105,7 @@ function VideoGallery({ videos = [] }) {
         {error ? (
           <div style={{ color: 'white', textAlign: 'center', padding: '20px' }}>
             <p>⚠️ No se pudo reproducir este video.</p>
-            <small style={{ color: '#aaa' }}>Posible formato no compatible (Use H.264)</small>
+            <small style={{ color: '#aaa' }}>Formato no compatible (Use H.264)</small>
           </div>
         ) : (
           <video 
@@ -113,13 +113,13 @@ function VideoGallery({ videos = [] }) {
             src={videos[index]} 
             className="cj-gallery-img" 
             controls 
-            autoPlay 
             playsInline
             disablePictureInPicture 
             controlsList="nodownload noplaybackrate"
-            preload="auto"
+            preload="metadata" /* Carga solo la info básica, no reproduce solo */
             style={{ background: "#000" }}
             onError={() => setError(true)}
+            /* SIN AUTOPLAY */
           >
             Tu navegador no soporta videos.
           </video>
@@ -128,24 +128,27 @@ function VideoGallery({ videos = [] }) {
         {len > 1 && <button className="cj-gallery-btn cj-next" onClick={handleNext}>›</button>}
       </div>
 
-      <div className="cj-thumbs-wrapper">
-        <div className="cj-thumbs-track" ref={scrollRef}>
-          {videos.map((vid, i) => (
-            <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
-              <video 
-                src={`${vid}#t=0.1`} 
-                muted 
-                playsInline 
-                preload="metadata"
-                disablePictureInPicture
-                controls={false}
-                className="cj-video-thumb"
-              />
-              <div className="cj-play-icon">▶</div>
-            </div>
-          ))}
+      {/* TIRA DE MINIATURAS (Desktop) */}
+      {len > 1 && (
+        <div className="cj-thumbs-wrapper">
+          <div className="cj-thumbs-track" ref={scrollRef}>
+            {videos.map((vid, i) => (
+              <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
+                <video 
+                  src={`${vid}#t=0.1`} 
+                  muted 
+                  playsInline 
+                  preload="metadata"
+                  disablePictureInPicture
+                  controls={false}
+                  className="cj-video-thumb"
+                />
+                <div className="cj-play-icon">▶</div>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -163,7 +166,7 @@ function MobileGallery({ images = [] }) {
   );
 }
 
-/* --- Galería VIDEOS (Móvil - SUPER OPTIMIZADA) --- */
+/* --- Galería VIDEOS (Móvil) - 100% MANUAL --- */
 function MobileVideoGallery({ videos = [] }) {
   return (
     <div className="mobile-gallery-track">
@@ -173,24 +176,12 @@ function MobileVideoGallery({ videos = [] }) {
             src={vid} 
             controls 
             playsInline 
-            /* CAMBIO CLAVE: preload none impide que cargue nada hasta que toques play */
-            preload="none" 
-            /* Poster vacío transparente para evitar el botón de play gigante nativo feo antes de cargar */
-            poster="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+            preload="metadata" /* Muestra la portada, no carga el video entero */
             disablePictureInPicture
             controlsList="nodownload"
-            style={{ 
-              width: '100%', 
-              height: '100%', 
-              objectFit: 'cover', 
-              background: '#000' 
-            }} 
+            style={{ width: '100%', height: '100%', objectFit: 'cover', background: '#000' }} 
+            /* SIN AUTOPLAY */
           />
-          {/* 
-             Nota: Al usar preload="none", el video se verá negro hasta darle play.
-             Si quisieras que se vea una imagen, necesitarías un archivo .jpg de portada.
-             Pero esto soluciona 100% el problema de reproducción fantasma.
-          */}
         </div>
       ))}
     </div>
