@@ -69,15 +69,15 @@ function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
   );
 }
 
-/* --- Galería VIDEOS SUPER OPTIMIZADA (Desktop) --- */
+/* --- Galería VIDEOS OPTIMIZADA (Desktop) --- */
 function VideoGallery({ videos = [] }) {
   const [index, setIndex] = useState(0);
-  const [error, setError] = useState(false); // Estado para detectar error de video
+  const [error, setError] = useState(false);
   const len = videos.length;
   const scrollRef = useRef(null);
 
   useEffect(() => {
-    setError(false); // Resetear error al cambiar video
+    setError(false);
     if (scrollRef.current) {
       const container = scrollRef.current;
       const thumb = container.children[index];
@@ -117,9 +117,9 @@ function VideoGallery({ videos = [] }) {
             playsInline
             disablePictureInPicture 
             controlsList="nodownload noplaybackrate"
-            preload="metadata"
+            preload="auto" // Carga prioritaria solo al video principal
             style={{ background: "#000" }}
-            onError={() => setError(true)} // Detecta si falla la carga
+            onError={() => setError(true)}
           >
             Tu navegador no soporta videos.
           </video>
@@ -128,25 +128,21 @@ function VideoGallery({ videos = [] }) {
         {len > 1 && <button className="cj-gallery-btn cj-next" onClick={handleNext}>›</button>}
       </div>
 
-      {/* TIRA DE MINIATURAS (Desktop) */}
+      {/* TIRA DE MINIATURAS */}
       {len > 1 && (
         <div className="cj-thumbs-wrapper">
           <div className="cj-thumbs-track" ref={scrollRef}>
             {videos.map((vid, i) => (
               <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
-                {/* Sin truco de tiempo para mayor compatibilidad, solo metadata */}
                 <video 
                   src={vid} 
                   muted 
                   playsInline 
-                  preload="metadata"
+                  preload="metadata" // Solo carga la info básica, no todo el video
                   disablePictureInPicture
                   controls={false}
                   className="cj-video-thumb"
-                  onLoadedData={(e) => {
-                    // Truco: Al cargar metadata, saltar al frame 0.1 para que se vea imagen
-                    e.target.currentTime = 0.1;
-                  }}
+                  onLoadedData={(e) => { e.target.currentTime = 0.1; }} // Truco para mostrar frame
                 />
                 <div className="cj-play-icon">▶</div>
               </div>
@@ -196,7 +192,9 @@ export default function Informacion() {
   const [activeTab, setActiveTab] = useState('photos');
 
   const galleryImages = useMemo(() => Array.from({ length: 44 }, (_, i) => `/sobre nosotros/${i + 1}.jpg`), []);
-  const galleryVideos = useMemo(() => Array.from({ length: 10 }, (_, i) => `/videos/${i + 1}.mp4`), []);
+  
+  // CAMBIO AQUÍ: Array de longitud 8 (1.mp4 al 8.mp4)
+  const galleryVideos = useMemo(() => Array.from({ length: 8 }, (_, i) => `/videos/${i + 1}.mp4`), []);
   
   const cards = [
     { icon: "❤️", title: "ADN FAMILIAR", text: "Todo lo que hacemos nace desde lo familiar: nuestra manera de trabajar, de recibir a cada delegación y de construir encuentros donde la cultura se sienta como un hogar." },
