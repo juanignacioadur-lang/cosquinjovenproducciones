@@ -1,7 +1,8 @@
+/* VERSION ACTUALIZADA CON VIDEOS */
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./AboutPage.css";
 
-/* --- Tarjeta de Valor (Sin cambios) --- */
+/* --- Tarjeta de Valor --- */
 function Card({ icon, title, text }) {
   return (
     <article className="cj-card">
@@ -12,7 +13,7 @@ function Card({ icon, title, text }) {
   );
 }
 
-/* --- Galería de FOTOS Premium (Desktop) --- */
+/* --- Galería FOTOS (Desktop) --- */
 function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
   const [index, setIndex] = useState(0);
   const len = images.length;
@@ -69,7 +70,7 @@ function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
   );
 }
 
-/* --- Galería de VIDEOS Premium (Desktop) --- */
+/* --- Galería VIDEOS (Desktop) --- */
 function VideoGallery({ videos = [] }) {
   const [index, setIndex] = useState(0);
   const len = videos.length;
@@ -99,18 +100,15 @@ function VideoGallery({ videos = [] }) {
     <div className="cj-gallery-container">
       <div className="cj-gallery-display">
         {len > 1 && <button className="cj-gallery-btn cj-prev" onClick={handlePrev}>‹</button>}
-        
-        {/* Usamos key={index} para forzar que el video se recargue al cambiar */}
+        {/* Usamos key para forzar recarga al cambiar video */}
         <video 
           key={index}
           src={videos[index]} 
           className="cj-gallery-img" 
           controls 
-          autoPlay 
-          muted={false} // Autoplay con sonido suele bloquearse, mejor dejar que el usuario active
+          // Quitamos autoplay forzado para evitar bloqueos del navegador
           playsInline
         />
-        
         {len > 1 && <button className="cj-gallery-btn cj-next" onClick={handleNext}>›</button>}
       </div>
 
@@ -119,7 +117,6 @@ function VideoGallery({ videos = [] }) {
           <div className="cj-thumbs-track" ref={scrollRef}>
             {videos.map((vid, i) => (
               <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
-                {/* Miniatura del video (sin controles, mudo) */}
                 <video src={vid} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div className="cj-play-icon">▶</div>
               </div>
@@ -131,7 +128,7 @@ function VideoGallery({ videos = [] }) {
   );
 }
 
-/* --- Galería FOTOS Simple (Móvil) --- */
+/* --- Galería FOTOS (Móvil) --- */
 function MobileGallery({ images = [] }) {
   return (
     <div className="mobile-gallery-track">
@@ -144,7 +141,7 @@ function MobileGallery({ images = [] }) {
   );
 }
 
-/* --- Galería VIDEOS Simple (Móvil) --- */
+/* --- Galería VIDEOS (Móvil) --- */
 function MobileVideoGallery({ videos = [] }) {
   return (
     <div className="mobile-gallery-track">
@@ -157,12 +154,13 @@ function MobileVideoGallery({ videos = [] }) {
   );
 }
 
-/* --- COMPONENTE PRINCIPAL --- */
 export default function Informacion() {
+  // Estado para las pestañas
   const [activeTab, setActiveTab] = useState('photos'); // 'photos' | 'videos'
 
-  // Arrays de medios
+  // Arrays de imágenes y videos
   const galleryImages = useMemo(() => Array.from({ length: 44 }, (_, i) => `/sobre nosotros/${i + 1}.jpg`), []);
+  // Generamos array de 10 videos: 1.mp4 ... 10.mp4
   const galleryVideos = useMemo(() => Array.from({ length: 10 }, (_, i) => `/videos/${i + 1}.mp4`), []);
   
   const cards = [
@@ -205,7 +203,7 @@ export default function Informacion() {
           </div>
         </div>
 
-        {/* GALERÍA MULTIMEDIA */}
+        {/* GALERÍA */}
         <div className="cj-projects">
           <div className="cj-projects-panel">
             <div className="cj-projects-header">
@@ -217,7 +215,7 @@ export default function Informacion() {
               </p>
             </div>
             
-            {/* BOTONES DE PESTAÑA */}
+            {/* --- AQUÍ ESTÁN LOS BOTONES QUE FALTABAN --- */}
             <div className="cj-gallery-tabs">
               <button 
                 className={`cj-tab-btn ${activeTab === 'photos' ? 'active' : ''}`} 
@@ -234,7 +232,7 @@ export default function Informacion() {
             </div>
 
             <div className="cj-projects-inner">
-              {/* VISTA FOTOS */}
+              {/* Contenido Fotos */}
               {activeTab === 'photos' && (
                 <>
                   <div className="desktop-gallery-view">
@@ -246,7 +244,7 @@ export default function Informacion() {
                 </>
               )}
 
-              {/* VISTA VIDEOS */}
+              {/* Contenido Videos */}
               {activeTab === 'videos' && (
                 <>
                   <div className="desktop-gallery-view">

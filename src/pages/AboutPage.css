@@ -48,7 +48,7 @@
 .cj-title-accent { color: var(--cj-accent); text-shadow: 0 0 20px rgba(208,0,0,0.4); }
 .cj-projects-subtitle { margin: 0; color: rgba(255,255,255,0.6); font-size: 1.1rem; line-height: 1.5; letter-spacing: 0.5px; }
 
-/* DESKTOP GALLERY STYLES */
+/* DESKTOP GALLERY */
 .cj-gallery-container { width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box; }
 .cj-gallery-display { position: relative; width: 100%; height: 600px; background: #050505; border-radius: 12px; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.7); }
 .cj-gallery-img { max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: contain; display: block; opacity: 0; animation: fadeInImg 0.4s ease forwards; background: #000; }
@@ -63,11 +63,9 @@
 .cj-thumb img { width: 100%; height: 100%; object-fit: cover; }
 .cj-thumb:hover { opacity: 0.8; transform: translateY(-2px); }
 .cj-thumb.active { border-color: var(--cj-accent); opacity: 1; transform: scale(1.05); }
-
-/* Icono Play en Miniaturas */
 .cj-play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); pointer-events: none; }
 
-/* MOBILE GALLERY STYLES */
+/* MOBILE GALLERY */
 .mobile-gallery-view { width: 100%; overflow: hidden; }
 .mobile-gallery-track { display: flex; overflow-x: auto; gap: 15px; scroll-behavior: smooth; padding-bottom: 20px; scroll-snap-type: x mandatory; }
 .mobile-gallery-item { min-width: 85%; scroll-snap-align: center; border-radius: 12px; overflow: hidden; height: 300px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background: #000; }
@@ -84,22 +82,16 @@
   .cj-text { text-align: left; }
 }
 
-/* MEDIA QUERIES MÓVIL ESPECÍFICO */
 @media (min-width: 769px) {
-  /* PC: Ocultar galería móvil */
   .mobile-gallery-view { display: none; }
 }
 
 @media (max-width: 768px) {
-  /* MÓVIL: Ocultar galería desktop */
   .desktop-gallery-view { display: none; }
   .mobile-gallery-view { display: block; }
-
   .cj-container { padding: calc(var(--cj-navbar-height) + 20px) 20px 80px 20px; gap: 50px; }
   .cj-main-title { font-size: 2.2rem; }
   .cj-bio-image-wrapper { height: 250px; }
   .cj-cards { grid-template-columns: 1fr; }
-  
-  /* Ajuste de Tabs en móvil */
   .cj-tab-btn { padding: 8px 20px; font-size: 1rem; }
 }
