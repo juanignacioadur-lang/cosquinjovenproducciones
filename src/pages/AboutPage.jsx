@@ -1,4 +1,3 @@
-/* VERSION ACTUALIZADA CON VIDEOS */
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import "./AboutPage.css";
 
@@ -70,7 +69,7 @@ function Gallery({ images = [], autoPlay = true, autoPlayMs = 5000 }) {
   );
 }
 
-/* --- Galería VIDEOS (Desktop) --- */
+/* --- Galería VIDEOS OPTIMIZADA (Desktop) --- */
 function VideoGallery({ videos = [] }) {
   const [index, setIndex] = useState(0);
   const len = videos.length;
@@ -100,15 +99,21 @@ function VideoGallery({ videos = [] }) {
     <div className="cj-gallery-container">
       <div className="cj-gallery-display">
         {len > 1 && <button className="cj-gallery-btn cj-prev" onClick={handlePrev}>‹</button>}
-        {/* Usamos key para forzar recarga al cambiar video */}
+        
+        {/* OPTIMIZACIÓN: preload="auto" solo en el video principal */}
         <video 
           key={index}
           src={videos[index]} 
           className="cj-gallery-img" 
           controls 
-          // Quitamos autoplay forzado para evitar bloqueos del navegador
+          autoPlay 
           playsInline
-        />
+          preload="auto"
+          style={{ background: "#000" }}
+        >
+          Tu navegador no soporta videos.
+        </video>
+        
         {len > 1 && <button className="cj-gallery-btn cj-next" onClick={handleNext}>›</button>}
       </div>
 
@@ -117,7 +122,16 @@ function VideoGallery({ videos = [] }) {
           <div className="cj-thumbs-track" ref={scrollRef}>
             {videos.map((vid, i) => (
               <div key={i} className={`cj-thumb ${i === index ? "active" : ""}`} onClick={() => goTo(i)}>
-                <video src={vid} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                {/* OPTIMIZACIÓN: preload="metadata" para que no descargue todo el video en la miniatura */}
+                <video 
+                  src={vid} 
+                  muted 
+                  playsInline 
+                  preload="metadata" 
+                  style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                  onMouseOver={(e) => e.target.play().catch(() => {})} // Play al pasar el mouse (opcional)
+                  onMouseOut={(e) => e.target.pause()} 
+                />
                 <div className="cj-play-icon">▶</div>
               </div>
             ))}
@@ -128,7 +142,7 @@ function VideoGallery({ videos = [] }) {
   );
 }
 
-/* --- Galería FOTOS (Móvil) --- */
+/* --- Galería FOTOS Simple (Móvil) --- */
 function MobileGallery({ images = [] }) {
   return (
     <div className="mobile-gallery-track">
@@ -141,13 +155,20 @@ function MobileGallery({ images = [] }) {
   );
 }
 
-/* --- Galería VIDEOS (Móvil) --- */
+/* --- Galería VIDEOS Simple (Móvil) --- */
 function MobileVideoGallery({ videos = [] }) {
   return (
     <div className="mobile-gallery-track">
       {videos.map((vid, i) => (
         <div key={i} className="mobile-gallery-item">
-          <video src={vid} controls style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          {/* OPTIMIZACIÓN: preload metadata para móvil también */}
+          <video 
+            src={vid} 
+            controls 
+            preload="metadata"
+            playsInline
+            style={{ width: '100%', height: '100%', objectFit: 'cover', background: '#000' }} 
+          />
         </div>
       ))}
     </div>
@@ -155,12 +176,11 @@ function MobileVideoGallery({ videos = [] }) {
 }
 
 export default function Informacion() {
-  // Estado para las pestañas
-  const [activeTab, setActiveTab] = useState('photos'); // 'photos' | 'videos'
+  const [activeTab, setActiveTab] = useState('photos');
 
-  // Arrays de imágenes y videos
   const galleryImages = useMemo(() => Array.from({ length: 44 }, (_, i) => `/sobre nosotros/${i + 1}.jpg`), []);
-  // Generamos array de 10 videos: 1.mp4 ... 10.mp4
+  
+  // NOTA: Asegúrate que tus archivos en public/videos sean 1.mp4, 2.mp4 (minúsculas)
   const galleryVideos = useMemo(() => Array.from({ length: 10 }, (_, i) => `/videos/${i + 1}.mp4`), []);
   
   const cards = [
@@ -174,7 +194,6 @@ export default function Informacion() {
     <section className="cj-section">
       <div className="cj-container">
         
-        {/* BIO */}
         <div className="cj-bio-section">
           <div className="cj-bio-content">
             <h1 className="cj-main-title">NUESTRA <span>HISTORIA</span></h1>
@@ -191,7 +210,6 @@ export default function Informacion() {
           </div>
         </div>
 
-        {/* VALORES */}
         <div className="cj-values-section">
           <div className="cj-section-header">
             <h2 className="cj-section-title">NUESTROS PILARES</h2>
@@ -203,7 +221,6 @@ export default function Informacion() {
           </div>
         </div>
 
-        {/* GALERÍA */}
         <div className="cj-projects">
           <div className="cj-projects-panel">
             <div className="cj-projects-header">
@@ -215,7 +232,6 @@ export default function Informacion() {
               </p>
             </div>
             
-            {/* --- AQUÍ ESTÁN LOS BOTONES QUE FALTABAN --- */}
             <div className="cj-gallery-tabs">
               <button 
                 className={`cj-tab-btn ${activeTab === 'photos' ? 'active' : ''}`} 
@@ -232,7 +248,6 @@ export default function Informacion() {
             </div>
 
             <div className="cj-projects-inner">
-              {/* Contenido Fotos */}
               {activeTab === 'photos' && (
                 <>
                   <div className="desktop-gallery-view">
@@ -244,7 +259,6 @@ export default function Informacion() {
                 </>
               )}
 
-              {/* Contenido Videos */}
               {activeTab === 'videos' && (
                 <>
                   <div className="desktop-gallery-view">
