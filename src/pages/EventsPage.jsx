@@ -108,30 +108,23 @@ function EventDetail({ event, onClose }) {
   );
 }
 
-// COMPONENTE PRINCIPAL
 export default function Noticias() {
   const [activeEvent, setActiveEvent] = useState(null);
-  const [activeNews, setActiveNews] = useState(null);
   
-  // Estado PC
+  // Estado Eventos
   const [activeIndex, setActiveIndex] = useState(1);
-  // Estado Móvil
   const [mobileIndex, setMobileIndex] = useState(0);
 
-  // Sync PC: Carrusel 3D -> Detalle
+  // Estado Noticias Móvil (NUEVO)
+  const [mobileNewsIndex, setMobileNewsIndex] = useState(0);
+
+  // Sync Eventos
   useEffect(() => {
-    if (activeEvent) {
-      setActiveEvent(eventsData[activeIndex]);
-    }
+    if (activeEvent) setActiveEvent(eventsData[activeIndex]);
   }, [activeIndex]);
 
-  // Sync MÓVIL: Tabs -> Detalle (NUEVO)
   useEffect(() => {
-    // Si el panel de información está abierto (activeEvent no es null),
-    // y estamos cambiando de pestaña en el móvil, actualizamos la info.
-    if (activeEvent) {
-      setActiveEvent(eventsData[mobileIndex]);
-    }
+    if (activeEvent) setActiveEvent(eventsData[mobileIndex]);
   }, [mobileIndex]);
 
   const handleNext3D = () => { setActiveIndex((prev) => (prev + 1) % eventsData.length); };
@@ -159,15 +152,14 @@ export default function Noticias() {
 
   const handleCardClick = (i) => {
     if (i === activeIndex) {
-      if (!activeEvent || activeEvent.id !== eventsData[i].id) {
-        openDetails(eventsData[i].id);
-      }
+      if (!activeEvent || activeEvent.id !== eventsData[i].id) openDetails(eventsData[i].id);
     } else {
       setActiveIndex(i);
     }
   };
 
   const mobileEvent = eventsData[mobileIndex] || eventsData[0];
+  const mobileNews = newsData[mobileNewsIndex] || newsData[0]; // Noticia activa
 
   return (
     <main className="nt-page">
@@ -181,7 +173,7 @@ export default function Noticias() {
           <p className="nt-hero-sub">Descubre todos los detalles de nuestros eventos y vive la experiencia.</p>
         </section>
 
-        {/* PC */}
+        {/* PC: 3D */}
         <section className="nt-cards-area desktop-3d-view">
           <div className="nt-cards-3d">
             <button className="nt-3d-btn nt-3d-prev" onClick={handlePrev3D}>‹</button>
@@ -206,7 +198,7 @@ export default function Noticias() {
           </div>
         </section>
 
-        {/* MÓVIL */}
+        {/* MÓVIL: EVENTOS */}
         <section className="nt-cards-area mobile-list-view">
           <div className="mobile-tabs-container">
             {eventsData.map((ev, i) => (
@@ -219,7 +211,6 @@ export default function Noticias() {
               </button>
             ))}
           </div>
-
           <div className="mobile-card-container">
             <article className="nt-card mobile-styled-card">
               <div className="nt-card-media mobile-tall-media">
@@ -245,6 +236,7 @@ export default function Noticias() {
           {activeEvent && <EventDetail event={activeEvent} onClose={closeDetails} />}
         </div>
 
+        {/* --- SECCIÓN NOTICIAS --- */}
         <section className="news-section">
           <div className="news-header">
             <span className="news-pill">Últimas Noticias</span>
@@ -255,7 +247,9 @@ export default function Noticias() {
               Novedades, ganadores, recuerdos y todo lo que pasa en nuestra comunidad folklórica.
             </p>
           </div>
-          <div className="news-grid">
+
+          {/* PC: GRILLA DE NOTICIAS (Se oculta en móvil via CSS) */}
+          <div className="news-grid desktop-news-view">
             {newsData.map((news) => (
               <article className="news-item" key={news.id}>
                 <div className="news-image-wrapper">
@@ -273,6 +267,44 @@ export default function Noticias() {
               </article>
             ))}
           </div>
+
+          {/* MÓVIL: NAVBAR + TARJETA ÚNICA DE NOTICIA */}
+          <div className="mobile-news-view">
+            
+            {/* Tabs de Noticias (Usamos Categoría o Título corto) */}
+            <div className="mobile-tabs-container">
+              {newsData.map((n, i) => (
+                <button 
+                  key={n.id}
+                  className={`mobile-tab-btn ${i === mobileNewsIndex ? 'active' : ''}`}
+                  onClick={() => setMobileNewsIndex(i)}
+                >
+                  {n.category.toUpperCase()}
+                </button>
+              ))}
+            </div>
+
+            {/* Tarjeta de Noticia Móvil (Estilo similar a Eventos) */}
+            <div className="mobile-card-container">
+              <article className="nt-card mobile-styled-card">
+                <div className="nt-card-media mobile-tall-media">
+                  <span className="news-badge" style={{zIndex: 5, top: 10, left: 10}}>{mobileNews.category}</span>
+                  <img src={mobileNews.image} alt={mobileNews.title} />
+                </div>
+                <div className="nt-card-body mobile-card-body-centered">
+                  <div className="nt-card-meta mobile-centered-meta">📅 {mobileNews.date}</div>
+                  <h3 className="nt-card-title" style={{fontSize: '1.2rem'}}>{mobileNews.title}</h3>
+                  <div className="nt-card-actions">
+                    <Link to={`/noticias/${mobileNews.id}`} className="mobile-event-btn" style={{textAlign: 'center', display: 'block', textDecoration: 'none'}}>
+                      LEER NOTICIA COMPLETA
+                    </Link>
+                  </div>
+                </div>
+              </article>
+            </div>
+
+          </div>
+
         </section>
 
       </div>

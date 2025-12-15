@@ -160,69 +160,65 @@
 
 /* ... (TODO EL CSS DE PC ARRIBA QUEDA IGUAL) ... */
 
-/* === MEDIA QUERIES (Móvil Alineado y Botones Grandes) === */
+/* ... (TODO EL CSS DE ARRIBA IGUAL) ... */
+
+/* AGREGAR ESTO ANTES DE LOS MEDIA QUERIES PARA CONTROLAR VISIBILIDAD */
+.desktop-news-view { display: grid; }
+.mobile-news-view { display: none; }
+
+/* === MEDIA QUERIES (Móvil Completo) === */
 @media (max-width: 900px) {
   
+  /* OCULTAR VISTAS DE ESCRITORIO */
   .desktop-3d-view { display: none !important; }
+  .desktop-news-view { display: none !important; } /* Ocultar grilla noticias */
   
+  /* MOSTRAR VISTAS MÓVILES */
   .mobile-list-view { 
     display: flex !important; 
     flex-direction: column; 
     width: 100%; 
     align-items: center; 
-    gap: 15px;
+    gap: 20px;
+  }
+  
+  .mobile-news-view {
+    display: flex !important; /* Mostrar tabs noticias */
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 20px;
   }
 
-  /* NAVBAR ALINEADO CON LA TARJETA */
+  /* NAVBAR COMPARTIDO (Eventos y Noticias) */
   .mobile-tabs-container {
     display: flex;
     gap: 8px;
-    
-    /* Mismas dimensiones que la tarjeta para que encaje perfecto */
     width: 90%;
-    max-width: 400px;
-    
+    max-width: 400px; /* Alineado al ancho de la tarjeta */
     margin: 0 auto;
-    padding-bottom: 5px; /* Espacio antes de la tarjeta */
-    
-    /* Sin scroll, ocupan el espacio disponible */
+    padding-bottom: 5px;
     overflow: visible; 
     justify-content: space-between;
   }
-  
-  /* Ocultar barra scroll por si acaso */
   .mobile-tabs-container::-webkit-scrollbar { display: none; }
 
-  /* BOTÓN "BLOQUE" (Se estira) */
   .mobile-tab-btn {
-    /* ESTO HACE QUE SE REPARTAN EL ANCHO */
-    flex: 1; 
-    
+    flex: 1; /* Ancho equitativo */
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
     color: #aaa;
-    
-    /* Más altos y cómodos */
-    padding: 12px 4px; 
-    border-radius: 6px; /* Bordes cuadrados suaves */
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    
+    padding: 12px 4px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center; text-align: center;
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
-    font-size: 0.75rem; /* Texto compacto para que entre */
+    font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.2s ease;
-    
-    /* Evita que el texto rompa el botón */
-    white-space: nowrap; 
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
   
   .mobile-tab-btn.active {
@@ -231,10 +227,9 @@
     border-color: #d00000;
     box-shadow: 0 4px 12px rgba(208,0,0,0.4);
     transform: translateY(-2px);
-    z-index: 2; /* Para que sobresalga un poco */
+    z-index: 2;
   }
 
-  /* CONTENEDOR TARJETA */
   .mobile-card-container {
     width: 100%;
     display: flex;
@@ -242,7 +237,7 @@
     padding-bottom: 20px;
   }
 
-  /* TARJETA */
+  /* TARJETA MÓVIL ESTILIZADA */
   .mobile-styled-card {
     position: relative !important;
     top: 0 !important;
@@ -266,9 +261,10 @@
   }
 
   .mobile-tall-media {
-    height: 80% !important;
+    height: 80% !important; /* 80% Imagen */
     width: 100%;
     overflow: hidden;
+    position: relative;
   }
   .mobile-tall-media img {
     width: 100%;
@@ -305,6 +301,7 @@
     margin: 0;
   }
 
+  /* Botón genérico móvil */
   .mobile-event-btn {
     width: 100%;
     background: transparent;
