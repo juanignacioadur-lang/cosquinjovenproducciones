@@ -19,8 +19,6 @@
   justify-content: center; 
   align-items: flex-start; 
   padding-bottom: 0;
-  
-  /* ESTO ES CRÍTICO: Si esto es hidden o auto, el sticky MUERE */
   overflow: visible !important; 
 }
 
@@ -38,8 +36,6 @@
   display: flex; 
   flex-direction: column; 
   align-items: center; 
-  
-  /* ESTO TAMBIÉN ES CRÍTICO */
   overflow: visible !important; 
 }
 
@@ -57,12 +53,12 @@
 .nt-3d-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(208, 0, 0, 0.8); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 24px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; transition: 0.2s; }
 .nt-3d-btn:hover { background: #ff0000; transform: translateY(-50%) scale(1.1); }
 .nt-3d-prev { left: 0; } .nt-3d-next { right: 0; }
-.nt-card { background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 36px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; position: absolute; width: 380px; height: 580px; top: 50%; transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); will-change: transform, opacity; cursor: pointer; }
+.nt-card { background: #000; border-radius: 16px; overflow: hidden; box-shadow: 0 12px 36px rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; position: absolute; width: 380px; height: 650px; top: 50%; transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); will-change: transform, opacity; cursor: pointer; }
 .nt-card.active { left: 50%; transform: translate(-50%, -50%) scale(1.05); z-index: 10; opacity: 1; border-color: rgba(255, 255, 255, 0.3); box-shadow: 0 20px 60px rgba(208,0,0,0.2); }
 .nt-card.prev { left: 20%; transform: translate(-50%, -50%) scale(0.85); z-index: 5; opacity: 0.6; filter: blur(2px) brightness(0.6); }
 .nt-card.next { left: 80%; transform: translate(-50%, -50%) scale(0.85); z-index: 5; opacity: 0.6; filter: blur(2px) brightness(0.6); }
 .nt-card.hidden { opacity: 0; z-index: 0; transform: translate(-50%, -50%) scale(0.5); pointer-events: none; }
-.nt-card-media { width: 100%; height: 70%; overflow: hidden; background: #000; position: relative; }
+.nt-card-media { width: 100%; height: 75%; overflow: hidden; background: #000; position: relative; }
 .nt-card-media img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 .nt-card-body { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; justify-content: space-between; background: rgba(0,0,0,0.95); }
 .nt-card-title { font-family: "Oswald", sans-serif; font-size: 1.4rem; color: #fff; margin: 0; line-height: 1.2; text-transform: uppercase; }
@@ -70,23 +66,11 @@
 .nt-btn { background: var(--accent); color: #fff; border: none; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 700; width: 100%; text-transform: uppercase; transition: 0.2s; margin-top: auto; }
 .nt-btn:hover { background: #b00000; }
 
-/* MOBILE LIST */
-.mobile-event-list { display: flex; flex-direction: column; gap: 30px; width: 100%; align-items: center; }
-.mobile-event-card { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-.mobile-event-img { width: 100%; height: 250px; position: relative; }
-.mobile-event-img img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
-.mobile-date-badge { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.8); color: var(--accent); padding: 5px 10px; border-radius: 4px; font-weight: 700; font-size: 0.8rem; }
-.mobile-event-content { padding: 20px; }
-.mobile-event-title { font-family: "Oswald", sans-serif; font-size: 1.6rem; color: #fff; margin: 0 0 10px 0; text-transform: uppercase; line-height: 1.1; }
-.mobile-event-desc { font-size: 0.95rem; color: #ccc; margin-bottom: 20px; line-height: 1.4; }
-.mobile-event-btn { width: 100%; background: transparent; border: 1px solid var(--accent); color: var(--accent); padding: 12px; border-radius: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-
 /* DETAIL PANEL */
 .nt-detail-wrapper { width: 100%; display: flex; justify-content: center; position: relative; z-index: 100; }
 .nt-detail-panel { 
   width: 100%; max-width: 1100px; margin-top: 20px; background: var(--panel-bg); border-radius: 12px; padding: 30px; box-shadow: 0 20px 80px rgba(0,0,0,1); border: 1px solid rgba(255,255,255,0.1); 
   animation: slideIn 0.5s ease-out forwards;
-  /* El panel también debe ser visible para que el sticky interno funcione */
   overflow: visible !important; 
 }
 @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
@@ -102,7 +86,6 @@
   display: grid; 
   grid-template-columns: 1fr 380px; 
   gap: 30px; 
-  /* CLAVE PARA EL STICKY: Align-items start impide que la columna se estire */
   align-items: start; 
   position: relative; 
 }
@@ -131,10 +114,9 @@
 /* === COLUMNA DERECHA STICKY (PC) === */
 .nt-detail-right { 
   display: flex; flex-direction: column; gap: 20px; 
-  /* Sticky Nativo */
   position: -webkit-sticky;
   position: sticky; 
-  top: 120px; /* Margen superior para quedar debajo del navbar */
+  top: 90px; 
   height: fit-content; 
   align-self: start; 
   z-index: 5;
@@ -176,24 +158,160 @@
 #detail-panel-anchor { scroll-margin-top: 130px; }
 #events-top-anchor { scroll-margin-top: 100px; }
 
-/* MEDIA QUERIES (Móvil) */
+/* === MEDIA QUERIES (Móvil Ajustado) === */
 @media (max-width: 900px) {
+  
+  .desktop-3d-view { display: none !important; }
+  
+  .mobile-list-view { 
+    display: flex !important; 
+    flex-direction: column; 
+    width: 100%; 
+    align-items: center; 
+    gap: 20px;
+  }
+
+  /* NAVBAR */
+  .mobile-tabs-container {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px 20px; 
+    justify-content: flex-start; 
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+  }
+  .mobile-tabs-container::-webkit-scrollbar { display: none; }
+  .mobile-tabs-container::after { content: ""; flex: 0 0 20px; }
+
+  .mobile-tab-btn {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #bbb;
+    padding: 10px 18px;
+    border-radius: 30px;
+    white-space: nowrap;
+    font-family: "Oswald", sans-serif;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+  .mobile-tab-btn.active {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 4px 15px rgba(208,0,0,0.4);
+    transform: scale(1.05);
+  }
+
+  .mobile-card-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
+  }
+
+  /* TARJETA MÓVIL ESTILIZADA (Más angosta y más imagen) */
+  .mobile-styled-card {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    
+    width: 90%; 
+    max-width: 340px; /* Un poco más angosta para elegancia */
+    
+    /* ALTURA */
+    height: 600px; 
+    
+    margin: 0 auto;
+    background: #000;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.1);
+    
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* IMAGEN GRANDE (82% de la tarjeta) */
+  .mobile-tall-media {
+    height: 82% !important; /* MÁXIMA VISIBILIDAD DE IMAGEN */
+    width: 100%;
+    overflow: hidden;
+  }
+  .mobile-tall-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  /* TEXTO COMPACTO */
+  .mobile-card-body-centered {
+    padding: 12px; /* Menos padding */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(to top, rgba(0,0,0,1), rgba(15,15,15,0.95));
+    flex: 1;
+  }
+
+  .mobile-card-body-centered .nt-card-title {
+    font-size: 1.3rem;
+    line-height: 1.1;
+    margin-bottom: 2px;
+  }
+
+  .mobile-centered-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 8px;
+    color: #ccc;
+    font-size: 0.85rem;
+  }
+
+  .mobile-event-btn {
+    width: 100%;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+  }
+  .mobile-event-btn:active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+
+  /* Ajustes generales */
   .nt-detail-grid { grid-template-columns: 1fr; }
   .nt-grid-bottom { grid-template-columns: 1fr; }
-  .nt-cards-3d { height: 500px; }
-  .nt-card { width: 300px; height: 450px; }
-  /* En móvil desactivamos sticky */
   .nt-detail-right { position: relative; top: auto; width: 100%; }
   .nt-hide-btn-mobile { display: block; }
   
-  .desktop-3d-view { display: none !important; }
-  .mobile-list-view { display: flex !important; }
+  .nt-hero-title, .news-title { font-size: 2.2rem; }
+  .nt-detail-title { font-size: 1.8rem; }
 }
 
 @media (max-width: 768px) {
-  .nt-container { padding: 100px 20px 180px 20px; }
-  .nt-hero-title, .news-title { font-size: 2.2rem; }
-  .nt-detail-title { font-size: 1.8rem; }
+  .nt-container { padding: 100px 15px 180px 15px; }
   .nt-detail-head { flex-direction: column; gap: 15px; }
   .nt-hide-btn { width: 100%; }
 }

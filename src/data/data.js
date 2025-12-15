@@ -2,58 +2,74 @@ export const eventsData = [
   {
     id: "e1",
     title: "COSQUÍN JOVEN AL TEATRO – VILLA CARLOS PAZ",
+    shortTitle: "COSQUÍN JOVEN", // Para el menú móvil
     short: "Un encuentro único en el Teatro Acuario. Danza, arte y turismo.",
     date: "20 al 23 de Febrero de 2026",
     location: "Teatro Acuario, Villa Carlos Paz",
     image: "/COSQUIN JOVEN AL TEATRO.jpg",
     images: ["/COSQUIN JOVEN AL TEATRO.jpg"],
     instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DQvBp-6jApW/",
-    // NUEVO LINK
     whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20al%20Teatro%20(Carlos%20Paz).",
     
-    longDescription: "Un encuentro único donde tu ballet o academia vive la magia turística de Villa Carlos Paz: el río, el lago, caminatas, el Reloj Cucú, la temporada teatral y todo el encanto de la ciudad. La fiesta de los bailarines, ballet, canto y escuelas de danzas.",
+    longDescription: "Un mega evento cultural que reúne tradición, danza, malambo y folklore. Participan academias, escuelas, ballets, instituciones, artistas y malambistas de todas las edades en el corazón turístico de Villa Carlos Paz.",
+    
     fullDetails: [
       { 
-        title: "Premios y Reconocimientos", 
-        icon: "🏆", 
-        text: "Cosquín Joven Producciones reconoce el compromiso de cada grupo.", 
+        title: "Reglamento de Participación", 
+        icon: "📘", 
+        text: "Objetivo: Convocar a niños, jóvenes y adultos, promoviendo la amistad y el fortalecimiento de las raíces.",
         list: [
-          "Traés 10 personas → Tu Pack Experiencia es GRATIS.",
-          "Traés 50 personas → Premio de $500.000 en reconocimiento al trabajo.",
-          "📸 Todos los grupos reciben un cuadro grupal de recuerdo."
+          "Certamen competitivo en Ballet Folklórico y Malambo.",
+          "Inscripción abierta hasta el 15 de enero de 2026.",
+          "Sonido provisto por la organización (pendrive con música).",
+          "Todas las categorías deben presentar danza tradicional en etapa inicial.",
+          "Conjuntos y ballets: mínimo 3 parejas, sin máximo.",
+          "El fallo del jurado es inapelable."
         ] 
       },
       { 
-        title: "Presentaciones por Categoría", 
-        icon: "🎭", 
+        title: "Rubros Campeonato (Malambo)", 
+        icon: "🔥", 
+        text: "Acompañamientos en vivo y con vestuario acorde.",
+        list: [
+          "Semillita (hasta 9 años): 1-3 min",
+          "Menor Masc/Fem (10-13 años): 1-3 min / 2-3 min",
+          "Juvenil Masc/Fem (14-17 años): 2-3 min",
+          "Juvenil Especial Masc (18-20 años): 2-4 min",
+          "Mayor Masc (21-35 años) / Norte-Sur (18+): 2-5 min",
+          "Especial (36-42 años) / Senior (43+): 2-4 min"
+        ] 
+      },
+      { 
+        title: "Danza y Conjuntos", 
+        icon: "💃", 
         subSections: [
           {
-            title: "🎵 Cantantes",
-            list: ["2 presentaciones de 5 minutos cada una."]
+            title: "Parejas (Menor a Especial)",
+            list: ["Danza tradicional regional.", "Final: Cuadro estilizado folklórico o libre."]
           },
           {
-            title: "💃 Parejas",
-            list: ["2 presentaciones de 10 minutos cada una."]
+            title: "Conjuntos y Ballets",
+            list: ["Mínimo 3 parejas.", "Menores pueden participar en mayores hasta 30%."]
           },
           {
-            title: "🩰 Ballets / Grupos",
-            list: [
-              "2 presentaciones de 8 minutos.",
-              "Si el grupo tiene más de 35 integrantes → 3 presentaciones de 8 minutos."
-            ]
+            title: "Malambo Combinado",
+            list: ["Unísono Menor, Juvenil y Mayor.", "Se permite mixto.", "Se elige la mejor propuesta."]
           }
         ] 
       },
       { 
-        title: "Reglas Importantes", 
-        icon: "⏱", 
+        title: "Premios", 
+        icon: "🏅", 
         list: [
-          "Si la música supera el tiempo indicado, será cortada para respetar el orden.",
-          "Si no cumplen la duración, la presentación pasa al final del último cuadro.",
-          "La música debe enviarse 15 días antes del festival."
+          "Campeones Argentinos: Certificado + Premio Challenger.",
+          "Ranking Nacional: Premios del 1.º al 10.º puesto.",
+          "Campeón de Campeones: Quienes defiendan su Challenger.",
+          "Campeones serán portada del flyer del año siguiente."
         ] 
       }
     ],
+
     packs: [
       { 
         title: "OPCIÓN 1", 
@@ -74,9 +90,10 @@ export const eventsData = [
         ]
       }
     ],
+
     prizes: [
-      { place: "Delegados", reward: "Comunicación exclusiva con la organización." },
-      { place: "Condición", reward: "Participación confirmada con el 100% del pago." }
+      { place: "Beneficio", reward: "Cada 10 participantes de una academia → 1 liberado gratuito." },
+      { place: "Delegados", reward: "Comunicación exclusiva con la organización." }
     ],
     reglamentoLink: null,
   },
@@ -84,16 +101,17 @@ export const eventsData = [
   {
     id: "e2",
     title: "COSQUÍN JOVEN – CARTAGENA 2026",
+    shortTitle: "CARTAGENA 2026", // Para el menú móvil
     short: "1.ª Edición Internacional en la Perla del Caribe.",
     date: "22 al 26 de Septiembre 2026",
     location: "Cartagena de Indias, Colombia",
     image: "/COSQUIN JOVEN CARTAGENA.jpg",
     images: ["/COSQUIN JOVEN CARTAGENA.jpg"],
     instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DROAuSCDN1D/",
-    // NUEVO LINK
     whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20Cartagena%202026.",
     
     longDescription: "¡Llega la 1.ª Edición Internacional! Un encuentro único donde la danza, el canto y la cultura folklórica se unen en Cartagena de Indias. Participan academias, ballets, cantantes, peñas, escuelas, centros culturales, jubilados, artistas y viajeros.",
+    
     fullDetails: [
       { 
         title: "Pack Experience (Todo Incluido)", 
@@ -131,6 +149,7 @@ export const eventsData = [
         ]
       }
     ],
+
     packs: [
       { 
         title: "PLAN 1 (Desde 4 Mar)", 
@@ -151,6 +170,7 @@ export const eventsData = [
         ] 
       }
     ],
+
     prizes: [
       { place: "Experiencias", reward: "Playas, Fuerte histórico, Magia colonial." }, 
       { place: "Reserva", reward: "Seña de 600.000 COP para asegurar cupo." }
@@ -161,16 +181,17 @@ export const eventsData = [
   {
     id: "e3",
     title: "EL ARGENTINO 2026",
+    shortTitle: "EL ARGENTINO", // Para el menú móvil
     short: "Un mega evento cultural que reúne tradición y malambo.",
     date: "20 al 23 de Febrero de 2026",
     location: "Teatro Acuario, Villa Carlos Paz",
     image: "/EL ARGENTINO.jpg",
     images: ["/EL ARGENTINO.jpg"],
     instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DRQhxujDAGd/",
-    // NUEVO LINK
     whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20más%20información%20sobre%20El%20Argentino%202026.",
     
     longDescription: "Un mega evento cultural que reúne tradición, danza, malambo y folklore. Participan academias, escuelas, ballets, instituciones, artistas y malambistas de todas las edades. Promoviendo la amistad y el fortalecimiento de las raíces.",
+    
     fullDetails: [
       { 
         title: "Información General", 
@@ -215,6 +236,7 @@ export const eventsData = [
         list: ["Unísono Menor, Juvenil y Mayor.", "Se permite mixto.", "Se elige la mejor propuesta."] 
       }
     ],
+
     packs: [
       { 
         title: "Inscripción", 
@@ -222,6 +244,7 @@ export const eventsData = [
         items: ["Consultar valores con organización", "Cierre definitivo 15/01/2026"] 
       }
     ],
+
     prizes: [
       { place: "Campeones", reward: "Certificado + Premio Challenger." }, 
       { place: "Ranking", reward: "Premios del 1.º al 10.º puesto." },
@@ -261,7 +284,6 @@ export const newsData = [
       "Estos encuentros no solo celebran el arte, sino la vida misma. Gracias a todos los que hicieron posible esta jornada inolvidable. ¡Vamos por más sueños cumplidos en 2026! 🌟"
     ]
   },
-  // --- NUEVA NOTICIA AGREGADA AQUÍ ---
   {
     id: 3,
     title: "REINA DEL FOLKLORE: GRACIAS POR PARTICIPAR",
@@ -270,7 +292,6 @@ export const newsData = [
     image: "/folklore1.jpg",
     excerpt: "Es una emoción increíble poder realizar cada año esta convocatoria. Gracias a todas las participantes y a nuestra productora de moda.",
     whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20las%20Reinas%20del%20Folklore",
-    // Galería de 3 imágenes
     detailImages: ["/folklore1.jpg", "/folklore2.jpg", "/folklore3.jpg"],
     fullContent: [
       "Gracias a todas las participantes por la Reina del Folklore 👸💘. Es una emoción increíble poder realizar cada año esta convocatoria 🌟, donde la belleza se une con nuestra tradición.",
