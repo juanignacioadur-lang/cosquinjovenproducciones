@@ -1,0 +1,103 @@
+/* Limpieza del contenedor general para esta página */
+.news-page-root {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 120px; /* Espacio para el navbar */
+  padding-bottom: 50px;
+  background: linear-gradient(180deg,#2b0f0f 0%, #3d1414 55%, #0b0404 100%);
+  background-attachment: fixed;
+}
+
+.news-reader-container {
+  width: 95%;
+  max-width: 900px; /* ANCHO MÁXIMO CONTROLADO */
+  background: #111;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.news-reader-header {
+  padding: 20px 30px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.news-back-btn {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 8px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: 0.3s;
+}
+.news-back-btn:hover { background: #fff; color: #000; }
+
+.news-reader-content { padding: 40px; }
+
+.news-reader-title {
+  font-family: "Oswald", sans-serif;
+  font-size: 2.5rem;
+  color: #fff;
+  margin-bottom: 30px;
+  border-left: 5px solid #d00000;
+  padding-left: 20px;
+  line-height: 1.1;
+}
+
+.news-gallery {
+  display: grid;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+/* Si es 1 foto, ocupa todo. Si son 3, grilla */
+.gallery-single { grid-template-columns: 1fr; }
+.gallery-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+
+.news-img-box {
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.news-img-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.news-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+.news-footer { text-align: center; margin-top: 40px; }
+.news-cta-btn {
+  display: inline-block;
+  background: #25D366;
+  color: #fff;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .news-reader-content { padding: 20px; }
+  .news-reader-title { font-size: 1.8rem; }
+  .gallery-grid { grid-template-columns: 1fr; }
+}
