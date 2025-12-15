@@ -2,7 +2,7 @@ export const eventsData = [
   {
     id: "e1",
     title: "COSQUÍN JOVEN AL TEATRO – VILLA CARLOS PAZ",
-    shortTitle: "COSQUÍN JOVEN", // Para el menú móvil
+    shortTitle: "COSQUÍN JOVEN", 
     short: "Un encuentro único en el Teatro Acuario. Danza, arte y turismo.",
     date: "20 al 23 de Febrero de 2026",
     location: "Teatro Acuario, Villa Carlos Paz",
@@ -101,7 +101,7 @@ export const eventsData = [
   {
     id: "e2",
     title: "COSQUÍN JOVEN – CARTAGENA 2026",
-    shortTitle: "CARTAGENA 2026", // Para el menú móvil
+    shortTitle: "CARTAGENA 2026", 
     short: "1.ª Edición Internacional en la Perla del Caribe.",
     date: "22 al 26 de Septiembre 2026",
     location: "Cartagena de Indias, Colombia",
@@ -181,7 +181,7 @@ export const eventsData = [
   {
     id: "e3",
     title: "EL ARGENTINO 2026",
-    shortTitle: "EL ARGENTINO", // Para el menú móvil
+    shortTitle: "EL ARGENTINO", 
     short: "Un mega evento cultural que reúne tradición y malambo.",
     date: "20 al 23 de Febrero de 2026",
     location: "Teatro Acuario, Villa Carlos Paz",
@@ -274,7 +274,8 @@ export const newsData = [
     id: 2,
     title: "RECUERDOS: ABUELA REINA Y ABUELO REY 2025",
     date: "12 de Diciembre, 2025",
-    category: "Danzabuelos",
+    // CAMBIO DE CATEGORÍA
+    category: "Recuerdos", 
     image: "/noticiaabuela1.jpg",
     excerpt: "Revive la emoción de la elección de la Abuela Reina y el Abuelo Rey junto a la Delegación Centro de Jubilados Caminemos Juntos de San Luis.",
     detailImages: ["/noticiaabuela1.jpg", "/noticiaabuela2.jpg", "/noticiaabuela3.jpg"],
@@ -297,6 +298,41 @@ export const newsData = [
       "Gracias a todas las participantes por la Reina del Folklore 👸💘. Es una emoción increíble poder realizar cada año esta convocatoria 🌟, donde la belleza se une con nuestra tradición.",
       "¿Te interesa conocer a nuestras reinas? 💝 Contanos en los comentarios. Este certamen busca destacar no solo la imagen, sino el compromiso con nuestra cultura y nuestras raíces.",
       "Gracias también a la mejor productora de moda, @productora.ludmilaperisse, por acompañarnos siempre 👏 y hacer que cada participante brille en el escenario con elegancia y estilo."
+    ]
+  },
+  // --- NUEVA NOTICIA (DÍA 1 - ANTES QUE LA DE DÍA 2) ---
+  {
+    id: 5,
+    title: "¡YA COMENZÓ DANZABUELOS 2025 EN TANTI!",
+    date: "12 de Diciembre, 2025",
+    category: "Danzabuelos",
+    image: "/tanti1.jpg",
+    excerpt: "La jornada abrió con un colorido desfile de academias y agrupaciones, tanto locales como de los países visitantes.",
+    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20el%20inicio%20de%20Danzabuelos",
+    detailImages: ["/tanti1.jpg", "/tanti2.jpg", "/tanti3.jpg"],
+    fullContent: [
+      "💃🕺 ¡Ya comenzó DanzAbuelos 2025 en Tanti! 🎉",
+      "La jornada abrió con un colorido desfile de academias y agrupaciones, tanto locales como de los países visitantes 🇦🇷🇨🇱🇧🇴🇺🇾🇪🇨.",
+      "El cierre estuvo a cargo de las agrupaciones gauchas, que desfilaron a caballo dando fin al recorrido por la Avenida San Martín, para luego continuar la celebración en el Anfiteatro Municipal, colmado de público.",
+      "📅 La fiesta sigue sábado y domingo, con toda la alegría, el baile y la cultura del Festival Mundial DanzAbuelos, organizado por Cosquín Producciones.",
+      "✨ ¡Tanti vive la danza y el folclore!"
+    ]
+  },
+  // --- DÍA 2 (YA EXISTENTE) ---
+  {
+    id: 4,
+    title: "DÍA 2 DEL FESTIVAL DANZABUELOS EN TANTI",
+    date: "13 de Diciembre, 2025",
+    category: "Danzabuelos 2",
+    image: "/danzabuelos1.jpg",
+    excerpt: "Un encuentro lleno de emoción, danza y cultura. El intendente anunció que el próximo año el festival volverá a tener sede en nuestra ciudad.",
+    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20el%20Festival%20Danzabuelos",
+    detailImages: ["/danzabuelos1.jpg", "/danzabuelos2.jpg", "/danzabuelos3.jpg"], 
+    fullContent: [
+      "🩵 Día 2 del Festival DanzAbuelos en Tanti. Un encuentro lleno de emoción, danza y cultura. 💃✨",
+      "La productora @cosquinjoven.producciones resaltó el acompañamiento de la Municipalidad de Tanti en la realización de este gran evento, consolidando lazos importantes para nuestra cultura.",
+      "El intendente @emiparedestanti anunció que el próximo año el festival volverá a tener sede en nuestra ciudad, reafirmando el compromiso de seguir promoviendo la cultura y el encuentro. 🙌",
+      "Agradecemos a la productora y a los organizadores por traer cultura y alegría a nuestra comunidad. 💙"
     ]
   }
 ];

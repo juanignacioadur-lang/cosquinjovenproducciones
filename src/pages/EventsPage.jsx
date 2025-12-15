@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { scrollToElement } from "../utils/scrollUtils"; 
-import { eventsData, newsData } from "../data/data"; 
+import { Link, useLocation } from "react-router-dom";
+import { scrollToElement } from "../utils/scrollUtils";
+import { eventsData, newsData } from "../data/data";
+
+// Importamos los nuevos componentes
+import MobileTabNav from "../components/MobileTabNav";
+import DesktopNewsSlider from "../components/DesktopNewsSlider";
+
 import "./EventsPage.css";
 
-/* Carousel (Sin cambios) */
+/* Carousel Interno (Lo dejamos aquí porque es pequeño) */
 function Carousel({ images = [], autoPlay = true }) {
   const [index, setIndex] = useState(0);
   const intervalRef = React.useRef(null);
@@ -21,22 +26,21 @@ function Carousel({ images = [], autoPlay = true }) {
     <div className="nt-carousel">
       <div className="nt-carousel-window">
         {images.map((src, i) => (
-          <img key={i} src={src} alt={`Imagen ${i}`} className={`nt-carousel-img ${i === index ? "active" : ""}`} />
+          <img key={i} src={src} alt={`Img ${i}`} className={`nt-carousel-img ${i === index ? "active" : ""}`} />
         ))}
-        <div className="nt-carousel-dots">
-          {images.map((_, i) => (
-            <span key={i} className={`nt-dot ${i === index ? "active" : ""}`} onClick={() => setIndex(i)} />
-          ))}
-        </div>
       </div>
     </div>
   );
 }
 
-/* EventDetail (Sin cambios) */
+/* EventDetail */
 function EventDetail({ event, onClose }) {
-  useEffect(() => { if (event) scrollToElement("detail-panel-anchor"); }, [event]);
+  useEffect(() => {
+    if (event) scrollToElement("detail-panel-anchor");
+  }, [event]);
+
   if (!event) return null;
+
   return (
     <div className="nt-detail-panel" id="detail-panel-anchor">
       <div className="nt-detail-head">
@@ -47,23 +51,23 @@ function EventDetail({ event, onClose }) {
         <div className="nt-detail-left">
           <Carousel images={event.images || [event.image]} />
           <div className="nt-box-resena">
-             <h4 className="nt-resena-title">📢 RESEÑA DEL EVENTO</h4>
-             <p className="nt-resena-text">{event.longDescription}</p>
+            <h4 className="nt-resena-title">📢 RESEÑA DEL EVENTO</h4>
+            <p className="nt-resena-text">{event.longDescription}</p>
           </div>
           <div className="nt-grid-bottom">
-             {event.fullDetails?.map((section, idx) => (
-               <div key={idx} className="nt-detail-card">
-                 <h4 className="nt-detail-card-title">{section.icon} {section.title}</h4>
-                 {section.text && <p style={{color:'#ccc', fontSize:'0.9rem', marginBottom:'10px'}}>{section.text}</p>}
-                 {section.list && <ul className="nt-list-custom">{section.list.map((item, i) => <li key={i}>{item}</li>)}</ul>}
-                 {section.subSections?.map((sub, j) => (
-                   <div key={j} style={{marginTop:'15px'}}>
-                     <h5 style={{color:'#fff', fontSize:'0.9rem', marginBottom:'5px'}}>{sub.title}</h5>
-                     {sub.list && <ul className="nt-list-custom">{sub.list.map((it, k) => <li key={k}>{it}</li>)}</ul>}
-                   </div>
-                 ))}
-               </div>
-             ))}
+            {event.fullDetails?.map((section, idx) => (
+              <div key={idx} className="nt-detail-card">
+                <h4 className="nt-detail-card-title">{section.icon} {section.title}</h4>
+                {section.text && <p className="nt-text-desc">{section.text}</p>}
+                {section.list && <ul className="nt-list-custom">{section.list.map((item, i) => <li key={i}>{item}</li>)}</ul>}
+                {section.subSections?.map((sub, j) => (
+                  <div key={j} className="nt-subsection">
+                    <h5>{sub.title}</h5>
+                    {sub.list && <ul className="nt-list-custom">{sub.list.map((it, k) => <li key={k}>{it}</li>)}</ul>}
+                  </div>
+                ))}
+              </div>
+            ))}
           </div>
         </div>
         <aside className="nt-detail-right">
@@ -73,24 +77,24 @@ function EventDetail({ event, onClose }) {
           </div>
           {event.packs?.length > 0 && (
             <div className="nt-right-section">
-               <h4>Packs Disponibles</h4>
-               {event.packs.map((p, i) => (
-                  <div className="nt-pack-card" key={i}>
-                    <div className="nt-pack-header"><span>{p.title}</span><span>{p.price}</span></div>
-                    {p.items && <ul className="nt-pack-list">{p.items.map((it, j) => <li key={j}>{it}</li>)}</ul>}
-                  </div>
-               ))}
+              <h4>Packs Disponibles</h4>
+              {event.packs.map((p, i) => (
+                <div className="nt-pack-card" key={i}>
+                  <div className="nt-pack-header"><span>{p.title}</span><span>{p.price}</span></div>
+                  {p.items && <ul className="nt-pack-list">{p.items.map((it, j) => <li key={j}>{it}</li>)}</ul>}
+                </div>
+              ))}
             </div>
           )}
           {event.prizes?.length > 0 && (
             <div className="nt-right-section">
-                <h4>Beneficios y Premios</h4>
-                {event.prizes.map((pr, i) => (
-                  <div className="nt-benefit-box" key={i}>
-                    <div className="nt-benefit-title">{pr.place}</div>
-                    <div className="nt-benefit-desc">{pr.reward}</div>
-                  </div>
-                ))}
+              <h4>Beneficios y Premios</h4>
+              {event.prizes.map((pr, i) => (
+                <div className="nt-benefit-box" key={i}>
+                  <div className="nt-benefit-title">{pr.place}</div>
+                  <div className="nt-benefit-desc">{pr.reward}</div>
+                </div>
+              ))}
             </div>
           )}
           {event.instagramLink && <a href={event.instagramLink} target="_blank" rel="noreferrer" className="nt-instagram-btn">VER EN INSTAGRAM</a>}
@@ -108,27 +112,28 @@ function EventDetail({ event, onClose }) {
   );
 }
 
+/* COMPONENTE PRINCIPAL */
 export default function Noticias() {
   const [activeEvent, setActiveEvent] = useState(null);
-  
-  // Estado Eventos
   const [activeIndex, setActiveIndex] = useState(1);
   const [mobileIndex, setMobileIndex] = useState(0);
-
-  // Estado Noticias Móvil (NUEVO)
   const [mobileNewsIndex, setMobileNewsIndex] = useState(0);
 
-  // Sync Eventos
-  useEffect(() => {
-    if (activeEvent) setActiveEvent(eventsData[activeIndex]);
-  }, [activeIndex]);
+  const location = useLocation();
 
   useEffect(() => {
-    if (activeEvent) setActiveEvent(eventsData[mobileIndex]);
-  }, [mobileIndex]);
+    if (location.state && location.state.targetId) {
+      setTimeout(() => { scrollToElement(location.state.targetId, 100); }, 100);
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
 
-  const handleNext3D = () => { setActiveIndex((prev) => (prev + 1) % eventsData.length); };
-  const handlePrev3D = () => { setActiveIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length); };
+  // Syncs
+  useEffect(() => { if (activeEvent) setActiveEvent(eventsData[activeIndex]); }, [activeIndex]);
+  useEffect(() => { if (activeEvent) setActiveEvent(eventsData[mobileIndex]); }, [mobileIndex]);
+
+  const handleNext3D = () => setActiveIndex((prev) => (prev + 1) % eventsData.length);
+  const handlePrev3D = () => setActiveIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length);
 
   const getCardClass = (index) => {
     const total = eventsData.length;
@@ -159,7 +164,7 @@ export default function Noticias() {
   };
 
   const mobileEvent = eventsData[mobileIndex] || eventsData[0];
-  const mobileNews = newsData[mobileNewsIndex] || newsData[0]; // Noticia activa
+  const mobileNews = newsData[mobileNewsIndex] || newsData[0];
 
   return (
     <main className="nt-page">
@@ -167,9 +172,7 @@ export default function Noticias() {
         
         <section className="nt-hero" id="events-top-anchor">
           <div className="nt-hero-badge">Nuestros Eventos</div>
-          <h1 className="nt-hero-title">
-            <span className="nt-accent-outline">PRÓXIMOS EVENTOS</span>
-          </h1>
+          <h1 className="nt-hero-title"><span className="nt-accent-outline">PRÓXIMOS EVENTOS</span></h1>
           <p className="nt-hero-sub">Descubre todos los detalles de nuestros eventos y vive la experiencia.</p>
         </section>
 
@@ -188,9 +191,7 @@ export default function Noticias() {
                     <div className="nt-meta-item">📅 {ev.date}</div>
                     <div className="nt-meta-item">📍 {ev.location}</div>
                   </div>
-                  <div className="nt-card-actions">
-                    <button className="nt-btn">MOSTRAR INFORMACIÓN</button>
-                  </div>
+                  <div className="nt-card-actions"><button className="nt-btn">MOSTRAR INFORMACIÓN</button></div>
                 </div>
               </article>
             ))}
@@ -200,17 +201,13 @@ export default function Noticias() {
 
         {/* MÓVIL: EVENTOS */}
         <section className="nt-cards-area mobile-list-view">
-          <div className="mobile-tabs-container">
-            {eventsData.map((ev, i) => (
-              <button 
-                key={ev.id}
-                className={`mobile-tab-btn ${i === mobileIndex ? 'active' : ''}`}
-                onClick={() => setMobileIndex(i)}
-              >
-                {ev.shortTitle || ev.title.split('–')[0]}
-              </button>
-            ))}
-          </div>
+          <MobileTabNav 
+            items={eventsData} 
+            activeIndex={mobileIndex} 
+            onSelect={setMobileIndex} 
+            getLabel={(ev) => ev.shortTitle}
+          />
+
           <div className="mobile-card-container">
             <article className="nt-card mobile-styled-card">
               <div className="nt-card-media mobile-tall-media">
@@ -223,9 +220,7 @@ export default function Noticias() {
                   <div className="nt-meta-item">📍 {mobileEvent.location}</div>
                 </div>
                 <div className="nt-card-actions">
-                  <button className="mobile-event-btn" onClick={() => openDetails(mobileEvent.id)}>
-                    MOSTRAR INFORMACIÓN
-                  </button>
+                  <button className="mobile-event-btn" onClick={() => openDetails(mobileEvent.id)}>MOSTRAR INFORMACIÓN</button>
                 </div>
               </div>
             </article>
@@ -236,55 +231,25 @@ export default function Noticias() {
           {activeEvent && <EventDetail event={activeEvent} onClose={closeDetails} />}
         </div>
 
-        {/* --- SECCIÓN NOTICIAS --- */}
-        <section className="news-section">
+        <section className="news-section" id="news-section-anchor">
           <div className="news-header">
             <span className="news-pill">Últimas Noticias</span>
-            <h2 className="news-title">
-              <span className="nt-accent-outline">MANTENTE INFORMADO</span>
-            </h2>
-            <p className="nt-hero-sub">
-              Novedades, ganadores, recuerdos y todo lo que pasa en nuestra comunidad folklórica.
-            </p>
+            <h2 className="news-title"><span className="nt-accent-outline">MANTENTE INFORMADO</span></h2>
+            <p className="nt-hero-sub">Novedades, ganadores, recuerdos y todo lo que pasa en nuestra comunidad folklórica.</p>
           </div>
 
-          {/* PC: GRILLA DE NOTICIAS (Se oculta en móvil via CSS) */}
-          <div className="news-grid desktop-news-view">
-            {newsData.map((news) => (
-              <article className="news-item" key={news.id}>
-                <div className="news-image-wrapper">
-                  <span className="news-badge">{news.category}</span>
-                  <img src={news.image} alt={news.title} />
-                </div>
-                <div className="news-content-wrapper">
-                  <div className="news-meta">📅 {news.date}</div>
-                  <h3 className="news-item-title">{news.title}</h3>
-                  <p className="news-excerpt">{news.excerpt}</p>
-                  <Link to={`/noticias/${news.id}`} className="news-link">
-                    LEER MÁS
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+          {/* PC: SLIDER NOTICIAS */}
+          <DesktopNewsSlider newsData={newsData} />
 
-          {/* MÓVIL: NAVBAR + TARJETA ÚNICA DE NOTICIA */}
+          {/* MÓVIL: NOTICIAS */}
           <div className="mobile-news-view">
+            <MobileTabNav 
+              items={newsData} 
+              activeIndex={mobileNewsIndex} 
+              onSelect={setMobileNewsIndex} 
+              getLabel={(n) => n.category.toUpperCase()}
+            />
             
-            {/* Tabs de Noticias (Usamos Categoría o Título corto) */}
-            <div className="mobile-tabs-container">
-              {newsData.map((n, i) => (
-                <button 
-                  key={n.id}
-                  className={`mobile-tab-btn ${i === mobileNewsIndex ? 'active' : ''}`}
-                  onClick={() => setMobileNewsIndex(i)}
-                >
-                  {n.category.toUpperCase()}
-                </button>
-              ))}
-            </div>
-
-            {/* Tarjeta de Noticia Móvil (Estilo similar a Eventos) */}
             <div className="mobile-card-container">
               <article className="nt-card mobile-styled-card">
                 <div className="nt-card-media mobile-tall-media">
@@ -302,9 +267,7 @@ export default function Noticias() {
                 </div>
               </article>
             </div>
-
           </div>
-
         </section>
 
       </div>

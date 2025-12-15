@@ -1,31 +1,56 @@
-/* Limpieza del contenedor general para esta página */
+/* --- FONDO PRINCIPAL --- */
 .news-page-root {
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 120px; /* Espacio para el navbar */
-  padding-bottom: 50px;
-  background: linear-gradient(180deg,#2b0f0f 0%, #3d1414 55%, #0b0404 100%);
+  background: linear-gradient(180deg, #2b0f0f 0%, #3d1414 55%, #0b0404 100%);
   background-attachment: fixed;
+  background-size: cover;
+  padding-bottom: 0;
 }
 
+/* --- NUEVO: SUBFONDO GRIS (SOLO PC) --- */
+.news-container-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  background: rgba(0, 0, 0, 0.3); /* El efecto vidrio oscuro */
+  min-height: 100vh;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 60px rgba(0,0,0,0.6);
+  padding: 120px 20px 50px 20px; /* Padding superior para el navbar */
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+/* --- TARJETA DE CONTENIDO --- */
 .news-reader-container {
-  width: 95%;
-  max-width: 900px; /* ANCHO MÁXIMO CONTROLADO */
-  background: #111;
+  position: relative;
+  width: 100%;
+  max-width: 900px; 
+  background: #111; 
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  margin-bottom: 50px;
   overflow: hidden;
-  margin: 0 auto;
+  animation: fadeUp 0.6s ease-out forwards;
+  height: fit-content;
 }
 
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- HEADER --- */
 .news-reader-header {
   padding: 20px 30px;
-  background: rgba(255,255,255,0.03);
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -34,16 +59,30 @@
 .news-back-btn {
   background: transparent;
   color: #fff;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 8px 20px;
   border-radius: 30px;
   cursor: pointer;
   text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
   font-size: 0.85rem;
+  letter-spacing: 1px;
   transition: 0.3s;
 }
 .news-back-btn:hover { background: #fff; color: #000; }
 
+.news-reader-meta {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+.news-cat-highlight {
+  color: #d00000;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+/* --- CONTENIDO --- */
 .news-reader-content { padding: 40px; }
 
 .news-reader-title {
@@ -51,53 +90,112 @@
   font-size: 2.5rem;
   color: #fff;
   margin-bottom: 30px;
+  line-height: 1.2;
   border-left: 5px solid #d00000;
   padding-left: 20px;
-  line-height: 1.1;
 }
 
+/* --- GALERÍA --- */
 .news-gallery {
   display: grid;
   gap: 15px;
   margin-bottom: 30px;
 }
-/* Si es 1 foto, ocupa todo. Si son 3, grilla */
 .gallery-single { grid-template-columns: 1fr; }
-.gallery-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+.gallery-grid { grid-template-columns: repeat(3, 1fr); }
 
 .news-img-box {
   width: 100%;
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #000;
 }
 .news-img-box img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
   display: block;
 }
 
-.news-text p {
+/* --- TEXTO --- */
+.news-body-text p {
   font-size: 1.1rem;
   line-height: 1.8;
   color: #ddd;
   margin-bottom: 20px;
+  font-weight: 300;
 }
 
-.news-footer { text-align: center; margin-top: 40px; }
-.news-cta-btn {
+/* --- BOTÓN WHATSAPP --- */
+.news-action-wrapper {
+  margin-top: 40px;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 30px;
+}
+.news-wa-btn {
   display: inline-block;
-  background: #25D366;
+  background: linear-gradient(90deg, #25D366, #128C7E);
   color: #fff;
-  padding: 15px 30px;
+  padding: 15px 35px;
   border-radius: 50px;
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
+  font-family: "Oswald", sans-serif;
+  letter-spacing: 1px;
+  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.2);
+  transition: 0.3s;
+}
+.news-wa-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
 }
 
-@media (max-width: 768px) {
-  .news-reader-content { padding: 20px; }
+/* === RESPONSIVE (MÓVIL) === */
+@media (max-width: 900px) {
+  
+  /* AQUÍ QUITAMOS EL SUBFONDO EN MÓVIL PARA QUE SE VEA LIMPIO */
+  .news-container-wrapper {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 100px 0 0 0; /* Padding superior para el navbar */
+    display: block;
+  }
+
+  .news-reader-container {
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+    margin-bottom: 0;
+    /* Espacio gigante abajo para el InfoBox flotante */
+    padding-bottom: 180px; 
+  }
+
+  /* Fondo oscuro solo en el contenido */
+  .news-reader-content {
+    background: #111;
+    border-radius: 12px;
+    margin: 10px;
+    padding: 25px 20px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .news-reader-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+  }
+
   .news-reader-title { font-size: 1.8rem; }
   .gallery-grid { grid-template-columns: 1fr; }
+  .news-back-btn { width: 100%; text-align: center; }
+  .news-wa-btn { width: 100%; }
 }
