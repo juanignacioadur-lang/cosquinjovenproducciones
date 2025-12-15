@@ -158,7 +158,7 @@
 #detail-panel-anchor { scroll-margin-top: 130px; }
 #events-top-anchor { scroll-margin-top: 100px; }
 
-/* === MEDIA QUERIES (Móvil Ajustado) === */
+/* === MEDIA QUERIES (Móvil Centrado y Mejorado) === */
 @media (max-width: 900px) {
   
   .desktop-3d-view { display: none !important; }
@@ -168,28 +168,32 @@
     flex-direction: column; 
     width: 100%; 
     align-items: center; 
-    gap: 20px;
+    gap: 15px; /* Reducido para acercar la tarjeta al menú */
   }
 
-  /* NAVBAR */
+  /* NAVBAR DE EVENTOS (Corrección de Centrado) */
   .mobile-tabs-container {
     display: flex;
-    gap: 12px;
+    gap: 10px;
     width: 100%;
     overflow-x: auto;
-    padding: 10px 20px; 
-    justify-content: flex-start; 
+    padding: 5px 10px; 
+    
+    /* TRUCO PARA CENTRAR SIN ROMPER EL SCROLL: */
+    /* Si el contenido es menor al ancho, se centra. Si es mayor, inicia a la izquierda. */
+    margin: 0 auto;
+    justify-content: center; 
+    
     scroll-behavior: smooth;
     scrollbar-width: none;
   }
   .mobile-tabs-container::-webkit-scrollbar { display: none; }
-  .mobile-tabs-container::after { content: ""; flex: 0 0 20px; }
 
   .mobile-tab-btn {
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
     color: #bbb;
-    padding: 10px 18px;
+    padding: 12px 20px; /* Un poco más de cuerpo para tocar fácil */
     border-radius: 30px;
     white-space: nowrap;
     font-family: "Oswald", sans-serif;
@@ -198,14 +202,15 @@
     letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.3s ease;
-    flex-shrink: 0;
+    flex-shrink: 0; /* Evita que se aplasten */
   }
+  
   .mobile-tab-btn.active {
-    background: var(--accent);
+    background: #d00000; /* Rojo sólido para destacar más */
     color: #fff;
-    border-color: var(--accent);
-    box-shadow: 0 4px 15px rgba(208,0,0,0.4);
-    transform: scale(1.05);
+    border-color: #d00000;
+    box-shadow: 0 4px 15px rgba(208,0,0,0.5);
+    transform: scale(1.02);
   }
 
   .mobile-card-container {
@@ -215,7 +220,7 @@
     padding-bottom: 20px;
   }
 
-  /* TARJETA MÓVIL ESTILIZADA (Más angosta y más imagen) */
+  /* TARJETA MÓVIL ESTILIZADA */
   .mobile-styled-card {
     position: relative !important;
     top: 0 !important;
@@ -225,9 +230,7 @@
     visibility: visible !important;
     
     width: 90%; 
-    max-width: 340px; /* Un poco más angosta para elegancia */
-    
-    /* ALTURA */
+    max-width: 400px;
     height: 600px; 
     
     margin: 0 auto;
@@ -240,9 +243,9 @@
     flex-direction: column;
   }
 
-  /* IMAGEN GRANDE (82% de la tarjeta) */
+  /* IMAGEN */
   .mobile-tall-media {
-    height: 82% !important; /* MÁXIMA VISIBILIDAD DE IMAGEN */
+    height: 80% !important; /* Proporción ideal vertical */
     width: 100%;
     overflow: hidden;
   }
@@ -253,22 +256,23 @@
     object-position: top center;
   }
 
-  /* TEXTO COMPACTO */
+  /* CUERPO TEXTO */
   .mobile-card-body-centered {
-    padding: 12px; /* Menos padding */
+    padding: 15px; 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center; /* Centrado vertical */
+    align-items: center;     /* Centrado horizontal */
     text-align: center;
     background: linear-gradient(to top, rgba(0,0,0,1), rgba(15,15,15,0.95));
     flex: 1;
+    gap: 10px;
   }
 
   .mobile-card-body-centered .nt-card-title {
     font-size: 1.3rem;
     line-height: 1.1;
-    margin-bottom: 2px;
+    margin: 0;
   }
 
   .mobile-centered-meta {
@@ -276,9 +280,9 @@
     flex-direction: column;
     align-items: center;
     gap: 4px;
-    margin-bottom: 8px;
     color: #ccc;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
+    margin: 0;
   }
 
   .mobile-event-btn {
@@ -293,6 +297,7 @@
     letter-spacing: 1px;
     font-size: 0.8rem;
     transition: all 0.2s;
+    margin-top: 5px;
   }
   .mobile-event-btn:active {
     background: var(--accent);
@@ -300,7 +305,7 @@
     color: white;
   }
 
-  /* Ajustes generales */
+  /* RESET GENERAL MÓVIL */
   .nt-detail-grid { grid-template-columns: 1fr; }
   .nt-grid-bottom { grid-template-columns: 1fr; }
   .nt-detail-right { position: relative; top: auto; width: 100%; }
