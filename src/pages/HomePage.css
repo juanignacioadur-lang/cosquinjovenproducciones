@@ -4,19 +4,24 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- CONTENEDOR PRINCIPAL --- */
+/* --- CONTENEDOR PRINCIPAL (FIX DEFORMACIÓN) --- */
 .inicio-hero {
+  /* Ocupar toda la pantalla visible */
   min-height: 100vh;
   width: 100%;
+  
+  /* Flexbox para centrado perfecto */
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  justify-content: center; 
+  justify-content: center; /* Centrado Vertical */
+  align-items: center;     /* Centrado Horizontal */
+  
   padding: 20px;
   box-sizing: border-box;
   text-align: center;
   position: relative;
   z-index: 2;
+  
   opacity: 0;
   animation: fadeUp 1.5s ease-out forwards;
 }
@@ -28,12 +33,11 @@
   height: auto !important;
   object-fit: contain;
   display: block;
-  /* Margen inferior para separar de las estadísticas */
   margin: 0 auto 30px auto;
   filter: drop-shadow(0 10px 30px rgba(0,0,0,0.8));
 }
 
-/* --- ESTADÍSTICAS (AHORA ARRIBA) --- */
+/* --- ESTADÍSTICAS (ARRIBA) --- */
 .inicio-stats {
   display: flex;
   align-items: center;
@@ -45,8 +49,6 @@
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-  
-  /* CAMBIO: Margen abajo para separar de los botones */
   margin-bottom: 40px;
 }
 
@@ -80,11 +82,10 @@
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* --- BOTONES DE ACCIÓN (AHORA ABAJO) --- */
+/* --- BOTONES DE ACCIÓN (ABAJO) --- */
 .inicio-actions {
   display: flex;
   gap: 20px;
-  /* Sin margen inferior grande necesario, son el último elemento */
   margin-bottom: 20px;
   flex-wrap: wrap;
   justify-content: center;
@@ -135,12 +136,17 @@
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
+/* --- CONTROL DE CARGA DEL VIDEO --- */
+.video-hidden { opacity: 0; transition: opacity 0.8s ease-in-out; }
+.video-visible { opacity: 1; transition: opacity 0.8s ease-in-out; }
+
 /* --- ADAPTACIÓN MÓVIL --- */
 @media (max-width: 600px) {
   .inicio-hero {
-    /* Padding bottom para el InfoBox */
-    padding-bottom: 220px; 
-    padding-top: 60px;
+    /* Padding inferior para que el InfoBox no tape los botones, pero sin deformar */
+    padding-bottom: 140px; 
+    padding-top: 80px;
+    justify-content: center;
   }
 
   .inicio-logo {
@@ -149,11 +155,11 @@
   }
   
   .inicio-stats {
-    flex-direction: column;
-    gap: 20px;
-    padding: 20px 30px;
-    width: 90%;
-    /* Margen abajo en móvil */
+    flex-direction: row; /* Horizontal en móvil */
+    gap: 15px;
+    padding: 15px 10px;
+    width: 95%;
+    max-width: 380px;
     margin-bottom: 30px; 
   }
 
@@ -172,11 +178,10 @@
   }
 
   .stat-divider {
-    width: 60%;
-    height: 1px;
+    width: 1px;
+    height: 35px;
   }
   
-  .stat-number {
-    font-size: 2.2rem;
-  }
+  .stat-number { font-size: 1.8rem; }
+  .stat-label { font-size: 0.7rem; line-height: 1.2; }
 }

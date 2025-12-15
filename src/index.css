@@ -1,3 +1,6 @@
+/* 1. IMPORTACIÓN DE FUENTES GLOBAL */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap');
+
 /* --- Global Reset & Basics --- */
 * {
   margin: 0;
@@ -5,6 +8,22 @@
   box-sizing: border-box;
   font-family: 'Roboto', Arial, sans-serif;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* 2. CONFIGURACIÓN CRÍTICA DEL SCROLL */
+html {
+  /* 'auto' permite que MasterScroll.jsx funcione instantáneamente entre páginas.
+     El scroll suave dentro de la página lo manejamos con JS (EventsPage). */
+  scroll-behavior: auto; 
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh; /* Usamos min-height para no atrapar el scroll */
+  margin: 0;
+  background-color: #000; 
+  color: white;
+  overflow-x: hidden; /* Evita scroll horizontal indeseado */
 }
 
 /* Scrollbar Personalizado */
@@ -15,22 +34,14 @@
 
 ::selection { background: #d00000; color: white; }
 
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  background: transparent; 
-  color: white;
-  overflow-x: hidden;
-}
-
 #root {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
-  background-color: #000; 
+  background-color: transparent; 
   z-index: 0;
+  isolation: isolate; /* Crea un contexto de apilamiento limpio */
 }
 
 /* CONTENEDOR PRINCIPAL */
@@ -40,21 +51,39 @@ html, body {
   display: flex;
   flex-direction: column;
   position: relative;
-  z-index: 2;
-  
-  /* IMPORTANTE: Sin padding aquí para que el fondo de las páginas llegue al final */
+  z-index: 2; /* Asegura que el contenido esté sobre el overlay */
   padding-bottom: 0; 
 }
 
 /* Video y Overlay */
 .video-fondo {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh; 
+  object-fit: cover; 
+  z-index: -2; /* Al fondo de todo */
+  pointer-events: none; /* No bloquea clicks */
 }
+
 .overlay {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.6); z-index: 1; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh; 
+  background: rgba(0, 0, 0, 0.6); 
+  z-index: -1; /* Sobre el video, bajo el contenido */
+  pointer-events: none; /* No bloquea clicks */
 }
 
 .logo {
-  height: 6em; padding: 1.5em; will-change: filter; transition: filter 300ms;
+  height: 6em; 
+  padding: 1.5em; 
+  will-change: filter; 
+  transition: filter 300ms;
 }
-.logo:hover { filter: drop-shadow(0 0 2em #646cffaa); }
+.logo:hover { 
+  filter: drop-shadow(0 0 2em #646cffaa); 
+}
