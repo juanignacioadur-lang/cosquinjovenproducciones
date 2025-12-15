@@ -1,32 +1,36 @@
-/* --- FONDO PRINCIPAL --- */
+/* --- CONTENEDOR PRINCIPAL --- */
 .news-page-root {
   width: 100%;
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: stretch; /* Estirar para ocupar todo el alto */
+  padding-top: 0; /* QUITAMOS EL PADDING DE AQUÍ */
   background: linear-gradient(180deg, #2b0f0f 0%, #3d1414 55%, #0b0404 100%);
   background-attachment: fixed;
   background-size: cover;
-  padding-bottom: 0;
 }
 
-/* --- NUEVO: SUBFONDO GRIS (SOLO PC) --- */
+/* --- SUBFONDO GRIS (SOLO PC) --- */
 .news-container-wrapper {
   width: 100%;
   max-width: 1200px;
-  background: rgba(0, 0, 0, 0.3); /* El efecto vidrio oscuro */
+  background: rgba(0, 0, 0, 0.3); /* Vidrio oscuro */
   min-height: 100vh;
   border-left: 1px solid rgba(255, 255, 255, 0.05);
   border-right: 1px solid rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 60px rgba(0,0,0,0.6);
-  padding: 120px 20px 50px 20px; /* Padding superior para el navbar */
+  
+  /* AQUÍ AJUSTAMOS EL ESPACIO EXACTO */
+  padding: 100px 20px 50px 20px; /* 100px para librar el Navbar */
+  
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  align-items: flex-start; /* Alineado arriba */
 }
 
-/* --- TARJETA DE CONTENIDO --- */
+/* --- TARJETA DE LECTURA --- */
 .news-reader-container {
   position: relative;
   width: 100%;
@@ -46,7 +50,7 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- HEADER --- */
+/* HEADER */
 .news-reader-header {
   padding: 20px 30px;
   background: rgba(255, 255, 255, 0.03);
@@ -82,7 +86,7 @@
   margin-left: 10px;
 }
 
-/* --- CONTENIDO --- */
+/* CONTENIDO */
 .news-reader-content { padding: 40px; }
 
 .news-reader-title {
@@ -95,7 +99,7 @@
   padding-left: 20px;
 }
 
-/* --- GALERÍA --- */
+/* GALERÍA */
 .news-gallery {
   display: grid;
   gap: 15px;
@@ -110,6 +114,10 @@
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: #000;
+  max-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .news-img-box img {
   width: 100%;
@@ -118,7 +126,7 @@
   display: block;
 }
 
-/* --- TEXTO --- */
+/* TEXTO */
 .news-body-text p {
   font-size: 1.1rem;
   line-height: 1.8;
@@ -127,7 +135,7 @@
   font-weight: 300;
 }
 
-/* --- BOTÓN WHATSAPP --- */
+/* BOTÓN WHATSAPP */
 .news-action-wrapper {
   margin-top: 40px;
   text-align: center;
@@ -156,12 +164,11 @@
 /* === RESPONSIVE (MÓVIL) === */
 @media (max-width: 900px) {
   
-  /* AQUÍ QUITAMOS EL SUBFONDO EN MÓVIL PARA QUE SE VEA LIMPIO */
   .news-container-wrapper {
     background: transparent;
     border: none;
     box-shadow: none;
-    padding: 100px 0 0 0; /* Padding superior para el navbar */
+    padding: 90px 0 0 0; /* Padding solo para navbar en móvil */
     display: block;
   }
 
@@ -172,11 +179,9 @@
     box-shadow: none;
     background: transparent;
     margin-bottom: 0;
-    /* Espacio gigante abajo para el InfoBox flotante */
     padding-bottom: 180px; 
   }
 
-  /* Fondo oscuro solo en el contenido */
   .news-reader-content {
     background: #111;
     border-radius: 12px;
@@ -195,7 +200,29 @@
   }
 
   .news-reader-title { font-size: 1.8rem; }
-  .gallery-grid { grid-template-columns: 1fr; }
+  
+  /* --- CAMBIOS PARA IMÁGENES UNA AL LADO DE LA OTRA EN MÓVIL --- */
+  .gallery-grid { 
+    display: grid;
+    grid-template-columns: 1fr 1fr !important; /* Dos columnas */
+    gap: 10px;
+  }
+  
+  .news-img-box { 
+    max-height: 140px; /* Altura controlada */
+    height: 140px;
+  }
+  
+  .news-img-box img {
+    object-fit: cover; /* Llenar cuadro */
+  }
+
+  /* Excepción: Si es una sola foto, dejarla más grande */
+  .gallery-single .news-img-box {
+    max-height: 250px;
+    height: auto;
+  }
+  
   .news-back-btn { width: 100%; text-align: center; }
   .news-wa-btn { width: 100%; }
 }

@@ -254,7 +254,46 @@ export const eventsData = [
   },
 ];
 
+/* --- ORDEN DE NOTICIAS: MÁS ACTUAL A MÁS VIEJA --- */
 export const newsData = [
+  // 1. DANZABUELOS DÍA 2 (La más reciente)
+  {
+    id: 4,
+    title: "DANZABUELOS DÍA 2",
+    date: "13 de Diciembre, 2025",
+    category: "Danzabuelos 2",
+    image: "/danzabuelos1.jpg",
+    excerpt: "Un encuentro lleno de emoción, danza y cultura. El intendente anunció que el próximo año el festival volverá a tener sede en nuestra ciudad.",
+    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20el%20Festival%20Danzabuelos",
+    detailImages: ["/danzabuelos1.jpg", "/danzabuelos2.jpg", "/danzabuelos3.jpg"], 
+    fullContent: [
+      "🩵 Día 2 del Festival DanzAbuelos en Tanti. Un encuentro lleno de emoción, danza y cultura. 💃✨",
+      "La productora @cosquinjoven.producciones resaltó el acompañamiento de la Municipalidad de Tanti en la realización de este gran evento, consolidando lazos importantes para nuestra cultura.",
+      "El intendente @emiparedestanti anunció que el próximo año el festival volverá a tener sede en nuestra ciudad, reafirmando el compromiso de seguir promoviendo la cultura y el encuentro. 🙌",
+      "Agradecemos a la productora y a los organizadores por traer cultura y alegría a nuestra comunidad. 💙"
+    ]
+  },
+  
+  // 2. DANZABUELOS DÍA 1
+  {
+    id: 5,
+    title: "DANZABUELOS DÍA 1",
+    date: "12 de Diciembre, 2025",
+    category: "Danzabuelos",
+    image: "/tanti1.jpg",
+    excerpt: "Así vivimos el GRAN DANZABUELOS 2025. La jornada abrió con un colorido desfile de academias y agrupaciones.",
+    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20el%20inicio%20de%20Danzabuelos",
+    detailImages: ["/tanti1.jpg", "/tanti2.jpg", "/tanti3.jpg"],
+    fullContent: [
+      "Así vivimos el GRAN DANZABUELOS 2025. 💃🕺 ¡Ya comenzó DanzAbuelos 2025 en Tanti! 🎉",
+      "La jornada abrió con un colorido desfile de academias y agrupaciones, tanto locales como de los países visitantes 🇦🇷🇨🇱🇧🇴🇺🇾🇪🇨.",
+      "El cierre estuvo a cargo de las agrupaciones gauchas, que desfilaron a caballo dando fin al recorrido por la Avenida San Martín, para luego continuar la celebración en el Anfiteatro Municipal, colmado de público.",
+      "📅 La fiesta sigue sábado y domingo, con toda la alegría, el baile y la cultura del Festival Mundial DanzAbuelos, organizado por Cosquín Producciones.",
+      "✨ ¡Tanti vive la danza y el folclore!"
+    ]
+  },
+
+  // 3. INSCRIPCIONES (Fija / Importante)
   {
     id: 1,
     title: "COSQUIN JOVEN 2026: INSCRIPCIONES ABIERTAS",
@@ -270,21 +309,8 @@ export const newsData = [
       "Prepárate para vivir jornadas de danza, música, compañerismo y aprendizaje en el escenario mayor del folklore argentino."
     ]
   },
-  {
-    id: 2,
-    title: "RECUERDOS: ABUELA REINA Y ABUELO REY 2025",
-    date: "12 de Diciembre, 2025",
-    // CAMBIO DE CATEGORÍA
-    category: "Recuerdos", 
-    image: "/noticiaabuela1.jpg",
-    excerpt: "Revive la emoción de la elección de la Abuela Reina y el Abuelo Rey junto a la Delegación Centro de Jubilados Caminemos Juntos de San Luis.",
-    detailImages: ["/noticiaabuela1.jpg", "/noticiaabuela2.jpg", "/noticiaabuela3.jpg"],
-    fullContent: [
-      "¡Qué emoción! 🔥 Una noche llena de magia, tradición y alegría se vivió en la segunda edición de Danzabuelos 2025. El escenario se iluminó con la presencia de nuestros mayores.",
-      "Queremos destacar especialmente a la Delegación Centro de Jubilados 'Caminemos Juntos' de San Luis, quienes trajeron su calidez y talento. Fue un honor presenciar la elección de la Abuela Reina y el Abuelo Rey 💘👑.",
-      "Estos encuentros no solo celebran el arte, sino la vida misma. Gracias a todos los que hicieron posible esta jornada inolvidable. ¡Vamos por más sueños cumplidos en 2026! 🌟"
-    ]
-  },
+
+  // 4. CERTAMEN (Reina)
   {
     id: 3,
     title: "REINA DEL FOLKLORE: GRACIAS POR PARTICIPAR",
@@ -300,39 +326,20 @@ export const newsData = [
       "Gracias también a la mejor productora de moda, @productora.ludmilaperisse, por acompañarnos siempre 👏 y hacer que cada participante brille en el escenario con elegancia y estilo."
     ]
   },
-  // --- NUEVA NOTICIA (DÍA 1 - ANTES QUE LA DE DÍA 2) ---
+
+  // 5. RECUERDOS (La más vieja)
   {
-    id: 5,
-    title: "¡YA COMENZÓ DANZABUELOS 2025 EN TANTI!",
+    id: 2,
+    title: "RECUERDOS: ABUELA REINA Y ABUELO REY 2025",
     date: "12 de Diciembre, 2025",
-    category: "Danzabuelos",
-    image: "/tanti1.jpg",
-    excerpt: "La jornada abrió con un colorido desfile de academias y agrupaciones, tanto locales como de los países visitantes.",
-    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20el%20inicio%20de%20Danzabuelos",
-    detailImages: ["/tanti1.jpg", "/tanti2.jpg", "/tanti3.jpg"],
+    category: "Recuerdos", 
+    image: "/noticiaabuela1.jpg",
+    excerpt: "Revive la emoción de la elección de la Abuela Reina y el Abuelo Rey junto a la Delegación Centro de Jubilados Caminemos Juntos de San Luis.",
+    detailImages: ["/noticiaabuela1.jpg", "/noticiaabuela2.jpg", "/noticiaabuela3.jpg"],
     fullContent: [
-      "💃🕺 ¡Ya comenzó DanzAbuelos 2025 en Tanti! 🎉",
-      "La jornada abrió con un colorido desfile de academias y agrupaciones, tanto locales como de los países visitantes 🇦🇷🇨🇱🇧🇴🇺🇾🇪🇨.",
-      "El cierre estuvo a cargo de las agrupaciones gauchas, que desfilaron a caballo dando fin al recorrido por la Avenida San Martín, para luego continuar la celebración en el Anfiteatro Municipal, colmado de público.",
-      "📅 La fiesta sigue sábado y domingo, con toda la alegría, el baile y la cultura del Festival Mundial DanzAbuelos, organizado por Cosquín Producciones.",
-      "✨ ¡Tanti vive la danza y el folclore!"
-    ]
-  },
-  // --- DÍA 2 (YA EXISTENTE) ---
-  {
-    id: 4,
-    title: "DÍA 2 DEL FESTIVAL DANZABUELOS EN TANTI",
-    date: "13 de Diciembre, 2025",
-    category: "Danzabuelos 2",
-    image: "/danzabuelos1.jpg",
-    excerpt: "Un encuentro lleno de emoción, danza y cultura. El intendente anunció que el próximo año el festival volverá a tener sede en nuestra ciudad.",
-    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20el%20Festival%20Danzabuelos",
-    detailImages: ["/danzabuelos1.jpg", "/danzabuelos2.jpg", "/danzabuelos3.jpg"], 
-    fullContent: [
-      "🩵 Día 2 del Festival DanzAbuelos en Tanti. Un encuentro lleno de emoción, danza y cultura. 💃✨",
-      "La productora @cosquinjoven.producciones resaltó el acompañamiento de la Municipalidad de Tanti en la realización de este gran evento, consolidando lazos importantes para nuestra cultura.",
-      "El intendente @emiparedestanti anunció que el próximo año el festival volverá a tener sede en nuestra ciudad, reafirmando el compromiso de seguir promoviendo la cultura y el encuentro. 🙌",
-      "Agradecemos a la productora y a los organizadores por traer cultura y alegría a nuestra comunidad. 💙"
+      "¡Qué emoción! 🔥 Una noche llena de magia, tradición y alegría se vivió en la segunda edición de Danzabuelos 2025. El escenario se iluminó con la presencia de nuestros mayores.",
+      "Queremos destacar especialmente a la Delegación Centro de Jubilados 'Caminemos Juntos' de San Luis, quienes trajeron su calidez y talento. Fue un honor presenciar la elección de la Abuela Reina y el Abuelo Rey 💘👑.",
+      "Estos encuentros no solo celebran el arte, sino la vida misma. Gracias a todos los que hicieron posible esta jornada inolvidable. ¡Vamos por más sueños cumplidos en 2026! 🌟"
     ]
   }
 ];

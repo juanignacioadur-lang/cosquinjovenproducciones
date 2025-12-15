@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { scrollToElement } from "../utils/scrollUtils";
-import { eventsData, newsData } from "../data/data";
-
-// Importamos los nuevos componentes
-import MobileTabNav from "../components/MobileTabNav";
-import DesktopNewsSlider from "../components/DesktopNewsSlider";
-
+import { scrollToElement } from "../utils/scrollUtils"; 
+import { eventsData, newsData } from "../data/data"; 
+import MobileTitleSelector from "../components/MobileTitleSelector"; 
 import "./EventsPage.css";
 
-/* Carousel Interno (Lo dejamos aquí porque es pequeño) */
+/* --- Carousel --- */
 function Carousel({ images = [], autoPlay = true }) {
   const [index, setIndex] = useState(0);
-  const intervalRef = React.useRef(null);
+  const intervalRef = useRef(null);
   useEffect(() => { setIndex(0); }, [images]);
   useEffect(() => {
     if (!autoPlay || !images || images.length <= 1) return;
@@ -28,19 +24,22 @@ function Carousel({ images = [], autoPlay = true }) {
         {images.map((src, i) => (
           <img key={i} src={src} alt={`Img ${i}`} className={`nt-carousel-img ${i === index ? "active" : ""}`} />
         ))}
+        {images.length > 1 && (
+          <div className="nt-carousel-dots">
+            {images.map((_, i) => (
+              <span key={i} className={`nt-dot ${i === index ? "active" : ""}`} onClick={() => setIndex(i)} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-/* EventDetail */
+/* --- Detalle Evento --- */
 function EventDetail({ event, onClose }) {
-  useEffect(() => {
-    if (event) scrollToElement("detail-panel-anchor");
-  }, [event]);
-
+  useEffect(() => { if (event) scrollToElement("detail-panel-anchor"); }, [event]);
   if (!event) return null;
-
   return (
     <div className="nt-detail-panel" id="detail-panel-anchor">
       <div className="nt-detail-head">
@@ -51,23 +50,23 @@ function EventDetail({ event, onClose }) {
         <div className="nt-detail-left">
           <Carousel images={event.images || [event.image]} />
           <div className="nt-box-resena">
-            <h4 className="nt-resena-title">📢 RESEÑA DEL EVENTO</h4>
-            <p className="nt-resena-text">{event.longDescription}</p>
+             <h4 className="nt-resena-title">📢 RESEÑA DEL EVENTO</h4>
+             <p className="nt-resena-text">{event.longDescription}</p>
           </div>
           <div className="nt-grid-bottom">
-            {event.fullDetails?.map((section, idx) => (
-              <div key={idx} className="nt-detail-card">
-                <h4 className="nt-detail-card-title">{section.icon} {section.title}</h4>
-                {section.text && <p className="nt-text-desc">{section.text}</p>}
-                {section.list && <ul className="nt-list-custom">{section.list.map((item, i) => <li key={i}>{item}</li>)}</ul>}
-                {section.subSections?.map((sub, j) => (
-                  <div key={j} className="nt-subsection">
-                    <h5>{sub.title}</h5>
-                    {sub.list && <ul className="nt-list-custom">{sub.list.map((it, k) => <li key={k}>{it}</li>)}</ul>}
-                  </div>
-                ))}
-              </div>
-            ))}
+             {event.fullDetails?.map((section, idx) => (
+               <div key={idx} className="nt-detail-card">
+                 <h4 className="nt-detail-card-title">{section.icon} {section.title}</h4>
+                 {section.text && <p className="nt-text-desc">{section.text}</p>}
+                 {section.list && <ul className="nt-list-custom">{section.list.map((item, i) => <li key={i}>{item}</li>)}</ul>}
+                 {section.subSections?.map((sub, j) => (
+                   <div key={j} className="nt-subsection">
+                     <h5>{sub.title}</h5>
+                     {sub.list && <ul className="nt-list-custom">{sub.list.map((it, k) => <li key={k}>{it}</li>)}</ul>}
+                   </div>
+                 ))}
+               </div>
+             ))}
           </div>
         </div>
         <aside className="nt-detail-right">
@@ -77,24 +76,24 @@ function EventDetail({ event, onClose }) {
           </div>
           {event.packs?.length > 0 && (
             <div className="nt-right-section">
-              <h4>Packs Disponibles</h4>
-              {event.packs.map((p, i) => (
-                <div className="nt-pack-card" key={i}>
-                  <div className="nt-pack-header"><span>{p.title}</span><span>{p.price}</span></div>
-                  {p.items && <ul className="nt-pack-list">{p.items.map((it, j) => <li key={j}>{it}</li>)}</ul>}
-                </div>
-              ))}
+               <h4>Packs Disponibles</h4>
+               {event.packs.map((p, i) => (
+                  <div className="nt-pack-card" key={i}>
+                    <div className="nt-pack-header"><span>{p.title}</span><span>{p.price}</span></div>
+                    {p.items && <ul className="nt-pack-list">{p.items.map((it, j) => <li key={j}>{it}</li>)}</ul>}
+                  </div>
+               ))}
             </div>
           )}
           {event.prizes?.length > 0 && (
             <div className="nt-right-section">
-              <h4>Beneficios y Premios</h4>
-              {event.prizes.map((pr, i) => (
-                <div className="nt-benefit-box" key={i}>
-                  <div className="nt-benefit-title">{pr.place}</div>
-                  <div className="nt-benefit-desc">{pr.reward}</div>
-                </div>
-              ))}
+                <h4>Beneficios y Premios</h4>
+                {event.prizes.map((pr, i) => (
+                  <div className="nt-benefit-box" key={i}>
+                    <div className="nt-benefit-title">{pr.place}</div>
+                    <div className="nt-benefit-desc">{pr.reward}</div>
+                  </div>
+                ))}
             </div>
           )}
           {event.instagramLink && <a href={event.instagramLink} target="_blank" rel="noreferrer" className="nt-instagram-btn">VER EN INSTAGRAM</a>}
@@ -112,12 +111,59 @@ function EventDetail({ event, onClose }) {
   );
 }
 
-/* COMPONENTE PRINCIPAL */
+/* --- MAIN --- */
 export default function Noticias() {
   const [activeEvent, setActiveEvent] = useState(null);
+  
+  // Estados
   const [activeIndex, setActiveIndex] = useState(1);
   const [mobileIndex, setMobileIndex] = useState(0);
   const [mobileNewsIndex, setMobileNewsIndex] = useState(0);
+  const [newsIndex, setNewsIndex] = useState(0); 
+  const itemsPerPage = 3;
+
+  // Lógica de Swipe (Deslizar dedo)
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  }
+  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+
+  // Swipe para Eventos
+  const onTouchEndEvents = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+    
+    if (isLeftSwipe) {
+      // Siguiente
+      setMobileIndex((prev) => (prev === eventsData.length - 1 ? 0 : prev + 1));
+    }
+    if (isRightSwipe) {
+      // Anterior
+      setMobileIndex((prev) => (prev === 0 ? eventsData.length - 1 : prev - 1));
+    }
+  }
+
+  // Swipe para Noticias
+  const onTouchEndNews = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      setMobileNewsIndex((prev) => (prev === newsData.length - 1 ? 0 : prev + 1));
+    }
+    if (isRightSwipe) {
+      setMobileNewsIndex((prev) => (prev === 0 ? newsData.length - 1 : prev - 1));
+    }
+  }
 
   const location = useLocation();
 
@@ -132,8 +178,8 @@ export default function Noticias() {
   useEffect(() => { if (activeEvent) setActiveEvent(eventsData[activeIndex]); }, [activeIndex]);
   useEffect(() => { if (activeEvent) setActiveEvent(eventsData[mobileIndex]); }, [mobileIndex]);
 
-  const handleNext3D = () => setActiveIndex((prev) => (prev + 1) % eventsData.length);
-  const handlePrev3D = () => setActiveIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length);
+  const handleNext3D = () => { setActiveIndex((prev) => (prev + 1) % eventsData.length); };
+  const handlePrev3D = () => { setActiveIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length); };
 
   const getCardClass = (index) => {
     const total = eventsData.length;
@@ -162,6 +208,9 @@ export default function Noticias() {
       setActiveIndex(i);
     }
   };
+
+  const handleNextNews = () => { if (newsIndex < newsData.length - itemsPerPage) setNewsIndex(prev => prev + 1); };
+  const handlePrevNews = () => { if (newsIndex > 0) setNewsIndex(prev => prev - 1); };
 
   const mobileEvent = eventsData[mobileIndex] || eventsData[0];
   const mobileNews = newsData[mobileNewsIndex] || newsData[0];
@@ -201,14 +250,19 @@ export default function Noticias() {
 
         {/* MÓVIL: EVENTOS */}
         <section className="nt-cards-area mobile-list-view">
-          <MobileTabNav 
+          <MobileTitleSelector 
             items={eventsData} 
             activeIndex={mobileIndex} 
             onSelect={setMobileIndex} 
             getLabel={(ev) => ev.shortTitle}
           />
-
-          <div className="mobile-card-container">
+          {/* AQUÍ AGREGAMOS LOS EVENTOS TÁCTILES */}
+          <div 
+            className="mobile-card-container"
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEndEvents}
+          >
             <article className="nt-card mobile-styled-card">
               <div className="nt-card-media mobile-tall-media">
                 <img src={mobileEvent.image} alt={mobileEvent.title} />
@@ -239,18 +293,46 @@ export default function Noticias() {
           </div>
 
           {/* PC: SLIDER NOTICIAS */}
-          <DesktopNewsSlider newsData={newsData} />
+          <div className="desktop-news-view news-slider-container">
+            <button className="nt-3d-btn news-nav-btn prev" onClick={handlePrevNews} disabled={newsIndex === 0} style={{ opacity: newsIndex === 0 ? 0.3 : 1 }}>‹</button>
+            <div className="news-track-window">
+              <div className="news-track" style={{ transform: `translateX(-${newsIndex * (100 / itemsPerPage)}%)` }}>
+                {newsData.map((news) => (
+                  <div className="news-slider-item" key={news.id}>
+                    <article className="news-item">
+                      <div className="news-image-wrapper">
+                        <span className="news-badge">{news.category}</span>
+                        <img src={news.image} alt={news.title} />
+                      </div>
+                      <div className="news-content-wrapper">
+                        <div className="news-meta">📅 {news.date}</div>
+                        <h3 className="news-item-title">{news.title}</h3>
+                        <p className="news-excerpt">{news.excerpt}</p>
+                        <Link to={`/noticias/${news.id}`} className="news-link">LEER MÁS</Link>
+                      </div>
+                    </article>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <button className="nt-3d-btn news-nav-btn next" onClick={handleNextNews} disabled={newsIndex >= newsData.length - itemsPerPage} style={{ opacity: newsIndex >= newsData.length - itemsPerPage ? 0.3 : 1 }}>›</button>
+          </div>
 
           {/* MÓVIL: NOTICIAS */}
           <div className="mobile-news-view">
-            <MobileTabNav 
+            <MobileTitleSelector 
               items={newsData} 
               activeIndex={mobileNewsIndex} 
               onSelect={setMobileNewsIndex} 
               getLabel={(n) => n.category.toUpperCase()}
             />
-            
-            <div className="mobile-card-container">
+            {/* AQUÍ AGREGAMOS LOS EVENTOS TÁCTILES */}
+            <div 
+              className="mobile-card-container"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEndNews}
+            >
               <article className="nt-card mobile-styled-card">
                 <div className="nt-card-media mobile-tall-media">
                   <span className="news-badge" style={{zIndex: 5, top: 10, left: 10}}>{mobileNews.category}</span>
