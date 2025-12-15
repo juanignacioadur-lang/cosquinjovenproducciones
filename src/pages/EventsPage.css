@@ -158,7 +158,9 @@
 #detail-panel-anchor { scroll-margin-top: 130px; }
 #events-top-anchor { scroll-margin-top: 100px; }
 
-/* === MEDIA QUERIES (Móvil Centrado y Mejorado) === */
+/* ... (TODO EL CSS DE PC ARRIBA QUEDA IGUAL) ... */
+
+/* === MEDIA QUERIES (Móvil Alineado y Botones Grandes) === */
 @media (max-width: 900px) {
   
   .desktop-3d-view { display: none !important; }
@@ -168,51 +170,71 @@
     flex-direction: column; 
     width: 100%; 
     align-items: center; 
-    gap: 15px; /* Reducido para acercar la tarjeta al menú */
+    gap: 15px;
   }
 
-  /* NAVBAR DE EVENTOS (Corrección de Centrado) */
+  /* NAVBAR ALINEADO CON LA TARJETA */
   .mobile-tabs-container {
     display: flex;
-    gap: 10px;
-    width: 100%;
-    overflow-x: auto;
-    padding: 5px 10px; 
+    gap: 8px;
     
-    /* TRUCO PARA CENTRAR SIN ROMPER EL SCROLL: */
-    /* Si el contenido es menor al ancho, se centra. Si es mayor, inicia a la izquierda. */
+    /* Mismas dimensiones que la tarjeta para que encaje perfecto */
+    width: 90%;
+    max-width: 400px;
+    
     margin: 0 auto;
-    justify-content: center; 
+    padding-bottom: 5px; /* Espacio antes de la tarjeta */
     
-    scroll-behavior: smooth;
-    scrollbar-width: none;
+    /* Sin scroll, ocupan el espacio disponible */
+    overflow: visible; 
+    justify-content: space-between;
   }
+  
+  /* Ocultar barra scroll por si acaso */
   .mobile-tabs-container::-webkit-scrollbar { display: none; }
 
+  /* BOTÓN "BLOQUE" (Se estira) */
   .mobile-tab-btn {
+    /* ESTO HACE QUE SE REPARTAN EL ANCHO */
+    flex: 1; 
+    
     background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.15);
-    color: #bbb;
-    padding: 12px 20px; /* Un poco más de cuerpo para tocar fácil */
-    border-radius: 30px;
-    white-space: nowrap;
+    color: #aaa;
+    
+    /* Más altos y cómodos */
+    padding: 12px 4px; 
+    border-radius: 6px; /* Bordes cuadrados suaves */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    
     font-family: "Oswald", sans-serif;
     text-transform: uppercase;
-    font-size: 0.85rem;
+    font-size: 0.75rem; /* Texto compacto para que entre */
+    font-weight: 600;
     letter-spacing: 0.5px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    flex-shrink: 0; /* Evita que se aplasten */
+    transition: all 0.2s ease;
+    
+    /* Evita que el texto rompa el botón */
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   .mobile-tab-btn.active {
-    background: #d00000; /* Rojo sólido para destacar más */
+    background: #d00000;
     color: #fff;
     border-color: #d00000;
-    box-shadow: 0 4px 15px rgba(208,0,0,0.5);
-    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(208,0,0,0.4);
+    transform: translateY(-2px);
+    z-index: 2; /* Para que sobresalga un poco */
   }
 
+  /* CONTENEDOR TARJETA */
   .mobile-card-container {
     width: 100%;
     display: flex;
@@ -220,7 +242,7 @@
     padding-bottom: 20px;
   }
 
-  /* TARJETA MÓVIL ESTILIZADA */
+  /* TARJETA */
   .mobile-styled-card {
     position: relative !important;
     top: 0 !important;
@@ -243,9 +265,8 @@
     flex-direction: column;
   }
 
-  /* IMAGEN */
   .mobile-tall-media {
-    height: 80% !important; /* Proporción ideal vertical */
+    height: 80% !important;
     width: 100%;
     overflow: hidden;
   }
@@ -256,21 +277,20 @@
     object-position: top center;
   }
 
-  /* CUERPO TEXTO */
   .mobile-card-body-centered {
-    padding: 15px; 
+    padding: 10px 15px;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Centrado vertical */
-    align-items: center;     /* Centrado horizontal */
+    justify-content: center;
+    align-items: center;
     text-align: center;
     background: linear-gradient(to top, rgba(0,0,0,1), rgba(15,15,15,0.95));
     flex: 1;
-    gap: 10px;
+    gap: 5px;
   }
 
   .mobile-card-body-centered .nt-card-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     line-height: 1.1;
     margin: 0;
   }
@@ -279,7 +299,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 4px;
+    gap: 2px;
     color: #ccc;
     font-size: 0.8rem;
     margin: 0;
@@ -290,12 +310,12 @@
     background: transparent;
     color: #fff;
     border: 1px solid #fff;
-    padding: 10px;
-    border-radius: 6px;
+    padding: 8px;
+    border-radius: 4px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     transition: all 0.2s;
     margin-top: 5px;
   }
@@ -305,7 +325,6 @@
     color: white;
   }
 
-  /* RESET GENERAL MÓVIL */
   .nt-detail-grid { grid-template-columns: 1fr; }
   .nt-grid-bottom { grid-template-columns: 1fr; }
   .nt-detail-right { position: relative; top: auto; width: 100%; }
