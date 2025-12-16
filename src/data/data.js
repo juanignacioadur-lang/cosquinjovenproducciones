@@ -72,6 +72,15 @@ export const eventsData = [
 
     packs: [
       { 
+        title: "RESERVA TU PACK", 
+        price: "$50.000", 
+        items: [
+          "Seña para asegurar tu lugar",
+          "Descontable del valor total",
+          "Cupos limitados"
+        ] 
+      },
+      { 
         title: "OPCIÓN 1", 
         price: "$75.000 x cuota", 
         items: [
@@ -238,6 +247,15 @@ export const eventsData = [
     ],
 
     packs: [
+      { 
+        title: "RESERVA TU PACK", 
+        price: "$50.000", 
+        items: [
+          "Seña para asegurar tu lugar",
+          "Descontable del valor total",
+          "Cupos limitados"
+        ] 
+      },
       { 
         title: "Inscripción", 
         price: "Hasta 15 Ene", 
