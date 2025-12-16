@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { scrollToElement } from "../utils/scrollUtils"; 
 import { eventsData, newsData } from "../data/data"; 
 import MobileTitleSelector from "../components/MobileTitleSelector"; 
+import Desktop3DSlider from "../components/Desktop3DSlider"; // Usando tu componente separado
 import "./EventsPage.css";
 
 /* --- Carousel --- */
@@ -38,12 +39,15 @@ function Carousel({ images = [], autoPlay = true }) {
 
 /* --- Detalle Evento --- */
 function EventDetail({ event, onClose }) {
+  // Al montar, scrollea al panel de detalle
   useEffect(() => { if (event) scrollToElement("detail-panel-anchor"); }, [event]);
+  
   if (!event) return null;
   return (
     <div className="nt-detail-panel" id="detail-panel-anchor">
       <div className="nt-detail-head">
         <h3 className="nt-detail-title">{event.title}</h3>
+        {/* Botón Cerrar Superior */}
         <button className="nt-hide-btn" onClick={onClose}>CERRAR</button>
       </div>
       <div className="nt-detail-grid">
@@ -106,6 +110,8 @@ function EventDetail({ event, onClose }) {
           {event.reglamentoLink && <span className="nt-reglamento">Descargar Reglamento</span>}
         </aside>
       </div>
+      
+      {/* Botón Cerrar Inferior (Visible solo en móvil) */}
       <button className="nt-hide-btn-mobile" onClick={onClose}>CERRAR</button>
     </div>
   );
@@ -122,7 +128,7 @@ export default function Noticias() {
   const [newsIndex, setNewsIndex] = useState(0); 
   const itemsPerPage = 3;
 
-  // Lógica de Swipe (Deslizar dedo)
+  // Lógica de Swipe
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   const minSwipeDistance = 50;
@@ -141,11 +147,9 @@ export default function Noticias() {
     const isRightSwipe = distance < -minSwipeDistance;
     
     if (isLeftSwipe) {
-      // Siguiente
       setMobileIndex((prev) => (prev === eventsData.length - 1 ? 0 : prev + 1));
     }
     if (isRightSwipe) {
-      // Anterior
       setMobileIndex((prev) => (prev === 0 ? eventsData.length - 1 : prev - 1));
     }
   }
@@ -181,14 +185,12 @@ export default function Noticias() {
   const handleNext3D = () => { setActiveIndex((prev) => (prev + 1) % eventsData.length); };
   const handlePrev3D = () => { setActiveIndex((prev) => (prev - 1 + eventsData.length) % eventsData.length); };
 
-  const getCardClass = (index) => {
-    const total = eventsData.length;
-    if (index === activeIndex) return "active";
-    const prevIndex = (activeIndex - 1 + total) % total;
-    const nextIndex = (activeIndex + 1) % total;
-    if (index === prevIndex) return "prev";
-    if (index === nextIndex) return "next";
-    return "hidden";
+  const handleCardClick = (i) => {
+    if (i === activeIndex) {
+      if (!activeEvent || activeEvent.id !== eventsData[i].id) openDetails(eventsData[i].id);
+    } else {
+      setActiveIndex(i);
+    }
   };
 
   const openDetails = (eventId) => {
@@ -196,17 +198,10 @@ export default function Noticias() {
     if (ev) setActiveEvent(ev);
   };
 
+  // Función que cierrra el detalle y hace scroll al inicio de la sección
   const closeDetails = () => {
     setActiveEvent(null);
     scrollToElement("events-top-anchor");
-  };
-
-  const handleCardClick = (i) => {
-    if (i === activeIndex) {
-      if (!activeEvent || activeEvent.id !== eventsData[i].id) openDetails(eventsData[i].id);
-    } else {
-      setActiveIndex(i);
-    }
   };
 
   const handleNextNews = () => { if (newsIndex < newsData.length - itemsPerPage) setNewsIndex(prev => prev + 1); };
@@ -227,25 +222,13 @@ export default function Noticias() {
 
         {/* PC: 3D */}
         <section className="nt-cards-area desktop-3d-view">
-          <div className="nt-cards-3d">
-            <button className="nt-3d-btn nt-3d-prev" onClick={handlePrev3D}>‹</button>
-            {eventsData.map((ev, i) => (
-              <article className={`nt-card ${getCardClass(i)}`} key={ev.id} onClick={() => handleCardClick(i)}>
-                <div className="nt-card-media">
-                  <img src={ev.image} alt={ev.title} onError={(e) => { e.currentTarget.style.display = "none"; }} />
-                </div>
-                <div className="nt-card-body">
-                  <h3 className="nt-card-title">{ev.title}</h3>
-                  <div className="nt-card-meta">
-                    <div className="nt-meta-item">📅 {ev.date}</div>
-                    <div className="nt-meta-item">📍 {ev.location}</div>
-                  </div>
-                  <div className="nt-card-actions"><button className="nt-btn">MOSTRAR INFORMACIÓN</button></div>
-                </div>
-              </article>
-            ))}
-            <button className="nt-3d-btn nt-3d-next" onClick={handleNext3D}>›</button>
-          </div>
+          <Desktop3DSlider 
+             events={eventsData}
+             activeIndex={activeIndex}
+             onNext={handleNext3D}
+             onPrev={handlePrev3D}
+             onCardClick={handleCardClick}
+           />
         </section>
 
         {/* MÓVIL: EVENTOS */}
@@ -256,7 +239,7 @@ export default function Noticias() {
             onSelect={setMobileIndex} 
             getLabel={(ev) => ev.shortTitle}
           />
-          {/* AQUÍ AGREGAMOS LOS EVENTOS TÁCTILES */}
+          
           <div 
             className="mobile-card-container"
             onTouchStart={onTouchStart}
@@ -326,7 +309,7 @@ export default function Noticias() {
               onSelect={setMobileNewsIndex} 
               getLabel={(n) => n.category.toUpperCase()}
             />
-            {/* AQUÍ AGREGAMOS LOS EVENTOS TÁCTILES */}
+            
             <div 
               className="mobile-card-container"
               onTouchStart={onTouchStart}
