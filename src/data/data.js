@@ -9,7 +9,8 @@ export const eventsData = [
     image: "/COSQUIN JOVEN AL TEATRO.jpg",
     images: ["/COSQUIN JOVEN AL TEATRO.jpg"],
     instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DQvBp-6jApW/",
-    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20al%20Teatro%20(Carlos%20Paz).",
+    // CAMBIO AQUI:
+    whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20al%20Teatro%20(Carlos%20Paz).",
     
     longDescription: "Un mega evento cultural que reúne tradición, danza, malambo y folklore. Participan academias, escuelas, ballets, instituciones, artistas y malambistas de todas las edades en el corazón turístico de Villa Carlos Paz.",
     
@@ -117,7 +118,8 @@ export const eventsData = [
     image: "/COSQUIN JOVEN CARTAGENA.jpg",
     images: ["/COSQUIN JOVEN CARTAGENA.jpg"],
     instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DROAuSCDN1D/",
-    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20Cartagena%202026.",
+    // CAMBIO AQUI:
+    whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20Cartagena%202026.",
     
     longDescription: "¡Llega la 1.ª Edición Internacional! Un encuentro único donde la danza, el canto y la cultura folklórica se unen en Cartagena de Indias. Participan academias, ballets, cantantes, peñas, escuelas, centros culturales, jubilados, artistas y viajeros.",
     
@@ -197,7 +199,8 @@ export const eventsData = [
     image: "/EL ARGENTINO.jpg",
     images: ["/EL ARGENTINO.jpg"],
     instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DRQhxujDAGd/",
-    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20más%20información%20sobre%20El%20Argentino%202026.",
+    // CAMBIO AQUI:
+    whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20más%20información%20sobre%20El%20Argentino%202026.",
     
     longDescription: "Un mega evento cultural que reúne tradición, danza, malambo y folklore. Participan academias, escuelas, ballets, instituciones, artistas y malambistas de todas las edades. Promoviendo la amistad y el fortalecimiento de las raíces.",
     
@@ -282,7 +285,8 @@ export const newsData = [
     category: "Danzabuelos 2",
     image: "/danzabuelos1.jpg",
     excerpt: "Un encuentro lleno de emoción, danza y cultura. El intendente anunció que el próximo año el festival volverá a tener sede en nuestra ciudad.",
-    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20el%20Festival%20Danzabuelos",
+    // CAMBIO AQUI:
+    whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20saber%20más%20sobre%20el%20Festival%20Danzabuelos",
     detailImages: ["/danzabuelos1.jpg", "/danzabuelos2.jpg", "/danzabuelos3.jpg"], 
     fullContent: [
       "🩵 Día 2 del Festival DanzAbuelos en Tanti. Un encuentro lleno de emoción, danza y cultura. 💃✨",
@@ -300,7 +304,8 @@ export const newsData = [
     category: "Danzabuelos",
     image: "/tanti1.jpg",
     excerpt: "Así vivimos el GRAN DANZABUELOS 2025. La jornada abrió con un colorido desfile de academias y agrupaciones.",
-    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20el%20inicio%20de%20Danzabuelos",
+    // CAMBIO AQUI:
+    whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20saber%20más%20sobre%20el%20inicio%20de%20Danzabuelos",
     detailImages: ["/tanti1.jpg", "/tanti2.jpg", "/tanti3.jpg"],
     fullContent: [
       "Así vivimos el GRAN DANZABUELOS 2025. 💃🕺 ¡Ya comenzó DanzAbuelos 2025 en Tanti! 🎉",
@@ -319,7 +324,8 @@ export const newsData = [
     category: "Inscripciones",
     image: "/imagen1.png",
     excerpt: "Ya están abiertas las inscripciones para Cosquin Joven 2026. No te pierdas la oportunidad de participar en el evento folklórico más importante del año.",
-    whatsappLink: "https://wa.me/5493541276887",
+    // CAMBIO AQUI:
+    whatsappLink: "https://wa.me/5493541393487",
     detailImages: ["/imagen1.png"], 
     fullContent: [
       "Nos complace anunciar que ya están abiertas las inscripciones para la edición 2026 de Cosquín Joven. Este evento, que reúne a miles de artistas de todo el país, promete ser una celebración inolvidable de nuestra cultura.",
@@ -336,7 +342,8 @@ export const newsData = [
     category: "Certamen",
     image: "/folklore1.jpg",
     excerpt: "Es una emoción increíble poder realizar cada año esta convocatoria. Gracias a todas las participantes y a nuestra productora de moda.",
-    whatsappLink: "https://wa.me/5493541276887?text=Hola,%20quiero%20saber%20más%20sobre%20las%20Reinas%20del%20Folklore",
+    // CAMBIO AQUI:
+    whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20saber%20más%20sobre%20las%20Reinas%20del%20Folklore",
     detailImages: ["/folklore1.jpg", "/folklore2.jpg", "/folklore3.jpg"],
     fullContent: [
       "Gracias a todas las participantes por la Reina del Folklore 👸💘. Es una emoción increíble poder realizar cada año esta convocatoria 🌟, donde la belleza se une con nuestra tradición.",
