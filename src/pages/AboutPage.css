@@ -1,151 +1,732 @@
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&display=swap');
+/* ============================================================
+   ABOUT PAGE - ARQUITECTURA MONUMENTAL V25.0 (GOD LEVEL)
+   INGENIERÍA EDITORIAL, CINEMATOGRÁFICA E INSTITUCIONAL
+   SISTEMA DE DISEÑO FLUIDO SIN ESCALA MANUAL
+   ============================================================ */
 
-:root {
-  --cj-navbar-height: 76px;
-  --cj-panel-width: 1100px;
-  --cj-gap: 25px;
-  --cj-accent: #d00000;
-  --bg-panel: rgba(0,0,0,0.56);
-}
-
-.cj-section { 
-  width: 100%; 
-  min-height: 100vh; 
-  margin: 0; 
-  padding: 0; 
-  background: linear-gradient(180deg, #2b0f0f 0%, #3d1414 55%, #0b0404 100%); 
-  display: flex; 
-  justify-content: center; 
-  align-items: flex-start; 
-  position: relative; 
-  z-index: 2; 
-}
-
-.cj-container { 
-  width: 100%; 
-  max-width: 1200px; 
-  background: rgba(0, 0, 0, 0.3); 
-  border-radius: 0; 
-  border-left: 1px solid rgba(255,255,255,0.05); 
-  border-right: 1px solid rgba(255,255,255,0.05); 
-  box-shadow: 0 0 60px rgba(0,0,0,0.6); 
-  height: auto; 
-  min-height: 100vh; 
-  margin: 0 auto; 
-  
-  /* Padding base para PC */
-  padding: calc(var(--cj-navbar-height) + 40px) 40px 140px 40px; 
-  
-  display: flex; 
-  flex-direction: column; 
-  gap: 60px; 
-  align-items: center; 
-  box-sizing: border-box; 
-}
-
-.cj-divider { width: 100%; height: 1px; background: rgba(255, 255, 255, 0.1); margin: 10px 0; }
-
-/* BIO */
-.cj-bio-section {
+/* --- 1. RAÍZ Y ESTRUCTURA DE CONTENCIÓN --- */
+.about-monumental-layout {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 400px;
-  gap: 50px;
-  align-items: center;
-  opacity: 0;
-  animation: fadeUp 0.8s ease-out forwards;
-  background: rgba(20, 20, 20, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 50px;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-  backdrop-filter: blur(10px);
-}
-.cj-bio-content { display: flex; flex-direction: column; gap: 20px; }
-.cj-main-title { font-family: "Oswald", sans-serif; font-size: 3.5rem; line-height: 1; text-transform: uppercase; color: #fff; margin: 0; text-shadow: 0 0 20px rgba(0,0,0,0.5); }
-.cj-main-title span { color: var(--cj-accent); }
-.cj-subtitle { font-size: 1.2rem; color: rgba(255,255,255,0.9); font-weight: 300; margin: 0 0 10px 0; border-left: 4px solid var(--cj-accent); padding-left: 15px; font-style: italic; }
-.cj-text { font-size: 1.05rem; line-height: 1.8; color: rgba(255,255,255,0.85); text-align: justify; }
-.cj-highlight { color: #fff; font-weight: 700; }
-.cj-bio-image-wrapper { position: relative; width: 100%; height: 100%; min-height: 450px; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); opacity: 0; animation: fadeUp 1s ease-out 0.3s forwards; }
-.cj-bio-image-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
-.cj-bio-image-wrapper:hover img { transform: scale(1.05); }
-
-/* VALUES */
-.cj-values-section { width: 100%; display: flex; flex-direction: column; gap: 30px; opacity: 0; animation: fadeUp 0.8s ease-out 0.5s forwards; }
-.cj-section-header { text-align: center; margin-bottom: 10px; }
-.cj-section-title { font-family: "Oswald", sans-serif; font-size: 2.2rem; text-transform: uppercase; color: #fff; margin: 0; }
-.cj-cards { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; }
-.cj-card { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 30px 20px; border-radius: 12px; background: linear-gradient(145deg, rgba(30,30,30,0.8), rgba(20,20,20,0.9)); border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease; position: relative; overflow: hidden; }
-.cj-card:hover { transform: translateY(-8px); border-color: rgba(208, 0, 0, 0.4); background: linear-gradient(145deg, rgba(40,40,40,0.9), rgba(25,25,25,1)); box-shadow: 0 15px 40px rgba(208,0,0,0.15); }
-.cj-card-icon { width: 65px; height: 65px; border-radius: 50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.8rem; background: linear-gradient(135deg, #d00000 0%, #800000 100%); box-shadow: 0 5px 15px rgba(208,0,0,0.4); margin-bottom: 20px; border: 2px solid rgba(255,255,255,0.1); }
-.cj-card-title { margin: 0 0 12px 0; font-size: 1.2rem; font-weight: 700; color: #fff; text-transform: uppercase; font-family: "Oswald", sans-serif; letter-spacing: 0.5px; }
-.cj-card-text { margin: 0; color: rgba(255,255,255,0.8); font-size: 0.95rem; line-height: 1.6; }
-
-/* TABS */
-.cj-gallery-tabs { display: inline-flex; justify-content: center; gap: 5px; margin-bottom: 30px; background: rgba(0,0,0,0.4); padding: 5px; border-radius: 50px; border: 1px solid rgba(255,255,255,0.1); }
-.cj-tab-btn { background: transparent; border: none; color: rgba(255,255,255,0.6); padding: 10px 30px; font-family: "Oswald", sans-serif; font-size: 1rem; text-transform: uppercase; cursor: pointer; border-radius: 40px; transition: all 0.3s ease; font-weight: 600; letter-spacing: 1px; }
-.cj-tab-btn:hover { color: #fff; }
-.cj-tab-btn.active { background: var(--cj-accent); color: #fff; box-shadow: 0 4px 15px rgba(208,0,0,0.4); }
-
-/* GALLERY */
-.cj-projects { width: 100%; opacity: 0; animation: fadeUp 0.8s ease-out 0.7s forwards; max-width: 100%; }
-.cj-projects-panel { width: 100%; background: transparent; padding: 0; display: flex; flex-direction: column; gap: 30px; align-items: center; }
-.cj-projects-header { text-align: center; max-width: 800px; margin-bottom: 10px; padding: 0 20px; }
-.cj-projects-title { font-family: "Oswald", sans-serif; font-weight: 700; font-size: 3rem; margin: 0 0 10px 0; text-transform: uppercase; color: #fff; letter-spacing: 2px; }
-.cj-title-accent { color: var(--cj-accent); text-shadow: 0 0 20px rgba(208,0,0,0.4); }
-.cj-projects-subtitle { margin: 0; color: rgba(255,255,255,0.6); font-size: 1.1rem; line-height: 1.5; letter-spacing: 0.5px; }
-
-.cj-gallery-container { width: 100%; max-width: 1000px; display: flex; flex-direction: column; gap: 20px; box-sizing: border-box; }
-.cj-gallery-display { position: relative; width: 100%; height: 600px; background: #050505; border-radius: 12px; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 20px 60px rgba(0,0,0,0.7); }
-.cj-gallery-img { max-width: 100%; max-height: 100%; width: 100%; height: 100%; object-fit: contain; display: block; opacity: 0; animation: fadeInImg 0.4s ease forwards; background: #000; }
-@keyframes fadeInImg { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
-.cj-gallery-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0, 0, 0, 0.6); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20; font-size: 24px; transition: all 0.2s ease; backdrop-filter: blur(5px); }
-.cj-gallery-btn:hover { background: var(--cj-accent); border-color: var(--cj-accent); transform: translateY(-50%) scale(1.1); box-shadow: 0 0 20px rgba(208,0,0,0.5); }
-.cj-prev { left: 20px; } .cj-next { right: 20px; }
-.cj-thumbs-wrapper { width: 100%; padding: 10px; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); box-sizing: border-box; overflow: hidden; }
-.cj-thumbs-track { display: flex; gap: 10px; overflow-x: auto; padding: 10px; scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--cj-accent) rgba(255,255,255,0.1); width: 100%; box-sizing: border-box; }
-.cj-thumbs-track::-webkit-scrollbar { height: 4px; } .cj-thumbs-track::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); } .cj-thumbs-track::-webkit-scrollbar-thumb { background: var(--cj-accent); }
-.cj-thumb { min-width: 120px; height: 80px; border-radius: 6px; cursor: pointer; overflow: hidden; border: 2px solid transparent; transition: opacity 0.2s, border-color 0.2s; opacity: 0.5; flex-shrink: 0; background: #000; position: relative; }
-.cj-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.cj-thumb:hover { opacity: 0.8; }
-.cj-thumb.active { border-color: var(--cj-accent); opacity: 1; transform: scale(1.02); }
-.cj-play-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #fff; font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); pointer-events: none; }
-.cj-video-thumb { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.cj-thumb video::-webkit-media-controls { display:none !important; }
-
-/* MOBILE GALLERY */
-.mobile-gallery-view { width: 100%; overflow: hidden; }
-.mobile-gallery-track { display: flex; overflow-x: auto; gap: 15px; scroll-behavior: smooth; padding-bottom: 20px; scroll-snap-type: x mandatory; }
-.mobile-gallery-item { min-width: 85%; scroll-snap-align: center; border-radius: 12px; overflow: hidden; height: 300px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1); background: #000; }
-.mobile-gallery-item img, .mobile-gallery-item video { width: 100%; height: 100%; object-fit: cover; }
-
-@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-
-/* RESPONSIVE */
-@media (max-width: 950px) {
-  .cj-bio-section { grid-template-columns: 1fr; gap: 40px; padding: 30px; }
-  .cj-bio-image-wrapper { height: 400px; max-width: 600px; margin: 0 auto; order: -1; }
-  .cj-main-title { font-size: 2.8rem; text-align: center; }
-  .cj-subtitle { text-align: center; border-left: none; border-bottom: 3px solid var(--cj-accent); padding-bottom: 10px; padding-left: 0; display: inline-block; width: 100%; }
-  .cj-text { text-align: left; }
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  perspective: 2500px; /* Profundidad para efectos 3D en cards */
+  overflow: visible;
 }
 
-@media (min-width: 769px) { .mobile-gallery-view { display: none; } }
+/* ============================================================
+   PILAR CENTRAL - REFINAMIENTO DE SOMBRA (MODO DIOS V2)
+   ESTILO: ESCUDO TÉCNICO CON AUREOLA EXTERNA
+   ============================================================ */
 
-@media (max-width: 768px) {
-  .desktop-gallery-view { display: none; }
-  .mobile-gallery-view { display: block; }
+/* ============================================================
+   PILAR CENTRAL - REFINAMIENTO DE SOMBRA (INTENSIDAD 1080p)
+   ESTILO: BACKLIGHT CINEMATOGRÁFICO DE ALTA PRECISIÓN
+   ============================================================ */
+
+.about-pilar-central {
+  width: 90%;
+  max-width: 1200px; /* Contención para 1080p */
+  margin: 0 auto;
   
-  /* CAMBIO CLAVE MÓVIL: Padding bottom gigante para que no tape el InfoBox */
-  .cj-container { 
-    padding: calc(var(--cj-navbar-height) + 20px) 20px 220px 20px; 
-    gap: 40px; 
+  /* FONDO OPACO: Bloquea el rojo para que no manche el texto */
+  background: rgba(7, 7, 7, 0.98) !important; 
+  backdrop-filter: blur(40px);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  
+  /* SOMBRA ROJA EXTERNA (AUREOLA) */
+  box-shadow: 
+    0 0 100px rgba(0, 0, 0, 1),
+    -60px 0 150px -20px rgba(208, 0, 0, 0.4), 
+     60px 0 150px -20px rgba(208, 0, 0, 0.4);
+
+  padding: 120px 50px 80px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  min-height: 100vh;
+  height: auto;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 20;
+  
+  /* BLINDAJE: Evita que los cuadros se salgan */
+  overflow: hidden; 
+}
+
+/* --- CAPA DE SOMBRA / AUREOLA DE ALTA POTENCIA (FIX 1080p) --- */
+.about-pilar-central::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* Reducimos el offset para que la luz entre en la pantalla 1080p */
+  left: -40px;
+  right: -40px;
+  z-index: -1; 
+  
+  /* 
+     TRIPLE PROYECCIÓN DE LUZ:
+     1. Brillo de borde (Saturado)
+     2. Haz medio (Difuso)
+     3. Gran expansión (Etéreo)
+  */
+  box-shadow: 
+    /* LUZ IZQUIERDA */
+    -30px 0 70px rgba(208, 0, 0, 0.6), 
+    -60px 0 120px rgba(208, 0, 0, 0.3),
+    -100px 0 250px rgba(180, 0, 0, 0.15),
+    
+    /* LUZ DERECHA */
+    30px 0 70px rgba(208, 0, 0, 0.6), 
+    60px 0 120px rgba(208, 0, 0, 0.3),
+    100px 0 250px rgba(180, 0, 0, 0.15);
+
+  /* MÁSCARA: Sincronizada para empezar después de la historia */
+  -webkit-mask-image: linear-gradient(to bottom, 
+    transparent 0%, 
+    transparent 700px, 
+    black 900px
+  );
+  mask-image: linear-gradient(to bottom, 
+    transparent 0%, 
+    transparent 700px, 
+    black 900px
+  );
+  
+  pointer-events: none;
+}
+
+/* EFECTO SCANLINE */
+.about-pilar-central::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
+  background-size: 100% 4px;
+  pointer-events: none;
+  opacity: 0.2;
+  z-index: 1;
+}
+
+/* RESPONSIVE MÓVIL (Mantenemos tu lógica intacta) */
+@media (max-width: 1024px) {
+  .about-pilar-central {
+    width: 100%;
+    padding: 100px 20px 80px 20px;
+  }
+  .about-pilar-central::before {
+    display: none; /* En móvil la luz lateral suele verse mal */
+  }
+}
+
+.h-editorial-section {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.h-header { 
+  margin-bottom: 50px; 
+  text-align: left;
+}
+
+.h-pretitle {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 15px;
+}
+
+.h-dot { 
+  width: 10px; 
+  height: 10px; 
+  background: #d00000; 
+  border-radius: 50%; 
+  box-shadow: 0 0 15px #ff0000; 
+}
+
+.h-label { 
+  font-family: 'Roboto', sans-serif; 
+  color: #d00000; 
+  letter-spacing: 8px; 
+  font-size: 0.85rem; 
+  font-weight: 900; 
+  text-transform: uppercase; 
+}
+
+/* TÍTULO EXPANSIVO DE ALTO IMPACTO */
+.h-main-title-expanded {
+  font-family: 'Oswald', sans-serif;
+  font-size: 6.8rem;
+  text-transform: uppercase;
+  line-height: 0.82;
+  margin: 0;
+  color: #ffffff;
+  letter-spacing: 8px !important; /* Expansión a lo largo */
+  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
+  display: block;
+}
+
+.h-main-title-expanded span {
+  color: transparent;
+  -webkit-text-stroke: 1.8px #d00000;
+  position: relative;
+  display: block !important;
+  letter-spacing: 18px !important; /* Máxima expansión en segunda línea */
+  margin-top: 12px;
+  font-weight: 200 !important;
+}
+
+.h-neon-hr-long {
+  width: 100%;
+  max-width: 900px;
+  height: 6px;
+  background: linear-gradient(90deg, #d00000 0%, #7a0000 70%, transparent 100%);
+  margin-top: 45px;
+  box-shadow: 0 0 30px rgba(208, 0, 0, 0.6);
+  border-radius: 4px;
+}
+
+/* GRID MAESTRO DE HISTORIA */
+.h-master-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 80px;
+  align-items: start;
+  margin-top: 65px;
+}
+
+.h-quote-v24 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  color: #f5f5f5;
+  font-style: italic;
+  margin-bottom: 40px;
+  border-left: 6px solid #d00000;
+  padding-left: 35px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, rgba(208, 0, 0, 0.05) 0%, transparent 100%);
+}
+
+.h-editorial-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.h-editorial-body p {
+  color: #bbbbbb;
+  line-height: 2.1;
+  font-size: 1.18rem;
+  text-align: justify;
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+.cj-bold-red { 
+  color: #d00000; 
+  font-weight: 800; 
+  text-shadow: 0 0 10px rgba(208, 0, 0, 0.3); 
+}
+
+.cj-bold-white { 
+  color: #ffffff; 
+  font-weight: 700; 
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.1); 
+}
+
+/* FRAME DE IMAGEN HERO */
+.h-image-canvas {
+  position: relative;
+  padding: 20px;
+  transition: transform 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.h-image-canvas:hover {
+  transform: translateY(-10px) rotate(1deg);
+}
+
+.h-image-render {
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: 0 60px 120px rgba(0, 0, 0, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  filter: contrast(1.1) brightness(0.95) saturate(1.1);
+  transition: 0.8s ease;
+}
+
+.h-frame-deco {
+  position: absolute;
+  top: 0; right: 0;
+  width: 120px; height: 120px;
+  border-top: 6px solid #d00000;
+  border-right: 6px solid #d00000;
+  z-index: 10;
+  filter: drop-shadow(0 0 10px #d00000);
+}
+
+/* ============================================================
+   3. SECCIÓN CIMIENTOS (ORDEN 2x2 MOBILE / 4 COL PC)
+   ============================================================ */
+
+.f-master-section {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+}
+
+.f-header { 
+  text-align: center; 
+  margin-bottom: 80px; 
+}
+
+.f-title { 
+  font-family: 'Oswald', sans-serif; 
+  font-size: 3.2rem; 
+  letter-spacing: 18px; 
+  color: #ffffff; 
+  margin: 0; 
+  text-transform: uppercase;
+}
+
+.f-label-sub { 
+  font-size: 0.9rem; 
+  color: #444444; 
+  letter-spacing: 7px; 
+  font-weight: 900; 
+  margin-top: 15px; 
+  text-transform: uppercase;
+}
+
+/* GRID DE CONTROL ABSOLUTO */
+.f-grid-matrix {
+  display: grid;
+  /* 4 columnas que se reparten el espacio exacto sin salirse */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 25px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.f-card-elite {
+  position: relative;
+  height: 100%;
+  perspective: 1200px;
+}
+
+.f-inner-wrap {
+  background: rgba(18, 18, 18, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 70px 35px;
+  border-radius: 4px;
+  height: 100%;
+  transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efectos de Hover Hardware */
+.f-card-elite:hover .f-inner-wrap {
+  transform: translateY(-20px) rotateX(8deg);
+  border-color: #d00000;
+  background: rgba(25, 10, 10, 0.92);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 1);
+}
+
+.f-glow {
+  position: absolute;
+  top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(208, 0, 0, 0.12) 0%, transparent 70%);
+  opacity: 0;
+  transition: 0.7s;
+}
+.f-card-elite:hover .f-glow { opacity: 1; }
+
+.f-id-code {
+  position: absolute;
+  top: 25px; right: 30px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.05);
+  letter-spacing: 2px;
+  transition: 0.4s;
+}
+.f-card-elite:hover .f-id-code { color: #d00000; opacity: 0.3; }
+
+.f-icon-box {
+  font-size: 6.5rem; /* ICONOS GIGANTES */
+  margin-bottom: 35px;
+  filter: drop-shadow(0 20px 30px rgba(0,0,0,0.8));
+  transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.f-card-elite:hover .f-icon-box { transform: scale(1.2) rotate(5deg); }
+
+.f-title-h4 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.7rem;
+  color: #ffffff;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.f-hr {
+  width: 50px;
+  height: 3px;
+  background: #d00000;
+  margin: 0 auto 25px auto;
+  box-shadow: 0 0 15px #d00000;
+  transition: 0.5s;
+}
+.f-card-elite:hover .f-hr { width: 90%; }
+
+.f-text-p {
+  color: #999999;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ============================================================
+   4. MOMENTOS MEMORABLES (DISEÑO MUSEO / INSTITUCIONAL)
+   ============================================================ */
+
+.m-multimedia-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  position: relative;
+  z-index: 10;
+}
+
+.archive-header-v25 {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 45px;
+  margin-bottom: 20px;
+}
+
+/* BRANDING BOX ESTILO ARCHIVO HISTÓRICO */
+.m-branding-box {
+    border-left: 6px solid #d00000; 
+    padding-left: 35px;
+    margin-bottom: 25px;
+    text-align: left;
+}
+
+.m-serial {
+    background: rgba(208, 0, 0, 0.2); 
+    padding: 8px 20px;
+    border-radius: 4px;
+    color: #ff0000;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 6px;
+    font-weight: 900;
+    border-bottom: 1px solid rgba(208, 0, 0, 0.4);
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+.archive-main-title-v25 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 4.8rem; /* Titulo Inmenso */
+  text-transform: uppercase;
+  line-height: 1;
+  color: #fff;
+  letter-spacing: 4px;
+  font-weight: 800;
+}
+
+.archive-main-title-v25 span {
+  color: transparent;
+  -webkit-text-stroke: 1.8px #d00000;
+}
+
+.m-underline-neon {
+  width: 140px;
+  height: 5px;
+  background: #d00000;
+  margin-top: 25px;
+  box-shadow: 0 0 20px #d00000;
+}
+
+.m-subtitle-museum {
+  font-family: 'Oswald', sans-serif;
+  color: #555555; 
+  font-size: 0.95rem;
+  letter-spacing: 8px; 
+  margin-top: 30px;
+  font-weight: 500;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* TABS NAVEGACIÓN PROFESIONAL */
+.archive-tabs-container {
+  display: flex;
+  width: 100%;
+  max-width: 500px; /* Controlamos el ancho de los botones */
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.archive-tabs-container button {
+  flex: 1; /* Los botones se reparten el ancho del contenedor */
+  padding: 15px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #555;
+  font-family: 'Oswald', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.archive-tabs-container button.is-active {
+  background: #d00000;
+  color: #ffffff;
+  box-shadow: 0 0 30px rgba(208, 0, 0, 0.5);
+}
+
+/* ============================================================
+   CINEMA ENGINE V25: EL VISOR DE CONTENCIÓN (ANTI-DEFORMACIÓN)
+   ============================================================ */
+
+.archive-section-bottom {
+  width: 100%;
+  position: relative;
+}
+
+.cinema-black-capsule {
+  position: relative;
+  width: 100%;
+  height: 750px; /* ALTURA DE PROYECCIÓN 2K */
+  background: #000000; /* Fondo negro para que no brille nada */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 80px 180px rgba(0, 0, 0, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  z-index: 100;
+}
+
+/* El render-viewport fuerza al contenido a entrar entero */
+.cinema-render-viewport {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: #000;
+}
+
+.cinema-media-element {
+  /* LA REGLA SAGRADA: Contain blindado */
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain !important; 
+  z-index: 10;
+  background: #000;
+  pointer-events: auto !important; /* Habilita interacción táctil/ratón */
+  filter: contrast(1.05) saturate(1.1);
+}
+
+/* HUD DE METADATOS TÉCNICOS (ENCIMA DEL VIDEO) */
+.cinema-hud-metadata {
+  position: absolute;
+  top: 0; left: 0; width: 100%;
+  padding: 30px 50px;
+  background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, transparent 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  z-index: 150;
+  pointer-events: none;
+}
+
+.meta-brand {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  color: #d00000;
+  letter-spacing: 6px;
+  text-shadow: 0 0 10px #000;
+}
+
+.meta-pager {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.8rem;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 0 20px #000;
+}
+
+.meta-pager span {
+  color: #333333;
+  font-size: 1.4rem;
+}
+
+/* NAVEGACIÓN CINEMATOGRÁFICA (Z-INDEX SUPREMO) */
+.cinema-nav-arrow {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 120px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 500 !important; /* FUERZA ARRIBA DE LOS CONTROLES */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s ease;
+  opacity: 0.15; /* Sutil por defecto */
+}
+
+.cinema-nav-arrow:hover {
+  opacity: 1;
+  background: rgba(208, 0, 0, 0.1);
+}
+
+.cinema-nav-arrow span {
+  font-size: 6rem;
+  font-weight: 100;
+  filter: drop-shadow(0 0 20px black);
+}
+
+.cinema-nav-arrow.prev { left: 0; }
+.cinema-nav-arrow.next { right: 0; }
+
+/* SEPARADOR DE SECCIÓN */
+.master-separator-v21 {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  margin: 40px 0 !important;
+}
+
+/* ============================================================
+   INGENIERÍA MÓVIL SUPREMA (BLINDAJE TOTAL)
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .about-pilar-central {
+    padding: 80px 25px 300px 25px !important; /* Aire para InfoBox */
+    gap: 70px;
+    border: none; /* Quitamos bordes en móvil para ganar ancho */
+  }
+
+  /* Título Expansivo Adaptado */
+  .h-main-title-expanded { 
+    font-size: 3.2rem !important; 
+    text-align: center !important; 
+    letter-spacing: 3px !important;
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+
+  .h-main-title-expanded span { 
+    letter-spacing: 6px !important;
+    font-size: 3rem !important;
+    -webkit-text-stroke: 1.2px #d00000;
   }
   
-  .cj-bio-section { padding: 25px; border-radius: 16px; }
-  .cj-main-title { font-size: 2.2rem; }
-  .cj-bio-image-wrapper { height: 250px; min-height: auto; }
-  .cj-cards { grid-template-columns: 1fr; }
-  .cj-tab-btn { padding: 8px 20px; font-size: 0.9rem; }
+  .h-neon-hr-long { margin: 25px auto; width: 120px; }
+  .h-master-grid { grid-template-columns: 1fr !important; gap: 40px; margin-top: 40px; }
+
+  /* FIX 2x2 CIMIENTOS (BLINDAJE INFALIBLE) */
+  .f-grid-matrix {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: auto auto !important;
+    gap: 15px !important;
+  }
+
+  .f-inner-wrap {
+    padding: 35px 15px !important;
+    border-radius: 8px;
+  }
+
+  .f-icon-box { font-size: 3.5rem !important; margin-bottom: 20px; }
+  .f-title-h4 { font-size: 1.2rem !important; letter-spacing: 1px; }
+  .f-text-p { font-size: 0.85rem !important; line-height: 1.4; }
+
+  /* MULTIMEDIA MÓVIL MUSEO */
+  .archive-header-v25 {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 35px;
+    text-align: center;
+  }
+
+  .m-branding-box {
+    border-left: none !important;
+    border-top: 3px solid #d00000 !important;
+    padding-left: 0 !important;
+    padding-top: 25px !important;
+    text-align: center !important;
+  }
+  
+  .m-subtitle-museum {
+    letter-spacing: 4px !important;
+    font-size: 0.75rem !important;
+    line-height: 1.5;
+  }
+
+  .archive-main-title-v25 { font-size: 2.8rem !important; letter-spacing: 2px !important; }
+
+  .archive-tabs-container {
+    width: 100%;
+    display: flex;
+    padding: 6px;
+  }
+  
+  .archive-tabs-container button {
+    flex: 1;
+    padding: 14px 5px !important;
+    font-size: 0.95rem !important;
+    letter-spacing: 2px;
+  }
+
+  /* Visor Cinema Móvil Fix Vertical */
+  .cinema-black-capsule {
+    height: 550px !important; /* Altura para videos verticales en móvil */
+    border-radius: 15px;
+    border-color: rgba(255,255,255,0.08);
+  }
+
+  .cinema-nav-arrow { width: 65px; opacity: 0.9 !important; }
+  .cinema-nav-arrow span { font-size: 3.5rem; }
+  
+  .cinema-hud-metadata { padding: 20px; }
+  .meta-pager { font-size: 1.6rem; }
+}
+
+@media (max-width: 600px) {
+  .cinema-black-capsule { height: 450px !important; }
+  .h-main-title-expanded { font-size: 2.6rem !important; }
+  .f-title { font-size: 2.2rem !important; letter-spacing: 10px; }
+}
+
+/* --- ANIMACIONES DE ENTRADA --- */
+.anim-fade-in { animation: aboutPageFade 1.2s ease-out; }
+@keyframes aboutPageFade { 
+  from { opacity: 0; transform: translateY(20px); } 
+  to { opacity: 1; transform: translateY(0); } 
 }

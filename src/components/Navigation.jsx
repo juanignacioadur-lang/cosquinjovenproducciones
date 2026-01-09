@@ -46,6 +46,11 @@ export default function Navbar() {
             </NavLink>
           </li>
           <li>
+            <NavLink to="/bono" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={closeMenu}>
+              Gran Bono
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/contacto" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"} onClick={closeMenu}>
               Contacto y Prensa
             </NavLink>

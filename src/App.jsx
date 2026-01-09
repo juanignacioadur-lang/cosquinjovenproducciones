@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage.jsx";
 import EventsPage from "./pages/EventsPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 import NewsDetailPage from "./pages/NewsDetailPage.jsx"; // <--- IMPORTANTE
+import BonoPage from "./pages/BonoPage.jsx";
 
 import "./index.css";
 
@@ -27,7 +28,7 @@ export default function App() {
           {/* Rutas de Eventos y Noticias */}
           <Route path="/noticias" element={<EventsPage />} />
           <Route path="/noticias/:id" element={<NewsDetailPage />} /> {/* <--- NUEVA RUTA */}
-          
+          <Route path="/bono" element={<BonoPage />} />
           <Route path="/contacto" element={<ContactPage />} />
         </Routes>
       </div>

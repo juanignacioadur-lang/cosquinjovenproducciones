@@ -8,36 +8,71 @@
   --card-bg: #0f0f0f;
 }
 
-/* --- ESTRUCTURA BASE --- */
+/* --- 1. FONDO NEGRO TOTAL --- */
 .nt-page { 
   width: 100%; 
   min-height: 100vh; 
-  background: var(--bg-main); 
-  background-attachment: fixed; 
-  background-size: cover; 
+  background: #000 !important; 
   display: flex; 
   justify-content: center; 
   align-items: flex-start; 
-  padding-bottom: 0;
-  overflow: visible !important; 
+  position: relative;
+  overflow-x: hidden;
 }
 
+/* --- 2. LA ANIMACIÓN (Efecto Cine) --- */
+@keyframes cinematicEntrance {
+  0% { 
+    opacity: 0; 
+    transform: translateY(30px); 
+    filter: blur(10px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+    filter: blur(0);
+  }
+}
+
+/* --- 3. LA CLASE DE ANIMACIÓN (Aumentamos a 2 segundos para que sea lento) --- */
+.anim-fade-in {
+  animation: cinematicEntrance 2s cubic-bezier(0.2, 1, 0.3, 1) forwards !important;
+  will-change: transform, opacity, filter;
+}
+
+/* --- 4. EL CONTENEDOR (Quitamos el opacity: 0 de aquí para evitar el error) --- */
 .nt-container { 
-  width: 100%; 
+  width: 90%; 
   max-width: 1200px; 
-  background: rgba(0, 0, 0, 0.3); 
+  background: transparent !important;
   min-height: 100vh; 
-  flex: 1; 
-  border-left: 1px solid rgba(255, 255, 255, 0.05); 
-  border-right: 1px solid rgba(255, 255, 255, 0.05); 
-  box-shadow: 0 0 60px rgba(0,0,0,0.6); 
   margin: 0 auto; 
-  padding: calc(var(--site-navbar-height) + 30px) 20px 80px 20px; 
+  padding: 120px 50px 80px 50px; 
   display: flex; 
   flex-direction: column; 
   align-items: center; 
-  overflow: visible !important; 
   box-sizing: border-box; 
+  position: relative;
+  z-index: 10;
+  
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  
+  box-shadow: 
+    0 0 100px rgba(0, 0, 0, 1),
+    -60px 0 150px -20px rgba(208, 0, 0, 0.4), 
+     60px 0 150px -20px rgba(208, 0, 0, 0.4);
+}
+
+/* --- 5. OVERLAY DE LÍNEAS --- */
+.nt-ui-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+  background-size: 100% 4px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 /* TÍTULOS */
@@ -289,8 +324,23 @@
   .nt-detail-title { font-size: 1.8rem; }
 }
 
-@media (max-width: 768px) {
-  .nt-container { padding: 100px 15px 180px 15px; }
-  .nt-detail-head { flex-direction: column; gap: 15px; }
-  .nt-hide-btn { width: 100%; }
+@media (max-width: 1024px) {
+  .nt-container { 
+    width: 100%;
+    /* 220px abajo para que el InfoBox no tape nada en esta página larga */
+    padding: 100px 20px 220px 20px; 
+    border: none;
+    box-shadow: none; /* Quitamos luces en móvil para ganar ancho */
+  }
+}
+
+/* OPCIONAL: Capa de líneas (Scanlines) para que combine con BonoPage */
+.nt-ui-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
+  background-size: 100% 4px;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.3;
 }

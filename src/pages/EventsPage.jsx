@@ -44,6 +44,7 @@ function EventDetail({ event, onClose }) {
   
   if (!event) return null;
   return (
+    
     <div className="nt-detail-panel" id="detail-panel-anchor">
       <div className="nt-detail-head">
         <h3 className="nt-detail-title">{event.title}</h3>
