@@ -241,35 +241,109 @@ td { padding: 25px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #777
    INGENIERÍA MÓVIL (BLINDAJE TOTAL)
    ============================================================ */
 
+/* ============================================================
+   INGENIERÍA MÓVIL DE PRECISIÓN (ANTI-DESBORDAMIENTO)
+   ============================================================ */
+
 @media (max-width: 900px) {
+  
+  /* 1. EL CONTENEDOR: Forzamos 100% de ancho sin bordes que empujen */
   .bono-pilar-central {
-    width: 100%; padding: 100px 20px 220px 20px; gap: 70px; box-shadow: none; border: none;
+    width: 100% !important;
+    max-width: 100vw !important;
+    padding: 100px 15px 220px 15px !important; /* Más aire abajo para el InfoBox */
+    gap: 50px !important;
+    border: none !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    overflow-x: hidden !important; /* Evita el scroll horizontal */
+  }
+
+  /* 2. TÍTULOS: Reducimos para que no rompan la caja */
+  .bono-main-title { 
+    font-size: 2.8rem !important; 
+    text-align: center !important; 
+    letter-spacing: 2px !important;
+    width: 100% !important;
+  }
+  .bono-main-title span { 
+    letter-spacing: 4px !important; 
+    font-size: 2.4rem !important; 
+    -webkit-text-stroke: 1px #d00000 !important;
   }
   
-  .bono-main-title { font-size: 3rem !important; text-align: center; }
-  .bono-main-title span { letter-spacing: 6px !important; font-size: 2.8rem !important; }
-  .bono-hr-neon { margin: 25px auto; }
-  .bono-subtitle { text-align: center; font-size: 1.05rem; }
+  .bono-hr-neon { margin: 20px auto !important; width: 100px !important; }
+  .bono-subtitle { text-align: center !important; font-size: 1rem !important; }
 
-  .monitor-hardware-box { padding: 45px 20px; }
-  .monitor-header { flex-direction: column; gap: 15px; align-items: center; }
-  .monitor-display { font-size: 4.5rem; }
+  /* 3. MONITOR: Ajuste de números gigantes */
+  .monitor-hardware-box { 
+    padding: 30px 15px !important; 
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .monitor-header { flex-direction: column !important; gap: 10px !important; }
+  .monitor-display { font-size: 4rem !important; }
+  .monitor-display .divider { margin: 0 10px !important; }
 
-  .distri-grid { grid-template-columns: 1fr; }
-  .prizes-flex-layout { grid-template-columns: 1fr; gap: 40px; }
-  .prize-value { font-size: 3.5rem; }
-  .prizes-secondary-grid { grid-template-columns: 1fr; }
-  .prizes-extra-benefits { flex-direction: column; align-items: center; gap: 15px; }
+  /* 4. DISTRIBUCIÓN: Tarjetas en una sola columna */
+  .distri-grid { 
+    grid-template-columns: 1fr !important; 
+    gap: 15px !important;
+  }
+  .bono-distri-card { padding: 20px !important; }
 
-  .form-hardware-frame { padding: 40px 20px; }
-  .form-row { grid-template-columns: 1fr; gap: 20px; }
-  .form-main-title { font-size: 1.5rem; }
+  /* 5. PREMIOS (TU IMAGEN): El fix para el cuadro rojo */
+  .prizes-main-container { 
+    padding: 30px 15px !important; 
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .prizes-display-title { font-size: 2rem !important; margin-bottom: 30px !important; }
+  
+  .prizes-flex-layout { 
+    grid-template-columns: 1fr !important; 
+    gap: 20px !important; 
+  }
+  
+  /* El cuadro del 1° Premio que se salía en tu foto */
+  .prize-grand-winner { 
+    padding: 30px 10px !important; 
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .grand-amount { 
+    font-size: 3.2rem !important; /* Dinero más chico para que entre */
+    word-break: break-all; 
+  }
+  
+  .prizes-secondary-grid { grid-template-columns: 1fr !important; }
+  .prizes-extra-benefits { flex-direction: column !important; gap: 10px !important; }
 
-  .hide-mobile { display: none; }
+  /* 6. FORMULARIO: Blindaje de inputs */
+  .form-hardware-frame { 
+    padding: 30px 15px !important; 
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .form-row { grid-template-columns: 1fr !important; gap: 20px !important; }
+  .form-main-title { font-size: 1.4rem !important; }
+  
+  /* Forzar que los campos de Academia y N° Bono no se estiren */
+  .form-field.full { width: 100% !important; }
+  .input-large-red { font-size: 1.8rem !important; width: 100% !important; }
+
+  /* 7. TABLA: Scroll controlado */
+  .table-hardware-wrap {
+    width: 100% !important;
+    overflow-x: auto !important; /* Permite deslizar la tabla sin romper la web */
+  }
+  th, td { padding: 12px 10px !important; font-size: 0.85rem !important; }
+  .cell-num { font-size: 1.1rem !important; }
 }
 
-@media (max-width: 600px) {
-  .bono-main-title { font-size: 2.4rem !important; }
-  .monitor-display { font-size: 3.5rem; }
-  .grand-amount { font-size: 3.5rem; }
+/* Fix extra para pantallas muy pequeñas (iPhone SE, etc.) */
+@media (max-width: 380px) {
+  .bono-main-title { font-size: 2.2rem !important; }
+  .grand-amount { font-size: 2.5rem !important; }
+  .monitor-display { font-size: 3rem !important; }
 }
