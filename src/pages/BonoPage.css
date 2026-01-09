@@ -9,7 +9,7 @@
   background: #000; /* Negro Absoluto */
   display: flex;
   justify-content: center;
-  overflow-x: hidden;
+  overflow: hidden;
   position: relative;
 }
 

@@ -12,9 +12,9 @@
 
 /* 2. CONFIGURACIÓN CRÍTICA DEL SCROLL */
 html {
-  /* 'auto' permite que MasterScroll.jsx funcione instantáneamente entre páginas.
-     El scroll suave dentro de la página lo manejamos con JS (EventsPage). */
-  scroll-behavior: auto; 
+  /* Reserva el espacio de la barra de scroll para que la web no salte al bloquearse */
+  scrollbar-gutter: stable;
+  background-color: #000;
 }
 
 html, body {

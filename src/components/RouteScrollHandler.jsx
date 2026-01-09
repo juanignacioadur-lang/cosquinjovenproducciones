@@ -5,19 +5,46 @@ export default function RouteScrollHandler() {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    // 1. Le decimos al navegador: "Olvida donde estaba el usuario antes"
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
 
-    // 2. Forzamos el salto a (0,0) instantáneamente
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: "instant" // Sin animación, cambio inmediato
-    });
+    const lockAndReset = () => {
+      // 1. Subir a la fuerza en todos los niveles
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
 
-  }, [pathname]); // Solo se ejecuta cuando cambia la URL (Ej: de / a /noticias)
+      // 2. BLOQUEO VISUAL Y FÍSICO
+      document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
+      
+      // Bloqueamos también el contenedor de React por seguridad
+      const root = document.getElementById("root");
+      if (root) root.style.overflow = "hidden";
+    };
+
+    lockAndReset();
+
+    // Ejecutamos un segundo reseteo en el próximo frame para el Bono
+    const rafId = requestAnimationFrame(lockAndReset);
+
+    // 3. LIBERACIÓN CONTROLADA (1.5 segundos para dar tiempo al Bono)
+    const timerId = setTimeout(() => {
+      document.body.style.overflow = "auto";
+      document.body.style.touchAction = "auto";
+      
+      const root = document.getElementById("root");
+      if (root) root.style.overflow = "visible";
+    }, 1500); 
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timerId);
+      document.body.style.overflow = "auto";
+      document.body.style.touchAction = "auto";
+    };
+  }, [pathname]);
 
   return null;
 }
