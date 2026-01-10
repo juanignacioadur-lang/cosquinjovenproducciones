@@ -1,54 +1,69 @@
-/* ============================================================
-   INFOCARD - ARQUITECTURA RECTANGULAR V27
-   INTEGRACIÓN CINEMATOGRÁFICA & CARGA INTELIGENTE
-   ============================================================ */
-
+/* --- CONTENEDOR MAESTRO --- */
 .infocard-wrapper {
   position: fixed;
   right: 0;
-  bottom: 100px; /* Separación del footer */
+  bottom: 100px;
   z-index: 2000;
   display: flex;
-  align-items: center;
-  transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+  /* stretch hace que el botón y el panel tengan el mismo alto siempre */
+  align-items: stretch; 
+  transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-/* --- ESTADOS DE DESPLAZAMIENTO --- */
+/* ESTADOS DE DESPLAZAMIENTO */
 .infocard-wrapper.is-open {
   transform: translateX(0);
 }
 
 .infocard-wrapper.is-closed {
-  /* Se oculta casi todo, dejando solo 32px para la flecha */
-  transform: translateX(calc(100% - 29px)); 
+  /* Se esconde dejando 50px de la pestaña roja */
+  transform: translateX(calc(100% - 45px)); 
 }
 
 /* --- BOTÓN PESTAÑA (TRIGGER) --- */
+/* --- BOTÓN PESTAÑA (ESTADO NORMAL) --- */
 .infocard-trigger {
   background: #d00000;
   color: white;
   border: none;
-  border-radius: 8px 0 0 8px;
-  padding: 12px 6px;
+  border-radius: 12px 0 0 12px;
+  width: 45px;
   cursor: pointer;
-  box-shadow: -4px 0 15px rgba(0, 0, 0, 0.5);
+  /* Sombra sutil normal */
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.3); 
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2;
-  transition: background 0.3s;
+  padding: 0;
+  /* Transición suave para que el brillo "encienda" lento */
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.infocard-wrapper.is-closed .infocard-trigger {
+  /* Ahora el botón se queda quieto y solo brilla si ponés el mouse */
+  background: #d00000; 
+  animation: none; /* Bloqueamos cualquier pulso automático */
 }
 
 .infocard-trigger:hover {
   background: #ff0000;
+  /* Brillo de neón rojo intenso */
+  box-shadow: 0 0 20px rgba(208, 0, 0, 0.8), -5px 0 30px rgba(208, 0, 0, 0.4);
+  /* Un pequeño empuje hacia la izquierda para que se note el tacto */
+  transform: translateX(-2px); 
 }
 
+/* --- CONTENIDO DEL BOTÓN --- */
 .trigger-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .trigger-icon {
-  font-size: 1.1rem;
+  font-size: 1.2rem;
   font-weight: bold;
 }
 
@@ -56,126 +71,110 @@
   writing-mode: vertical-rl;
   text-orientation: mixed;
   font-family: 'Oswald', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 2px;
+  font-size: 0.75rem;
+  letter-spacing: 0px;
   text-transform: uppercase;
+  font-weight: 700;
+}
+
+.trigger-heart {
+  font-size: 12px;
   margin-top: 5px;
 }
 
-/* --- PANEL RECTANGULAR (MAIN) --- */
+/* --- PANEL PRINCIPAL (RELACIÓN 1:1 CON EL BOTÓN) --- */
 .infocard-main {
   background: rgba(8, 8, 8, 0.98);
   backdrop-filter: blur(15px);
-  border-left: 2px solid #d00000;
+  /* Eliminamos el borde-left porque ahora el botón rojo es el borde */
+  border-left: none; 
   
-  /* Formato Rectangular Bajo */
   width: 440px; 
-  padding: 15px 25px;
+  padding: 20px 25px;
   
   box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center; /* Centra el contenido internamente */
   position: relative;
-  overflow: hidden;
-  border-radius: 0 4px 4px 0;
 }
 
 .infocard-body-horizontal {
   display: flex;
-  flex-direction: row; /* Horizontal */
+  flex-direction: row;
   align-items: center;
-  gap: 20px;
-  text-align: left;
+  gap: 25px;
 }
 
-/* --- LOGO --- */
 .infocard-logo-rect {
-  width: 95px; /* Tamaño equilibrado */
+  width: 90px;
   height: auto;
   filter: drop-shadow(0 2px 10px rgba(255, 255, 255, 0.1));
-  display: block;
 }
 
-/* --- TEXTO --- */
 .infocard-text-side {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .infocard-title-rect {
   font-family: 'Oswald', sans-serif;
   color: #fff;
-  font-size: 1rem;
-  margin: 0;
+  font-size: 1.1rem;
   letter-spacing: 1px;
-  text-transform: uppercase;
-  line-height: 1.2;
 }
 
 .infocard-subtitle-rect {
   color: #888;
-  font-size: 0.8rem;
-  line-height: 1.3;
-  margin: 0;
+  font-size: 0.85rem;
   font-weight: 300;
-  max-width: 260px;
+  max-width: 270px;
 }
 
-.infocard-heart-mini {
-  font-size: 0.9rem;
-  margin-left: auto;
-  filter: drop-shadow(0 0 5px rgba(208,0,0,0.5));
-}
-
+/* LÍNEA DE GLOW */
 .infocard-glow-line {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 1px;
+  bottom: 0; left: 0; width: 100%; height: 2px;
   background: linear-gradient(90deg, #d00000, transparent);
   opacity: 0.4;
 }
 
-/* ============================================================
-   ADAPTACIÓN MÓVIL (BLINDAJE TOTAL)
-   ============================================================ */
+/* ANIMACIÓN DE PULSO */
+@keyframes triggerPulse {
+  0% { box-shadow: -5px 0 15px rgba(208, 0, 0, 0.4); }
+  50% { box-shadow: -10px 0 30px rgba(208, 0, 0, 0.7); }
+  100% { box-shadow: -5px 0 15px rgba(208, 0, 0, 0.4); }
+}
 
 @media (max-width: 900px) {
-  /* En móvil el slide es un poco más rápido */
-  .infocard-wrapper {
-    transition: transform 0.5s ease-in-out;
-    bottom: 92px; /* Ajuste para el footer móvil */
+  .infocard-main {
+    /* La hacemos más angosta para que deje ver los botones de la Home */
+    width: 250px !important; 
+    padding: 12px 10px !important;
+    /* Un poco más de transparencia para que no sea un bloque negro sólido */
+    background: rgba(8, 8, 8, 0.92) !important; 
   }
 
-  .infocard-main {
-    width: 300px; /* Más angosto en móvil */
-    padding: 12px 15px;
-  }
-  
   .infocard-logo-rect {
-    width: 70px;
+    width: 55px !important; /* Logo más chico en móvil */
   }
 
   .infocard-title-rect {
-    font-size: 0.85rem;
+    font-size: 0.75rem !important; /* Texto más pequeño pero legible */
   }
 
   .infocard-subtitle-rect {
-    font-size: 0.72rem;
-    max-width: 170px;
+    font-size: 0.65rem !important;
+    max-width: 140px !important;
   }
 
-  .infocard-heart-mini {
-    display: none; /* Quitamos el corazón en móvil para ganar espacio */
+  /* El botón de la pestaña también un poquito más fino */
+  .infocard-trigger {
+    width: 35px !important;
   }
-}
 
-/* Pantallas Extra Chicas */
-@media (max-width: 380px) {
-  .infocard-main {
-    width: 260px;
-  }
-  .infocard-logo-rect {
-    width: 55px;
+  .infocard-wrapper.is-closed {
+    /* Se esconde un poco más para que no estorbe */
+    transform: translateX(calc(100% - 30px)) !important;
   }
 }
