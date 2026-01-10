@@ -3,6 +3,7 @@ import Navigation from "./components/Navigation.jsx";
 import PageFooter from "./components/PageFooter.jsx";
 import InfoCard from "./components/InfoCard.jsx";
 import RouteScrollHandler from "./components/RouteScrollHandler.jsx";
+import CookieBanner from "./components/CookieBanner.jsx";
 
 // Páginas
 import AboutPage from "./pages/AboutPage.jsx";
@@ -19,7 +20,7 @@ export default function App() {
     <BrowserRouter>
       <RouteScrollHandler />
       <Navigation />
-
+      <CookieBanner />
       <div className="main-content">
         <Routes>
           <Route path="/" element={<HomePage />} />

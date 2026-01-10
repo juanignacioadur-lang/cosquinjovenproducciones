@@ -1,0 +1,147 @@
+/* --- CAPA QUE BLOQUEA TODA LA WEB --- */
+.cookie-blocker-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9); /* Casi negro total */
+  backdrop-filter: blur(12px);    /* Desfoque intenso del contenido de atrás */
+  z-index: 9000;                  /* Muy alto */
+  pointer-events: all;
+}
+
+/* --- PANEL SUPERIOR (TAPANDO EL NAVBAR) --- */
+.cookie-top-panel {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  background: #080808;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: 9999; /* EL NIVEL MÁS ALTO DE TODA LA WEB */
+  padding: 40px 0;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 1);
+}
+
+.cookie-panel-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 60px;
+}
+
+.cookie-info-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 750px;
+}
+
+.cookie-legal-tag {
+  font-family: 'Oswald', sans-serif;
+  color: #d00000;
+  letter-spacing: 4px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.cookie-panel-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.8rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 2px;
+}
+
+.cookie-panel-text {
+  color: #777;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 300;
+}
+
+.cookie-panel-text strong { color: #fff; font-weight: 700; }
+
+/* --- BOTONES --- */
+.cookie-action-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  min-width: 260px;
+}
+
+.c-btn {
+  padding: 16px 30px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.c-btn-primary {
+  background: #d00000;
+  color: #fff;
+  border: none;
+}
+
+.c-btn-primary:hover {
+  background: #ff0000;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(208, 0, 0, 0.4);
+}
+
+.c-btn-exit {
+  background: transparent;
+  color: #444;
+  border: 1px solid #222;
+}
+
+.c-btn-exit:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.cookie-bottom-glow {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d00000, transparent);
+  box-shadow: 0 0 15px #d00000;
+}
+
+/* ANIMACIÓN DE ENTRADA */
+.anim-down {
+  animation: cookieForceDown 0.8s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+}
+
+@keyframes cookieForceDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+/* --- RESPONSIVE MÓVIL --- */
+@media (max-width: 900px) {
+  .cookie-top-panel {
+    padding: 30px 0;
+    height: 100vh; /* En móvil ocupa toda la pantalla para asegurar bloqueo */
+    display: flex;
+    align-items: center;
+  }
+  .cookie-panel-content {
+    flex-direction: column;
+    padding: 0 25px;
+    gap: 35px;
+    text-align: center;
+  }
+  .cookie-panel-title { font-size: 1.4rem; }
+  .cookie-action-group { width: 100%; }
+}
