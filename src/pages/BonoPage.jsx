@@ -96,7 +96,7 @@ export default function BonoPage() {
             ACTO 3: DISTRIBUCIÓN DE RECAUDACIÓN
             ============================================================ */}
         <section className="bono-distribution">
-          <h2 className="bono-section-title">DISTRIBUCIÓN DE FONDOS (POR NÚMERO)</h2>
+          <h2 className="bono-section-title">DISTRIBUCIÓN DE FONDOS (POR NUMERO)</h2>
           <div className="distri-grid">
             <DistriCard icon="👤" percent="50" label="PARA QUIEN VENDE" amount={distri.vendedor} />
             <DistriCard icon="💼" percent="15" label="DELEGADO / ENCARGADO" amount={distri.delegado} />
