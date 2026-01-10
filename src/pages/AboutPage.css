@@ -112,14 +112,30 @@
   z-index: 1;
 }
 
-/* RESPONSIVE MÓVIL (Mantenemos tu lógica intacta) */
+/* RESPONSIVE MÓVIL (CORREGIDO V28) */
 @media (max-width: 1024px) {
   .about-pilar-central {
-    width: 100%;
-    padding: 100px 20px 80px 20px;
+    width: 100% !important;
+    
+    /* 1. Subimos de 100px a 130px para que el texto baje y no lo tape el Navbar */
+    /* 2. Subimos de 80px a 220px abajo para que no lo tape la InfoCard roja */
+    padding: 130px 20px 220px 20px !important;
+
+    gap: 60px;
+    border: none;
+    box-shadow: none;
+    display: flex;
+    flex-direction: column;
   }
+
   .about-pilar-central::before {
     display: none; /* En móvil la luz lateral suele verse mal */
+  }
+
+  /* Ajuste extra para que el título no quede tan pegado arriba */
+  .h-header {
+    margin-bottom: 40px !important;
+    margin-top: 10px !important;
   }
 }
 
