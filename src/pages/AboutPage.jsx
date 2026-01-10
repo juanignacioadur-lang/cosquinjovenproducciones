@@ -27,10 +27,39 @@ const CimientoSupreme = ({ icon, title, text, index }) => (
  * Motor de galería blindado con HUD de metadatos y navegación táctica.
  * Resolvemos el error de desbordamiento mediante contención absoluta.
  */
+/**
+ * COMPONENTE: CINEMA ENGINE V700 (THE MASTER VISOR)
+ * Motor de galería blindado con HUD de metadatos y navegación táctica.
+ * Añadida lógica de gestos táctiles (Swipe) para móviles.
+ */
 const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
   const [index, setIndex] = useState(0);
-  const videoRef = useRef(null); // Referencia para el video
+  const videoRef = useRef(null);
   const len = items.length;
+
+  // --- LÓGICA DE GESTOS TÁCTILES ---
+  const [touchStart, setTouchStart] = useState(null);
+  const [touchEnd, setTouchEnd] = useState(null);
+
+  const handleTouchStart = (e) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > 50;  // Deslizar a la izquierda
+    const isRightSwipe = distance < -50; // Deslizar a la derecha
+
+    if (isLeftSwipe) handleNext();
+    if (isRightSwipe) handlePrev();
+  };
+  // ---------------------------------
 
   useEffect(() => {
     setIndex(0);
@@ -46,12 +75,11 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
     setIndex((prev) => (prev - 1 + len) % len);
   };
 
-  // Función para maximizar el video
   const handleMaximize = () => {
     if (videoRef.current) {
       if (videoRef.current.requestFullscreen) {
         videoRef.current.requestFullscreen();
-      } else if (videoRef.current.webkitEnterFullscreen) { // Soporte para iPhone/Safari
+      } else if (videoRef.current.webkitEnterFullscreen) {
         videoRef.current.webkitEnterFullscreen();
       }
     }
@@ -61,7 +89,13 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
 
   return (
     <div className="archive-section-bottom">
-      <div className="cinema-black-capsule">
+      <div 
+        className="cinema-black-capsule"
+        /* EVENTOS TÁCTILES ACTIVADOS */
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         
         <div className="cinema-hud-metadata">
           <div className="meta-brand">
@@ -87,7 +121,7 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
           ) : (
             <video 
               key={`v-${index}`} 
-              ref={videoRef} // Conectamos la referencia
+              ref={videoRef}
               src={items[index]} 
               className="cinema-media-element" 
               controls 
@@ -103,7 +137,6 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
         </button>
       </div>
 
-      {/* BOTÓN MAXIMIZAR: Solo aparece si es video */}
       {type === "video" && (
         <button className="mobile-maximize-btn" onClick={handleMaximize}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: '10px'}}><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
