@@ -23,6 +23,25 @@
   pointer-events: none;
   opacity: 0.4;
 }
+/* --- TÍTULOS DE SECCIÓN CENTRADOS Y PROLIJOS --- */
+.bono-section-title {
+  width: 100%;
+  text-align: center;       /* 1. Centrado absoluto */
+  
+  /* 2. "Un poquitín más arriba": subimos el título respecto a la sección anterior */
+  margin-top: -10px;        
+  
+  /* 3. "No tan pegado abajo": le damos aire a las tarjetas/tabla que siguen */
+  margin-bottom: 55px;      
+
+  /* Estética God Level */
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  letter-spacing: 6px;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(208, 0, 0, 0.2);
+}
 
 /* PILAR CENTRAL (Estilo AboutPage - Integrado) */
 .bono-pilar-central {
