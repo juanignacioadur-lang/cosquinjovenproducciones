@@ -1,0 +1,325 @@
+/* ============================================================
+   MAINTENANCE V28 - INDUSTRIAL EXTREME DESIGN
+   ============================================================ */
+
+.mnt-root {
+  width: 100%;
+  height: 100vh;
+  background: #050505;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Centrado vertical absoluto */
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* --- REJILLA TÉCNICA --- */
+.mnt-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 2px 2px, rgba(208, 0, 0, 0.1) 1px, transparent 0);
+  background-size: 40px 40px;
+  z-index: 1;
+}
+
+/* --- CINTAS DE ADVERTENCIA (TAPE DESIGN) --- */
+.mnt-tapes-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.caution-tape {
+  position: absolute;
+  width: 200%;
+  height: 45px;
+  background: #ffcc00; /* Amarillo Advertencia */
+  color: #000;
+  display: flex;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
+}
+
+.tape-content {
+  display: flex;
+  width: max-content; /* Permite que el contenido se extienda todo lo necesario */
+  animation: tapeMarquee 40s linear infinite; /* Ajusta los segundos para más o menos velocidad */
+}
+
+.tape-content span {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+}
+.tape-block {
+  display: flex;
+  align-items: center;
+}
+
+.stripes {
+  display: inline-block;
+  width: 30px;
+  height: 100%;
+  margin: 0 10px;
+  background: repeating-linear-gradient(
+    45deg,
+    #000,
+    #000 10px,
+    #ffcc00 10px,
+    #ffcc00 20px
+  );
+}
+
+@keyframes tapeMarquee {
+  0% { 
+    transform: translateX(0); 
+  }
+  100% { 
+    /* Se mueve exactamente la mitad (el primer bloque completo) */
+    /* Al ser el segundo bloque idéntico, el salto al 0% es imperceptible */
+    transform: translateX(-50%); 
+  }
+}
+
+/* Posiciones de las cintas (Criss-Cross) */
+.horizontal-1 { top: 15%; left: -50%; transform: rotate(1deg); opacity: 0.8; }
+.diagonal-left { top: 50%; left: -50%; transform: rotate(-15deg); }
+.diagonal-right { top: 50%; left: -50%; transform: rotate(15deg); }
+.horizontal-2 { bottom: 15%; left: -50%; transform: rotate(-1deg); opacity: 0.8; }
+
+/* --- PILAR CENTRAL (CARD) --- */
+.mnt-pilar {
+  position: relative;
+  z-index: 100; /* Por encima de las cintas */
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.mnt-card {
+  position: relative;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  padding: 50px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 40px 100px rgba(0,0,0,1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mnt-glow-border {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #d00000;
+  border-radius: 12px;
+  opacity: 0.3;
+  box-shadow: inset 0 0 30px rgba(208, 0, 0, 0.1);
+  pointer-events: none;
+}
+
+.mnt-logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.mnt-logo-pro {
+  width: 250px;
+  height: auto;
+  filter: drop-shadow(0 0 15px rgba(208,0,0,0.3));
+}
+
+.mnt-h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3.5rem;
+  line-height: 0.9;
+  color: #fff;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+}
+
+.mnt-h1 span {
+  color: transparent;
+  -webkit-text-stroke: 1px #d00000;
+  text-shadow: 0 0 20px rgba(208, 0, 0, 0.3);
+}
+
+.mnt-divider-tech {
+  width: 80px;
+  height: 4px;
+  background: #d00000;
+  margin: 0 auto 30px auto;
+  box-shadow: 0 0 15px #ff0000;
+}
+
+.mnt-para {
+  color: #888;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 450px;
+  margin: 0 auto 40px auto;
+}
+
+.mnt-cta {
+  display: inline-block;
+  background: #d00000;
+  color: #fff;
+  padding: 15px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: 0.3s;
+}
+
+.mnt-cta:hover {
+  background: #ff0000;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(208, 0, 0, 0.4);
+}
+
+/* LED Y HEADER TECH */
+.mnt-top-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.mnt-led {
+  width: 8px; height: 8px; background: #d00000; border-radius: 50%;
+  animation: ledPulse 1s infinite;
+}
+@keyframes ledPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+.mnt-code { font-family: 'Oswald', sans-serif; color: #333; font-size: 0.7rem; letter-spacing: 3px; }
+
+/* SCANLINES */
+.mnt-scanlines {
+  position: absolute; inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+  background-size: 100% 4px;
+  z-index: 150; pointer-events: none; opacity: 0.2;
+}
+
+/* ============================================================
+   RESPONSIVE MÓVIL "SUPREMO" (V28)
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .mnt-root {
+    /* Padding para no chocar con el Navbar ni el Footer */
+    padding: 80px 15px 120px 15px; 
+    display: flex;
+    align-items: center; /* Centrado Vertical */
+    justify-content: center; /* Centrado Horizontal */
+  }
+
+  /* --- AJUSTE DE CINTAS EN MÓVIL --- */
+  .mnt-tapes-wrapper {
+    /* Hacemos que las cintas se vean más pequeñas pero presentes */
+    transform: scale(0.8); 
+  }
+
+  .caution-tape {
+    height: 32px; /* Más finas para no invadir */
+    font-size: 0.75rem;
+  }
+
+  /* Reposicionamos la "X" para que se cruce justo detrás del cuadro */
+  .horizontal-1 { top: 10%; transform: rotate(2deg); }
+  .horizontal-2 { bottom: 10%; transform: rotate(-2deg); }
+  
+  .diagonal-left { 
+    display: flex !important; /* Aseguramos que se vean */
+    top: 50%; 
+    left: -50%; 
+    transform: translateY(-50%) rotate(-45deg); /* Ángulo más cerrado para vertical */
+    opacity: 0.4; /* Un poco más tenues para que se lea el texto del centro */
+  }
+  
+  .diagonal-right { 
+    display: flex !important; 
+    top: 50%; 
+    left: -50%; 
+    transform: translateY(-50%) rotate(45deg); 
+    opacity: 0.4;
+  }
+
+  /* --- LA TARJETA CENTRAL --- */
+  .mnt-pilar {
+    width: 100%;
+    max-width: 360px; /* Ancho máximo en móviles */
+    margin: 0;
+  }
+
+  .mnt-card {
+    padding: 35px 20px;
+    border-radius: 15px;
+    /* Fondo un poco más sólido para que las cintas de atrás no molesten la lectura */
+    background: rgba(8, 8, 8, 0.98); 
+    box-shadow: 0 0 50px rgba(0,0,0,1);
+  }
+
+  /* LOGO CENTRADO */
+  .mnt-logo-container {
+    margin-bottom: 20px;
+  }
+  .mnt-logo-pro {
+    width: 160px; /* Logo más pequeño y manejable */
+  }
+
+  /* TEXTOS */
+  .mnt-h1 {
+    font-size: 2rem !important; /* Título no tan gigante */
+    letter-spacing: 2px;
+  }
+  .mnt-h1 span {
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+  }
+
+  .mnt-para {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 30px;
+  }
+
+  /* BOTÓN */
+  .mnt-cta {
+    width: 100%; /* Botón ancho completo para que sea fácil de tocar */
+    padding: 15px 0;
+    font-size: 0.9rem;
+  }
+
+  /* INFO TÉCNICA */
+  .mnt-code {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+  }
+}
+
+/* Para celulares muy pequeños (iPhone SE, etc) */
+@media (max-width: 380px) {
+  .mnt-h1 { font-size: 1.7rem !important; }
+  .mnt-logo-pro { width: 140px; }
+  .mnt-card { padding: 25px 15px; }
+}
+
+@keyframes mntEntrance {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+.anim-fade-in { animation: mntEntrance 1.5s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
