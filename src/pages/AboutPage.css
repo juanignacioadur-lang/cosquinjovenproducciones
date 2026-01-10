@@ -13,7 +13,7 @@
   padding: 0;
   margin: 0;
   perspective: 2500px; /* Profundidad para efectos 3D en cards */
-  overflow: visible;
+  overflow: hidden;
 }
 
 /* ============================================================
@@ -598,6 +598,7 @@
   justify-content: center;
   transition: 0.5s ease;
   opacity: 0.15; /* Sutil por defecto */
+  pointer-events: none; /* Evita clics accidentales */
 }
 
 .cinema-nav-arrow:hover {
@@ -609,6 +610,10 @@
   font-size: 6rem;
   font-weight: 100;
   filter: drop-shadow(0 0 20px black);
+  
+  /* DEVOLVEMOS EL CLICK: Solo la flecha física es cliqueable */
+  pointer-events: auto; 
+  cursor: pointer;
 }
 
 .cinema-nav-arrow.prev { left: 0; }

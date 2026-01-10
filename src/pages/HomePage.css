@@ -213,7 +213,7 @@
     display: flex;
     gap: 12px;
     width: 100%;
-    overflow-x: auto;
+    overflow: hidden;
     padding: 10px 5px;
     /* Centrar los botones si caben */
     justify-content: center; 
