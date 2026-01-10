@@ -29,6 +29,7 @@ const CimientoSupreme = ({ icon, title, text, index }) => (
  */
 const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
   const [index, setIndex] = useState(0);
+  const videoRef = useRef(null); // Referencia para el video
   const len = items.length;
 
   useEffect(() => {
@@ -45,13 +46,23 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
     setIndex((prev) => (prev - 1 + len) % len);
   };
 
+  // Función para maximizar el video
+  const handleMaximize = () => {
+    if (videoRef.current) {
+      if (videoRef.current.requestFullscreen) {
+        videoRef.current.requestFullscreen();
+      } else if (videoRef.current.webkitEnterFullscreen) { // Soporte para iPhone/Safari
+        videoRef.current.webkitEnterFullscreen();
+      }
+    }
+  };
+
   if (len === 0) return null;
 
   return (
     <div className="archive-section-bottom">
       <div className="cinema-black-capsule">
         
-        {/* HUD DE METADATOS (ESTILO MONITOR DE CAMARA PROFESIONAL) */}
         <div className="cinema-hud-metadata">
           <div className="meta-brand">
             COSQUÍN JOVEN ARCHIVE // REF_V700 // TYPE: {type.toUpperCase()}
@@ -61,15 +72,11 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
           </div>
         </div>
 
-        {/* CONTROLES DE NAVEGACIÓN (Z-INDEX 500) */}
         <button className="cinema-nav-arrow prev" onClick={handlePrev} title="Anterior">
           <span>‹</span>
         </button>
 
         <div className="cinema-render-viewport">
-          {/* MIRA TELESCÓPICA HUD DECORATIVA */}
-          <div className="cinema-crosshair"></div>
-          
           {type === "photo" ? (
             <img 
               key={`p-${index}`} 
@@ -80,6 +87,7 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
           ) : (
             <video 
               key={`v-${index}`} 
+              ref={videoRef} // Conectamos la referencia
               src={items[index]} 
               className="cinema-media-element" 
               controls 
@@ -94,6 +102,14 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
           <span>›</span>
         </button>
       </div>
+
+      {/* BOTÓN MAXIMIZAR: Solo aparece si es video */}
+      {type === "video" && (
+        <button className="mobile-maximize-btn" onClick={handleMaximize}>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{marginRight: '10px'}}><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          MAXIMIZAR VIDEO
+        </button>
+      )}
     </div>
   );
 };
@@ -160,15 +176,21 @@ export default function AboutPage() {
               </div>
             </div>
             
-            <div className="h-visual-side">
-               <div className="h-image-canvas">
-                  <img src="/Informacion.jpg" alt="Historia Cosquín" className="h-image-render" />
-                  <div className="h-frame-deco"></div>
-                  {/* Etiqueta HUD de la imagen */}
-               </div>
-            </div>
-          </div>
-        </section>
+                 <div className="h-visual-side">
+    {/* PRIMERA IMAGEN */}
+    <div className="h-image-canvas">
+        <img src="/Informacion.jpg" alt="Historia Cosquín" className="h-image-render" />
+        <div className="h-frame-deco"></div>
+    </div>
+
+    <div className="h-image-canvas" style={{ marginTop: '-30px' }}>
+        <img src="/inicio.jpg" alt="Gala Cosquín" className="h-image-render" />
+        <div className="h-frame-deco-bottom"></div>
+    </div>
+</div> {/* Este cierra h-visual-side */}
+</div> {/* ESTE ES EL QUE TE FALTA: Cierra h-master-grid */}
+</section> {/* Este cierra h-editorial-section */}
+               
 
         <div className="master-separator-v21"></div>
 

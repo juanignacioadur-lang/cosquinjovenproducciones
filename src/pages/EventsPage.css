@@ -17,31 +17,33 @@
   justify-content: center; 
   align-items: flex-start; 
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
-/* --- 2. LA ANIMACIÓN (Efecto Cine) --- */
-@keyframes cinematicEntrance {
+@keyframes eventsEntrance {
   0% { 
     opacity: 0; 
-    transform: translateY(30px); 
-    filter: blur(10px); 
+    transform: translateY(30px); /* Empieza un poco abajo */
+    filter: blur(15px);         /* Empieza muy borroso */
   }
   100% { 
     opacity: 1; 
-    transform: translateY(0); 
-    filter: blur(0);
+    transform: translateY(0);    /* Llega a su posición */
+    filter: blur(0);            /* Queda totalmente nítido */
   }
 }
 
 /* --- 3. LA CLASE DE ANIMACIÓN (Aumentamos a 2 segundos para que sea lento) --- */
 .anim-fade-in {
-  animation: cinematicEntrance 2s cubic-bezier(0.2, 1, 0.3, 1) forwards !important;
+  /* Duración de 2 segundos para que se aprecie el desenfoque */
+  animation: eventsEntrance 2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
   will-change: transform, opacity, filter;
 }
 
 /* --- 4. EL CONTENEDOR (Quitamos el opacity: 0 de aquí para evitar el error) --- */
 .nt-container { 
+  /* IMPORTANTE: No pongas opacity: 0 aquí, 
+     deja que la animación se encargue de la visibilidad */
   width: 90%; 
   max-width: 1200px; 
   background: transparent !important;
@@ -55,9 +57,9 @@
   position: relative;
   z-index: 10;
   
+  /* Bordes y luces rojas que ya tenías */
   border-left: 1px solid rgba(255, 255, 255, 0.08);
   border-right: 1px solid rgba(255, 255, 255, 0.08);
-  
   box-shadow: 
     0 0 100px rgba(0, 0, 0, 1),
     -60px 0 150px -20px rgba(208, 0, 0, 0.4), 

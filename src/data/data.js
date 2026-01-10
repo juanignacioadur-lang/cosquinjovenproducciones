@@ -103,7 +103,7 @@ export const eventsData = [
     ],
 
     prizes: [
-      { place: "Beneficio", reward: "Cada 10 participantes de una academia → 1 liberado gratuito." },
+      { place: "Bonificación", reward: "Cada 10 participantes de una academia → 1 liberado gratuito. (ES BONIFICACIÓN AL PROFE O DELEGADO)" },
       { place: "Delegados", reward: "Comunicación exclusiva con la organización." }
     ],
     reglamentoLink: null,
@@ -283,7 +283,7 @@ export const eventsData = [
     prizes: [
       { place: "Campeones", reward: "Certificado + Premio Challenger." }, 
       { place: "Ranking", reward: "Premios del 1.º al 10.º puesto." },
-      { place: "Beneficio", reward: "Cada 10 participantes → 1 liberado." }
+      { place: "Bonificación", reward: "Cada 10 participantes de una academia → 1 liberado gratuito. (ES BONIFICACIÓN AL PROFE O DELEGADO)" }
     ],
     reglamentoLink: null,
   },

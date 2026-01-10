@@ -5,42 +5,36 @@ export default function RouteScrollHandler() {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
+    // 1. Forzamos el inicio arriba de todo
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
 
-    const lockAndReset = () => {
-      // 1. Subir a la fuerza en todos los niveles
+    const resetAndLock = () => {
+      // A. Volvemos al tope instantáneamente
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
       document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
 
-      // 2. BLOQUEO VISUAL Y FÍSICO
+      // B. BLOQUEO TOTAL: Ocultamos la barra y prohibimos el scroll
       document.body.style.overflow = "hidden";
-      document.body.style.touchAction = "none";
-      
-      // Bloqueamos también el contenedor de React por seguridad
-      const root = document.getElementById("root");
-      if (root) root.style.overflow = "hidden";
+      document.body.style.touchAction = "none"; // Bloqueo táctil en móvil
     };
 
-    lockAndReset();
+    resetAndLock();
 
-    // Ejecutamos un segundo reseteo en el próximo frame para el Bono
-    const rafId = requestAnimationFrame(lockAndReset);
+    // 2.フレーム de seguridad para el renderizado
+    const rafId = requestAnimationFrame(resetAndLock);
 
-    // 3. LIBERACIÓN CONTROLADA (1.5 segundos para dar tiempo al Bono)
+    // 3. LIBERACIÓN: Después de 1.2 segundos (ajustable), devolvemos el scroll
     const timerId = setTimeout(() => {
       document.body.style.overflow = "auto";
       document.body.style.touchAction = "auto";
-      
-      const root = document.getElementById("root");
-      if (root) root.style.overflow = "visible";
-    }, 1500); 
+    }, 1200); // 1200ms coincide con el tiempo de tu animación prolija
 
     return () => {
       cancelAnimationFrame(rafId);
       clearTimeout(timerId);
+      // Por seguridad, si el componente se desmonta, liberamos el scroll
       document.body.style.overflow = "auto";
       document.body.style.touchAction = "auto";
     };
