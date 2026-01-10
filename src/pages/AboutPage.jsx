@@ -119,16 +119,21 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
               className="cinema-media-element anim-fade-in" 
             />
           ) : (
-            <video 
-              key={`v-${index}`} 
-              ref={videoRef}
-              src={items[index]} 
-              className="cinema-media-element" 
-              controls 
-              playsInline 
-              autoPlay={false} 
-              preload="metadata"
-            />
+             <video 
+               key={`v-${index}`} 
+               ref={videoRef}
+                    /* 
+                    TRUCO CLAVE: Agregamos #t=0.001 al final de la ruta. 
+                    Esto le dice a iOS que el video debe posicionarse en el milisegundo 1, 
+                    lo que obliga al navegador a renderizar ese primer fotograma.
+                    */
+                  src={`${items[index]}#t=0.001`} 
+                  className="cinema-media-element" 
+                  controls 
+                  playsInline 
+                  muted={false} /* Si quieres que se vea la imagen, a veces iOS pide que empiece muteado, pero con el truco del tiempo no hace falta */
+                  preload="auto" /* Cambiado de metadata a auto para mayor compatibilidad */
+              />
           )}
         </div>
 
