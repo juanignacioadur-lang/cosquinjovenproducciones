@@ -603,7 +603,9 @@
 
 .cinema-nav-arrow:hover {
   opacity: 1;
-  background: rgba(208, 0, 0, 0.1);
+  /* Opcional: puedes quitar el background si prefieres que sea más limpio 
+     y no tape el video al maximizar */
+  background: rgba(208, 0, 0, 0.05); 
 }
 
 .cinema-nav-arrow span {
