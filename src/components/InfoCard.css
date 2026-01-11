@@ -106,7 +106,7 @@
 }
 
 .infocard-logo-rect {  /* Logo dentro del rectángulo */
-  width: 90px;
+  width: 100px;
   height: auto;
   filter: drop-shadow(0 2px 10px rgba(255, 255, 255, 0.1));
 }
@@ -146,35 +146,75 @@
   100% { box-shadow: -5px 0 15px rgba(208, 0, 0, 0.4); }
 }
 
+/* ============================================================
+   AJUSTE MOBILE: MÁS LARGO Y MENOS ALTO (ESTILO CINTA)
+   ============================================================ */
+
 @media (max-width: 900px) {
+  .infocard-wrapper {
+    /* Mantenemos la posición sobre el footer */
+    bottom: 92px; 
+    /* El slide sigue siendo suave */
+    transition: transform 0.5s ease-in-out;
+  }
+
   .infocard-main {
-    /* La hacemos más angosta para que deje ver los botones de la Home */
-    width: 250px !important; 
-    padding: 12px 10px !important;
-    /* Un poco más de transparencia para que no sea un bloque negro sólido */
-    background: rgba(8, 8, 8, 0.92) !important; 
+    /* 1. MÁS LARGO: Aumentamos el ancho de 300px a 340px (o 90vw) */
+    width: 340px !important; 
+    
+    /* 2. MENOS ALTO: Reducimos el padding vertical al mínimo (8px) */
+    padding: 8px 15px !important; 
+    
+    background: rgba(10, 10, 10, 0.95) !important;
+    border-radius: 0; /* Más recto para que parezca una cinta */
+  }
+
+  .infocard-body-horizontal {
+    /* Reducimos el espacio entre logo y texto para que entre todo a lo largo */
+    gap: 12px !important; 
   }
 
   .infocard-logo-rect {
-    width: 55px !important; /* Logo más chico en móvil */
+    /* 3. LOGO MÁS CHICO: Al achicar el logo, la barra se vuelve menos alta */
+    width: 70px !important; 
+  }
+
+  .infocard-text-side {
+    gap: 0px !important; /* Pegamos el titulo al subtitulo */
   }
 
   .infocard-title-rect {
-    font-size: 0.75rem !important; /* Texto más pequeño pero legible */
+    /* Texto más compacto */
+    font-size: 0.78rem !important; 
+    letter-spacing: 1px !important;
   }
 
   .infocard-subtitle-rect {
+    /* Subtítulo en una sola línea o muy compacto */
     font-size: 0.65rem !important;
-    max-width: 140px !important;
+    max-width: 200px !important; 
+    line-height: 1.2 !important;
+    opacity: 0.7;
   }
 
-  /* El botón de la pestaña también un poquito más fino */
+  /* Ajuste del botón para que coincida con la nueva altura fina */
   .infocard-trigger {
     width: 35px !important;
+    padding: 10px 5px !important;
   }
 
   .infocard-wrapper.is-closed {
-    /* Se esconde un poco más para que no estorbe */
+    /* Se esconde un poco más para que solo asome la puntita */
     transform: translateX(calc(100% - 30px)) !important;
   }
+}
+
+/* Fix para celulares muy delgados */
+@media (max-width: 360px) {
+    .infocard-main {
+        width: 290px !important;
+    }
+    .infocard-subtitle-rect {
+        max-width: 150px !important;
+    }
 }
