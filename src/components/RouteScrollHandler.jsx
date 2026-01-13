@@ -5,40 +5,35 @@ export default function RouteScrollHandler() {
   const { pathname } = useLocation();
 
   useLayoutEffect(() => {
-    // 1. Forzamos el inicio arriba de todo
+    // 1. Desactivar memoria de scroll del navegador
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
 
-    const resetAndLock = () => {
-      // A. Volvemos al tope instantáneamente
+    // 2. Función de limpieza total de scroll
+    const scrollToTop = () => {
+      // Reseteo para navegadores estándar
       window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+      
+      // Reseteo para contenedores con zoom o overflow
       document.documentElement.scrollTop = 0;
-
-      // B. BLOQUEO TOTAL: Ocultamos la barra y prohibimos el scroll
-      document.body.style.overflow = "hidden";
-      document.body.style.touchAction = "none"; // Bloqueo táctil en móvil
+      document.body.scrollTop = 0;
+      
+      // Forzar reseteo del contenedor root si es necesario
+      const root = document.getElementById("root");
+      if (root) root.scrollTop = 0;
     };
 
-    resetAndLock();
+    // Ejecución inmediata
+    scrollToTop();
 
-    // 2.フレーム de seguridad para el renderizado
-    const rafId = requestAnimationFrame(resetAndLock);
+    // 3. SEGUNDO RESETEO (Seguridad para el GlobalScaler)
+    // El zoom tarda unos milisegundos en recalcular el tamaño de la página.
+    // Este timeout de 10ms asegura que cuando la página termine de escalar, 
+    // la volvamos a subir al tope real.
+    const timer = setTimeout(scrollToTop, 10);
 
-    // 3. LIBERACIÓN: Después de 1.2 segundos (ajustable), devolvemos el scroll
-    // En el setTimeout de liberación de RouteScrollHandler.jsx:
-          const timerId = setTimeout(() => {
-             document.body.style.overflow = "visible"; // Cambiado de 'auto' a 'visible' para evitar saltos
-             document.body.style.touchAction = "auto";
-            }, 1200);
-
-    return () => {
-      cancelAnimationFrame(rafId);
-      clearTimeout(timerId);
-      // Por seguridad, si el componente se desmonta, liberamos el scroll
-      document.body.style.overflow = "auto";
-      document.body.style.touchAction = "auto";
-    };
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return null;

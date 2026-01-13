@@ -1,114 +1,143 @@
 /* ============================================================
-   ARCHITECTURAL GLOBAL SCALER V45 - ULTRA SLIM 1080p
-   ZONA A: 1080p e Inferiores (Zoom 0.75 - Ultra Fino)
-   ZONA B: Monitor Pro 1440p+ (Zoom 1.0 - Original)
+   ARCHITECTURAL GLOBAL SCALER V49 - SYMMETRY & PRO ZONE
+   ZONA A: 1080p / Laptops (Zoom 0.75)
+   ZONA B: 1440p / Monitores Pro (Zoom 0.92 - Más Grande y Prolijo)
    ============================================================ */
 
-/* --- 1. ZONA COMPACTA (Laptops, MacBooks y Monitores 1080p comunes) --- */
-/* Se aplica desde 1025px hasta 2000px de ancho */
-@media (min-width: 1025px) and (max-width: 2000px) {
-  html {
-    /* Bajamos a 0.75 para que todo se vea más chico y estilizado */
-    zoom: 0.75; 
-    -moz-transform: scale(0.75);
-    -moz-transform-origin: top center;
-    background-color: #000 !important;
-  }
-
-  /* FIX DE CENTRADO (HOME Y LOGIN) 
-     Compensación para Zoom 0.75: (1 / 0.75 = 1.333)
-     Esto clava el contenido al centro de la pantalla física.
-  */
-  .inicio-hero, 
-  .login-v29-root {
-    min-height: 133.4vh !important; 
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    background: transparent !important;
-  }
-
-  /* Navbar más fina para pantallas chicas */
-  .navbar { height: 60px !important; }
-  .logo-img { height: 42px !important; }
-  
-  /* Sub-navbar (Mi Panel) pegada a la nueva altura */
-  .subnav-fixed-wrapper {
-    position: fixed !important;
-    top: 60px !important; 
-    right: 40px !important;
-    width: auto !important;
-  }
-
-  /* Sincronización si scrolleas */
-  :global(.navbar.scrolled) ~ .main-content .subnav-fixed-wrapper {
-    top: 50px !important;
-  }
-}
-
-/* --- 2. ZONA PRO (Tu monitor 1440p, Monitores 4K) --- */
-/* Se aplica a todo lo que sea mayor a 2000px de ancho */
-@media (min-width: 2001px) {
-  html {
-    zoom: 1; /* Tamaño real sin recortes */
-    background-color: #000 !important;
-  }
-
-  .inicio-hero, .login-v29-root {
-    min-height: 100vh !important;
-  }
-
-  .navbar { height: 85px !important; }
-  
-  .subnav-fixed-wrapper {
-    top: 85px !important;
-    right: 60px !important;
-  }
-}
-
-/* --- 3. BLINDAJE UNIVERSAL DE FONDOS (EXTREMO PARA ZOOM 0.75) --- */
+/* --- 1. CONFIGURACIÓN PARA PANTALLAS GRANDES (PC) --- */
 @media (min-width: 1025px) {
-  .video-fondo, 
-  .login-video-bg,
-  .overlay,
-  .login-overlay-dark {
-    /* Subimos a 160vw para que al achicar al 75% no queden bordes negros */
-    width: 160vw !important;  
-    height: 160vh !important; 
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
+  
+  /* --- ZONA A: LAPTOPS / 1080p --- */
+  @media (max-width: 2000px) {
+    html {
+      zoom: 0.75; 
+      -moz-transform: scale(0.75);
+      -moz-transform-origin: top center;
+    }
+    .inicio-hero, .login-v29-root { min-height: 133.4vh !important; }
+    .navbar { height: 60px !important; }
+    .subnav-fixed-wrapper { top: 60px !important; }
+  }
+  /* --- ALINEACIÓN QUIRÚRGICA DE ELEMENTOS INTERNOS --- */
+
+/* 1. Forzamos que todos los íconos ocupen el mismo espacio vertical */
+.f-icon-box {
+  height: 120px !important; 
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 20px !important;
+}
+
+/* 2. Forzamos que todos los títulos tengan la misma altura (así la línea roja baja igual) */
+.f-title-h4 {
+  height: 50px !important; /* Espacio para 2 líneas de texto */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-bottom: 15px !important;
+  text-align: center !important;
+}
+
+/* 3. La línea roja (f-hr) ahora siempre empezará en el mismo pixel */
+.f-hr {
+  margin: 0 auto 20px auto !important;
+}
+
+/* 4. El texto de descripción también con altura mínima para que las cajas no colapsen */
+.f-text-p {
+  min-height: 80px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+}
+
+  /* --- ZONA B: MONITORES PRO / 1440p+ --- */
+  @media (min-width: 2001px) {
+    html {
+      /* Subimos a 0.92 para que se vea un poco más grande en tu monitor 1440p */
+      zoom: 0.92; 
+      -moz-transform: scale(0.92);
+      -moz-transform-origin: top center;
+      background-color: #000 !important;
+    }
+    /* Compensación de altura para 0.92: (1 / 0.92 = 1.087) */
+    .inicio-hero, .login-v29-root { min-height: 108.7vh !important; }
+    
+    .navbar { height: 75px !important; }
+    .subnav-fixed-wrapper { top: 75px !important; }
+  }
+
+  /* --- REGLAS DE DISEÑO UNIVERSALES (PC) --- */
+  
+  /* 1. BLINDAJE DE FONDOS */
+  .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
+    width: 160vw !important; height: 160vh !important;
+    position: fixed !important; top: 50% !important; left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    object-fit: cover !important;
-    z-index: -10 !important;
+    object-fit: cover !important; z-index: -10 !important;
     pointer-events: none;
   }
 
-  /* Pilares estrechos para que el texto sea fino y no se "desparrame" */
-  .about-pilar-central, 
-  .nt-container, 
-  .bono-pilar-central, 
-  .ct-pilar-central,
-  .portal-viewport {
-    max-width: 1000px !important; /* Bajamos de 1100 a 1000 para más elegancia */
+  /* 2. RE-CALIBRACIÓN DEL PILAR CENTRAL */
+  .about-pilar-central, .nt-container, .bono-pilar-central, .ct-pilar-central, .portal-viewport {
+    max-width: 1100px !important;
     margin: 0 auto !important;
-    background: transparent !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; 
+    border-left: 1px solid rgba(255,255,255,0.05) !important;
+    border-right: 1px solid rgba(255,255,255,0.05) !important;
+    overflow: visible !important;
+  }
+
+  /* 3. FIX DE SIMETRÍA: CIMIENTOS (MISMA ALTURA PARA LOS 4) */
+  .f-grid-matrix {
+    width: 100% !important;
+    max-width: 1050px !important;
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; 
+    /* ESTA LÍNEA OBLIGA A QUE TODOS MIDAN LO MISMO: */
+    grid-auto-rows: 1fr !important; 
+    gap: 25px !important;
+    padding: 60px 0 !important;
+    margin: 0 auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .f-card-elite {
+    width: 100% !important;
+    max-width: 250px !important;
+    height: 100% !important; /* Estira la carta al alto de la fila */
+    display: flex !important;
+  }
+
+  .f-inner-wrap {
+    width: 100% !important;
+    height: 100% !important; /* Estira el contenido negro al alto de la carta */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; /* Centra el contenido verticalmente */
+    padding: 40px 25px !important; /* Padding uniforme */
+    transform-origin: center center !important;
+  }
+
+  /* Hover Suave */
+  .f-card-elite:hover .f-inner-wrap {
+    transform: translateY(-10px) rotateX(4deg) !important;
   }
 }
 
 /* --- 4. RESET MÓVIL --- */
 @media (max-width: 1024px) {
-  html {
-    font-size: 14px !important;
-  }
+  html { font-size: 14px !important; }
   .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
-    width: 100vw !important;
-    height: 100vh !important;
-    transform: none !important;
-    top: 0 !important;
-    left: 0 !important;
+    width: 100vw !important; height: 100vh !important;
+    transform: none !important; top: 0 !important; left: 0 !important;
     position: fixed !important;
   }
+  /* En móvil, los cimientos se apilan 2x2, reseteamos la altura forzada */
+  .f-grid-matrix { grid-auto-rows: auto !important; }
 }
 
 body {
