@@ -120,9 +120,7 @@ export const eventsData = [
     images: ["/COSQUIN JOVEN CARTAGENA.jpg"],
     instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DROAuSCDN1D/",
     whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20Cartagena%202026.",
-    
-    longDescription: "¡Llega la 1.ª Edición Internacional! Un encuentro único donde la danza, el canto y la cultura folklórica se unen en Cartagena de Indias. Participan academias, ballets, cantantes, peñas, escuelas, centros culturales, jubilados, artistas y viajeros.",
-    
+    longDescription: "¡Llega la 1.ª Edición Internacional! Un encuentro único donde la danza, el canto y la cultura folklórica se unen en Cartagena de Indias. Participan academias, ballets, con cantantes, peñas, escuelas, centros culturales, jubilados, artistas y viajeros.",
     fullDetails: [
       { 
         title: "Pack Experience (Todo Incluido)", 
@@ -160,7 +158,6 @@ export const eventsData = [
         ]
       }
     ],
-
     packs: [
       { 
         title: "PLAN 1 (Desde 4 Mar)", 
@@ -181,14 +178,12 @@ export const eventsData = [
         ] 
       }
     ],
-
     prizes: [
       { place: "Experiencias", reward: "Playas, Fuerte histórico, Magia colonial." }, 
       { place: "Reserva", reward: "Seña de 600.000 COP para asegurar cupo." }
     ],
     reglamentoLink: null,
   },
-
   {
     id: "e3",
     title: "EL ARGENTINO 2026",
@@ -200,9 +195,7 @@ export const eventsData = [
     images: ["/EL ARGENTINO.jpg"],
     instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DRQhxujDAGd/",
     whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20más%20información%20sobre%20El%20Argentino%202026.",
-    
     longDescription: "Un mega evento cultural que reúne tradición, danza, malambo y folklore. Participan academias, escuelas, ballets, instituciones, artistas y malambistas de todas las edades. Promoviendo la amistad y el fortalecimiento de las raíces.",
-    
     fullDetails: [
       { 
         title: "Información General", 
@@ -247,39 +240,23 @@ export const eventsData = [
         list: ["Unísono Menor, Juvenil y Mayor.", "Se permite mixto.", "Se elige la mejor propuesta."] 
       }
     ],
-
-    /* --- CAMBIOS EN PACKS EL ARGENTINO --- */
     packs: [
       { 
         title: "BÁSICO", 
         price: "$30.000", 
-        items: [
-          "Inscripción al evento",
-          "Derecho a participación",
-          "Certificado digital"
-        ] 
+        items: ["Inscripción al evento", "Derecho a participación", "Certificado digital"] 
       },
       { 
         title: "PACK RECUERDO", 
         price: "$40.000", 
-        items: [
-          "Inscripción al evento",
-          "Remera oficial de El Argentino",
-          "Certificado impreso"
-        ] 
+        items: ["Inscripción al evento", "Remera oficial de El Argentino", "Certificado impreso"] 
       },
       { 
         title: "PACK COMPLETO", 
         price: "$100.000", 
-        items: [
-          "Inscripción al evento",
-          "Remera oficial",
-          "Curso de Capacitación exclusivo",
-          "Acceso a sectores preferenciales"
-        ] 
+        items: ["Inscripción al evento", "Remera oficial", "Curso de Capacitación exclusivo", "Acceso a sectores preferenciales"] 
       }
     ],
-
     prizes: [
       { place: "Campeones", reward: "Certificado + Premio Challenger." }, 
       { place: "Ranking", reward: "Premios del 1.º al 10.º puesto." },
@@ -287,6 +264,71 @@ export const eventsData = [
     ],
     reglamentoLink: null,
   },
+  {
+    id: "e4",
+    title: "DANZABUELOS 2026 – Festival + Unión",
+    shortTitle: "DANZABUELOS", 
+    short: "Un festival de encuentro entre generaciones. Risas, emoción y pasión por el folklore.",
+    date: "12 al 15 de Junio de 2026",
+    location: "Teatro Acuario, Villa Carlos Paz",
+    image: "/DANZA ABUELOS.jpg",
+    images: ["/DANZA ABUELOS.jpg"], 
+    instagramLink: "https://www.instagram.com/p/DTAtv1-jh93",
+    whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20más%20información%20sobre%20el%20Festival%20Danzabuelos%202026.",
+    longDescription: "Danzabuelos es un festival de encuentro entre generaciones. Un espacio de abrazos sinceros, risas compartidas y emoción. Fue creado para cumplir el sueño de los adultos mayores de todo el país, brindándoles un escenario donde expresarse y ser protagonistas.",
+    fullDetails: [
+      { 
+        title: "Quiénes pueden participar", 
+        icon: "🌈", 
+        text: "De todas las edades, el escenario une generaciones y celebra la vida.",
+        list: ["Escuelas y Academias", "Ballets e Instituciones", "Cantantes y Grupos artísticos"] 
+      },
+      { 
+        title: "Presentaciones Artísticas", 
+        icon: "🎭", 
+        subSections: [
+          { title: "🎤 Cantantes y Parejas", list: ["2 presentaciones de 5 minutos cada una."] },
+          { title: "💃 Ballets y Grupos", list: ["2 presentaciones de 8 minutos.", "Si son +35 integrantes: 3 presentaciones de 8 min."] }
+        ] 
+      },
+      { 
+        title: "Pack Experiencia - Incluye", 
+        icon: "🧳", 
+        list: [
+          "Actuaciones en el Teatro Acuario",
+          "Entrada gratuita los 3 días del festival",
+          "Hospedaje 4 días / 3 noches + desayunos",
+          "Remera oficial del evento",
+          "City tour por Villa Carlos Paz",
+          "Curso de capacitación con diploma",
+          "Recuerdo sorpresa del festival"
+        ] 
+      },
+      { 
+        title: "Momento Especial 2026", 
+        icon: "👑", 
+        text: "Viviremos la reelección de la Abuela y el Abuelo Rey, quienes serán la imagen oficial del festival representando la unión y la emoción."
+      }
+    ],
+    packs: [
+      { 
+        title: "PREVENTA (6 CUOTAS)", 
+        price: "$240.000 total", 
+        items: ["1ª cuota: $40.000 (hasta 15/01)", "4ª cuota: $40.000 (hasta 15/04)", "6ª cuota: $40.000 (hasta 05/06)"] 
+      },
+      { 
+        title: "OPCIÓN ALTERNATIVA", 
+        price: "$260.000 total", 
+        items: ["Plan de 4 cuotas de $65.000", "Cuotas en Marzo, Abril, Mayo y Junio", "Confirmación con el 100% abonado"] 
+      }
+    ],
+    prizes: [
+      { place: "Beneficio 10+1", reward: "Si traés 10 personas, tu Pack Experiencia es bonificado al 100%." },
+      { place: "Recuerdo", reward: "Cuadro grupal de regalo para cada delegación." },
+      { place: "Comisión", reward: "Porcentaje especial para delegados por cada acompañante sumado." }
+    ],
+    reglamentoLink: null,
+  }
 ];
 
 /* --- NOTICIAS --- */
