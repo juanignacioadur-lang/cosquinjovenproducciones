@@ -258,7 +258,10 @@ export default function AboutPage() {
           <header className="archive-header-v25">
             <div className="m-branding-box">
               <span className="m-serial">REGISTRO CINEMATOGRÁFICO</span>
-              <h2 className="archive-main-title-v25">MOMENTOS <span>MEMORABLES</span></h2>
+              <h2 className="archive-main-title-v25">
+  MOMENTOS <br />
+  <span className="signature-glow">Memorables</span>
+</h2>
               <div className="m-underline-neon"></div>
               <p className="m-subtitle-museum">CENTRO DE PRESERVACIÓN VISUAL - REGISTRO CINEMATOGRÁFICO DE GALA</p>
             </div>
