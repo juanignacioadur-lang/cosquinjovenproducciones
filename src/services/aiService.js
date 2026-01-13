@@ -1,6 +1,6 @@
 // src/services/aiService.js
 
-const API_KEY = "AIzaSyCQ3J5EyXc-N1D8mLMlkoyc8UijeERBTAc"; 
+const API_KEY = import.meta.env.VITE_GEMINI_KEY; 
 
 // Usamos v1beta que es la que soporta los modelos más nuevos de tu captura
 const MODEL_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${API_KEY}`;
