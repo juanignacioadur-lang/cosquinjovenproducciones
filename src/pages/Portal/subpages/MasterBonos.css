@@ -1,0 +1,374 @@
+/* ============================================================
+   MASTER BONOS - ARQUITECTURA DE DATOS FEDERAL V28
+   ============================================================ */
+
+.master-bonos-root {
+  width: 100%;
+  color: #fff;
+}
+
+/* --- VISTA DUEÑO: HERRAMIENTAS DE BUSQUEDA --- */
+.owner-header-tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  background: rgba(15, 15, 15, 0.6);
+  padding: 20px 30px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #000;
+  border: 1px solid #222;
+  padding: 5px 20px;
+  border-radius: 50px;
+  transition: 0.3s;
+}
+
+.search-wrap:focus-within {
+  border-color: #d00000;
+  box-shadow: 0 0 15px rgba(208, 0, 0, 0.2);
+}
+
+.search-wrap input {
+  background: transparent;
+  border: none;
+  color: #fff;
+  height: 45px;
+  width: 100%;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 2px;
+  font-size: 1rem;
+}
+
+.search-wrap input:focus { outline: none; }
+
+.global-counter {
+  font-family: 'Oswald';
+  color: #d00000;
+  letter-spacing: 3px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: rgba(208, 0, 0, 0.1);
+  padding: 10px 20px;
+  border-radius: 4px;
+  border-bottom: 2px solid #d00000;
+}
+
+/* --- GRILLA DE ACADEMIAS (24 CARDS) --- */
+.delegates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.delegate-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 25px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.delegate-card:hover {
+  border-color: #d00000;
+  transform: translateY(-8px);
+  background: #0f0f0f;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+}
+
+.d-card-header .d-prov {
+  font-family: 'Oswald';
+  color: #444;
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.d-card-header h4 {
+  font-family: 'Oswald';
+  font-size: 1.3rem;
+  color: #fff;
+  margin: 5px 0 20px 0;
+  text-transform: uppercase;
+}
+
+.d-card-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.d-progress {
+  width: 100%;
+  height: 4px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.d-progress .fill {
+  height: 100%;
+  background: #d00000;
+  box-shadow: 0 0 10px #ff0000;
+}
+
+.d-card-stats span {
+  font-size: 0.75rem;
+  color: #888;
+  font-weight: 700;
+}
+
+.d-card-footer {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  font-size: 0.65rem;
+  color: #333;
+  letter-spacing: 2px;
+}
+
+/* --- VISTA DELEGADO (LOS 32 SLOTS) --- */
+.delegate-slots-view { width: 100%; }
+
+.slots-header { text-align: center; margin-bottom: 40px; }
+.slots-header h3 { font-family: 'Oswald'; font-size: 1.8rem; letter-spacing: 4px; color: #fff; }
+.slots-header p { color: #555; font-size: 0.9rem; margin-top: 5px; }
+
+.slots-grid-pro {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 15px;
+}
+
+.slot-card-v28 {
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  padding: 20px 10px;
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.slot-card-v28.free:hover {
+  border-color: #d00000;
+  background: rgba(208, 0, 0, 0.05);
+  transform: scale(1.05);
+}
+
+.slot-card-v28.sold {
+  border-color: rgba(208, 0, 0, 0.3);
+  background: rgba(208, 0, 0, 0.02);
+  cursor: default;
+}
+
+.s-id { font-family: 'Oswald'; font-size: 1.2rem; color: #fff; }
+.s-status { font-size: 0.6rem; letter-spacing: 1px; color: #444; text-transform: uppercase; }
+.sold .s-status { color: #d00000; font-weight: bold; }
+.s-buyer { font-size: 0.65rem; color: #fff; font-weight: bold; margin-top: 5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* --- MODAL DE CARGA (FORMULARIO TECH) --- */
+.form-modal-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 5000; backdrop-filter: blur(10px);
+}
+
+.form-modal-card {
+  background: #050505;
+  border: 1px solid #d00000;
+  padding: 50px 40px;
+  border-radius: 20px;
+  width: 90%; max-width: 500px;
+  box-shadow: 0 0 80px rgba(208, 0, 0, 0.15);
+}
+
+.form-modal-card h3 { font-family: 'Oswald'; color: #fff; font-size: 1.6rem; text-align: center; margin-bottom: 35px; letter-spacing: 2px; }
+
+.form-tech-grid { display: flex; flex-direction: column; gap: 15px; }
+
+.form-tech-grid input {
+  background: #000;
+  border: 1px solid #222;
+  padding: 16px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.form-tech-grid input:focus { border-color: #d00000; outline: none; background: #080808; }
+
+.form-tech-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+
+.form-tech-actions button {
+  padding: 15px; border-radius: 8px; cursor: pointer; font-family: 'Oswald'; font-weight: 700; letter-spacing: 2px; transition: 0.3s;
+}
+
+.form-tech-actions button[type="button"] { background: transparent; border: 1px solid #333; color: #555; }
+.form-tech-actions button[type="submit"] { background: #d00000; border: none; color: #fff; }
+.form-tech-actions button[type="submit"]:hover { background: #ff0000; transform: scale(1.02); }
+
+/* --- INSPECTOR PANEL (DUEÑO) --- */
+.inspector-overlay {
+  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9);
+  z-index: 5000; display: flex; justify-content: flex-end;
+}
+
+.inspector-panel {
+  width: 100%; max-width: 550px;
+  background: #050505;
+  height: 100vh;
+  border-left: 2px solid #d00000;
+  padding: 60px 40px;
+  overflow-y: auto;
+  box-shadow: -20px 0 60px rgba(0,0,0,1);
+}
+
+.ins-header { border-bottom: 1px solid #111; padding-bottom: 30px; margin-bottom: 40px; position: relative; }
+.ins-header h3 { font-family: 'Oswald'; color: #fff; font-size: 1.5rem; text-transform: uppercase; }
+.ins-header h3 span { color: #d00000; }
+.ins-header p { color: #444; font-size: 0.8rem; margin-top: 5px; letter-spacing: 2px; }
+
+.close-btn {
+  position: absolute; top: -10px; right: 0;
+  background: transparent; border: none; color: #444;
+  font-size: 2.5rem; cursor: pointer;
+}
+
+.ins-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 10px;
+}
+
+.ins-slot {
+  background: #0a0a0a; padding: 15px 5px; border-radius: 6px;
+  text-align: center; display: flex; flex-direction: column;
+  border: 1px solid #111;
+}
+
+.ins-slot.sold { border-color: rgba(208, 0, 0, 0.4); background: rgba(208, 0, 0, 0.05); }
+.ins-slot span { font-family: 'Oswald'; color: #fff; }
+.ins-slot small { font-size: 0.6rem; color: #333; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ins-slot.sold small { color: #d00000; font-weight: bold; }
+
+/* ============================================================
+   RESPONSIVE MÓVIL
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .owner-header-tools { flex-direction: column; gap: 20px; padding: 20px; text-align: center; }
+  .search-wrap { width: 100%; }
+  .inspector-panel { width: 100%; max-width: 100%; }
+  .slots-grid-pro { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+  .form-modal-card { padding: 40px 20px; }
+}
+
+/* --- NUEVO DISEÑO CENTRADO (DUEÑO) --- */
+.inspector-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0, 0, 0, 0.95);
+  z-index: 5000;
+  display: flex;
+  justify-content: center; /* CENTRADO HORIZONTAL */
+  align-items: center;     /* CENTRADO VERTICAL */
+  backdrop-filter: blur(10px);
+}
+
+.inspector-card-centered {
+  background: #080808;
+  width: 90%;
+  max-width: 700px; /* Más ancho para que luzca bien al medio */
+  max-height: 85vh;
+  border: 1px solid #d00000;
+  border-radius: 20px;
+  padding: 40px;
+  position: relative;
+  box-shadow: 0 0 100px rgba(208, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ins-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #1a1a1a;
+  padding-bottom: 20px;
+}
+
+.ins-header h3 { font-family: 'Oswald'; font-size: 1.8rem; color: #fff; text-transform: uppercase; }
+.ins-header h3 span { color: #d00000; }
+
+/* BOTÓN X DE CIERRE */
+.btn-close-x {
+  background: transparent;
+  border: none;
+  color: #444;
+  font-size: 2.5rem;
+  line-height: 0.5;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.btn-close-x:hover { color: #d00000; transform: rotate(90deg); }
+
+.ins-grid-scroll {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 12px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* --- TARJETA DE DETALLE PRO --- */
+.detail-overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.98);
+  z-index: 6000; display: flex; justify-content: center; align-items: center;
+}
+
+.detail-card-pro {
+  background: #050505;
+  border: 2px solid #d00000;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 450px;
+  padding: 40px;
+  position: relative;
+}
+
+.detail-header { margin-bottom: 30px; text-align: center; }
+.detail-tag { font-family: 'Oswald'; color: #444; letter-spacing: 3px; font-size: 0.7rem; }
+.detail-header h4 { font-family: 'Oswald'; font-size: 1.8rem; color: #fff; margin-top: 5px; }
+
+.detail-section { margin-bottom: 25px; background: rgba(255,255,255,0.02); padding: 15px; border-radius: 8px; }
+.detail-section h5 { font-family: 'Oswald'; color: #d00000; font-size: 0.8rem; letter-spacing: 2px; margin-bottom: 10px; }
+.detail-section p { color: #888; font-size: 0.95rem; margin-bottom: 5px; }
+.detail-section p span { color: #444; font-weight: bold; width: 80px; display: inline-block; }
+
+.detail-section strong.validado { color: #25D366; }
+.detail-section strong.pendiente { color: #ffcc00; }
+
+/* Animación */
+@keyframes scaleUp {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.anim-scale-up { animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }

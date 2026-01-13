@@ -1,0 +1,159 @@
+/* ============================================================
+   PORTAL SUB-NAVBAR - FIJO Y ESTÉTICO V31
+   ============================================================ */
+
+.subnav-fixed-wrapper {
+  position: fixed !important;
+  top: 85px; /* Altura de tu Navbar principal */
+  left: 0;
+  width: 100%;
+  z-index: 2900; /* Justo debajo del Navbar principal (3000) */
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  transition: top 0.4s ease;
+}
+
+/* Sincronización con el achique del Navbar principal (.scrolled) */
+/* Buscamos la clase .scrolled en el body o nav superior */
+:global(.navbar.scrolled) ~ .main-content .subnav-fixed-wrapper {
+  top: 70px !important;
+}
+.subnav-limiter {
+  width: 100%;
+  max-width: 1760px; /* Alineado con tu Navbar V27 */
+  padding: 0 60px;
+  display: flex;
+  justify-content: flex-end; /* ALINEADO A LA DERECHA (Bajo MI PANEL) */
+  pointer-events: none;
+}
+
+.subnav-hanging-dock {
+  pointer-events: auto;
+  background: rgba(10, 10, 10, 0.98); /* Fondo sólido para sellar unión */
+  backdrop-filter: blur(20px);
+  border-radius: 0 0 20px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: none;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+}
+
+/* --- BOTONES --- */
+.subnav-links-flex {
+  display: flex;
+  height: 100%;
+}
+
+.subnav-item-btn {
+  background: transparent;
+  border: none;
+  color: #555;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  padding: 0 18px;
+  cursor: pointer;
+  position: relative;
+  height: 100%;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.subnav-item-btn:hover, .subnav-item-btn.is-active {
+  color: #fff;
+}
+
+/* El brillo rojo del botón activo */
+.active-glow-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #d00000;
+  box-shadow: 0 0 12px #ff0000;
+}
+
+/* --- USUARIO --- */
+.subnav-right-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-left: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  padding-left: 15px;
+}
+
+.user-status-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.led-online {
+  width: 6px; height: 6px; background: #25D366; border-radius: 50%;
+  box-shadow: 0 0 8px #25D366;
+}
+
+.user-name-text {
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.subnav-btn-logout {
+  background: transparent;
+  border: 1px solid #222;
+  color: #666;
+  font-size: 0.6rem;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.subnav-btn-logout:hover { border-color: #d00000; color: #fff; background: #d00000; }
+
+/* ============================================================
+   RESPONSIVE MÓVIL (CENTRADO Y SELLADO)
+   ============================================================ */
+
+@media (max-width: 950px) {
+  .subnav-fixed-wrapper { 
+    top: 76px !important; 
+    padding: 0 !important;
+  }
+
+  .subnav-limiter {
+    padding: 0 10px !important;
+    justify-content: center !important;
+  }
+
+  .subnav-hanging-dock {
+    width: 100%;
+    border-radius: 0 0 15px 15px;
+    padding: 0 10px;
+    gap: 10px;
+  }
+
+  .subnav-links-flex {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .subnav-links-flex::-webkit-scrollbar { display: none; }
+
+  .subnav-item-btn {
+    padding: 0 15px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+  }
+
+  .subnav-right-info { display: none; }
+}

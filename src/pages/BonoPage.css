@@ -1,368 +1,325 @@
 /* ============================================================
-   BONO CONTRIBUCIÓN - ARQUITECTURA MONUMENTAL V26.0
-   FONDO NEGRO INFINITO & BLINDAJE MÓVIL
+   MAINTENANCE V28 - INDUSTRIAL EXTREME DESIGN
    ============================================================ */
 
-.bono-page-root {
+.mnt-root {
   width: 100%;
-  min-height: 100vh;
-  background: #000; /* Negro Absoluto */
+  height: 100vh;
+  background: #050505;
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  align-items: center; /* Centrado vertical absoluto */
   position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* EFECTO SCANLINE (Estructura técnica de fondo) */
-.bono-ui-overlay {
-  position: fixed;
+/* --- REJILLA TÉCNICA --- */
+.mnt-grid-bg {
+  position: absolute;
   inset: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.15) 50%);
-  background-size: 100% 4px;
+  background-image: 
+    radial-gradient(circle at 2px 2px, rgba(208, 0, 0, 0.1) 1px, transparent 0);
+  background-size: 40px 40px;
   z-index: 1;
+}
+
+/* --- CINTAS DE ADVERTENCIA (TAPE DESIGN) --- */
+.mnt-tapes-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
   pointer-events: none;
-  opacity: 0.4;
-}
-/* --- TÍTULOS DE SECCIÓN CENTRADOS Y PROLIJOS --- */
-.bono-section-title {
-  width: 100%;
-  text-align: center;       /* 1. Centrado absoluto */
-  
-  /* 2. "Un poquitín más arriba": subimos el título respecto a la sección anterior */
-  margin-top: -10px;        
-  
-  /* 3. "No tan pegado abajo": le damos aire a las tarjetas/tabla que siguen */
-  margin-bottom: 55px;      
-
-  /* Estética God Level */
-  font-family: 'Oswald', sans-serif;
-  font-size: 2.2rem;
-  letter-spacing: 6px;
-  color: #fff;
-  text-transform: uppercase;
-  text-shadow: 0 0 20px rgba(208, 0, 0, 0.2);
 }
 
-/* PILAR CENTRAL (Estilo AboutPage - Integrado) */
-.bono-pilar-central {
-  width: 90%;
-  max-width: 1200px;
-  background: transparent; /* Negro Infinito */
-  padding: 120px 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 100px;
-  position: relative;
-  z-index: 10;
-  border-left: 1px solid rgba(255, 255, 255, 0.03);
-  border-right: 1px solid rgba(255, 255, 255, 0.03);
-  
-  /* Aura Roja Lateral */
-  box-shadow: 
-    -80px 0 150px -50px rgba(208, 0, 0, 0.3), 
-     80px 0 150px -50px rgba(208, 0, 0, 0.3);
-}
-
-/* --- ACTO 1: HERO --- */
-.bono-main-title {
-  font-family: 'Oswald', sans-serif;
-  font-size: 5.5rem;
-  line-height: 0.85;
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  color: #fff;
-  margin-top: 20px;
-}
-.bono-main-title span {
-  color: transparent;
-  -webkit-text-stroke: 1.2px #d00000;
-  letter-spacing: 15px;
-  /* Brillo LED */
-  text-shadow: 0 0 15px rgba(208,0,0,0.4);
-}
-.bono-hr-neon {
-  width: 180px;
-  height: 6px;
-  background: #d00000;
-  box-shadow: 0 0 30px #ff0000;
-  margin: 35px 0;
-  border-radius: 3px;
-}
-.bono-subtitle {
-  color: #777;
-  font-size: 1.25rem;
-  max-width: 800px;
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-/* --- ACTO 2: MONITOR DE HARDWARE --- */
-.monitor-hardware-box {
-  position: relative;
-  background: linear-gradient(145deg, #0a0a0a, #030303);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 70px 50px;
-  border-radius: 4px;
-  text-align: center;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-}
-/* Esquineros HUD */
-.corner-tl, .corner-tr, .corner-bl, .corner-br {
-  position: absolute; width: 25px; height: 25px; border: 2px solid #d00000;
-}
-.corner-tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
-.corner-tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
-.corner-bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
-.corner-br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
-
-.monitor-log, .monitor-ref {
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.75rem;
-  color: #444;
-  letter-spacing: 3px;
-}
-.monitor-header { display: flex; justify-content: space-between; margin-bottom: 40px; }
-
-.monitor-display {
-  font-family: 'Oswald', sans-serif;
-  font-size: 8rem;
-  color: #fff;
-  line-height: 1;
-}
-.monitor-display .divider { color: #d00000; margin: 0 20px; opacity: 0.6; }
-.monitor-display .goal-val { color: #222; }
-
-.monitor-bar-container {
-  width: 100%; height: 16px;
-  background: #111;
-  border-radius: 20px;
-  margin: 30px 0;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.03);
-}
-.monitor-bar-fill {
-  height: 100%; background: #d00000;
-  box-shadow: 0 0 25px #ff0000;
-  transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.monitor-footer-status {
-  font-family: 'Oswald', sans-serif;
-  color: #d00000;
-  letter-spacing: 5px;
-  font-size: 1rem;
-  text-transform: uppercase;
-}
-
-/* --- ACTO 3: DISTRIBUCIÓN --- */
-.distri-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-}
-.bono-distri-card {
-  position: relative;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 35px;
-  border-radius: 12px;
+.caution-tape {
+  position: absolute;
+  width: 200%;
+  height: 45px;
+  background: #ffcc00; /* Amarillo Advertencia */
+  color: #000;
   display: flex;
   align-items: center;
-  gap: 25px;
-  transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-.bono-distri-card:hover {
-  background: rgba(208, 0, 0, 0.06);
-  border-color: #d00000;
-  transform: translateY(-8px);
-}
-.distri-icon { font-size: 3rem; opacity: 0.3; }
-.distri-percent { font-family: 'Oswald', sans-serif; font-size: 2.2rem; color: #d00000; display: block; }
-.distri-label { font-size: 0.8rem; color: #555; letter-spacing: 2px; text-transform: uppercase; display: block; }
-.distri-amount { font-family: 'Oswald', sans-serif; font-size: 1.6rem; color: #fff; }
-.distri-corner {
-  position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: #d00000;
+  font-family: Arial, sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 2px solid #000;
+  border-bottom: 2px solid #000;
 }
 
-/* --- ACTO 4: PREMIOS (MUSEO) --- */
-.prizes-main-container {
-  background: linear-gradient(180deg, rgba(15,15,15,0.9), rgba(5,5,5,1));
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 80px 60px;
-  border-radius: 20px;
-  box-shadow: 0 60px 120px rgba(0,0,0,1);
+.tape-content {
+  display: flex;
+  width: max-content; /* Permite que el contenido se extienda todo lo necesario */
+  animation: tapeMarquee 40s linear infinite; /* Ajusta los segundos para más o menos velocidad */
 }
-.prizes-display-title {
-  font-family: 'Oswald', sans-serif; font-size: 3rem; text-align: center; margin-bottom: 60px; letter-spacing: 6px; color: #fff;
+
+.tape-content span {
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
 }
-.prizes-flex-layout {
-  display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center;
+.tape-block {
+  display: flex;
+  align-items: center;
 }
-.prize-grand-winner {
-  background: rgba(208, 0, 0, 0.1);
-  padding: 60px 40px;
-  border-radius: 15px;
+
+.stripes {
+  display: inline-block;
+  width: 30px;
+  height: 100%;
+  margin: 0 10px;
+  background: repeating-linear-gradient(
+    45deg,
+    #000,
+    #000 10px,
+    #ffcc00 10px,
+    #ffcc00 20px
+  );
+}
+
+@keyframes tapeMarquee {
+  0% { 
+    transform: translateX(0); 
+  }
+  100% { 
+    /* Se mueve exactamente la mitad (el primer bloque completo) */
+    /* Al ser el segundo bloque idéntico, el salto al 0% es imperceptible */
+    transform: translateX(-50%); 
+  }
+}
+
+/* Posiciones de las cintas (Criss-Cross) */
+.horizontal-1 { top: 15%; left: -50%; transform: rotate(1deg); opacity: 0.8; }
+.diagonal-left { top: 50%; left: -50%; transform: rotate(-15deg); }
+.diagonal-right { top: 50%; left: -50%; transform: rotate(15deg); }
+.horizontal-2 { bottom: 15%; left: -50%; transform: rotate(-1deg); opacity: 0.8; }
+
+/* --- PILAR CENTRAL (CARD) --- */
+.mnt-pilar {
+  position: relative;
+  z-index: 100; /* Por encima de las cintas */
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  justify-content: center;
+}
+
+.mnt-card {
+  position: relative;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  padding: 50px 30px;
+  border-radius: 12px;
   text-align: center;
-  border: 1px solid rgba(208,0,0,0.4);
-  outline: 12px solid rgba(208,0,0,0.02);
+  box-shadow: 0 40px 100px rgba(0,0,0,1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
-.grand-rank { color: #d00000; font-family: 'Oswald', sans-serif; letter-spacing: 6px; font-size: 1.3rem; margin-bottom: 15px; }
-.grand-amount { font-family: 'Oswald', sans-serif; font-size: 5.5rem; line-height: 1; color: #fff; text-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-.grand-label { color: #444; font-weight: 800; font-size: 0.9rem; margin-top: 20px; letter-spacing: 4px; }
 
-.prizes-secondary-grid {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 15px;
+.mnt-glow-border {
+  position: absolute;
+  inset: 0;
+  border: 1px solid #d00000;
+  border-radius: 12px;
+  opacity: 0.3;
+  box-shadow: inset 0 0 30px rgba(208, 0, 0, 0.1);
+  pointer-events: none;
 }
-.secondary-item {
-  background: rgba(255,255,255,0.03); padding: 18px 25px; border-radius: 8px; color: #aaa; border: 1px solid rgba(255,255,255,0.05); font-size: 1rem;
-}
-.secondary-item span { color: #d00000; font-family: 'Oswald', sans-serif; font-weight: 700; margin-right: 12px; }
 
-.prizes-extra-benefits {
-  margin-top: 50px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); display: flex; justify-content: center; gap: 40px;
+.mnt-logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
 }
-.prizes-extra-benefits p { color: #d00000; font-weight: 700; font-size: 0.85rem; letter-spacing: 1px; }
 
-/* --- ACTO 5: FORMULARIO --- */
-.form-hardware-frame {
-  background: #000; padding: 80px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.08);
+.mnt-logo-pro {
+  width: 250px;
+  height: auto;
+  filter: drop-shadow(0 0 15px rgba(208,0,0,0.3));
 }
-.form-main-title { font-family: 'Oswald', sans-serif; font-size: 2rem; text-align: center; color: #fff; margin-bottom: 50px; letter-spacing: 5px; }
-.bono-main-form { display: flex; flex-direction: column; gap: 30px; }
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-.form-field { display: flex; flex-direction: column; gap: 10px; }
-.form-field label { font-size: 0.75rem; color: #444; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
-.form-field input {
-  background: #080808; border: 1px solid #1a1a1a; padding: 18px; border-radius: 8px; color: #fff; font-size: 1rem; transition: 0.3s;
-}
-.form-field input:focus { border-color: #d00000; outline: none; background: #111; }
-.input-large-red { border-color: rgba(208,0,0,0.5) !important; font-family: 'Oswald', sans-serif; font-size: 2rem !important; text-align: center; color: #d00000 !important; }
 
-.btn-bono-submit {
-  background: #d00000; color: #fff; border: none; padding: 22px; border-radius: 12px; font-family: 'Oswald', sans-serif; font-size: 1.3rem; text-transform: uppercase; letter-spacing: 4px; cursor: pointer; transition: 0.4s; margin-top: 20px;
+.mnt-h1 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3.5rem;
+  line-height: 0.9;
+  color: #fff;
+  margin-bottom: 25px;
+  text-transform: uppercase;
 }
-.btn-bono-submit:hover { background: #ff0000; transform: translateY(-4px); box-shadow: 0 15px 50px rgba(208, 0, 0, 0.4); }
 
-/* --- ACTO 6: TABLA --- */
-.table-hardware-wrap {
-  width: 100%; overflow-x: auto; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); background: rgba(255,255,255,0.01);
+.mnt-h1 span {
+  color: transparent;
+  -webkit-text-stroke: 1px #d00000;
+  text-shadow: 0 0 20px rgba(208, 0, 0, 0.3);
 }
-table { width: 100%; border-collapse: collapse; }
-th { background: rgba(208,0,0,0.1); color: #d00000; padding: 25px; text-align: left; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-size: 0.9rem; }
-td { padding: 25px; border-bottom: 1px solid rgba(255,255,255,0.03); color: #777; font-size: 1rem; }
-.cell-num { font-family: 'Oswald', sans-serif; color: #fff; font-size: 1.3rem; }
-.cell-status { color: #25D366; font-weight: 700; font-size: 0.8rem; }
-.empty-msg { text-align: center; padding: 120px !important; color: #222; font-style: italic; }
 
-.btn-export-excel { background: transparent; border: 1px solid #222; color: #444; padding: 15px 40px; border-radius: 50px; cursor: pointer; font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; margin-top: 40px; }
-.btn-export-excel:hover { border-color: #fff; color: #fff; }
+.mnt-divider-tech {
+  width: 80px;
+  height: 4px;
+  background: #d00000;
+  margin: 0 auto 30px auto;
+  box-shadow: 0 0 15px #ff0000;
+}
+
+.mnt-para {
+  color: #888;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 450px;
+  margin: 0 auto 40px auto;
+}
+
+.mnt-cta {
+  display: inline-block;
+  background: #d00000;
+  color: #fff;
+  padding: 15px 40px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  transition: 0.3s;
+}
+
+.mnt-cta:hover {
+  background: #ff0000;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(208, 0, 0, 0.4);
+}
+
+/* LED Y HEADER TECH */
+.mnt-top-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.mnt-led {
+  width: 8px; height: 8px; background: #d00000; border-radius: 50%;
+  animation: ledPulse 1s infinite;
+}
+@keyframes ledPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+.mnt-code { font-family: 'Oswald', sans-serif; color: #333; font-size: 0.7rem; letter-spacing: 3px; }
+
+/* SCANLINES */
+.mnt-scanlines {
+  position: absolute; inset: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+  background-size: 100% 4px;
+  z-index: 150; pointer-events: none; opacity: 0.2;
+}
 
 /* ============================================================
-   INGENIERÍA MÓVIL (BLINDAJE TOTAL)
-   ============================================================ */
-
-/* ============================================================
-   INGENIERÍA MÓVIL DE PRECISIÓN (ANTI-DESBORDAMIENTO)
+   RESPONSIVE MÓVIL "SUPREMO" (V28)
    ============================================================ */
 
 @media (max-width: 900px) {
-  
-  /* 1. EL CONTENEDOR: Forzamos 100% de ancho sin bordes que empujen */
-  .bono-pilar-central {
-    width: 100% !important;
-    max-width: 100vw !important;
-    padding: 100px 15px 220px 15px !important; /* Más aire abajo para el InfoBox */
-    gap: 50px !important;
-    border: none !important;
-    box-shadow: none !important;
-    box-sizing: border-box !important;
-    overflow-x: hidden !important; /* Evita el scroll horizontal */
+  .mnt-root {
+    /* Padding para no chocar con el Navbar ni el Footer */
+    padding: 80px 15px 120px 15px; 
+    display: flex;
+    align-items: center; /* Centrado Vertical */
+    justify-content: center; /* Centrado Horizontal */
   }
 
-  /* 2. TÍTULOS: Reducimos para que no rompan la caja */
-  .bono-main-title { 
-    font-size: 2.8rem !important; 
-    text-align: center !important; 
-    letter-spacing: 2px !important;
-    width: 100% !important;
+  /* --- AJUSTE DE CINTAS EN MÓVIL --- */
+  .mnt-tapes-wrapper {
+    /* Hacemos que las cintas se vean más pequeñas pero presentes */
+    transform: scale(0.8); 
   }
-  .bono-main-title span { 
-    letter-spacing: 4px !important; 
-    font-size: 2.4rem !important; 
-    -webkit-text-stroke: 1px #d00000 !important;
+
+  .caution-tape {
+    height: 32px; /* Más finas para no invadir */
+    font-size: 0.75rem;
+  }
+
+  /* Reposicionamos la "X" para que se cruce justo detrás del cuadro */
+  .horizontal-1 { top: 10%; transform: rotate(2deg); }
+  .horizontal-2 { bottom: 10%; transform: rotate(-2deg); }
+  
+  .diagonal-left { 
+    display: flex !important; /* Aseguramos que se vean */
+    top: 50%; 
+    left: -50%; 
+    transform: translateY(-50%) rotate(-45deg); /* Ángulo más cerrado para vertical */
+    opacity: 0.4; /* Un poco más tenues para que se lea el texto del centro */
   }
   
-  .bono-hr-neon { margin: 20px auto !important; width: 100px !important; }
-  .bono-subtitle { text-align: center !important; font-size: 1rem !important; }
+  .diagonal-right { 
+    display: flex !important; 
+    top: 50%; 
+    left: -50%; 
+    transform: translateY(-50%) rotate(45deg); 
+    opacity: 0.4;
+  }
 
-  /* 3. MONITOR: Ajuste de números gigantes */
-  .monitor-hardware-box { 
-    padding: 30px 15px !important; 
-    width: 100% !important;
-    box-sizing: border-box !important;
+  /* --- LA TARJETA CENTRAL --- */
+  .mnt-pilar {
+    width: 100%;
+    max-width: 360px; /* Ancho máximo en móviles */
+    margin: 0;
   }
-  .monitor-header { flex-direction: column !important; gap: 10px !important; }
-  .monitor-display { font-size: 4rem !important; }
-  .monitor-display .divider { margin: 0 10px !important; }
 
-  /* 4. DISTRIBUCIÓN: Tarjetas en una sola columna */
-  .distri-grid { 
-    grid-template-columns: 1fr !important; 
-    gap: 15px !important;
+  .mnt-card {
+    padding: 35px 20px;
+    border-radius: 15px;
+    /* Fondo un poco más sólido para que las cintas de atrás no molesten la lectura */
+    background: rgba(8, 8, 8, 0.98); 
+    box-shadow: 0 0 50px rgba(0,0,0,1);
   }
-  .bono-distri-card { padding: 20px !important; }
 
-  /* 5. PREMIOS (TU IMAGEN): El fix para el cuadro rojo */
-  .prizes-main-container { 
-    padding: 30px 15px !important; 
-    width: 100% !important;
-    box-sizing: border-box !important;
+  /* LOGO CENTRADO */
+  .mnt-logo-container {
+    margin-bottom: 20px;
   }
-  .prizes-display-title { font-size: 2rem !important; margin-bottom: 30px !important; }
-  
-  .prizes-flex-layout { 
-    grid-template-columns: 1fr !important; 
-    gap: 20px !important; 
+  .mnt-logo-pro {
+    width: 160px; /* Logo más pequeño y manejable */
   }
-  
-  /* El cuadro del 1° Premio que se salía en tu foto */
-  .prize-grand-winner { 
-    padding: 30px 10px !important; 
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-  .grand-amount { 
-    font-size: 3.2rem !important; /* Dinero más chico para que entre */
-    word-break: break-all; 
-  }
-  
-  .prizes-secondary-grid { grid-template-columns: 1fr !important; }
-  .prizes-extra-benefits { flex-direction: column !important; gap: 10px !important; }
 
-  /* 6. FORMULARIO: Blindaje de inputs */
-  .form-hardware-frame { 
-    padding: 30px 15px !important; 
-    width: 100% !important;
-    box-sizing: border-box !important;
+  /* TEXTOS */
+  .mnt-h1 {
+    font-size: 2rem !important; /* Título no tan gigante */
+    letter-spacing: 2px;
   }
-  .form-row { grid-template-columns: 1fr !important; gap: 20px !important; }
-  .form-main-title { font-size: 1.4rem !important; }
-  
-  /* Forzar que los campos de Academia y N° Bono no se estiren */
-  .form-field.full { width: 100% !important; }
-  .input-large-red { font-size: 1.8rem !important; width: 100% !important; }
+  .mnt-h1 span {
+    font-size: 1.8rem;
+    letter-spacing: 4px;
+  }
 
-  /* 7. TABLA: Scroll controlado */
-  .table-hardware-wrap {
-    width: 100% !important;
-    overflow-x: auto !important; /* Permite deslizar la tabla sin romper la web */
+  .mnt-para {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 30px;
   }
-  th, td { padding: 12px 10px !important; font-size: 0.85rem !important; }
-  .cell-num { font-size: 1.1rem !important; }
+
+  /* BOTÓN */
+  .mnt-cta {
+    width: 100%; /* Botón ancho completo para que sea fácil de tocar */
+    padding: 15px 0;
+    font-size: 0.9rem;
+  }
+
+  /* INFO TÉCNICA */
+  .mnt-code {
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+  }
 }
 
-/* Fix extra para pantallas muy pequeñas (iPhone SE, etc.) */
+/* Para celulares muy pequeños (iPhone SE, etc) */
 @media (max-width: 380px) {
-  .bono-main-title { font-size: 2.2rem !important; }
-  .grand-amount { font-size: 2.5rem !important; }
-  .monitor-display { font-size: 3rem !important; }
+  .mnt-h1 { font-size: 1.7rem !important; }
+  .mnt-logo-pro { width: 140px; }
+  .mnt-card { padding: 25px 15px; }
 }
+
+@keyframes mntEntrance {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); filter: blur(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+.anim-fade-in { animation: mntEntrance 1.5s cubic-bezier(0.2, 1, 0.3, 1) forwards; }

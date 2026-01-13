@@ -1,0 +1,100 @@
+.perfil-root { width: 100%; }
+
+.perfil-grid {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+/* --- TARJETA ID PREMIUM --- */
+.id-card-premium {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+}
+
+.id-card-glow {
+  position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(208, 0, 0, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.id-serial { font-family: 'Oswald'; font-size: 0.65rem; color: #333; letter-spacing: 3px; display: block; margin-bottom: 20px; }
+
+.id-avatar {
+  width: 100px; height: 100px; background: #111; border: 2px solid #d00000;
+  border-radius: 50%; margin: 0 auto 25px auto;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Oswald'; font-size: 2.5rem; color: #fff;
+  box-shadow: 0 0 30px rgba(208, 0, 0, 0.2);
+}
+
+.id-name { font-family: 'Oswald'; font-size: 1.8rem; color: #fff; text-transform: uppercase; margin: 0; }
+.id-role-badge { 
+  display: inline-block; background: rgba(208, 0, 0, 0.1); color: #d00000; 
+  padding: 4px 15px; border-radius: 30px; font-size: 0.7rem; font-weight: 800;
+  margin-top: 10px; letter-spacing: 2px;
+}
+
+.id-divider { width: 40px; height: 2px; background: #d00000; margin: 25px auto; }
+
+.id-detail { color: #666; font-size: 0.85rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.id-detail span { color: #333; font-weight: 800; margin-right: 10px; }
+
+.btn-edit-id {
+  margin-top: 30px; width: 100%; background: transparent; border: 1px solid #222;
+  color: #555; padding: 12px; border-radius: 8px; font-family: 'Oswald';
+  letter-spacing: 2px; cursor: pointer; transition: 0.3s;
+}
+.btn-edit-id:hover, .btn-edit-id.active { border-color: #d00000; color: #fff; background: rgba(208, 0, 0, 0.05); }
+
+/* --- FORMULARIO EDICIÓN --- */
+.edit-form-pro {
+  margin-top: 25px; background: #080808; padding: 25px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.03); display: flex; flex-direction: column; gap: 20px;
+}
+.f-field label { display: block; font-size: 0.6rem; color: #444; font-weight: 800; letter-spacing: 2px; margin-bottom: 8px; }
+.f-field input {
+  width: 100%; background: #000; border: 1px solid #222; padding: 12px; border-radius: 6px; color: #fff;
+}
+.btn-save-id {
+  background: #d00000; border: none; color: #fff; padding: 15px; border-radius: 6px;
+  font-family: 'Oswald'; font-weight: 700; cursor: pointer;
+}
+
+/* --- NETWORK SIDE --- */
+.network-header { margin-bottom: 30px; }
+.network-title { font-family: 'Oswald'; font-size: 1.4rem; color: #fff; letter-spacing: 3px; }
+.network-title span { color: transparent; -webkit-text-stroke: 1px #d00000; }
+
+.network-search input {
+  width: 100%; background: rgba(255,255,255,0.03); border: 1px solid #111;
+  padding: 15px 25px; border-radius: 50px; color: #fff; font-family: 'Oswald';
+  margin-top: 20px; letter-spacing: 2px;
+}
+
+.network-list { display: flex; flex-direction: column; gap: 12px; max-height: 600px; overflow-y: auto; padding-right: 10px; }
+.delegate-mini-card {
+  background: rgba(15,15,15,0.5); border: 1px solid rgba(255,255,255,0.02);
+  padding: 15px 20px; border-radius: 10px; display: flex; align-items: center; gap: 20px;
+  transition: 0.3s;
+}
+.delegate-mini-card:hover { background: #0f0f0f; border-color: rgba(208, 0, 0, 0.2); }
+
+.mini-avatar { width: 40px; height: 40px; background: #1a1a1a; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #d00000; font-family: 'Oswald'; }
+.mini-info h4 { font-family: 'Oswald'; color: #fff; font-size: 1rem; text-transform: uppercase; }
+.mini-info p { font-size: 0.7rem; color: #444; letter-spacing: 1px; }
+
+.net-status-led { width: 6px; height: 6px; background: #25D366; border-radius: 50%; margin-left: auto; box-shadow: 0 0 8px #25D366; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 1000px) {
+  .perfil-grid { grid-template-columns: 1fr; gap: 40px; }
+  .id-card-premium { padding: 30px 20px; }
+}

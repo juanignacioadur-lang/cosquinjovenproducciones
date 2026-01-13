@@ -1,0 +1,117 @@
+/* ============================================================
+   ARCHITECTURAL GLOBAL SCALER V45 - ULTRA SLIM 1080p
+   ZONA A: 1080p e Inferiores (Zoom 0.75 - Ultra Fino)
+   ZONA B: Monitor Pro 1440p+ (Zoom 1.0 - Original)
+   ============================================================ */
+
+/* --- 1. ZONA COMPACTA (Laptops, MacBooks y Monitores 1080p comunes) --- */
+/* Se aplica desde 1025px hasta 2000px de ancho */
+@media (min-width: 1025px) and (max-width: 2000px) {
+  html {
+    /* Bajamos a 0.75 para que todo se vea más chico y estilizado */
+    zoom: 0.75; 
+    -moz-transform: scale(0.75);
+    -moz-transform-origin: top center;
+    background-color: #000 !important;
+  }
+
+  /* FIX DE CENTRADO (HOME Y LOGIN) 
+     Compensación para Zoom 0.75: (1 / 0.75 = 1.333)
+     Esto clava el contenido al centro de la pantalla física.
+  */
+  .inicio-hero, 
+  .login-v29-root {
+    min-height: 133.4vh !important; 
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: transparent !important;
+  }
+
+  /* Navbar más fina para pantallas chicas */
+  .navbar { height: 60px !important; }
+  .logo-img { height: 42px !important; }
+  
+  /* Sub-navbar (Mi Panel) pegada a la nueva altura */
+  .subnav-fixed-wrapper {
+    position: fixed !important;
+    top: 60px !important; 
+    right: 40px !important;
+    width: auto !important;
+  }
+
+  /* Sincronización si scrolleas */
+  :global(.navbar.scrolled) ~ .main-content .subnav-fixed-wrapper {
+    top: 50px !important;
+  }
+}
+
+/* --- 2. ZONA PRO (Tu monitor 1440p, Monitores 4K) --- */
+/* Se aplica a todo lo que sea mayor a 2000px de ancho */
+@media (min-width: 2001px) {
+  html {
+    zoom: 1; /* Tamaño real sin recortes */
+    background-color: #000 !important;
+  }
+
+  .inicio-hero, .login-v29-root {
+    min-height: 100vh !important;
+  }
+
+  .navbar { height: 85px !important; }
+  
+  .subnav-fixed-wrapper {
+    top: 85px !important;
+    right: 60px !important;
+  }
+}
+
+/* --- 3. BLINDAJE UNIVERSAL DE FONDOS (EXTREMO PARA ZOOM 0.75) --- */
+@media (min-width: 1025px) {
+  .video-fondo, 
+  .login-video-bg,
+  .overlay,
+  .login-overlay-dark {
+    /* Subimos a 160vw para que al achicar al 75% no queden bordes negros */
+    width: 160vw !important;  
+    height: 160vh !important; 
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    object-fit: cover !important;
+    z-index: -10 !important;
+    pointer-events: none;
+  }
+
+  /* Pilares estrechos para que el texto sea fino y no se "desparrame" */
+  .about-pilar-central, 
+  .nt-container, 
+  .bono-pilar-central, 
+  .ct-pilar-central,
+  .portal-viewport {
+    max-width: 1000px !important; /* Bajamos de 1100 a 1000 para más elegancia */
+    margin: 0 auto !important;
+    background: transparent !important;
+  }
+}
+
+/* --- 4. RESET MÓVIL --- */
+@media (max-width: 1024px) {
+  html {
+    font-size: 14px !important;
+  }
+  .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
+    width: 100vw !important;
+    height: 100vh !important;
+    transform: none !important;
+    top: 0 !important;
+    left: 0 !important;
+    position: fixed !important;
+  }
+}
+
+body {
+  overflow-x: hidden !important;
+  background-color: #000;
+}

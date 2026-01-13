@@ -1,0 +1,135 @@
+/* ============================================================
+   SUB-NAVBAR - ALINEACIÓN MANUAL DE PRECISIÓN V30
+   ============================================================ */
+
+.portal-layout {
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
+  padding-top: 0 !important;
+}
+
+.portal-viewport {
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  /* 85px (Nav) + 48px (SubNav) + 40px (Aire) = 173px */
+  padding: 173px 20px 100px 20px !important; 
+  box-sizing: border-box;
+}
+
+@media (max-width: 950px) {
+  .portal-viewport {
+    padding-top: 150px !important;
+  }
+}
+
+.subnav-fixed-wrapper {
+  position: sticky;
+  top: 85px; /* Altura de tu Navbar principal */
+  width: 100%;
+  z-index: 2500;
+  display: flex;
+  justify-content: center; /* Centramos el área de trabajo */
+  background: transparent;
+  pointer-events: none; /* No bloquea el fondo */
+}
+
+/* Sincronización con el efecto scrolled del Navbar principal */
+:global(.scrolled) ~ .main-content .subnav-fixed-wrapper {
+  top: 70px;
+}
+
+.subnav-internal-box {
+  width: 100%;
+  max-width: 1760px; /* Mismo ancho que tu Navbar principal */
+  padding: 0 60px; /* Mismo aire lateral que arriba */
+  display: flex;
+  /* ALINEACIÓN: Lo empujamos a la derecha para que nazca de "MI PANEL" */
+  justify-content: flex-end; 
+  pointer-events: none;
+}
+
+.subnav-floating-capsule {
+  pointer-events: auto; /* Activamos clics solo aquí */
+  background: #0a0a0a !important; /* Negro sólido para evitar transparencia con el bug */
+  backdrop-filter: blur(20px);
+  
+  /* ANCHO: Se ajusta a tus botones */
+  width: fit-content;
+  min-width: 400px;
+  
+  /* ESTÉTICA: Curva abajo para que parezca una solapa colgante */
+  border-radius: 0 0 20px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: none;
+  
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  display: flex;
+  height: 50px;
+  overflow: hidden;
+}
+
+.subnav-content-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 25px;
+}
+
+/* --- ESTILO DE BOTONES --- */
+.subnav-links-flex {
+  display: flex;
+  height: 100%;
+  gap: 5px;
+}
+
+.subnav-item-btn {
+  background: transparent;
+  border: none;
+  color: #555;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  padding: 0 15px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.3s;
+}
+
+.subnav-item-btn:hover, .subnav-item-btn.is-active {
+  color: #fff;
+}
+
+.active-glow-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #d00000;
+  box-shadow: 0 0 10px #ff0000;
+}
+
+/* ============================================================
+   RESPONSIVE MÓVIL (BLINDAJE TOTAL)
+   ============================================================ */
+@media (max-width: 950px) {
+  .subnav-fixed-wrapper {
+    top: 76px !important;
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+
+  .subnav-internal-box {
+    padding: 0 !important;
+    justify-content: center !important;
+  }
+
+  .subnav-floating-capsule {
+    width: 95% !important;
+    min-width: unset;
+    border-radius: 0 0 15px 15px;
+  }
+}

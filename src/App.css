@@ -1,9 +1,10 @@
 /* Reemplaza la regla #root (que generaba conflictos) por .app-root si quieres reglas generales */
 .app-root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0; /* el padding lo maneja cada componente; evita empujar la altura */
   width: 100%;
+  margin: 0;
+  padding: 0;
+  /* Eliminamos el max-width para que el video respire */
+  max-width: none !important; 
 }
 
 /* conservar logo hover si lo usas en otros componentes */

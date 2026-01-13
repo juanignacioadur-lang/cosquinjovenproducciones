@@ -60,8 +60,8 @@ export default function NewsDetailPage() {
             {news.whatsappLink && (
               <div className="news-action-wrapper">
                 <a href={news.whatsappLink} target="_blank" rel="noreferrer" className="news-wa-btn">
-                  Quiero Inscribirme / Más Info
-                </a>
+                  Quiero Inscribirme / Más Info  
+                </a> 
               </div>
             )}
           </div>

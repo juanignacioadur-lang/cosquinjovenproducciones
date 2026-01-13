@@ -1,0 +1,205 @@
+/* ============================================================
+   GESTIÓN BONO - CONSOLA DE MANDO V28
+   ============================================================ */
+
+.gestion-root {
+  width: 100%;
+  min-height: 100vh;
+  background: #000;
+  padding: 120px 20px 80px 20px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.gestion-pilar {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* --- CABECERA --- */
+.gestion-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 20px;
+}
+
+.user-role { color: #d00000; font-family: 'Oswald'; letter-spacing: 3px; font-size: 0.8rem; text-transform: uppercase; }
+.user-name { font-family: 'Oswald'; font-size: 1.8rem; color: #fff; text-transform: uppercase; margin: 5px 0; }
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid #d00000;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Oswald';
+  transition: 0.3s;
+}
+
+/* --- GRID PRINCIPAL (2 COLUMNAS) --- */
+.gestion-grid {
+  display: grid;
+  grid-template-columns: 300px 1fr; /* Herramientas izquierda, Slots derecha */
+  gap: 40px;
+  align-items: start;
+}
+
+/* --- TARJETAS DE HERRAMIENTAS --- */
+.tool-card {
+  background: #0a0a0a;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 25px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.ai-header { display: flex; align-items: center; gap: 10px; color: #d00000; font-family: 'Oswald'; font-size: 0.8rem; margin-bottom: 15px; }
+.ai-led { width: 8px; height: 8px; background: #d00000; border-radius: 50%; box-shadow: 0 0 10px #ff0000; animation: blink 1s infinite; }
+.ai-msg { color: #888; font-size: 0.9rem; line-height: 1.5; font-style: italic; }
+
+/* --- GRILLA DE SLOTS (32 NÚMEROS) --- */
+.slots-grid {
+  display: grid;
+  /* Esto obliga a que se pongan uno al lado del otro */
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 15px;
+  width: 100%;
+}
+
+.slot-box {
+  background: #0f0f0f;
+  border: 1px solid #1a1a1a;
+  padding: 20px 10px;
+  border-radius: 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.slot-box:hover { border-color: #d00000; transform: translateY(-3px); }
+
+.slot-box.sold {
+  background: rgba(208, 0, 0, 0.05);
+  border-color: #d00000;
+  cursor: default;
+}
+
+.slot-id { font-family: 'Oswald'; font-size: 1.4rem; color: #fff; }
+.slot-status { font-size: 0.65rem; letter-spacing: 1px; color: #444; text-transform: uppercase; }
+.slot-owner { font-size: 0.7rem; color: #d00000; font-weight: bold; text-transform: uppercase; }
+
+/* --- RESPONSIVE --- */
+@media (max-width: 950px) {
+  .gestion-grid { grid-template-columns: 1fr; }
+  .gestion-nav { flex-direction: column; gap: 20px; text-align: center; }
+  .slots-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); }
+}
+
+@keyframes blink { 50% { opacity: 0.3; } }
+
+/* --- OVERLAY DEL FORMULARIO (MODAL) --- */
+.form-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9); /* Fondo oscuro total */
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* Por encima de todo */
+  padding: 20px;
+}
+
+.form-card-pro {
+  background: #0a0a0a;
+  border: 1px solid #d00000;
+  padding: 40px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 0 50px rgba(208, 0, 0, 0.2);
+}
+
+.form-grid-pro {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-grid-pro input {
+  background: #000;
+  border: 1px solid #222;
+  padding: 18px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.form-grid-pro input:focus {
+  border-color: #d00000;
+  outline: none;
+}
+
+.form-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+/* --- ESTILOS PARA LA IA INTERACTIVA --- */
+.ai-chat-window {
+  max-height: 150px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+  padding-right: 5px;
+}
+
+.ai-bubble {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.ai-bubble.bot { background: rgba(208, 0, 0, 0.1); color: #ddd; border-left: 3px solid #d00000; }
+.ai-bubble.user { background: #111; color: #fff; text-align: right; border-right: 3px solid #444; }
+
+.ai-input-group {
+  display: flex;
+  gap: 10px;
+  border-top: 1px solid #222;
+  padding-top: 10px;
+}
+
+.ai-input-group input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.ai-input-group input:focus { outline: none; }
+
+.ai-send-btn {
+  background: #d00000;
+  border: none;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.7rem;
+}

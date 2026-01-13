@@ -143,10 +143,16 @@
 /* --- ADAPTACIÓN MÓVIL --- */
 @media (max-width: 600px) {
   .inicio-hero {
-    /* Padding inferior para que el InfoBox no tape los botones, pero sin deformar */
-    padding-bottom: 140px; 
-    padding-top: 80px;
-    justify-content: center;
+   width: 100%;
+   min-height: 100vh; /* El GlobalScaler lo subirá a 122vh en PC */
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   position: relative;
+   z-index: 5;
+   /* Eliminamos cualquier margin-top o padding-top excesivo */
+  padding: 20px; 
   }
 
   .inicio-logo {

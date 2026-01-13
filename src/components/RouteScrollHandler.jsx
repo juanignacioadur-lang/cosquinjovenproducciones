@@ -26,10 +26,11 @@ export default function RouteScrollHandler() {
     const rafId = requestAnimationFrame(resetAndLock);
 
     // 3. LIBERACIÓN: Después de 1.2 segundos (ajustable), devolvemos el scroll
-    const timerId = setTimeout(() => {
-      document.body.style.overflow = "auto";
-      document.body.style.touchAction = "auto";
-    }, 1200); // 1200ms coincide con el tiempo de tu animación prolija
+    // En el setTimeout de liberación de RouteScrollHandler.jsx:
+          const timerId = setTimeout(() => {
+             document.body.style.overflow = "visible"; // Cambiado de 'auto' a 'visible' para evitar saltos
+             document.body.style.touchAction = "auto";
+            }, 1200);
 
     return () => {
       cancelAnimationFrame(rafId);

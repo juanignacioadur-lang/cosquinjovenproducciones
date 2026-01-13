@@ -187,3 +187,155 @@
 @keyframes linkFadeIn {
   to { opacity: 1; transform: translateY(0); }
 }
+/* --- EXTENSIÓN COLGANTE DEL PORTAL --- */
+
+.portal-hanging-dock {
+  position: absolute;
+  top: 100%; /* Se pega al borde inferior del navbar */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* ALINEADO A LA DERECHA EN PC */
+  padding: 0 60px; /* Mismo padding que tu nav-container */
+  max-width: 1760px; /* Mismo ancho que tu nav-container */
+  margin: 0 auto;
+  right: 0;
+  pointer-events: none;
+}
+
+.dock-container {
+  pointer-events: auto;
+  background: rgba(8, 8, 8, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: none;
+  border-radius: 0 0 20px 20px; /* Curvas abajo */
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 30px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+  gap: 20px;
+}
+
+.dock-links {
+  display: flex;
+  height: 100%;
+}
+
+/* --- BOTONES DEL DOCK (ESPEJO DEL NAV PRINCIPAL) --- */
+.dock-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  
+  /* COPIA EXACTA DE TU NAVIGATION SUPERIOR */
+  font-family: 'Oswald', sans-serif;
+  color: #fff; /* Color inicial blanco */
+  font-size: 0.9rem; /* Un pelín más chico que el de arriba para jerarquía */
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2.5px; /* Mismo espaciado de lujo */
+  padding: 10px 18px;
+}
+
+.dock-btn:hover {
+  color: var(--accent-red);
+}
+
+.dock-btn.is-active {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* --- EL SUBRAYADO IDÉNTICO AL DE ARRIBA --- */
+.dock-btn::after {
+  content: "";
+  position: absolute;
+  left: 12%; 
+  right: 12%; 
+  bottom: 5px; /* Ajustado para que no toque el borde del dock */
+  height: 2px;
+  background: var(--accent-red);
+  box-shadow: 0 0 10px var(--accent-red);
+  
+  /* Animación de expansión */
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 180ms cubic-bezier(.2,.8,.2,1);
+  border-radius: 2px;
+}
+
+/* Se activa al pasar el mouse o si la pestaña está activa en la URL */
+.dock-btn.is-active::after, 
+.dock-btn:hover::after {
+  transform: scaleX(1);
+}
+
+/* --- AJUSTE MÓVIL --- */
+@media (max-width: 950px) {
+  .dock-btn {
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    padding: 10px 15px;
+  }
+  .dock-btn::after {
+      bottom: 2px; /* Más pegado al borde en móvil */
+  }
+}
+
+/* --- SECCIÓN USUARIO EN DOCK --- */
+.dock-user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  padding-left: 20px;
+}
+
+.dock-dot { width: 6px; height: 6px; background: #25D366; border-radius: 50%; box-shadow: 0 0 8px #25D366; }
+.dock-name { font-family: 'Oswald', sans-serif; color: #fff; font-size: 0.75rem; letter-spacing: 1px; }
+
+.dock-logout {
+  background: transparent;
+  border: 1px solid #333;
+  color: #555;
+  font-size: 0.6rem;
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.dock-logout:hover { border-color: #d00000; color: #fff; background: #d00000; }
+
+/* ============================================================
+   RESPONSIVE MÓVIL PARA EL DOCK (CENTRADO)
+   ============================================================ */
+@media (max-width: 950px) {
+  .portal-hanging-dock {
+    padding: 0 10px;
+    justify-content: center;
+  }
+
+  .dock-container {
+    width: 95%;
+    border-radius: 12px;
+    height: 45px;
+    gap: 10px;
+    padding: 0 10px;
+  }
+
+  .dock-links {
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+
+  .dock-user { display: none; }
+}

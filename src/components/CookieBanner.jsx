@@ -5,23 +5,39 @@ export default function CookieBanner() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Usamos una versión de clave nueva por si ya habías aceptado la anterior
-    const consent = localStorage.getItem("cookie-consent-v99");
-    if (!consent) {
-      // Bloqueo total de la pantalla
-      document.body.style.overflow = "hidden";
-      setIsVisible(true);
-    }
+    // 1. Buscamos la cookie específica en el navegador
+    const checkConsent = () => {
+      const cookies = document.cookie.split('; ');
+      const hasConsent = cookies.find(row => row.startsWith('cookie-consent-cj='));
+      
+      if (hasConsent) {
+        // Si ya existe la cookie, nos aseguramos de que el scroll esté habilitado y no mostramos nada
+        document.body.style.overflow = "auto";
+        setIsVisible(false);
+      } else {
+        // Si no existe, bloqueamos scroll y mostramos banner
+        document.body.style.overflow = "hidden";
+        setIsVisible(true);
+      }
+    };
+
+    checkConsent();
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem("cookie-consent-v99", "accepted");
+    // 2. CREACIÓN DE COOKIE REAL Y PERMANENTE
+    // path=/ hace que funcione en toda la web
+    // max-age=31536000 es 1 año en segundos
+    // SameSite=Lax es por seguridad moderna
+    document.cookie = "cookie-consent-cj=accepted; max-age=31536000; path=/; SameSite=Lax";
+    
+    // Liberamos el scroll y cerramos
     document.body.style.overflow = "auto"; 
     setIsVisible(false);
   };
 
   const handleReject = () => {
-    // Redirección externa para "cerrar" el acceso
+    // Redirección externa
     window.location.href = "https://www.google.com";
   };
 
@@ -29,10 +45,10 @@ export default function CookieBanner() {
 
   return (
     <>
-      {/* CAPA DE BLOQUEO TOTAL (Encima de todo) */}
+      {/* CAPA DE BLOQUEO TOTAL */}
       <div className="cookie-blocker-overlay" />
 
-      {/* BANNER EN EL TOPE ABSOLUTO */}
+      {/* PANEL SUPERIOR */}
       <div className="cookie-top-panel anim-down">
         <div className="cookie-panel-content">
           
@@ -56,8 +72,6 @@ export default function CookieBanner() {
           </div>
 
         </div>
-        
-        {/* Línea de brillo inferior (Firma visual) */}
         <div className="cookie-bottom-glow"></div>
       </div>
     </>

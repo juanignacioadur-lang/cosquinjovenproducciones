@@ -174,7 +174,7 @@ export default function AboutPage() {
           <header className="h-header">
             <div className="h-pretitle">
                <span className="h-dot"></span>
-               <span className="h-label">REGISTRO HISTÓRICO • ORIGEN FEDERAL</span>
+               <span className="h-label">REGISTRO HISTÓRICO</span>
             </div>
             <h1 className="h-main-title-expanded">
               EL ALMA DE <br /> 

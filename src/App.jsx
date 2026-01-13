@@ -7,18 +7,24 @@ import InfoCard from "./components/InfoCard.jsx";
 import RouteScrollHandler from "./components/RouteScrollHandler.jsx";
 import CookieBanner from "./components/CookieBanner.jsx";
 
-// Páginas
+// Componente de Seguridad
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+
+// Páginas Públicas
 import HomePage from "./pages/HomePage.jsx";
 import AboutPage from "./pages/AboutPage.jsx";
 import EventsPage from "./pages/EventsPage.jsx";
 import NewsDetailPage from "./pages/NewsDetailPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
-
-// Importación de Mantenimiento y Bono
+import BonoPage from "./pages/BonoPage.jsx";
 import Mantenimiento from "./pages/Mantenimiento.jsx";
-// import BonoPage from "./pages/BonoPage.jsx"; // La usaremos cuando termine el mantenimiento
+
+// PORTAL DE GESTIÓN (Nuevas)
+import LoginPage from "./pages/Portal/LoginPage.jsx";
+import PortalLayout from "./pages/Portal/PortalLayout.jsx"; 
 
 import "./index.css";
+import "./GlobalScaler.css";
 
 export default function App() {
   return (
@@ -32,28 +38,32 @@ export default function App() {
 
       <div className="main-content">
         <Routes>
-          {/* Inicio */}
+          {/* --- RUTAS PÚBLICAS --- */}
           <Route path="/" element={<HomePage />} />
-          
-          {/* Sobre Nosotros */}
           <Route path="/informacion" element={<AboutPage />} />
-          
-          {/* Eventos y Noticias */}
           <Route path="/noticias" element={<EventsPage />} />
           <Route path="/noticias/:id" element={<NewsDetailPage />} />
-          
-          {/* 
-              SECCIÓN GRAN BONO (MODO MANTENIMIENTO ACTIVO)
-              Cambia 'Mantenimiento' por 'BonoPage' cuando quieras activar la sección real.
-          */}
-          <Route path="/bono" element={<Mantenimiento />} />
-          
-          {/* Contacto y Prensa */}
+          <Route path="/bono" element={<BonoPage />} />
           <Route path="/contacto" element={<ContactPage />} />
+
+          {/* --- ACCESO AL PORTAL (LOGIN) --- */}
+          <Route path="/portal" element={<LoginPage />} />
+
+          {/* --- PORTAL DE GESTIÓN PROTEGIDO --- 
+              Usamos PortalLayout que es el que tiene las pestañas 
+              de Monitoreo, IA, Bonos y Perfil.
+          */}
+          <Route 
+            path="/gestion-bono" 
+            element={
+              <ProtectedRoute>
+                <PortalLayout />
+              </ProtectedRoute>
+            } 
+          />
         </Routes>
       </div>
       
-      {/* Tarjeta de la Fundación y Footer */}
       <InfoCard />
       <PageFooter />
     </BrowserRouter>

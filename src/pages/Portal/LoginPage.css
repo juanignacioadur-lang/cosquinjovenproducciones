@@ -1,0 +1,249 @@
+/* --- RAÍZ SIN SCROLL --- */
+.login-video-bg, .login-overlay-dark {
+  position: fixed;
+  inset: 0;
+}
+
+.login-overlay-dark {
+  position: fixed !important; /* Cambiado a fixed */
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  width: 20vw !important;
+  height: 20vh !important;
+  z-index: -1 !important; /* Sobre el video, bajo el contenido */
+}
+
+.login-v29-root {
+  width: 100%;
+  /* Quitamos el height: 100vh; y ponemos min-height */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent !important; /* IMPORTANTE: Transparente para ver el video */
+  position: relative;
+  z-index: 5;
+}
+
+/* --- CONTENEDOR FLOTANTE --- */
+.login-hero-wrap {
+  position: relative;
+  z-index: 10;
+  width: 90%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.login-main-logo {
+  width: clamp(200px, 40vw, 550px);
+  height: auto;
+  filter: drop-shadow(0 10px 30px rgba(0,0,0,0.8));
+}
+
+.login-interface {
+  width: 100%;
+  max-width: 600px;
+  /* Fondo casi invisible, solo el cristal */
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 35px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.login-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.status-dot {
+  width: 8px; height: 8px; background: #d00000; border-radius: 50%;
+  box-shadow: 0 0 10px #ff0000;
+  animation: pulseLed 1.5s infinite;
+}
+
+.status-text {
+  font-family: 'Oswald', sans-serif;
+  color: #555;
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+}
+
+.login-h2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+.login-h2 span {
+  color: transparent;
+  -webkit-text-stroke: 1px #d00000;
+  text-shadow: 0 0 15px rgba(208, 0, 0, 0.4);
+}
+
+/* --- FILA DE INPUTS --- */
+.login-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.login-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.login-field label {
+  font-size: 0.6rem;
+  color: #d00000;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.login-field input {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #222;
+  padding: 15px;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.login-field input:focus {
+  border-color: #d00000;
+  outline: none;
+  background: #000;
+}
+
+.login-action-btn {
+  width: 100%;
+  background: #d00000;
+  color: #fff;
+  border: none;
+  padding: 18px;
+  border-radius: 8px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.login-action-btn:hover {
+  background: #ff0000;
+  transform: translateY(-2px);
+}
+
+.login-id-footer {
+  margin-top: 30px;
+  color: #333;
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+}
+
+@keyframes pulseLed { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ============================================================
+   BLINDAJE MÓVIL (SIN SCROLL)
+   ============================================================ */
+@media (max-width: 850px) {
+  .login-main-logo { width: 60vw; margin-bottom: 10px; }
+  
+  .login-hero-wrap { gap: 10px; }
+
+  .login-interface {
+    padding: 25px 20px;
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+  }
+
+  .login-h2 { font-size: 1.8rem; margin-bottom: 20px; }
+
+  .login-row {
+    grid-template-columns: 1fr; /* Columna única en móvil */
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+
+  .login-field input { padding: 12px; font-size: 0.9rem; }
+  
+  .login-action-btn { padding: 15px; font-size: 1rem; }
+
+  /* Reducimos el ID de seguridad para ganar espacio */
+  .login-id-footer { margin-top: 20px; }
+}
+
+/* Fix para pantallas extremadamente cortas */
+@media (max-height: 700px) {
+  .login-main-logo { width: 140px; }
+  .login-h2 { font-size: 1.5rem; }
+  .login-row { gap: 10px; }
+}
+.login-options {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.login-remember {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.7rem;
+  color: #555;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: 0.3s;
+}
+
+.login-remember:hover {
+  color: #fff;
+}
+
+/* Escondemos el checkbox original y creamos uno de neón */
+.login-remember input {
+  display: none;
+}
+
+.custom-checkbox {
+  width: 16px;
+  height: 16px;
+  border: 1px solid #333;
+  border-radius: 3px;
+  position: relative;
+  transition: 0.3s;
+}
+
+.login-remember input:checked + .custom-checkbox {
+  background: #d00000;
+  border-color: #d00000;
+  box-shadow: 0 0 10px rgba(208, 0, 0, 0.5);
+}
+
+.login-remember input:checked + .custom-checkbox::after {
+  content: "✓";
+  position: absolute;
+  color: white;
+  font-size: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
