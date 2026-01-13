@@ -124,7 +124,7 @@ export default function MasterBonos() {
   return (
     <div className="master-bonos-root">
       {loading ? (
-        <div className="loader-tech">ACCEDIENDO A FRECUENCIA FEDERAL...</div>
+        <div className="loader-tech"><center>CARGANDO DATOS...</center></div>
       ) : (
         user?.rol === "DUEÑO" ? renderOwnerView() : renderDelegateView()
       )}

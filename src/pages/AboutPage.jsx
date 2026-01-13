@@ -11,7 +11,6 @@ const CimientoSupreme = ({ icon, title, text, index }) => (
     <div className="f-inner-wrap">
       {/* Capas decorativas de Hardware */}
       <div className="f-glow"></div>
-      <div className="f-id-code">ARCH_REF_0{index + 1}</div>
       <div className="f-icon-box">{icon}</div>
       <div className="f-content-v25">
         <h4 className="f-title-h4">{title}</h4>
@@ -99,7 +98,7 @@ const CinemaEngineSupreme = ({ items = [], type = "photo" }) => {
         
         <div className="cinema-hud-metadata">
           <div className="meta-brand">
-            COSQUÍN JOVEN ARCHIVE // REF_V700 // TYPE: {type.toUpperCase()}
+            ARCHIVO: {type.toUpperCase()}
           </div>
           <div className="meta-pager">
              {String(index + 1).padStart(2, '0')} <span className="pager-slash">/ {String(len).padStart(2, '0')}</span>
@@ -258,7 +257,7 @@ export default function AboutPage() {
         <section className="m-multimedia-section">
           <header className="archive-header-v25">
             <div className="m-branding-box">
-              <span className="m-serial">REGISTRO: SN-024 / ACERVO_MASTER</span>
+              <span className="m-serial">REGISTRO CINEMATOGRÁFICO</span>
               <h2 className="archive-main-title-v25">MOMENTOS <span>MEMORABLES</span></h2>
               <div className="m-underline-neon"></div>
               <p className="m-subtitle-museum">CENTRO DE PRESERVACIÓN VISUAL - REGISTRO CINEMATOGRÁFICO DE GALA</p>
