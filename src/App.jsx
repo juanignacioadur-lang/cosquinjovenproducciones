@@ -18,7 +18,7 @@ import NewsDetailPage from "./pages/NewsDetailPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 import BonoPage from "./pages/BonoPage.jsx";
 import Mantenimiento from "./pages/Mantenimiento.jsx";
-
+import VERIFICACIONDEGOOGLE from "./google5e632adc716250fe.html";
 // PORTAL DE GESTIÓN (Nuevas)
 import LoginPage from "./pages/Portal/LoginPage.jsx";
 import PortalLayout from "./pages/Portal/PortalLayout.jsx"; 
