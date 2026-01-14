@@ -398,7 +398,7 @@ export const newsData = [
   },
   {
     id: 2,
-    title: "RECUERDOS: ABUELA REINA Y ABUELO REY 2025",
+    title: "RECUERDOS: ABUELA REINA Y ABUELO REY",
     date: "12 de Diciembre, 2025",
     category: "Recuerdos", 
     image: "/noticiaabuela1.jpg",
