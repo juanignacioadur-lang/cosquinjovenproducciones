@@ -1,8 +1,10 @@
+<meta name="google-site-verification" content="PHMSJJG6ZRd7dnQwV4UznPyrRV8DY-ruhRg8ptbQMCc" />
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext"; // Importamos el proveedor aquí
 import "./index.css";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
