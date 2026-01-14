@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"; // 1. Agregamos useEffect aquí
 import { Link } from "react-router-dom";
 import "./HomePage.css";
+<meta name="google-site-verification" content="PHMSJJG6ZRd7dnQwV4UznPyrRV8DY-ruhRg8ptbQMCc" />
 
 // 2. Definimos CountUp AFUERA de la función Inicio
 const CountUp = ({ end, duration = 2000, prefix = "" }) => {
