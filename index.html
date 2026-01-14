@@ -2,35 +2,82 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- 1. ÍCONO DE PESTAÑA (Favicon) -->
-    <!-- Usamos tu logo.png que ya está en la carpeta public -->
     <link rel="icon" type="image/png" href="/logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     
-    <!-- 2. TÍTULO DE LA PESTAÑA -->
-    <title>Cosquín Joven Producciones</title>
-
-    <!-- 3. SEO BÁSICO (Para Google) -->
-    <meta name="description" content="Organización dedicada a promover y preservar la cultura folklórica argentina a través de la danza, el canto y eventos internacionales." />
-    <meta name="keywords" content="folklore, cosquin, danza, argentina, festival, cultura, malambo" />
+    <!-- ============================================================
+         SEO AVANZADO - EL "IMÁN" PARA GOOGLE
+         ============================================================ -->
+    <title>Cosquín Joven Producciones 🎭 | El Camino de los Sueños</title>
+    <meta name="description" content="✨ Portal Oficial de Cosquín Joven Producciones. 🏆 30 años liderando el folklore en Argentina y el mundo. ¡Inscribite al Gran Bono 2026 y viví la experiencia única en Carlos Paz y Cartagena! 🇦🇷" />
+    <meta name="keywords" content="folklore argentino, danza cosquin, festival folklore 2026, malambo nacional, turismo cultural argentina, gran bono cosquin joven, villa carlos paz teatro, cartagena internacional danza" />
     <meta name="author" content="Cosquín Joven Producciones" />
+    <link rel="canonical" href="https://cosquinjovenproducciones.com/" />
 
-    <!-- 4. ESTÉTICA MÓVIL -->
-    <!-- Esto pinta la barra del navegador del celular de negro para que combine -->
+    <!-- ============================================================
+         ESTÉTICA DE DISPOSITIVOS (MÓVIL & APPLE)
+         ============================================================ -->
     <meta name="theme-color" content="#000000" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Cosquin Joven" />
+    <link rel="apple-touch-icon" href="/logo.png" />
 
-    <!-- 5. REDES SOCIALES (Open Graph) -->
-    <!-- Así se verá cuando compartas el link por WhatsApp/Facebook -->
-    <meta property="og:title" content="Cosquín Joven Producciones" />
-    <meta property="og:description" content="El camino de los sueños. Eventos folklóricos nacionales e internacionales." />
-    <meta property="og:image" content="https://cosquinjovenproducciones.com/logo.png" />
-    <meta property="og:url" content="https://cosquinjovenproducciones.com" />
+    <!-- ============================================================
+         REDES SOCIALES (OPEN GRAPH & TWITTER) - VISTA WHATSAPP
+         ============================================================ -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cosquinjovenproducciones.com/" />
+    <meta property="og:title" content="Cosquín Joven Producciones 🎭 El Camino de los Sueños" />
+    <meta property="og:description" content="30 Años cumpliendo sueños. Danza, Canto y Cultura Federal. ¡Entrá al portal oficial!" />
+    <meta property="og:image" content="https://cosquinjovenproducciones.com/logo.png" />
+    <meta property="og:site_name" content="Cosquín Joven" />
 
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Cosquín Joven Producciones 🎭" />
+    <meta name="twitter:description" content="Líderes en eventos folklóricos internacionales. Sumate a la experiencia 2026." />
+    <meta name="twitter:image" content="https://cosquinjovenproducciones.com/logo.png" />
+
+    <!-- ============================================================
+         DATOS ESTRUCTURADOS (SCHEMA.ORG) - LA "TRAMPA" PARA GOOGLE
+         Esto le dice a Google que eres una organización real.
+         ============================================================ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Cosquín Joven Producciones",
+        "alternateName": "Cosquin Joven",
+        "url": "https://cosquinjovenproducciones.com/",
+        "logo": "https://cosquinjovenproducciones.com/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+54-9-3541-393487",
+          "contactType": "Sales and Press",
+          "areaServed": "AR",
+          "availableLanguage": "Spanish"
+        },
+        "sameAs": [
+          "https://www.instagram.com/cosquinjoven.producciones/",
+          "https://www.facebook.com/share/17T1nkD7Mb/"
+        ]
+      }
+    </script>
+
+    <!-- ============================================================
+         PRECONEXIONES (VELOCIDAD DE CARGA)
+         ============================================================ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
   </head>
   <body>
-    <div id="root"></div>
+    <!-- 
+       Capa de Precarga (Opcional): 
+       Evita que se vea blanco antes de que React cargue 
+    -->
+    <div id="root" style="background-color: #000;"></div>
+    
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
