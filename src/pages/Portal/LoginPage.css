@@ -247,3 +247,29 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+/* --- ALERTA DE ERROR TÁCTICA V29 --- */
+.login-error-v29 {
+  background: rgba(208, 0, 0, 0.15); /* Fondo rojizo traslúcido */
+  border-left: 3px solid #d00000;    /* Barra de acento sólida */
+  color: #ff4d4d;                   /* Rojo brillante para legibilidad */
+  padding: 12px 15px;
+  border-radius: 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  text-align: left;
+  
+  /* Animación de sacudida sutil al aparecer */
+  animation: errorShake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes errorShake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
+}

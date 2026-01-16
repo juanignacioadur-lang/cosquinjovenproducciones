@@ -16,21 +16,21 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-    
-    const res = await loginUser(dni, password);
-    
-    if (res.status === "success") {
-      // Pasamos los datos del usuario y si marcó "Recordarme"
-      login(res.user, remember);
-      navigate("/gestion-bono");
-    } else {
-      setError(res.message);
-    }
-    setLoading(false);
-  };
+  e.preventDefault();
+  setLoading(true);
+  setError("");
+  
+  const res = await loginUser(dni, password);
+  
+  if (res.status === "success") {
+    login(res.user, remember);
+    navigate("/gestion-bono");
+  } else {
+    // AQUÍ DEFINIMOS EL TEXTO QUE PEDISTE
+    setError("USUARIO O CONTRASEÑA INCORRECTOS"); 
+  }
+  setLoading(false);
+};
 
   return (
     <>
