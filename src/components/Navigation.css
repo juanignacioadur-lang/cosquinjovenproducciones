@@ -339,3 +339,66 @@
 
   .dock-user { display: none; }
 }
+
+/* --- ESTILO USUARIO EN NAV PRINCIPAL --- */
+.nav-user-top-info {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  padding-left: 15px;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.user-pill-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-dot-status {
+  width: 7px;
+  height: 7px;
+  background: #25D366;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #25D366;
+}
+
+.user-name-nav {
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.btn-logout-nav {
+  background: transparent;
+  border: 1px solid #333;
+  color: #666;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-logout-nav:hover {
+  border-color: #d00000;
+  color: #fff;
+  background: #d00000;
+}
+
+/* --- AJUSTE MÓVIL --- */
+@media (max-width: 950px) {
+  .nav-user-top-info {
+    border-left: none;
+    padding-left: 0;
+    margin-top: 20px;
+    justify-content: center;
+  }
+  
+  .user-name-nav {
+    font-size: 1.2rem;
+  }
+}

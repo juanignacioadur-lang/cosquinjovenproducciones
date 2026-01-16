@@ -1,0 +1,92 @@
+/* --- RAÍZ FIJA AL NAVBAR --- */
+.subnav-extension {
+  position: absolute;
+  top: 100%; /* Se pega al borde inferior del navbar */
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: -1; /* Aparece por debajo de la franja negra principal */
+  pointer-events: none;
+}
+
+.subnav-container-fixed {
+  width: 100%;
+  max-width: 1760px; /* Mismo ancho que tu nav-container */
+  padding: 0 60px;
+  display: flex;
+  justify-content: flex-end; /* Alineado a la derecha igual que los links de arriba */
+}
+
+.subnav-content {
+  pointer-events: auto;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: none;
+  border-radius: 0 0 20px 20px; /* Curvas elegantes solo abajo */
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 25px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+}
+
+/* --- BOTONES (ESPEJO DE NAVIGATION.CSS) --- */
+.subnav-link-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: color 0.3s ease;
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  padding: 10px 18px;
+  opacity: 0.5;
+}
+
+.subnav-link-btn:hover, .subnav-link-btn.active {
+  opacity: 1;
+}
+
+/* El subrayado idéntico al principal */
+.subnav-link-btn::after {
+  content: "";
+  position: absolute;
+  left: 15%; 
+  right: 15%; 
+  bottom: 5px;
+  height: 2px;
+  background: #d00000;
+  box-shadow: 0 0 10px #d00000;
+  transform: scaleX(0);
+  transition: transform 180ms cubic-bezier(.2,.8,.2,1);
+  border-radius: 2px;
+}
+
+.subnav-link-btn.active::after, .subnav-link-btn:hover::after {
+  transform: scaleX(1);
+}
+
+/* --- RESPONSIVE MÓVIL --- */
+@media (max-width: 950px) {
+  .subnav-container-fixed { padding: 0 10px; justify-content: center; }
+  .subnav-content {
+    width: 95%;
+    border-radius: 12px;
+    margin-top: 5px;
+    height: 45px;
+    justify-content: center;
+  }
+  .subnav-links-group {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    width: 100%;
+  }
+  .subnav-link-btn { font-size: 0.75rem; padding: 0 12px; white-space: nowrap; }
+}

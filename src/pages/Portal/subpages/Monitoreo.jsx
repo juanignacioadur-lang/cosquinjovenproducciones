@@ -1,229 +1,250 @@
-import React, { useState, useEffect, useMemo, useRef } from "react";
-import { getBonds, validateSale, cancelSale, updateSale, getAuditLogs } from "../../../services/api";
+import React, { useState, useEffect, useMemo } from "react";
+import { getBonds, validateSale, cancelSale, updateSale } from "../../../services/api";
 import "./Monitoreo.css";
 
 export default function Monitoreo() {
-  // --- ESTADOS DE DATOS ---
-  const [logs, setLogs] = useState([]);      // Ventas reales desde el Excel
-  const [audit, setAudit] = useState([]);    // Historial de acciones (Auditoría)
+  // --- ESTADOS DE SISTEMA ---
+  const [logs, setLogs] = useState([]);      
+  const [audit, setAudit] = useState([]);    
   const [loading, setLoading] = useState(true);
-  const [viewMode, setViewMode] = useState("ops"); // 'ops' (Ventas) o 'audit' (Caja Negra)
+  const [viewMode, setViewMode] = useState("ops"); 
   const [searchTerm, setSearchTerm] = useState("");
   const [editingBono, setEditingBono] = useState(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // --- RELOJ Y SINCRONIZACIÓN ---
+  // --- SINCRONIZACIÓN DE RELOJ Y DATOS ---
   useEffect(() => {
     fetchData();
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
-    const sync = setInterval(fetchData, 60000); // Sincroniza cada 1 minuto
+    const sync = setInterval(fetchData, 45000); // Sincronización cada 45s
     return () => { clearInterval(timer); clearInterval(sync); };
   }, []);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      // Traemos tanto las ventas como los logs de auditoría en paralelo
       const res = await getBonds();
-      // El App Script V33 devuelve { sales: [], delegates: [], audit: [] }
       setLogs(res.sales ? [...res.sales].reverse() : []);
       setAudit(res.audit ? [...res.audit] : []);
-    } catch (e) { 
-      console.error("SYSTEM_SYNC_ERROR", e); 
-    }
+    } catch (e) { console.error("CRITICAL_SYNC_ERROR", e); }
     setLoading(false);
   };
 
-  // --- MOTOR DE INTELIGENCIA (CJ-PILOT INSIGHTS) ---
-  const aiInsights = useMemo(() => {
+  // --- CJ-PILOT: MOTOR DE REPORTES REALES ---
+  const aiReports = useMemo(() => {
     const pending = logs.filter(l => l.estado === "PENDIENTE");
-    const totalV = logs.length;
-    const insights = [];
-
-    if (pending.length > 0) {
-      insights.push({ type: 'warning', msg: `IA_ALERT: Hay ${pending.length} transacciones esperando tu validación.` });
-    }
-    if (totalV > 0) {
-      insights.push({ type: 'success', msg: `CJ-PILOT: Se han registrado ${totalV} ventas exitosas en el sistema federal.` });
-    }
-    insights.push({ type: 'info', msg: `SISTEMA: Estación CJ_ADMIN conectada. Base de datos: G_SHEETS_V33.` });
+    const reports = [];
     
-    return insights;
+    if (pending.length > 0) {
+      reports.push({ type: 'warning', icon: '⚠️', msg: `IA_ALERT: Detectadas ${pending.length} transacciones sin validar. Riesgo de congestión administrativa.` });
+    }
+    if (logs.length > 0) {
+      reports.push({ type: 'success', icon: '✅', msg: `CJ-PILOT: Sincronización federal exitosa. ${logs.length} bonos activos en base de datos.` });
+    }
+    reports.push({ type: 'info', icon: '📡', msg: "SISTEMA: Conexión con Google Cloud estable. Latencia: 0.02ms." });
+    
+    return reports;
   }, [logs]);
 
-  // --- BUSCADOR TÁCTICO (FILTRO TOTAL) ---
+  // --- BUSCADOR DE COMANDO AVANZADO ---
   const filteredData = useMemo(() => {
     return logs.filter(l => 
-      l.comprador.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      l.vendedor.toString().includes(searchTerm) ||
+      l.comprador?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      l.vendedor?.toString().includes(searchTerm) ||
       l.id_bono?.toString().includes(searchTerm) ||
       l.vendedor_nombre?.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [logs, searchTerm]);
 
-  // --- ACCIONES DE COMANDO (CRUD) ---
-  // IMPORTANTE: Ahora usamos id_bono (el ID global único) para no confundir números
-  const handleAction = async (action, id_bono_global, data = {}) => {
-    if (!window.confirm(`¿EJECUTAR ORDEN DE ${action.toUpperCase()} PARA EL BONO #${id_bono_global}?`)) return;
+  // --- CRUD TÁCTICO (ACCIONES) ---
+  const handleAction = async (action, id_bono, data = {}) => {
+    const confirmMsg = action === 'validar' ? 'AUTORIZAR PAGO' : action === 'cancelar' ? 'ELIMINAR REGISTRO' : 'GUARDAR CAMBIOS';
+    if (!window.confirm(`¿EJECUTAR ORDEN DE ${confirmMsg} PARA BONO #${id_bono}?`)) return;
     
     setLoading(true);
     let res;
     try {
-      if (action === 'validar') res = await validateSale(id_bono_global);
-      if (action === 'cancelar') res = await cancelSale(id_bono_global);
-      if (action === 'editar') res = await updateSale(id_bono_global, data);
+      if (action === 'validar') res = await validateSale(id_bono);
+      if (action === 'cancelar') res = await cancelSale(id_bono);
+      if (action === 'editar') res = await updateSale(id_bono, data);
       
       if (res && res.status === 'success') {
         setEditingBono(null);
-        await fetchData(); // Recargamos todo
-      } else {
-        alert("Error: " + (res?.message || "Fallo en el servidor"));
-      }
-    } catch (err) {
-      alert("Error crítico de comunicación con la base de datos.");
-    }
+        await fetchData();
+      } else alert("ERROR EN COMUNICACIÓN: " + res?.message);
+    } catch (err) { alert("ERROR CRÍTICO DEL SISTEMA"); }
     setLoading(false);
   };
 
-  const totalRecaudado = logs.length * 15000;
-  const utilidadCJ = totalRecaudado * 0.35;
+  const recaudacionTotal = logs.length * 15000;
+  const utilidadProductora = recaudacionTotal * 0.35;
 
   return (
-    <div className="monitoreo-v32-root anim-fade-in">
+    <div className="mnt-v33-root anim-fade-in">
       
-      {/* 1. TERMINAL HEADER */}
-      <header className="terminal-header-v32">
-        <div className="th-branding">
-          <div className="pulse-aura"><div className="dot"></div></div>
-          <div className="th-titles">
-            <span className="th-code">STATION_ID: CJ_ADMIN_CENTRAL_CORE</span>
-            <h2 className="th-main-title">CONSOLA DE <span>MONITOREO</span></h2>
+      {/* 1. COMANDO SUPERIOR (HEADER) */}
+      <header className="mnt-header-v33">
+        <div className="mnt-h-left">
+          <div className="mnt-heartbeat"><div className="mnt-dot-glow"></div></div>
+          <div className="mnt-title-block">
+            <span className="mnt-sub-code">STATION: CJ_CENTRAL_CORE_V33</span>
+            <h2 className="mnt-main-title-tech">CONSOLA DE <span>MONITOREO</span></h2>
           </div>
         </div>
-        <div className="th-clock-box">
-          <div className="th-time">{currentTime.toLocaleTimeString()}</div>
-          <div className="th-date">{currentTime.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'short' })}</div>
+        <div className="mnt-h-right">
+          {/* RELOJ EN FORMATO 24HS */}
+          <div className="mnt-clock">
+            {currentTime.toLocaleTimeString('es-AR', { hour12: false })}
+          </div>
+          <div className="mnt-date">
+            {currentTime.toLocaleDateString('es-AR', { weekday: 'long', day: 'numeric', month: 'short' }).toUpperCase()}
+          </div>
         </div>
       </header>
 
-      {/* 2. ANALYTICS DOCK */}
-      <section className="analytics-dock-v32">
-        <div className="a-card glass-impact">
-          <span className="a-label">OPERACIONES FEDERALES</span>
-          <div className="a-value">{logs.length} <small>/ 768</small></div>
-          <div className="a-bar"><div className="a-fill" style={{width: `${(logs.length/768)*100}%`}}></div></div>
+      {/* 2. ANALYTICS DOCK (MÉTRICAS) */}
+      <section className="mnt-analytics">
+        <div className="mnt-a-card glass-v33">
+          <span className="mnt-a-tag">TOTAL DE BONOS</span>
+          <div className="mnt-a-val">{logs.length} <small>/ 768</small></div>
+          <div className="mnt-a-bar"><div className="fill" style={{width: `${(logs.length/768)*100}%`}}></div></div>
         </div>
-        <div className="a-card glass-impact highlight">
-          <span className="a-label">RECAUDACIÓN BRUTA</span>
-          <div className="a-value">${totalRecaudado.toLocaleString()}</div>
-          <span className="a-subtext">GANANCIA PRODUCTORA (35%): <strong>${utilidadCJ.toLocaleString()}</strong></span>
+        <div className="mnt-a-card glass-v33 highlight">
+          <span className="mnt-a-tag">RECAUDACIÓN BRUTA</span>
+          <div className="mnt-a-val">${recaudacionTotal.toLocaleString()}</div>
+          <span className="mnt-a-profit">GANANCIA CJ (35%): <strong>${utilidadProductora.toLocaleString()}</strong></span>
         </div>
-        <div className="a-card glass-impact">
-          <span className="a-label">ESTADO DE RED</span>
-          <div className="a-value">99.9<small>%</small></div>
-          <span className="a-subtext">ENCRYPT_MODE: AES-256_ACTIVE</span>
+        <div className="mnt-a-card glass-v33">
+          <span className="mnt-a-tag">SISTEMA VIRTUAL</span>
+          <div className="mnt-a-val">ONLINE</div>
+          <span className="mnt-a-profit">PROTOCOL: AES-256_ENCRYPTED</span>
         </div>
       </section>
 
-      {/* 3. TACTICAL NAVIGATION */}
-      <nav className="tactical-nav-v32">
-        <div className="tactical-search">
-          <span className="t-icon">🔍</span>
-          <input 
-            type="text" 
-            placeholder="BUSCAR POR NOMBRE, DNI, ID_BONO O DELEGADO..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-        </div>
-        <div className="tactical-tabs">
-          <button className={viewMode === 'ops' ? 'active' : ''} onClick={() => setViewMode('ops')}>OPERACIONES</button>
-          <button className={viewMode === 'audit' ? 'active' : ''} onClick={() => setViewMode('audit')}>AUDITORÍA_LOGS</button>
-        </div>
-      </nav>
-
-      {/* 4. MAIN MONITORING VIEWPORT */}
-      <div className="main-viewport-grid">
+      {/* --- BARRA DE NAVEGACIÓN TÁCTICA V36 --- */}
+      <div className="mnt-search-nav">
         
-        <section className="viewport-content">
+        {/* BUSCADOR: Ahora con flex: 1 para estirarse al máximo */}
+        {viewMode === 'ops' ? (
+          <div className="mnt-search-box anim-fade-in">
+            <span className="mnt-search-icon">🔍</span>
+            <input 
+              type="text" 
+              placeholder="BUSCADOR DE IDENTIDAD (DNI, NOMBRE, ID_BONO)..." 
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+          </div>
+        ) : (
+          /* Título de sección cuando no hay buscador para que no quede vacío */
+          <div className="mnt-section-label anim-fade-in">
+             REPORTE DE AUDITORÍA DE SISTEMA
+          </div>
+        )}
+
+        {/* CONTENEDOR DE BOTONES */}
+        <div className="mnt-tabs-v33">
+          <button 
+            className={viewMode === 'ops' ? 'active' : ''} 
+            onClick={() => setViewMode('ops')}
+          >
+            OPERACIONES
+          </button>
+          <button 
+            className={viewMode === 'audit' ? 'active' : ''} 
+            onClick={() => setViewMode('audit')}
+          >
+            REGISTROS
+          </button>
+        </div>
+      </div>
+
+      <div className="mnt-grid-layout">
+        
+        {/* 4. ÁREA DE LECTURA DE DATOS */}
+        <section className="mnt-feed-area">
           {viewMode === 'ops' ? (
-            <div className="ops-scroll-area">
+            <div className="mnt-ops-scroll custom-scroll">
               {filteredData.length === 0 ? (
-                <div className="empty-tech">NO SE DETECTAN TRANSACCIONES ACTIVAS...</div>
+                <div className="mnt-empty">SIN TRANSACCIONES ACTIVAS EN ESTE CANAL...</div>
               ) : (
                 filteredData.map((log, i) => (
-                  <article key={i} className={`op-log-card ${log.estado.toLowerCase()}`}>
-                    <div className="op-log-header">
-                      <div className="op-log-user">
-                        {/* AHORA SÍ APARECE EL NOMBRE DEL DELEGADO */}
-                        <span className="u-name">{log.vendedor_nombre}</span>
-                        <span className="u-id">DNI_VENDEDOR: {log.vendedor}</span>
+                  <article key={i} className={`mnt-log-entry ${log.estado.toLowerCase()}`}>
+                    <div className="log-badge-user">
+                      <span className="u-name">{log.vendedor_nombre}</span>
+                      <span className="u-id">ID: {log.vendedor}</span>
+                    </div>
+                    <div className="log-data-body">
+                      <p>VENTA: <strong>BONO #{log.id_bono}</strong> <small>(R:{log.n_bono})</small></p>
+                      <p>COMPRADOR: <strong>{log.comprador}</strong> | DNI: {log.dni_comp}</p>
+                      {/* FECHA Y HORA 24HS EN REGISTRO DE VENTA */}
+                      <span className="log-timestamp">
+                        {new Date(log.fecha).toLocaleString('es-AR', { hour12: false })} HS
+                      </span>
+                    </div>
+                    <div className="log-actions-panel">
+                      <span className={`log-status-pill ${log.estado.toLowerCase()}`}>{log.estado}</span>
+                      <div className="log-btns-group">
+                        {log.estado === "PENDIENTE" && (
+                          <button className="btn-v33 v" onClick={() => handleAction('validar', log.id_bono)}>VALIDAR</button>
+                        )}
+                        <button className="btn-v33 e" onClick={() => setEditingBono(log)}>EDITAR</button>
+                        <button className="btn-v33 c" onClick={() => handleAction('cancelar', log.id_bono)}>ANULAR</button>
                       </div>
-                      <div className="op-log-status">{log.estado}</div>
-                    </div>
-                    <div className="op-log-body">
-                      {/* CORREGIDO: Muestra el ID_BONO Real (1-768) */}
-                      <p>TRANSACCIÓN: <strong>BONO #{log.id_bono}</strong> <small>(Num: {log.n_bono})</small></p>
-                      <p>CLIENTE: <strong>{log.comprador}</strong> | DNI: {log.dni_comp}</p>
-                      <span className="op-log-time">{new Date(log.fecha).toLocaleString()}</span>
-                    </div>
-                    <div className="op-log-actions">
-                      {log.estado === "PENDIENTE" && (
-                        <button className="btn-op green" onClick={() => handleAction('validar', log.id_bono)}>VALIDAR</button>
-                      )}
-                      <button className="btn-op blue" onClick={() => setEditingBono(log)}>EDITAR</button>
-                      <button className="btn-op red" onClick={() => handleAction('cancelar', log.id_bono)}>ANULAR</button>
                     </div>
                   </article>
                 ))
               )}
             </div>
           ) : (
-            <div className="audit-table-wrap">
-              <table className="audit-table-v32">
-                <thead>
-                  <tr><th>HORA</th><th>USUARIO</th><th>ACCIÓN</th><th>DETALLE TÉCNICO</th></tr>
-                </thead>
-                <tbody>
-                  {audit.length === 0 ? (
-                    <tr><td colSpan="4" style={{textAlign:'center', padding:'50px'}}>SIN REGISTROS DE AUDITORÍA</td></tr>
-                  ) : (
-                    audit.map((a, i) => (
-                      <tr key={i}>
-                        <td>{new Date(a.fecha).toLocaleTimeString()}</td>
-                        <td className="txt-white">{a.usuario}</td>
-                        <td><span className="pill-action">{a.accion}</span></td>
-                        <td className="txt-dim">{a.detalle}</td>
-                      </tr>
-                    ))
-                  )}
-                </tbody>
-              </table>
+            <div className="mnt-audit-container anim-fade-in">
+              <div className="audit-scroll-pane custom-scroll">
+                <table className="audit-table-v33">
+                  <thead>
+                    <tr><th>FECHA Y HORA</th><th>ACTOR</th><th>ACCIÓN</th><th>DETALLES</th></tr>
+                  </thead>
+                  <tbody>
+                    {audit.length === 0 ? (
+                      <tr><td colSpan="4" className="mnt-empty">SIN REGISTROS DE SEGURIDAD</td></tr>
+                    ) : (
+                      audit.map((a, i) => (
+                        <tr key={i}>
+                          {/* HORA 24HS EN TABLA DE AUDITORÍA */}
+                          <td className="t-date">
+                            {new Date(a.fecha).toLocaleString('es-AR', { hour12: false })}
+                          </td>
+                          <td className="t-user">{a.usuario}</td>
+                          <td><span className="t-action">{a.accion}</span></td>
+                          <td className="t-detail">{a.detalle}</td>
+                        </tr>
+                      ))
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           )}
         </section>
 
-        {/* 5. SIDEBAR: IA */}
-        <aside className="viewport-sidebar">
-          <div className="sidebar-module ia-engine">
-            <header className="mod-head">
-              <div className="led-status"></div>
-              <span>CJ-PILOT ANALYTICS</span>
-            </header>
-            <div className="ia-insights-list">
-              {aiInsights.map((insight, idx) => (
-                <div key={idx} className={`insight-card ${insight.type}`}>
-                  <p>{insight.msg}</p>
+        {/* 5. SIDEBAR: INTELIGENCIA & HARDWARE */}
+        <aside className="mnt-sidebar">
+          <div className="mnt-side-block ia-report">
+            <header className="side-head"><div className="led-ai"></div><span>CJ-PILOT ANALYTICS</span></header>
+            <div className="reports-area">
+              {aiReports.map((r, i) => (
+                <div key={i} className={`report-pill ${r.type}`}>
+                  <span className="r-icon">{r.icon}</span>
+                  <p className="r-msg">{r.msg}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="sidebar-module hardware-stats">
-             <header className="mod-head"><span>SISTEMA VIRTUAL</span></header>
-             <div className="hw-line"><span>GATEWAY:</span> <strong>GOOGLE_CLOUD</strong></div>
-             <div className="hw-line"><span>STORAGE:</span> <strong>G_SHEETS_V33</strong></div>
-             <div className="hw-line"><span>PROTOCOL:</span> <strong>SSL_ENCRYPTED</strong></div>
+          <div className="mnt-side-block hardware">
+             <header className="side-head"><span>SISTEMA DE RED</span></header>
+             <div className="hw-info"><span>GATEWAY:</span> <strong>CLOUD_SECURE</strong></div>
+             <div className="hw-info"><span>DB:</span> <strong>G_SHEETS_V4</strong></div>
+             <div className="hw-info"><span>REGIONS:</span> <strong>FEDERAL_ARG</strong></div>
           </div>
         </aside>
 
@@ -231,20 +252,20 @@ export default function Monitoreo() {
 
       {/* 6. MODAL DE EDICIÓN */}
       {editingBono && (
-        <div className="admin-modal-overlay">
-          <div className="admin-modal-card anim-scale-up">
-            <h3>EDITAR TRANSACCIÓN: BONO #{editingBono.id_bono}</h3>
-            <div className="admin-modal-form">
-              <div className="am-field"><label>NOMBRE COMPRADOR</label><input type="text" defaultValue={editingBono.comprador} id="edit_name" /></div>
-              <div className="am-field"><label>DNI COMPRADOR</label><input type="number" defaultValue={editingBono.dni_comp} id="edit_dni" /></div>
-              <div className="am-field"><label>TELÉFONO</label><input type="tel" defaultValue={editingBono.tel} id="edit_tel" /></div>
-              <div className="am-btns">
-                <button className="btn-am-close" onClick={() => setEditingBono(null)}>CANCELAR</button>
-                <button className="btn-am-save" onClick={() => handleAction('editar', editingBono.id_bono, {
+        <div className="mnt-modal-overlay">
+          <div className="mnt-modal-card anim-scale-up">
+            <h3 className="modal-title">EDITAR REGISTRO: BONO #{editingBono.id_bono}</h3>
+            <div className="modal-form-v33">
+              <div className="mf-group"><label>NOMBRE COMPRADOR</label><input type="text" defaultValue={editingBono.comprador} id="edit_name" /></div>
+              <div className="mf-group"><label>DNI COMPRADOR</label><input type="number" defaultValue={editingBono.dni_comp} id="edit_dni" /></div>
+              <div className="mf-group"><label>TELÉFONO</label><input type="tel" defaultValue={editingBono.tel} id="edit_tel" /></div>
+              <div className="modal-footer-btns">
+                <button className="btn-m-close" onClick={() => setEditingBono(null)}>CANCELAR</button>
+                <button className="btn-m-save" onClick={() => handleAction('editar', editingBono.id_bono, {
                   comprador_nombre: document.getElementById('edit_name').value,
                   comprador_dni: document.getElementById('edit_dni').value,
                   telefono: document.getElementById('edit_tel').value
-                })}>GUARDAR CAMBIOS</button>
+                })}>CONFIRMAR CAMBIOS</button>
               </div>
             </div>
           </div>

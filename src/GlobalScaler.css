@@ -1,8 +1,11 @@
 /* ============================================================
-   ARCHITECTURAL GLOBAL SCALER V52 - PIXEL PERFECT RE-SCALING
+   ARCHITECTURAL GLOBAL SCALER V59 - THE FINAL MASTERPIECE
+   ZONA A: 1080p / Laptops (Zoom 0.75)
+   ZONA B: 1440p / Monitores Pro (Zoom 0.95)
+   SISTEMA DE SIMETRÍA, BLINDAJE DE VIDEO Y LIMPIEZA DE PORTAL
    ============================================================ */
 
-/* --- 1. CONFIGURACIÓN PARA PANTALLAS GRANDES (PC) --- */
+/* --- 1. AJUSTES PARA PANTALLAS GRANDES (PC) --- */
 @media (min-width: 1025px) {
   
   /* --- ZONA A: LAPTOPS / 1080p (Zoom 0.75) --- */
@@ -12,13 +15,14 @@
       -moz-transform: scale(0.75);
       -moz-transform-origin: top center;
     }
+    /* Compensación de altura: 1 / 0.75 = 1.334 */
     .inicio-hero, .login-v29-root { min-height: 133.4vh !important; }
     .navbar { height: 60px !important; }
-    .subnav-fixed-wrapper { top: 60px !important; }
-
-    /* ESCALA INVERSA: 1 / 0.75 = 1.334 */
+    .subnav-fixed-wrapper, .portal-subnav-root { top: 60px !important; right: 40px !important; }
+    
+    /* Escala inversa para que el video cubra el zoom 0.75 */
     .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
-      transform: translate(-50%, -50%) scale(1.334) !important;
+      width: 135vw !important; height: 135vh !important;
     }
   }
 
@@ -28,68 +32,114 @@
       zoom: 0.95; 
       -moz-transform: scale(0.95);
       -moz-transform-origin: top center;
-      background-color: #000 !important;
     }
+    /* Compensación de altura: 1 / 0.95 = 1.053 */
     .inicio-hero, .login-v29-root { min-height: 105.3vh !important; }
     .navbar { height: 80px !important; }
-    .subnav-fixed-wrapper { top: 80px !important; }
+    .subnav-fixed-wrapper, .portal-subnav-root { top: 80px !important; right: 60px !important; }
 
-    /* ESCALA INVERSA: 1 / 0.95 = 1.053 */
+    /* Escala inversa para que el video cubra el zoom 0.95 */
     .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
-      transform: translate(-50%, -50%) scale(1.053) !important;
+      width: 110vw !important; height: 110vh !important;
     }
   }
 
-  /* --- REGLAS DE VIDEO UNIVERSALES (PC) --- */
+  /* --- REGLAS UNIVERSALES DE DISEÑO (PC) --- */
+  
+  /* A. BLINDAJE DE FONDOS */
   .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
-    /* Usamos 100% real de la pantalla, la magia la hace el 'scale' de arriba */
-    width: 100vw !important;  
-    height: 100vh !important; 
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    object-fit: cover !important;
-    z-index: -10 !important; 
+    position: fixed !important; top: 50% !important; left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    object-fit: cover !important; z-index: -10 !important;
     pointer-events: none;
-    display: block !important;
   }
 
-  /* --- ALINEACIÓN QUIRÚRGICA DE ELEMENTOS (SIN CAMBIOS) --- */
-  .f-icon-box { height: 120px !important; display: flex !important; align-items: center !important; justify-content: center !important; margin-bottom: 20px !important; }
-  .f-title-h4 { height: 50px !important; display: flex !important; align-items: center !important; justify-content: center !important; margin-bottom: 15px !important; text-align: center !important; }
+  /* B. PILARES CON LÍNEAS (Páginas Públicas) */
+  .about-pilar-central, .nt-container, .bono-pilar-central, .ct-pilar-central {
+    max-width: 1150px !important;
+    margin: 0 auto !important;
+    background: rgba(5, 5, 5, 0.98) !important;
+    padding-top: 130px !important; /* Espacio para Navbar fija */
+    border-left: 1px solid rgba(208, 0, 0, 0.2) !important;
+    border-right: 1px solid rgba(208, 0, 0, 0.2) !important;
+    box-shadow: 
+      0 0 100px rgba(0, 0, 0, 1),
+      -10px 0 50px rgba(208, 0, 0, 0.5),
+       10px 0 50px rgba(208, 0, 0, 0.5) !important;
+    display: flex !important; flex-direction: column !important; align-items: center !important;
+    position: relative; z-index: 10; overflow: visible !important;
+  }
+
+  /* C. PORTAL / MI PANEL (LIMPIO: Sin marcos rojos) */
+  .portal-viewport {
+    max-width: 1450px !important;
+    margin: 0 auto !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    /* Doble espacio: Navbar + SubNav + Aire */
+    padding-top: 175px !important; 
+    display: flex !important; flex-direction: column !important;
+    align-items: stretch !important; /* Estira las tablas al ancho total */
+  }
+
+  /* D. ALINEACIÓN QUIRÚRGICA DE ELEMENTOS INTERNOS (Cimientos) */
+  .f-icon-box { height: 120px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
+  .f-title-h4 { height: 50px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; }
   .f-hr { margin: 0 auto 20px auto !important; }
   .f-text-p { min-height: 80px !important; display: flex !important; align-items: flex-start !important; justify-content: center !important; }
 
-  /* --- EFECTO DE SOMBRA REALISTA (SIN CAMBIOS) --- */
-  .about-pilar-central, .nt-container, .bono-pilar-central, .ct-pilar-central, .portal-viewport {
-    max-width: 1150px !important; margin: 0 auto !important; background: rgba(5, 5, 5, 0.98) !important;
-    display: flex !important; flex-direction: column !important; align-items: center !important; 
-    position: relative; z-index: 10; border-left: 1px solid rgba(208, 0, 0, 0.2) !important; border-right: 1px solid rgba(208, 0, 0, 0.2) !important;
-    box-shadow: 0 0 100px rgba(0, 0, 0, 1), -10px 0 50px rgba(208, 0, 0, 0.5), 10px 0 50px rgba(208, 0, 0, 0.5), -60px 0 120px rgba(208, 0, 0, 0.2), 60px 0 120px rgba(208, 0, 0, 0.2) !important;
-    overflow: visible !important;
+  /* E. FIX DE SIMETRÍA (Cimientos) */
+  .f-grid-matrix {
+    width: 100% !important; display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; 
+    grid-auto-rows: 1fr !important; /* Obliga a misma altura */
+    gap: 25px !important; justify-items: center !important;
   }
-
-  /* --- FIX DE SIMETRÍA: CIMIENTOS (SIN CAMBIOS) --- */
-  .f-grid-matrix { width: 100% !important; max-width: 1080px !important; display: grid !important; grid-template-columns: repeat(4, 1fr) !important; grid-auto-rows: 1fr !important; gap: 25px !important; padding: 60px 0 !important; margin: 0 auto !important; box-sizing: border-box !important; }
   .f-card-elite { width: 100% !important; max-width: 250px !important; height: 100% !important; display: flex !important; }
-  .f-inner-wrap { width: 100% !important; height: 100% !important; display: flex !important; flex-direction: column !important; justify-content: center !important; padding: 40px 25px !important; transform-origin: center center !important; background: rgba(15, 15, 15, 0.7) !important; border: 1px solid rgba(255, 255, 255, 0.05) !important; }
-  .f-card-elite:hover .f-inner-wrap { transform: translateY(-12px) rotateX(4deg) !important; border-color: rgba(208, 0, 0, 0.4) !important; background: rgba(20, 10, 10, 0.9) !important; }
-
+  .f-inner-wrap {
+    width: 100% !important; height: 100% !important; display: flex !important; flex-direction: column !important;
+    justify-content: center !important; padding: 40px 25px !important; transform-origin: center center !important;
+    background: rgba(15, 15, 15, 0.7) !important; border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
 }
 
-
-/* --- 2. RESET MÓVIL (SIN CAMBIOS) --- */
+/* --- 2. AJUSTES PARA MÓVIL (BLINDAJE TOTAL) --- */
 @media (max-width: 1024px) {
   html { font-size: 14px !important; }
+  
+  .main-content { padding-top: 0 !important; margin-top: 0 !important; }
+
   .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
     width: 100vw !important; height: 100vh !important;
     transform: none !important; top: 0 !important; left: 0 !important;
     position: fixed !important; object-fit: cover !important;
   }
+
+  .about-pilar-central, .nt-container, .bono-pilar-central, .ct-pilar-central {
+    padding-top: 110px !important; width: 100% !important; border: none !important;
+  }
+
+  .portal-viewport {
+    padding-top: 135px !important; max-width: 100% !important;
+  }
+
+  h1, h2 { max-width: 100% !important; word-wrap: break-word !important; }
   .f-grid-matrix { grid-auto-rows: auto !important; }
 }
 
-body {
-  overflow-x: hidden !important;
+/* --- 3. ESTÉTICA DE SCROLLBAR --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, #d00000, #440000); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #ff0000; }
+
+/* --- 4. FIX DE RENDERIZADO GLOBAL --- */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   background-color: #000;
 }
+
+body, #root { background-color: #000 !important; }

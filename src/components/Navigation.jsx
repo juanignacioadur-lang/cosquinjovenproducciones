@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { NavLink, useLocation, useNavigate, useSearchParams } from "react-router-dom"; 
+import { NavLink, useLocation, useSearchParams } from "react-router-dom"; 
 import "./Navigation.css";
 
 export default function Navbar() {
@@ -11,23 +11,29 @@ export default function Navbar() {
   const [searchParams, setSearchParams] = useSearchParams();
   
   const isPortal = location.pathname.startsWith("/gestion-bono");
-  const currentTab = searchParams.get("tab") || "monitoreo"; // Leemos la pestaña de la URL
+  const currentTab = searchParams.get("tab") || "monitoreo";
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "auto";
+  }, [isOpen]);
 
   const portalLinks = [
     { id: "monitoreo", label: "MONITOREO", roles: ["DUEÑO"] },
     { id: "bonos", label: "BONOS", roles: ["DUEÑO", "DELEGADO"] },
     { id: "ia", label: "CJ-PILOT (IA)", roles: ["DUEÑO", "DELEGADO"] },
     { id: "perfil", label: "MIS DATOS", roles: ["DUEÑO", "DELEGADO"] },
-    
   ];                                
 
   return (
@@ -48,15 +54,29 @@ export default function Navbar() {
           <li><NavLink to="/bono" className="nav-link" onClick={closeMenu}>Gran Bono</NavLink></li>
           <li><NavLink to="/contacto" className="nav-link" onClick={closeMenu}>Contacto</NavLink></li>
 
+          {/* BOTÓN MI PANEL */}
           <li className="nav-portal-item">
             <NavLink to={isAuthenticated ? "/gestion-bono" : "/portal"} className="nav-link portal-link" onClick={closeMenu}>
               {isAuthenticated ? "MI PANEL" : "ACCESO PORTAL"}
             </NavLink>
           </li>
+
+          {/* INFO DE USUARIO Y SALIR (AHORA EN EL NAV SUPERIOR) */}
+          {isAuthenticated && (
+            <li className="nav-user-top-info">
+              <div className="user-pill-nav">
+                <span className="user-dot-status"></span>
+                <span className="user-name-nav">{user?.nombre?.split(' ')[0]}</span>
+                <button className="btn-logout-nav" onClick={() => { logout(); closeMenu(); }}>
+                  SALIR
+                </button>
+              </div>
+            </li>
+          )}
         </ul>
       </div>
 
-      {/* EL DOCK COLGANTE CONECTADO A LA URL */}
+      {/* EL DOCK COLGANTE (SOLO PESTAÑAS DE GESTIÓN) */}
       {isAuthenticated && isPortal && (
         <div className="portal-hanging-dock anim-fade-in">
           <div className="dock-container">
@@ -65,18 +85,11 @@ export default function Navbar() {
                 <button 
                   key={link.id} 
                   className={`dock-btn ${currentTab === link.id ? "is-active" : ""}`}
-                  onClick={() => setSearchParams({ tab: link.id })} // CAMBIA LA URL
+                  onClick={() => setSearchParams({ tab: link.id })}
                 >
                   {link.label}
-                  
                 </button>
               ))}
-            </div>
-            
-            <div className="dock-user">
-              <span className="dock-dot"></span>
-              <span className="dock-name">{user?.nombre?.split(' ')[0]}</span>
-              <button className="dock-logout" onClick={logout}>SALIR</button>
             </div>
           </div>
         </div>
