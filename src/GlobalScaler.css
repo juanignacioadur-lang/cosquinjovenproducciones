@@ -66,26 +66,9 @@
     pointer-events: all !important;
   }
 
-  /* 2. LOS VIDEOS Y OVERLAYS DE FONDO (Home/Login) */
-  .video-fondo, 
-  .login-video-bg, 
-  .overlay, 
-  .login-overlay-dark {
-    position: fixed !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    object-fit: cover !important;
-    pointer-events: none !important;
-    
-    /* Compensación dinámica según el zoom del GlobalScaler */
-    width: 134vw !important;  /* Para zoom 0.75 */
-    height: 134vh !important;
-  }
-
   /* Z-INDEX MANAGEMENT */
   .video-fondo, .login-video-bg { z-index: -10 !important; }
-  .overlay, .login-overlay-dark { z-index: -5 !important; }
+  .overlay, .login-overlay-dark { z-index: -10 !important; }
 
   /* 3. AJUSTE DEL CONTENIDO DEL MODAL */
   /* Para que el formulario no se vea afectado por el estiramiento del padre */
