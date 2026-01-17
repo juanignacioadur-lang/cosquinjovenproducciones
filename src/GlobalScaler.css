@@ -137,3 +137,97 @@ body, #root { background-color: #000 !important; margin: 0; padding: 0; }
 body:has(.user-uefi-overlay) .infocard-wrapper,
 body:has(.bono-uefi-overlay) .infocard-wrapper { display: none !important; }
 body:has(.user-uefi-overlay), body:has(.bono-uefi-overlay) { overflow: hidden !important; }
+
+/* --- OPTIMIZACIÓN DE GRILLA "CIMIENTOS" PARA MÓVIL (2x2) --- */
+@media (max-width: 1024px) {
+  
+  .f-grid-matrix {
+    display: grid !important;
+    /* Forzamos 2 columnas exactas del mismo tamaño */
+    grid-template-columns: repeat(2, 1fr) !important; 
+    /* Ajustamos el espacio entre cuadros para que no se peguen a los bordes */
+    gap: 15px !important; 
+    padding: 15px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    justify-items: center !important;
+  }
+
+  /* Ajuste de los cuadros internos para que entren bien en el 2x2 */
+  .f-icon-box {
+    width: 100% !important;
+    height: 110px !important; /* Un poco más bajo para que no scrollee tanto */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .f-title-h4 {
+    font-size: 0.85rem !important; /* Achicamos un poco la letra para que no se corte */
+    text-align: center !important;
+    height: auto !important;
+    margin-top: 8px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Ajuste de la línea separadora si la usas */
+  .f-hr {
+    width: 40px !important;
+    margin: 5px auto !important;
+  }
+}
+
+/* Fix extra por si el contenedor padre tiene un padding que empuja la grilla */
+@media (max-width: 480px) {
+    .f-grid-matrix {
+        gap: 10px !important; /* Más apretado en celulares muy chicos */
+    }
+}
+
+/* --- OPTIMIZACIÓN DE TEXTOS DE CABECERA EN MÓVIL --- */
+@media (max-width: 1024px) {
+
+  /* El contenedor de los títulos */
+  .f-header-cimientos { 
+    text-align: center !important;
+    padding: 0 15px !important;
+    margin-bottom: 25px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* TÍTULO: "NUESTROS CIMIENTOS" */
+  .f-header-cimientos h2, 
+  .inicio-hero h2 { /* Ajusta según tu clase real */
+    font-size: 1.8rem !important; /* Tamaño grande pero contenido */
+    line-height: 1.1 !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 8px !important;
+    text-transform: uppercase !important;
+    width: 100% !important;
+    display: block !important;
+  }
+
+  /* SUBTÍTULO: "LA BASE ESTRUCTURAL..." */
+  .f-header-cimientos p, 
+  .inicio-hero p { /* Ajusta según tu clase real */
+    font-size: 0.85rem !important; /* Más pequeño para dar jerarquía */
+    font-weight: 300 !important;   /* Un poco más fino para que se vea pro */
+    color: rgba(255, 255, 255, 0.8) !important; /* Un blanco sutil */
+    line-height: 1.4 !important;
+    max-width: 90% !important;   /* Para que no toque los bordes del celu */
+    margin: 0 auto !important;   /* Centrado */
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+  }
+}
+
+/* Fix extra para pantallas muy angostas (iPhone SE o similares) */
+@media (max-width: 380px) {
+    .f-header-cimientos h2 {
+        font-size: 1.5rem !important;
+    }
+    .f-header-cimientos p {
+        font-size: 0.75rem !important;
+    }
+}
