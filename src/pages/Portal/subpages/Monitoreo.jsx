@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { getBonds, validateSale, cancelSale, updateSale } from "../../../services/api";
 import "./Monitoreo.css";
+import ModalBonoEditor from "../../../components/ModalBonoEditor";
 
 export default function Monitoreo() {
   // --- ESTADOS DE SISTEMA ---
@@ -250,28 +251,13 @@ export default function Monitoreo() {
 
       </div>
 
-      {/* 6. MODAL DE EDICIÓN */}
-      {editingBono && (
-        <div className="mnt-modal-overlay">
-          <div className="mnt-modal-card anim-scale-up">
-            <h3 className="modal-title">EDITAR REGISTRO: BONO #{editingBono.id_bono}</h3>
-            <div className="modal-form-v33">
-              <div className="mf-group"><label>NOMBRE COMPRADOR</label><input type="text" defaultValue={editingBono.comprador} id="edit_name" /></div>
-              <div className="mf-group"><label>DNI COMPRADOR</label><input type="number" defaultValue={editingBono.dni_comp} id="edit_dni" /></div>
-              <div className="mf-group"><label>TELÉFONO</label><input type="tel" defaultValue={editingBono.tel} id="edit_tel" /></div>
-              <div className="modal-footer-btns">
-                <button className="btn-m-close" onClick={() => setEditingBono(null)}>CANCELAR</button>
-                <button className="btn-m-save" onClick={() => handleAction('editar', editingBono.id_bono, {
-                  comprador_nombre: document.getElementById('edit_name').value,
-                  comprador_dni: document.getElementById('edit_dni').value,
-                  telefono: document.getElementById('edit_tel').value
-                })}>CONFIRMAR CAMBIOS</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
+{/* Al final, antes de cerrar el div principal y el return */}
+      <ModalBonoEditor 
+  isOpen={!!editingBono} 
+  data={editingBono} 
+  onClose={() => setEditingBono(null)} 
+  onConfirm={(newData) => handleAction('editar', editingBono.id_bono, newData)}
+/>
     </div>
   );
 }

@@ -2,7 +2,7 @@
    API SERVICE - CONECTOR GOOGLE SHEETS V28
    ============================================================ */
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzRpL0Bq2qVawfiXVcqrXR8O7S81LXBFPg2sE1SzucJ1ZTmZutsN6ZVXUpqmTwDrWJucg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw0uAI7t_YfWON915FVJ1TdhGGhw1WSVejHjKkRwVVo6YWwnHCcZD3JZYQ-cyYAtYD_wg/exec";
 
 // --- 1. INICIAR SESIÓN ---
 export const loginUser = async (dni, password) => {
@@ -91,4 +91,20 @@ export const updateSale = async (n_bono, newData) => {
   } catch (error) {
     return { status: 'error', message: 'Fallo de escritura en DB Cloud' };
   }
+};
+
+export const saveDelegate = async (delegateData) => {
+  const response = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'save_delegate', ...delegateData }),
+  });
+  return await response.json();
+};
+
+export const deleteDelegate = async (dni) => {
+  const response = await fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'delete_delegate', dni }),
+  });
+  return await response.json();
 };

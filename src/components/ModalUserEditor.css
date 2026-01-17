@@ -1,0 +1,39 @@
+.user-uefi-overlay {
+  position: fixed !important;
+  top: 50% !important; left: 50% !important;
+  width: 150vw !important; height: 150vh !important;
+  transform: translate(-50%, -50%) scale(calc(1 / var(--zoom-factor, 1))) !important;
+  background: rgba(0, 0, 0, 0.96) !important;
+  backdrop-filter: blur(15px);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 99999999;
+}
+
+.user-uefi-card {
+  background: #080808; border: 1px solid #d00000; border-radius: 28px;
+  width: 90%; max-width: 550px; padding: 50px 40px;
+  box-shadow: 0 50px 150px #000; position: relative;
+}
+
+.uefi-title { font-family: 'Oswald'; color: #fff; text-align: center; margin-bottom: 35px; font-size: 1.8rem; text-transform: uppercase; line-height: 1; }
+.uefi-title span { color: #d00000; display: block; margin-top: 5px; }
+
+.uefi-form { display: flex; flex-direction: column; gap: 20px; }
+.uefi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; }
+.uefi-group { display: flex; flex-direction: column; gap: 8px; text-align: center; }
+.uefi-group label { font-size: 0.7rem; color: #444; font-weight: 800; letter-spacing: 2px; }
+.uefi-group input { background: #000; border: 1px solid #222; padding: 15px; color: #fff; border-radius: 10px; text-align: center; font-size: 1rem; }
+
+.uefi-actions { display: grid; grid-template-columns: 1fr 1.5fr; gap: 15px; margin-top: 20px; }
+
+.uefi-close-x { position: absolute; top: 20px; right: 25px; background: transparent; border: none; color: #444; font-size: 2.5rem; cursor: pointer; line-height: 0.5; }
+
+@media (max-width: 950px) {
+  .user-uefi-overlay { transform: translate(-50%, -50%) !important; width: 100vw !important; height: 100vh !important; }
+  .uefi-row, .uefi-actions { grid-template-columns: 1fr; }
+}
+.info-display-grid { display: flex; flex-direction: column; gap: 12px; margin-bottom: 30px; }
+.info-item { background: #000; padding: 15px; border-radius: 8px; border: 1px solid #222; font-size: 0.9rem; color: #888; text-align: left; }
+.info-item strong { color: #d00000; margin-right: 10px; font-family: 'Oswald'; letter-spacing: 1px; }
+.info-item.accent { border-color: #d00000; }
+.btn-modal-tech.full { width: 100%; margin-top: 0; }
