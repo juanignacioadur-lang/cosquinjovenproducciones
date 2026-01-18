@@ -278,3 +278,66 @@ html, body {
     background: linear-gradient(to bottom, transparent 0%, #000 98%, #000 100%) !important;
     bottom: -2px !important;
 }
+/* --- AJUSTE DE PRECISIÓN: CABECERA MÓVIL --- */
+@media (max-width: 1024px) {
+  
+  /* 1. SUBIMOS TODO: Reducimos drásticamente el espacio muerto arriba */
+  .h-editorial-section {
+    padding-top: 30px !important; /* Antes era 80px, lo subimos bien arriba */
+  }
+
+  .h-header {
+    text-align: left !important;
+    padding: 0 25px !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+  }
+
+  /* 2. ALINEACIÓN PUNTO Y TEXTO: Fix para que queden en la misma línea */
+  .h-pretitle {
+    display: flex !important;
+    align-items: center !important; /* Centrado vertical perfecto entre punto y texto */
+    justify-content: flex-start !important;
+    gap: 10px !important; /* Espacio justo entre punto y label */
+    margin-bottom: 0 !important;
+    height: 20px !important; /* Forzamos altura de línea */
+  }
+  
+  .h-dot {
+    width: 8px !important;
+    height: 8px !important;
+    margin: 0 !important; /* Quitamos márgenes que lo desvían */
+    flex-shrink: 0 !important;
+  }
+
+  .h-label {
+    font-size: 0.65rem !important;
+    letter-spacing: 3px !important;
+    line-height: 1 !important;
+    margin: 0 !important;
+    display: inline-block !important;
+    transform: translateY(1px); /* Ajuste milimétrico para el ojo humano */
+  }
+
+  /* 3. COMPACTAR TÍTULO: Subimos la firma para que no haya tanto negro */
+  .h-main-title-expanded {
+    font-size: 3.5rem !important; 
+    line-height: 0.8 !important; /* Pegamos la firma al label de arriba */
+    margin-top: 10px !important; 
+    margin-bottom: 0 !important;
+  }
+
+  .h-main-title-expanded span {
+    font-size: 9.2vw !important; /* Ajuste fino de ancho */
+    margin-top: 0 !important; /* Pegado a la firma */
+    line-height: 1.1 !important;
+    -webkit-text-stroke: 1.1px #d00000 !important;
+  }
+
+  /* 4. LA LÍNEA ROJA DE ABAJO */
+  .h-neon-hr-long {
+    margin-top: 10px !important; /* La subimos */
+    height: 2px !important;
+    max-width: 130px !important;
+  }
+}
