@@ -891,3 +891,78 @@
     padding-bottom: 20px;
   }
 }
+/* ============================================================
+   FIX DE PRECISIÓN PARA IPHONE - TÍTULO "NUESTRA TIERRA"
+   ============================================================ */
+@media (max-width: 480px) {
+  
+  /* 1. ELIMINAR ESPACIO NEGRO SUPERIOR */
+  .h-editorial-section {
+    padding-top: 15px !important; /* Lo pegamos bien arriba al navbar */
+  }
+
+  .h-header {
+    margin-bottom: 15px !important;
+    padding: 0 15px !important;
+  }
+
+  /* 2. ALINEAR REGISTRO HISTÓRICO */
+  .h-pretitle {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 5px !important;
+  }
+
+  .h-label {
+    font-size: 0.6rem !important;
+    letter-spacing: 2px !important; /* Menos espacio para que no se estire */
+    margin: 0 !important;
+  }
+
+  /* 3. ACHICAR "EL ALMA DE" (Firma) */
+  .h-main-title-expanded {
+    font-size: 3rem !important; /* Más pequeña para que sea elegante */
+    line-height: 0.8 !important; /* La pegamos al label de arriba */
+    margin-top: 5px !important;
+  }
+
+  /* 4. FIX CRÍTICO: "NUESTRA TIERRA" A LO LARGO */
+  .h-main-title-expanded span {
+    /* El valor 8.4vw es el punto exacto para que 13 letras entren en un iPhone */
+    font-size: 8.4vw !important; 
+    letter-spacing: 1px !important; /* REDUCIDO: Esto es lo que evita que se corte */
+    display: block !important;
+    white-space: nowrap !important; /* Fuerza una sola línea */
+    width: 100% !important;
+    margin-top: 2px !important; /* Pegado a la firma "El Alma de" */
+    
+    /* Trazo fino para que la letra respire */
+    -webkit-text-stroke: 1px #d00000 !important;
+    line-height: 1 !important;
+    text-align: left !important;
+  }
+
+  /* 5. LÍNEA ROJA Y CITA (Compactar todo) */
+  .h-neon-hr-long {
+    margin-top: 12px !important;
+    height: 2px !important;
+    max-width: 100px !important; /* Más corta */
+  }
+
+  .h-quote-v24 {
+    font-size: 1.2rem !important; /* Frase de 30 años más pequeña */
+    margin-top: 20px !important;
+    line-height: 1.2 !important;
+    padding-left: 12px !important;
+    max-width: 95% !important;
+  }
+}
+
+/* Ajuste para iPhones más viejos/chicos (iPhone SE) */
+@media (max-width: 360px) {
+  .h-main-title-expanded span {
+    font-size: 8.1vw !important;
+    letter-spacing: 0.5px !important;
+  }
+}
