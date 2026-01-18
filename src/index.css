@@ -3,15 +3,15 @@
 
 @font-face {
   font-family: 'Causten';
-  src: url('../../assets/fonts/CaustenRegular.ttf') format('truetype');
+  src: url('/assets/fonts/CaustenRegular.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Helvetica Compressed';
-  src: url('../../assets/fonts/HelveticaCompressed.ttf') format('truetype');
+  src: url('/assets/fonts/HelveticaCompressed.ttf') format('truetype');
 }
 @font-face {
   font-family: 'Photograph Signature';
-  src: url('../../assets/fonts/PhotographSignature.ttf') format('truetype');
+  src: url('/assets/fonts/PhotographSignature.ttf') format('truetype');
 }
 /* --- Global Reset & Basics --- */
 * {
