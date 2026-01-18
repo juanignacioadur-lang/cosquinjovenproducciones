@@ -7,21 +7,21 @@
 @font-face {
   font-family: 'Helvetica Compressed';
   /* Ajustamos la ruta para que React la encuentre correctamente desde el CSS */
-  src: url('../../assets/fonts/HelveticaCompressed.ttf') format('truetype');
+  src: url('/assets/fonts/HelveticaCompressed.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Causten Regular';
   /* Si el archivo está en la carpeta public, la ruta es /CaustenRegular.ttf */
-  src: url('../src/assets/fonts/CaustenRegular.ttf') format('truetype');
+  src: url('/assets/fonts/CaustenRegular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: 'Photograph Signature';
   /* La ruta debe ser relativa desde donde está tu CSS hacia la carpeta fonts */
-  src: url('../src/assets/fonts/PhotographSignature.ttf') format('truetype');
+  src: url('/assets/fonts/PhotographSignature.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap; /* Esto ayuda a que la web no tarde en cargar */
