@@ -78,11 +78,19 @@
 }
 
 .p-divider {
-  width: 40px;
-  height: 2px;
-  background: #d00000;
-  margin: 25px 0;
-  box-shadow: 0 0 10px #d00000;
+  /* 1. Definimos el nuevo largo (80px es el doble de antes) */
+  width: 80px !important; 
+  height: 3px !important; /* Un pelín más gruesa para que se vea pro */
+  background-color: #d00000 !important;
+  
+  /* 2. EL SECRETO DEL CENTRADO: margin auto a los costados */
+  margin: 30px auto !important; 
+  
+  /* 3. Estilo cinemático */
+  display: block !important;
+  box-shadow: 0 0 15px rgba(208, 0, 0, 0.6);
+  border: none !important;
+  border-radius: 2px;
 }
 
 .p-description {

@@ -30,6 +30,17 @@ const CountUp = ({ end, duration = 2000, prefix = "" }) => {
 export default function Inicio() {
   const [videoLoaded, setVideoLoaded] = useState(false);
 
+  const scrollToPilares = (e) => {
+  e.preventDefault();
+  // Buscamos la sección por su ID
+  const section = document.getElementById("resumen-explorar"); 
+  if (section) {
+    section.scrollIntoView({ 
+      behavior: "smooth", // Esto activa el movimiento lento/suave
+      block: "start"      // Lo alinea al principio de la pantalla
+    });
+  }
+};
 
 // ... dentro de tu función Inicio ...
 
@@ -66,7 +77,9 @@ return (
 
         <div className="inicio-actions">
           <Link to="/noticias" className="cj-btn cj-btn-primary">Ver Próximos Eventos</Link>
-          <a href="#resumen-explorar" className="cj-btn cj-btn-outline">Explorar</a>
+          <button onClick={scrollToPilares} className="cj-btn cj-btn-outline">
+  Explorar
+</button>
         </div>
 
         {/* El degradado para fundir el video con el negro de abajo */}
