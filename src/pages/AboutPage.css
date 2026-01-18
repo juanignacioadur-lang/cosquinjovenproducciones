@@ -4,6 +4,28 @@
    SISTEMA DE DISEÑO FLUIDO SIN ESCALA MANUAL
    ============================================================ */
 
+@font-face {
+  font-family: 'Helvetica Compressed';
+  /* Ajustamos la ruta para que React la encuentre correctamente desde el CSS */
+  src: url('../../assets/fonts/HelveticaCompressed.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Causten Regular';
+  /* Si el archivo está en la carpeta public, la ruta es /CaustenRegular.ttf */
+  src: url('../src/assets/fonts/CaustenRegular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Photograph Signature';
+  /* La ruta debe ser relativa desde donde está tu CSS hacia la carpeta fonts */
+  src: url('../src/assets/fonts/PhotographSignature.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Esto ayuda a que la web no tarde en cargar */
+}
 /* --- 1. RAÍZ Y ESTRUCTURA DE CONTENCIÓN --- */
 .about-monumental-layout {
   width: 100%;
@@ -175,26 +197,66 @@
 }
 
 /* TÍTULO EXPANSIVO DE ALTO IMPACTO */
-.h-main-title-expanded {
-  font-family: 'Oswald', sans-serif;
-  font-size: 6.8rem;
-  text-transform: uppercase;
-  line-height: 0.82;
-  margin: 0;
-  color: #ffffff;
-  letter-spacing: 8px !important; /* Expansión a lo largo */
-  filter: drop-shadow(0 15px 30px rgba(0,0,0,0.6));
-  display: block;
+/* ============================================================
+   ACTO 1: TITULACIÓN MAESTRA (EL ALMA DE NUESTRA TIERRA)
+   ============================================================ */
+
+.h-header {
+  margin-top: 40px !important; /* Espacio desde el inicio del pilar */
+  margin-bottom: 60px !important;
 }
 
-.h-main-title-expanded span {
-  color: transparent;
-  -webkit-text-stroke: 1.8px #d00000;
-  position: relative;
+/* 1. EL LABEL (REGISTRO HISTÓRICO) */
+.h-label {
+  font-family: 'Roboto', sans-serif !important;
+  color: #d00000 !important;
+  letter-spacing: 8px !important;
+  font-size: 0.85rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  margin-bottom: 10px !important; /* Distancia corta hacia la firma */
   display: block !important;
-  letter-spacing: 18px !important; /* Máxima expansión en segunda línea */
-  margin-top: 12px;
-  font-weight: 200 !important;
+}
+
+/* 2. LA FIRMA (El Alma de) - ACHICADA Y POSICIONADA */
+.h-main-title-expanded {
+  font-family: 'Photograph Signature', cursive !important;
+  font-size: 5.5rem !important;  /* Tamaño más elegante y chico como pediste */
+  text-transform: none !important;
+  color: #ffffff !important;
+  line-height: 0.8 !important;   /* Lo pegamos un poco más al label de arriba */
+  margin: 0 !important;
+  display: block !important;
+  z-index: 10 !important;
+  position: relative;
+  font-weight: normal !important;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+}
+
+/* 3. EL TÍTULO BASE (NUESTRA TIERRA) - IMPONENTE EN UNA LÍNEA */
+.h-main-title-expanded span {
+  font-family: 'Causten Regular', sans-serif !important;
+  display: block !important;
+  white-space: nowrap !important; /* Fuerza una sola línea */
+  
+  /* GROSOR Y TAMAÑO */
+  font-size: 7.2rem !important;  /* Tamaño de impacto */
+  -webkit-text-stroke: 2.8px #d00000 !important; /* Borde grueso y rojo */
+  color: transparent !important;
+  text-transform: uppercase !important;
+  font-weight: 900 !important;
+  
+  /* ESPACIADO Y RITMO VERTICAL */
+  letter-spacing: 12px !important;
+  line-height: 1 !important;
+  margin-top: 15px !important; /* Espacio justo para que no se pisen */
+  
+  filter: drop-shadow(0 5px 20px rgba(208, 0, 0, 0.3));
+}
+
+/* --- AJUSTE EXTRA PARA LA LÍNEA NEÓN DE ABAJO --- */
+.h-neon-hr-long {
+  margin-top: 35px !important; /* Para que la línea roja no esté tan lejos */
 }
 
 .h-neon-hr-long {
@@ -302,22 +364,36 @@
   margin-bottom: 80px; 
 }
 
-.f-title { 
-  font-family: 'Oswald', sans-serif; 
-  font-size: 3.2rem; 
-  letter-spacing: 18px; 
-  color: #ffffff; 
-  margin: 0; 
-  text-transform: uppercase;
+.f-title {
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 4.2rem !important;    /* Tamaño más controlado para que entre bien */
+  font-weight: 900 !important;     /* Forzamos el grosor máximo */
+  letter-spacing: 2px !important;  /* Cerramos el espacio para un look moderno y compacto */
+  color: #ffffff !important;
+  margin: 0 !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  
+  /* Sombra sutil para dar volumen */
+  text-shadow: 0 10px 20px rgba(0,0,0,0.5);
+  
+  /* Blindaje */
+  display: block !important;
+  width: 100% !important;
 }
 
-.f-label-sub { 
-  font-size: 0.9rem; 
-  color: #444444; 
-  letter-spacing: 7px; 
-  font-weight: 900; 
-  margin-top: 15px; 
-  text-transform: uppercase;
+/* AJUSTE DEL SUBTÍTULO PARA QUE QUEDE ORDENADO */
+.f-label-sub {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 0.8rem !important;    /* Un poco más chico para dar elegancia */
+  color: #d00000 !important;
+  letter-spacing: 5px !important;  /* Espaciado técnico */
+  font-weight: 700 !important;
+  margin-top: 15px !important;     /* Separación justa con el título de arriba */
+  text-transform: uppercase !important;
+  opacity: 0.9 !important;
+  text-align: center !important;
 }
 
 /* GRID DE CONTROL ABSOLUTO */
@@ -444,21 +520,22 @@
 }
 
 .m-serial {
-    background: rgba(208, 0, 0, 0.2); 
-    padding: 8px 20px;
-    border-radius: 4px;
-    color: #ff0000;
-    font-family: 'Roboto', sans-serif;
-    font-size: 0.8rem;
-    letter-spacing: 6px;
-    font-weight: 900;
-    border-bottom: 1px solid rgba(208, 0, 0, 0.4);
-    display: inline-block;
-    margin-bottom: 25px;
+    font-family: 'Roboto', sans-serif !important;
+    background: rgba(208, 0, 0, 0.15) !important; 
+    color: #ff0000 !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 5px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    padding: 8px 20px !important;
+    border-radius: 4px !important;
+    border-bottom: 2px solid #d00000 !important;
+    display: inline-block !important;
+    margin-bottom: 20px !important;
 }
 
 .archive-main-title-v25 {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Helvetica Compressed', sans-serif !important;
   font-size: 4.8rem; /* Titulo Inmenso */
   text-transform: uppercase;
   line-height: 1;
@@ -468,6 +545,7 @@
 }
 
 .archive-main-title-v25 span {
+  font-family: 'Helvetica Compressed', sans-serif !important;
   color: transparent;
   -webkit-text-stroke: 1.8px #d00000;
 }
@@ -481,7 +559,7 @@
 }
 
 .m-subtitle-museum {
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Oswald', sans-serif !important;
   color: #555555; 
   font-size: 0.95rem;
   letter-spacing: 8px; 

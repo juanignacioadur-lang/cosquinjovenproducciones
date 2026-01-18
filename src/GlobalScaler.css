@@ -231,3 +231,50 @@ body:has(.user-uefi-overlay), body:has(.bono-uefi-overlay) { overflow: hidden !i
         font-size: 0.75rem !important;
     }
 }
+
+/* ============================================================
+   FIX PRECISIÓN 1080p: SELLADO DE JUNTA Y CENTRADO
+   ============================================================ */
+
+@media (min-width: 1025px) and (max-width: 2000px) {
+    /* 1. MATA LA LÍNEA HORIZONTAL: Subimos la sección un poco para que "muerda" el video */
+    .resumen-home-section {
+        margin-top: -5px !important; /* Subimos 5px para solapar */
+        position: relative;
+        z-index: 100;
+        
+        /* 2. ANCHO INFINITO: Compensamos el zoom 0.75 (100 / 0.75 = 133.33) */
+        width: 133.4vw !important; 
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #000 !important;
+    }
+
+    /* 3. CENTRADO DE LOS PILARES: Para que el texto no se mueva de lugar */
+    .pillars-container {
+        max-width: 133.4vw !important; /* Ancho total del scaler */
+        width: 100% !important;
+        margin: 0 auto !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: stretch !important;
+    }
+
+    /* 4. AJUSTE DE ALTURA: Para que se vea monumental en 1080p */
+    .pillar-item {
+        min-height: 90vh !important;
+        padding: 120px 40px !important; /* Más aire arriba y abajo */
+    }
+}
+
+/* --- REGLA DE ORO: EL FONDO DEL NAVEGADOR SIEMPRE NEGRO --- */
+html, body {
+    background-color: #000 !important;
+    overflow-x: hidden !important;
+}
+
+/* Si el degradado del video dejó una luz gris, esto la oscurece al final */
+.hero-transition-fade {
+    background: linear-gradient(to bottom, transparent 0%, #000 98%, #000 100%) !important;
+    bottom: -2px !important;
+}

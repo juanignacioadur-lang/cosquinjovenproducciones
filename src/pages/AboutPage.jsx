@@ -176,8 +176,8 @@ export default function AboutPage() {
                <span className="h-label">REGISTRO HISTÓRICO</span>
             </div>
             <h1 className="h-main-title-expanded">
-              EL ALMA DE <br /> 
-              <span data-text="NUESTRA TIERRA">NUESTRA TIERRA</span>
+             El Alma de <br /> 
+               <span data-text="NUESTRA TIERRA">NUESTRA TIERRA</span>
             </h1>
             <div className="h-neon-hr-long"></div>
           </header>

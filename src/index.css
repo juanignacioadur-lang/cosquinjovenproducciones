@@ -1,6 +1,18 @@
 /* 1. IMPORTACIÓN DE FUENTES GLOBAL */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400;700&display=swap');
 
+@font-face {
+  font-family: 'Causten';
+  src: url('../../assets/fonts/CaustenRegular.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Helvetica Compressed';
+  src: url('../../assets/fonts/HelveticaCompressed.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Photograph Signature';
+  src: url('../../assets/fonts/PhotographSignature.ttf') format('truetype');
+}
 /* --- Global Reset & Basics --- */
 * {
   margin: 0;
@@ -12,13 +24,10 @@
 
 /* 2. CONFIGURACIÓN CRÍTICA DEL NAVEGADOR */
 html, body {
-  width: 100%;
-  /* Usamos height 100% para que el fondo no se corte en páginas cortas */
-  height: 100%; 
-  margin: 0;
-  background-color: #000 !important; 
-  color: white;
-  overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    background-color: #000 !important; /* Si el video falla por 1px, se verá negro atrás */
+    overflow-x: hidden !important;
 }
 
 /* Evitamos que el scroll salte al bloquearse */

@@ -1,0 +1,191 @@
+/* --- SECCIÓN PRINCIPAL: FONDO NEGRO INFINITO --- */
+.resumen-home-section {
+  background: #000;
+  width: 100%;
+  position: relative;
+  z-index: 20;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+/* 1. EL DEGRADADO SEPARADOR (The Fade) */
+.resumen-top-gradient {
+  position: absolute;
+  top: -35vh; /* Se "mete" en la sección de arriba */
+  left: 0;
+  width: 100%;
+  height: 35vh;
+  background: linear-gradient(to bottom, transparent, #000 95%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* 2. CONTENEDOR DE PILARES */
+.pillars-container {
+  display: flex; 
+  flex-direction: row;
+  width: 100%;
+  min-height: 90vh; /* Ocupa casi toda la pantalla */
+  margin: 0;
+}
+
+.pillar-item {
+  flex: 1; /* Esto obliga a que los 4 midan exactamente lo mismo */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centrado vertical */
+  align-items: center;     /* Centrado horizontal */
+  padding: 80px 30px;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.05); 
+  box-sizing: border-box;
+  transition: background 0.5s ease;
+}
+
+.pillar-item:last-child { border-right: none; }
+
+.p-description {
+  font-family: 'CaustenRegular', sans-serif !important;
+  color: #888;
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 280px;
+  margin-bottom: 40px;
+  /* Altura mínima para que los botones queden alineados entre pilares */
+  min-height: 100px; 
+}
+
+/* HOVER EFFECTS */
+.pillar-item:hover { background: rgba(255, 255, 255, 0.02); }
+.pillar-item.highlight:hover { background: rgba(208, 0, 0, 0.03); }
+
+/* --- TIPOGRAFÍAS --- */
+.p-signature {
+  font-family: 'Photograph Signature', cursive !important;
+  font-size: 3.5rem;
+  color: #d00000;
+  margin-bottom: -15px;
+  display: block;
+}
+
+.p-title {
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 4.5rem;
+  color: #fff;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.p-divider {
+  width: 40px;
+  height: 2px;
+  background: #d00000;
+  margin: 25px 0;
+  box-shadow: 0 0 10px #d00000;
+}
+
+.p-description {
+  font-family: 'CaustenRegular', sans-serif !important;
+  color: #888;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 320px;
+  margin-bottom: 45px;
+  min-height: 120px; /* Alineación de botones */
+}
+
+.p-btn {
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  text-decoration: none;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 12px 35px;
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  transition: 0.3s;
+  text-transform: uppercase;
+}
+
+.p-btn.btn-red { background: #d00000; border-color: #d00000; }
+.p-btn:hover { background: #fff; color: #000; border-color: #fff; }
+
+/* --- ADAPTACIÓN MÓVIL (Paso a Paso) --- */
+@media (max-width: 1024px) {
+  .pillars-container {
+    flex-direction: column; /* Se ponen uno arriba del otro */
+  }
+
+  .pillar-item {
+    width: 100%;
+    min-height: auto;
+    padding: 60px 20px;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .p-title {
+    font-size: 3rem !important; /* Más chico en móvil para que no se corte */
+  }
+
+  .p-signature {
+    font-size: 2.5rem !important;
+  }
+
+  .p-description {
+    font-size: 0.9rem !important;
+    min-height: auto;
+    max-width: 100%;
+  }
+}
+/* --- CORRECCIÓN QUIRÚRGICA PARA EL TEXTO DEL BONO --- */
+
+.p-description {
+  /* 1. Cambiamos flex por block para que el texto fluya normal */
+  display: block !important; 
+  text-align: center !important;
+  
+  /* 2. Mantenemos el alineado con los otros cuadros */
+  max-width: 320px !important; 
+  min-height: 120px !important; 
+  margin: 0 auto 40px auto !important;
+  
+  /* 3. Ajuste de fuente para que no se amontone */
+  font-family: 'Causten Regular', sans-serif !important;
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
+  color: #888 !important;
+}
+
+/* Forzamos que los destacados (el precio) no rompan la línea */
+.p-description strong {
+  color: #fff !important;
+  font-weight: 700 !important;
+  display: inline !important; /* Evita que el precio salte solo a otra fila de forma rara */
+}
+
+/* REFINAMIENTO DEL BOTÓN ROJO (ADQUIRIR) */
+.p-btn.btn-red {
+    background: #d00000 !important;
+    border: 1px solid #d00000 !important;
+    color: #fff !important;
+    box-shadow: 0 10px 20px rgba(208, 0, 0, 0.2) !important;
+}
+
+.p-btn.btn-red:hover {
+    background: #fff !important;
+    color: #000 !important;
+    border-color: #fff !important;
+}
+/* --- ESPACIO EXTRA AL FINAL DEL SCROLL (MÓVIL) --- */
+@media (max-width: 1024px) {
+  .resumen-home-section {
+    /* Agregamos un margen interno abajo para que el contenido "respire" */
+    padding-bottom: 120px !important; 
+  }
+
+  /* Ajuste por si el footer se pega mucho a los botones */
+  .pillar-item:last-child {
+    margin-bottom: 20px;
+  }
+}
