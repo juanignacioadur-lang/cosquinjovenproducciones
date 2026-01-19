@@ -299,3 +299,20 @@ footer {
     background: #000 !important;
     margin-top: -2px !important; /* Sella la unión con los pilares largos */
 }
+html, body {
+  background-color: #000 !important;
+  overflow-x: hidden !important;
+}
+
+/* Crea un parche negro fijo a la derecha por si el zoom falla */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: #000;
+  z-index: 9999999;
+  pointer-events: none;
+}

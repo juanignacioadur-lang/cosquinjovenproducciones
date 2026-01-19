@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 import "./LoginPage.css";
@@ -7,7 +7,7 @@ import "./LoginPage.css";
 export default function LoginPage() {
   const [dni, setDni] = useState("");
   const [password, setPassword] = useState("");
-  const [remember, setRemember] = useState(false); // Estado para el Checkbox
+  const [remember, setRemember] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
@@ -16,59 +16,54 @@ export default function LoginPage() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-  setError("");
-  
-  const res = await loginUser(dni, password);
-  
-  if (res.status === "success") {
-    login(res.user, remember);
-    navigate("/gestion-bono");
-  } else {
-    // AQUÍ DEFINIMOS EL TEXTO QUE PEDISTE
-    setError("USUARIO O CONTRASEÑA INCORRECTOS"); 
-  }
-  setLoading(false);
-};
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    const res = await loginUser(dni, password);
+    if (res.status === "success") {
+      login(res.user, remember);
+      navigate("/gestion-bono");
+    } else {
+      setError("USUARIO O CONTRASEÑA INCORRECTOS"); 
+    }
+    setLoading(false);
+  };
 
   return (
     <>
-      {/* 1. VIDEO DE FONDO - Ahora fuera del main para que el GlobalScaler lo cubra todo */}
+      {/* 1. VIDEO Y OVERLAY: El GlobalScaler V71 les da el tamaño infinito automáticamente */}
       <video
         className={`login-video-bg ${videoLoaded ? "video-visible" : "video-hidden"}`}
         src="/background.mp4"
-        autoPlay 
-        muted 
-        loop 
-        playsInline
+        autoPlay muted loop playsInline preload="auto"
         onLoadedData={() => setVideoLoaded(true)}
       />
       
-      {/* 2. CAPA OSCURA - También fuera del main */}
       <div className="login-overlay-dark" />
 
-      {/* 3. CONTENEDOR DEL FORMULARIO */}
+      {/* 2. CONTENIDO: Transparente para que se vea el video que Scaler maneja */}
       <main className="login-v29-root">
-        <div className="login-hero-wrap anim-fade-in">
-          {/* LOGO DINÁMICO */}
-          <img src="/logo.png" alt="Cosquin Joven" className="login-main-logo" />
+        <div className="login-central-axis anim-reveal">
+          
+          <img src="/logo.png" alt="CJ PRODUCCIONES" className="login-portal-logo" />
 
-          <div className="login-interface">
-            <header className="login-status">
-               <span className="status-dot"></span>
-               <span className="status-text">SISTEMA FEDERAL DE GESTIÓN</span>
+          <div className="login-glass-card">
+            <header className="login-header-status">
+               <span className="status-indicator"></span>
+               <span className="status-label">SISTEMA FEDERAL DE GESTIÓN</span>
             </header>
 
-            <h2 className="login-h2">ACCESO <span>PORTAL</span></h2>
+            <h2 className="login-main-title">
+              ACCESO <span>Portal</span>
+            </h2>
 
-            <form onSubmit={handleSubmit} className="login-form-v29">
-              <div className="login-row">
+            <form onSubmit={handleSubmit} className="login-form-federal">
+              <div className="login-input-group">
                 <div className="login-field">
-                  <label>USUARIO</label>
+                  <label>ID USUARIO</label>
                   <input 
                     type="text" 
-                    placeholder="Usuario" 
+                    placeholder="DNI" 
                     value={dni} 
                     onChange={(e) => setDni(e.target.value)} 
                     required 
@@ -76,10 +71,10 @@ export default function LoginPage() {
                 </div>
 
                 <div className="login-field">
-                  <label>CONTRASEÑA</label>
+                  <label>CLAVE DE SEGURIDAD</label>
                   <input 
                     type="password" 
-                    placeholder="Clave" 
+                    placeholder="••••••••" 
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
                     required 
@@ -87,30 +82,25 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              {/* OPCIÓN: MANTENER SESIÓN INICIADA */}
-              <div className="login-options">
-                <label className="login-remember">
-                  <input 
-                    type="checkbox" 
-                    checked={remember} 
-                    onChange={(e) => setRemember(e.target.checked)} 
-                  />
-                  <span className="custom-checkbox"></span>
-                  MANTENER SESIÓN INICIADA
+              <div className="login-extra-options">
+                <label className="login-checkbox-wrap">
+                  <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} />
+                  <span className="login-custom-check"></span>
+                  MANTENER SESIÓN ACTIVA
                 </label>
               </div>
 
-              {error && <p className="login-error-v29">{error}</p>}
+              {error && <p className="login-error-alert">{error}</p>}
 
-              <button type="submit" disabled={loading} className="login-action-btn">
+              <button type="submit" disabled={loading} className="login-btn-supreme">
                 {loading ? "AUTENTICANDO..." : "ENTRAR AL SISTEMA"}
               </button>
             </form>
 
-            <footer className="login-id-footer">
-              © 2026 CJ PRODUCCIONES // SEGURIDAD_V29
-            </footer>
+            
           </div>
+          
+          <Link to="/" className="login-back-link">← VOLVER AL INICIO</Link>
         </div>
       </main>
     </>

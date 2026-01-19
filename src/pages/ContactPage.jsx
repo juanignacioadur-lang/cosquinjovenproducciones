@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./ContactPage.css";
 
 export default function Contacto() {
@@ -13,117 +14,152 @@ export default function Contacto() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const subject = `Consulta Web: ${formData.asunto} - ${formData.nombre}`;
-    const body = `Hola Cosquín Joven Producciones,%0D%0A%0D%0AMi nombre es: ${formData.nombre}%0D%0AEmail: ${formData.email}%0D%0ATeléfono: ${formData.telefono}%0D%0A%0D%0AMensaje:%0D%0A${formData.mensaje}`;
+    const body = `Hola Cosquín Joven Producciones,%0D%0AMi nombre es: ${formData.nombre}%0D%0AEmail: ${formData.email}%0D%0ATeléfono: ${formData.telefono}%0D%0AMensaje:%0D%0A${formData.mensaje}`;
     window.location.href = `mailto:COSQUINJOVEN.PRODUCCIONES@GMAIL.COM?subject=${subject}&body=${body}`;
   };
 
   return (
     <main className="ct-page-root">
-      <div className="ct-ui-overlay"></div>
+      {/* CAPA DE TEXTURA GRID */}
+      <div className="ct-grid-overlay"></div>
 
-      <div className="ct-pilar-central anim-fade-in">
+      <div className="ct-pilar-central anim-reveal">
         
-        {/* CABECERA CINEMATOGRÁFICA */}
+        {/* CABECERA: AJUSTE DE LOGO Y TÍTULO */}
         <section className="ct-hero">
           <div className="h-pretitle">
             <span className="h-dot"></span>
-            <span className="h-label">CENTRAL DE COMUNICACIONES • 2026</span>
+            <span className="h-label">CENTRAL DE COMUNICACIONES // CJ_COMM_V29</span>
           </div>
-          <h1 className="ct-main-title">CONTACTO & <span>PRENSA</span></h1>
+          <div className="ct-title-wrap">
+            <h1 className="ct-main-title">CONTACTO y..  </h1>
+            <span className="ct-sig-title"> Prensa</span>
+          </div>
           <div className="ct-hr-neon"></div>
           <p className="ct-subtitle">
-            Conectamos artistas con grandes escenarios. Utiliza nuestros canales oficiales para consultas sobre inscripciones y acreditaciones.
+            Estableciendo enlaces federales. Sistema de atención prioritaria para delegaciones, prensa y organismos institucionales.
           </p>
         </section>
 
         <div className="ct-master-grid">
           
-          {/* LADO IZQUIERDO: COMUNICACIÓN & REDES */}
+          {/* LADO IZQUIERDO: HARDWARE MODULES */}
           <aside className="ct-info-side">
             
-            {/* MÓDULO WHATSAPP */}
-            <div className="ct-module-card wa">
-              <div className="module-header">
-                <div className="module-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            {/* WHATSAPP CARD */}
+            <div className="ct-tech-card wa-module">
+              <div className="card-corner top-left"></div>
+              <div className="card-corner bottom-right"></div>
+              <div className="mod-header">
+                <div className="mod-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.4 8.38 8.38 0 0 1 3.8.9L21 4.5l-1.4 4.6z"/>
+                  </svg>
                 </div>
-                <span>CONEXIÓN INMEDIATA</span>
+                <span className="mod-tag">[ CONEXIÓN DIRECTA ]</span>
               </div>
-              <div className="module-body">
-                <h3>WHATSAPP DELEGADOS</h3>
-                <p>Atención preferencial para directores de academia.</p>
-                <a href="https://wa.me/5493541393487" target="_blank" rel="noreferrer" className="wa-action-btn">
-                  INICIAR CONVERSACIÓN
-                </a>
-              </div>
+              <h3 className="mod-title">WHATSAPP <br/>DELEGADOS</h3>
+              <p className="mod-desc">Gestión de inscripciones y logística para directores.</p>
+              <a href="https://wa.me/5493541393487" target="_blank" rel="noreferrer" className="ct-glitch-btn">
+                INICIAR PROTOCOLO
+              </a>
             </div>
 
-            {/* MÓVULO EMAIL */}
-            <div className="ct-module-card mail">
-              <div className="module-header">
-                <div className="module-icon">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+            {/* EMAIL CARD */}
+            <div className="ct-tech-card mail-module">
+              <div className="card-corner top-left"></div>
+              <div className="card-corner bottom-right"></div>
+              <div className="mod-header">
+                <div className="mod-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                    <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                  </svg>
                 </div>
-                <span>ADMINISTRACIÓN CENTRAL</span>
+                <span className="mod-tag">[ CANAL OFICIAL ]</span>
               </div>
-              <div className="module-body">
-                <h3>CORREO ELECTRÓNICO</h3>
-                <a href="mailto:COSQUINJOVEN.PRODUCCIONES@GMAIL.COM" className="mail-link">
-                  COSQUINJOVEN.PRODUCCIONES@GMAIL.COM
-                </a>
-              </div>
+              <h3 className="mod-title">ADMINISTRACIÓN <br/> CENTRAL</h3>
+              <p className="mod-desc">Envío de material de prensa y acreditaciones.</p>
+              <a href="mailto:COSQUINJOVEN.PRODUCCIONES@GMAIL.COM" className="mail-anchor">
+                COSQUINJOVEN.PRODUCCIONES@GMAIL.COM
+              </a>
             </div>
 
-            {/* SECCIÓN REDES: DIGITAL HUB */}
-            <div className="ct-digital-hub">
-              <h4 className="hub-title">DIGITAL HUB</h4>
+            {/* SOCIAL HUB - HARDWARE INTERFACE */}
+            <div className="ct-social-hardware">
+              <h4 className="hub-label">SISTEMA DE ENLACES // SOCIAL_HUB</h4>
               <div className="hub-grid">
-                <a href="https://www.instagram.com/cosquinjoven.producciones/" target="_blank" rel="noreferrer" className="hub-btn insta">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-                  INSTAGRAM
+                
+                {/* INSTAGRAM */}
+                <a href="https://www.instagram.com/cosquinjoven.producciones/" target="_blank" rel="noreferrer" className="hub-item">
+                  <div className="hub-inner-content">
+                    <svg className="hub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                    <span className="hub-name">INSTAGRAM</span>
+                  </div>
+                  <span className="hub-id">//01</span>
                 </a>
-                <a href="https://www.facebook.com/share/17T1nkD7Mb/?mibextid=wwXIfr" target="_blank" rel="noreferrer" className="hub-btn face">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-                  FACEBOOK
+
+                {/* FACEBOOK */}
+                <a href="https://www.facebook.com/share/17T1nkD7Mb/" target="_blank" rel="noreferrer" className="hub-item">
+                  <div className="hub-inner-content">
+                    <svg className="hub-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                    <span className="hub-name">FACEBOOK</span>
+                  </div>
+                  <span className="hub-id">//02</span>
                 </a>
+
               </div>
             </div>
           </aside>
 
-          {/* LADO DERECHO: FORMULARIO TÉCNICO */}
+          {/* LADO DERECHO: FORMULARIO TERMINAL */}
           <section className="ct-form-side">
-            <div className="ct-form-glass">
-              <h3 className="form-title">REGISTRO DE CONSULTA</h3>
-              <form onSubmit={handleSubmit} className="ct-main-form">
-                <div className="form-group">
-                  <label>NOMBRE COMPLETO / ACADEMIA</label>
-                  <input type="text" name="nombre" placeholder="Nombre de la institución o responsable" required value={formData.nombre} onChange={handleChange} />
+            <div className="ct-terminal-box">
+              <header className="terminal-header">
+                <div className="terminal-dots"><span></span><span></span><span></span></div>
+                <span className="terminal-title">Contacto directo al correo.</span>
+              </header>
+              
+              <form onSubmit={handleSubmit} className="ct-terminal-form">
+                <div className="form-grid">
+                  <div className="input-field">
+                    <label>NOMBRE RESPONSABLE</label>
+                    <input type="text" name="nombre" placeholder="Nombre completo" required value={formData.nombre} onChange={handleChange} />
+                  </div>
+                  <div className="input-field">
+                    <label>TELÉFONO</label>
+                    <input type="tel" name="telefono" placeholder="+54 9..." required value={formData.telefono} onChange={handleChange} />
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>EMAIL DE RESPUESTA</label>
-                  <input type="email" name="email" placeholder="correo@ejemplo.com" required value={formData.email} onChange={handleChange} />
+
+                <div className="input-field">
+                  <label>DIRECCIÓN E-MAIL</label>
+                  <input type="email" name="email" placeholder="usuario@servidor.com" required value={formData.email} onChange={handleChange} />
                 </div>
-                <div className="form-group">
-                  <label>TELÉFONO DE CONTACTO</label>
-                  <input type="tel" name="telefono" placeholder="+54 9..." required value={formData.telefono} onChange={handleChange} />
-                </div>
-                <div className="form-group">
+
+                <div className="input-field">
                   <label>ASUNTO ESTRATÉGICO</label>
                   <select name="asunto" value={formData.asunto} onChange={handleChange} required>
                     <option value="">SELECCIONAR...</option>
-                    <option value="Inscripción Cosquín Joven 2026">INSCRIPCIÓN COSQUÍN JOVEN 2026</option>
-                    <option value="Información Cartagena 2026">INFORMACIÓN CARTAGENA 2026</option>
-                    <option value="Prensa">PRENSA Y MEDIOS</option>
+                    <option value="Inscripción Cosquín Joven 2026">INSCRIPCIÓN 2026</option>
+                    <option value="Información Cartagena 2026">CARTAGENA 2026</option>
+                    <option value="Prensa">PRENSA</option>
                     <option value="Otros">OTROS</option>
                   </select>
                 </div>
-                <div className="form-group full">
-                  <label>MENSAJE</label>
-                  <textarea name="mensaje" placeholder="Describe tu consulta aquí..." required value={formData.mensaje} onChange={handleChange}></textarea>
+
+                <div className="input-field">
+                  <label>MENSAJE TÉCNICO</label>
+                  <textarea name="mensaje" placeholder="Escriba su consulta..." required value={formData.mensaje} onChange={handleChange}></textarea>
                 </div>
-                <button type="submit" className="ct-submit-btn">
-                  ENVIAR MENSAJE
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+
+                <button type="submit" className="ct-btn-supreme">
+                  ENVIAR MENSAJE <span>[ TRANSMITIR ]</span>
                 </button>
               </form>
             </div>

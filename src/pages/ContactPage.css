@@ -1,4 +1,7 @@
-/* --- RAÍZ --- */
+/* ============================================================
+   CONTACT PAGE - ARQUITECTURA MONUMENTAL V29
+   ============================================================ */
+
 .ct-page-root {
   width: 100%;
   min-height: 100vh;
@@ -6,102 +9,537 @@
   display: flex;
   justify-content: center;
   position: relative;
+  overflow-x: hidden;
+}
+
+/* OVERLAY DE GRILLA (LLENA EL VACÍO) */
+.ct-grid-overlay {
+  position: fixed; inset: 0;
+  background-image: radial-gradient(rgba(208, 0, 0, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.3;
+  z-index: 1; pointer-events: none;
+}
+
+.ct-pilar-central {
+  /* 1. Volvemos al ancho original del pilar */
+  width: 90% !important; 
+  max-width: 1200px !important; 
+  margin: 0 auto !important;
+  
+  /* 2. Reseteamos posiciones para que el GlobalScaler no lo desvíe */
+  position: relative !important;
+  left: auto !important;
+  transform: none !important;
+
+  background: rgba(7, 7, 7, 0.98);
+  backdrop-filter: blur(40px);
+  padding: 120px 50px;
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 100px #000, 
+              -60px 0 150px -20px rgba(208, 0, 0, 0.4), 
+              60px 0 150px -20px rgba(208, 0, 0, 0.4);
+  z-index: 10;
+}
+
+/* 3. Definimos la animación de carga (si no está en tu index.css) */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.anim-reveal {
+  opacity: 0;
+  animation: revealUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* --- HERO REFINADO --- */
+.ct-hero { margin-bottom: 70px; text-align: left; }
+
+.ct-title-wrap { position: relative; display: inline-block; }
+
+.ct-main-title {
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 7rem; color: #fff; line-height: 0.8; margin: 0;
+}
+
+.ct-sig-title {
+  font-family: 'Photograph Signature', cursive !important;
+  color: #d00000; font-size: 6rem;
+  position: absolute; left: 100px; bottom: -35px;
+  filter: drop-shadow(0 0 20px rgba(208,0,0,0.5));
+}
+
+.ct-hr-neon {
+  width: 250px; height: 3px; background: #d00000;
+  margin: 50px 0 30px 0; box-shadow: 0 0 25px #ff0000;
+}
+
+.ct-subtitle {
+  font-family: 'Causten', sans-serif !important;
+  color: #555; font-size: 1.1rem; max-width: 550px; line-height: 1.6;
+}
+
+/* --- GRID --- */
+.ct-master-grid {
+  display: grid; grid-template-columns: 1fr 1.2fr; gap: 70px; align-items: start;
+}
+
+/* --- TECH CARDS (LADO IZQUIERDO) --- */
+.ct-tech-card {
+  background: rgba(15, 15, 15, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  padding: 45px; margin-bottom: 35px; position: relative;
+  transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.ct-tech-card:hover { border-color: #d00000; background: rgba(20, 0, 0, 0.3); transform: scale(1.02); }
+
+/* ESQUINAS HARDWARE */
+.card-corner { position: absolute; width: 15px; height: 15px; border: 2px solid #d00000; }
+.top-left { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.bottom-right { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+
+.mod-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+.mod-icon-box { width: 45px; height: 45px; background: rgba(208,0,0,0.1); display: flex; align-items: center; justify-content: center; color: #d00000; border-radius: 4px; }
+.mod-icon-box svg { width: 24px; }
+.mod-tag { font-family: 'Causten', sans-serif !important; font-size: 0.6rem; color: #444; letter-spacing: 3px; font-weight: 800; }
+
+.mod-title { font-family: 'Helvetica Compressed', sans-serif !important; font-size: 3rem; color: #fff; margin-bottom: 15px; line-height: 1; }
+.mod-desc { font-family: 'Causten', sans-serif !important; color: #666; font-size: 0.95rem; line-height: 1.5; margin-bottom: 30px; }
+
+.ct-glitch-btn {
+  background: #d00000; color: #fff; padding: 15px 35px; text-decoration: none;
+  font-family: 'Helvetica Compressed', sans-serif !important; font-size: 1.3rem; letter-spacing: 2px; transition: 0.3s; display: inline-block;
+}
+.ct-glitch-btn:hover { background: #fff; color: #000; }
+
+.mail-anchor { font-family: 'Helvetica Compressed', sans-serif !important; color: #d00000; font-size: 1.4rem; text-decoration: none; letter-spacing: 1px; }
+
+/* --- TERMINAL FORM (LADO DERECHO) --- */
+.ct-terminal-box {
+  background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px; overflow: hidden; box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+}
+
+.terminal-header {
+  background: rgba(255, 255, 255, 0.03); padding: 15px 25px;
+  display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+.terminal-dots { display: flex; gap: 8px; }
+.terminal-dots span { width: 8px; height: 8px; border-radius: 50%; background: #333; }
+.terminal-title { font-family: 'Causten', sans-serif !important; font-size: 0.65rem; color: #555; letter-spacing: 2px; }
+
+.ct-terminal-form { padding: 50px; display: flex; flex-direction: column; gap: 30px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+.input-field label { font-family: 'Causten', sans-serif !important; font-size: 0.65rem; color: #d00000; letter-spacing: 2px; font-weight: 800; margin-bottom: 12px; display: block; }
+.input-field input, .input-field select, .input-field textarea {
+  width: 100%; background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px; color: #fff; font-family: 'Causten', sans-serif !important; transition: 0.3s;
+}
+.input-field input:focus, .input-field textarea:focus { border-color: #d00000; background: rgba(0,0,0,0.5); outline: none; }
+.input-field textarea { min-height: 140px; resize: none; }
+
+.ct-btn-supreme {
+  background: #d00000; color: #fff; border: none; padding: 25px;
+  font-family: 'Helvetica Compressed', sans-serif !important; font-size: 1.8rem; letter-spacing: 4px;
+  cursor: pointer; transition: 0.4s; display: flex; justify-content: space-between; align-items: center;
+}
+.ct-btn-supreme span { font-size: 1rem; opacity: 0.6; letter-spacing: 2px; }
+.ct-btn-supreme:hover { background: #fff; color: #000; transform: translateY(-5px); }
+
+/* --- RESPONSIVO MÓVIL --- */
+@media (max-width: 1024px) {
+  .ct-pilar-central { width: 100%; padding: 80px 20px 250px 20px; border: none; }
+  .ct-main-title { font-size: 4rem; }
+  .ct-sig-title { font-size: 3.5rem; left: 40px; bottom: -20px; }
+  .ct-master-grid { grid-template-columns: 1fr; gap: 40px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .ct-terminal-form { padding: 30px 20px; }
+  .ct-tech-card { padding: 30px 20px; }
+}
+/* --- TÍTULO MONUMENTAL UNIFICADO (UN SOLO RENGLÓN) --- */
+.ct-title-wrap {
+  display: flex !important;
+  align-items: flex-end !important; /* Alinea la firma con la base del título */
+  gap: 20px !important;
+  white-space: nowrap !important; /* Prohibido bajar de renglón */
+  position: relative;
+  width: 100%;
+}
+
+.ct-main-title {
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  /* Usamos clamp para que el tamaño sea fluido y nunca rompa el renglón */
+  font-size: clamp(2.5rem, 8vw, 7rem) !important; 
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 1;
+  margin: 0 !important;
+}
+
+.ct-sig-title {
+  font-family: 'Photograph Signature', cursive !important;
+  color: #d00000;
+  font-size: clamp(2rem, 7vw, 6rem) !important;
+  position: static !important; /* Quitamos el absolute para que no tape */
+  margin-bottom: -10px !important; /* Ajuste fino para que la firma "apoye" */
+  filter: drop-shadow(0 0 15px rgba(208,0,0,0.4));
+  transform: rotate(-3deg); /* Le da dinamismo de firma real */
+}
+/* --- DIGITAL HUB: BOTONES DE HARDWARE --- */
+.ct-social-hardware {
+  margin-top: 40px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 30px;
+}
+
+.hub-label {
+  font-family: 'Causten', sans-serif !important;
+  color: #444;
+  font-size: 0.7rem;
+  letter-spacing: 5px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.hub-grid {
+  display: flex;
+  flex-direction: column; /* En columna para que luzcan como módulos */
+  gap: 12px;
+}
+
+.hub-link {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center;
+  padding: 18px 25px !important;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #888 !important;
+  text-decoration: none !important;
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 1.4rem !important;
+  letter-spacing: 2px !important;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  position: relative;
   overflow: hidden;
 }
 
-/* --- OVERLAY LÍNEAS TÉCNICAS --- */
-.ct-ui-overlay {
-  position: fixed; inset: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-  background-size: 100% 4px;
-  z-index: 1; pointer-events: none; opacity: 0.3;
+.hub-link span {
+  font-family: 'Causten', sans-serif !important;
+  font-size: 0.6rem;
+  opacity: 0.4;
 }
 
-/* --- PILAR CENTRAL --- */
-.ct-pilar-central {
-  width: 90%; max-width: 1200px; padding: 120px 50px;
-  display: flex; flex-direction: column; gap: 80px;
-  position: relative; z-index: 10;
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 100px #000, -60px 0 150px -20px rgba(208, 0, 0, 0.4), 60px 0 150px -20px rgba(208, 0, 0, 0.4);
+/* Efecto hover estilo CJ */
+.hub-link:hover {
+  background: #d00000 !important;
+  border-color: #d00000 !important;
+  color: #fff !important;
+  transform: translateX(10px); /* Se desplaza un poquito */
+  box-shadow: -10px 0 30px rgba(208, 0, 0, 0.3);
 }
 
-/* --- HERO --- */
-.ct-main-title { font-family: 'Oswald', sans-serif; font-size: 5rem; text-transform: uppercase; color: #fff; }
-.ct-main-title span { color: transparent; -webkit-text-stroke: 1.2px #d00000; text-shadow: 0 0 20px rgba(208,0,0,0.5); }
-.ct-hr-neon { width: 180px; height: 6px; background: #d00000; box-shadow: 0 0 30px #ff0000; margin: 30px 0; border-radius: 3px; }
-.ct-subtitle { color: #888; font-size: 1.2rem; max-width: 700px; line-height: 1.6; font-weight: 300; }
-
-/* --- GRID --- */
-.ct-master-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 50px; }
-
-/* --- MODULOS (IZQUIERDA) --- */
-.ct-module-card {
-  background: rgba(15, 15, 15, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 35px; border-radius: 12px; margin-bottom: 25px;
-  transition: 0.4s; position: relative; overflow: hidden;
+.hub-link:hover span {
+  opacity: 1;
+  color: #fff;
 }
-.ct-module-card:hover { border-color: #d00000; background: rgba(20, 20, 20, 0.9); transform: translateY(-5px); }
-
-.module-header { display: flex; align-items: center; gap: 12px; color: #d00000; font-family: 'Oswald', sans-serif; font-size: 0.8rem; letter-spacing: 3px; margin-bottom: 20px; }
-.module-icon { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: rgba(208,0,0,0.1); border-radius: 8px; }
-.module-body h3 { font-family: 'Oswald', sans-serif; color: #fff; font-size: 1.4rem; margin-bottom: 10px; }
-.module-body p { color: #666; font-size: 0.9rem; margin-bottom: 20px; }
-
-.wa-action-btn {
-  display: inline-block; background: #25D366; color: #fff; padding: 12px 25px; border-radius: 50px; font-weight: 800; font-size: 0.8rem; text-decoration: none; transition: 0.3s;
-}
-.wa-action-btn:hover { box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); transform: scale(1.05); }
-.mail-link { color: #d00000; font-family: 'Oswald', sans-serif; text-decoration: none; font-size: 1.1rem; border-bottom: 1px solid transparent; transition: 0.3s; }
-.mail-link:hover { border-bottom-color: #d00000; }
-
-/* --- DIGITAL HUB --- */
-.ct-digital-hub { margin-top: 40px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
-.hub-title { font-family: 'Oswald', sans-serif; color: #444; letter-spacing: 5px; font-size: 0.8rem; margin-bottom: 20px; text-align: center; }
-.hub-grid { display: flex; gap: 15px; }
-.hub-btn {
-  flex: 1; display: flex; align-items: center; justify-content: center; gap: 10px;
-  padding: 18px; border-radius: 8px; text-decoration: none; color: #fff;
-  font-family: 'Oswald', sans-serif; font-size: 0.85rem; letter-spacing: 2px;
-  transition: 0.4s; border: 1px solid rgba(255,255,255,0.05);
-}
-.hub-btn svg { width: 18px; height: 18px; }
-
-.hub-btn.insta:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border-color: transparent; }
-.hub-btn.face:hover { background: #1877F2; border-color: transparent; }
-
-/* --- FORMULARIO (DERECHA) --- */
-.ct-form-glass {
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 60px; border-radius: 15px;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-}
-.form-title { font-family: 'Oswald', sans-serif; color: #fff; font-size: 2rem; margin-bottom: 40px; text-align: center; letter-spacing: 4px; border-bottom: 1px solid #1a1a1a; padding-bottom: 20px; }
-
-.ct-main-form { display: flex; flex-direction: column; gap: 25px; }
-.form-group label { font-size: 0.7rem; color: #555; font-weight: 800; letter-spacing: 2px; margin-bottom: 10px; display: block; }
-.form-group input, .form-group select, .form-group textarea {
-  width: 100%; background: #000; border: 1px solid #222; padding: 18px; border-radius: 8px; color: #fff; transition: 0.3s; font-size: 1rem;
-}
-.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #d00000; outline: none; background: #050505; }
-.form-group textarea { min-height: 160px; resize: none; }
-
-.ct-submit-btn {
-  background: #d00000; color: #fff; border: none; padding: 22px; border-radius: 12px;
-  font-family: 'Oswald', sans-serif; font-size: 1.2rem; letter-spacing: 3px;
-  cursor: pointer; transition: 0.4s; display: flex; align-items: center; justify-content: center; gap: 15px;
-}
-.ct-submit-btn:hover { background: #ff0000; transform: translateY(-4px); box-shadow: 0 15px 40px rgba(208, 0, 0, 0.4); }
-
-/* --- RESPONSIVE --- */
 @media (max-width: 1024px) {
-  .ct-pilar-central { width: 100%; padding: 100px 20px 220px 20px; border: none; }
-  .ct-main-title { font-size: 3rem !important; text-align: center; }
-  .ct-master-grid { grid-template-columns: 1fr; }
-  .ct-form-glass { padding: 40px 20px; background: transparent; border: none; box-shadow: none; border-top: 1px solid #222; }
-  .hub-grid { flex-direction: column; }
+  /* Título fluido para que no se pase del ancho del celular */
+  .ct-title-wrap {
+    gap: 10px !important;
+    justify-content: flex-start;
+  }
+
+  .ct-main-title { font-size: 10vw !important; }
+  .ct-sig-title { font-size: 9vw !important; }
+
+  /* Subtítulo más legible */
+  .ct-subtitle {
+    font-size: 0.95rem !important;
+    line-height: 1.5;
+  }
+
+  /* Los botones de redes ocupan el ancho total */
+  .hub-link {
+    padding: 15px 20px !important;
+    font-size: 1.2rem !important;
+  }
+}
+/* --- CONTENEDOR SOCIAL HUB --- */
+.ct-social-hardware {
+  margin-top: 50px;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.hub-label {
+  font-family: 'Causten', sans-serif !important;
+  color: #444;
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.hub-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* --- ITEM INDIVIDUAL (BOTÓN TÉCNICO) --- */
+.hub-item {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 18px 25px !important;
+  text-decoration: none !important;
+  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.hub-inner-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.hub-icon {
+  width: 18px;
+  height: 18px;
+  color: #d00000;
+  transition: 0.3s;
+}
+
+.hub-name {
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 1.4rem;
+  color: #888;
+  letter-spacing: 2px;
+  transition: 0.3s;
+}
+
+.hub-id {
+  font-family: 'Causten', sans-serif !important;
+  font-size: 0.6rem;
+  color: #333;
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+/* --- EFECTO HOVER (GOD LEVEL) --- */
+.hub-item:hover {
+  background: rgba(208, 0, 0, 0.1) !important;
+  border-color: #d00000 !important;
+  transform: translateX(8px); /* Desplazamiento lateral pro */
+  box-shadow: -10px 0 30px rgba(208, 0, 0, 0.2);
+}
+
+.hub-item:hover .hub-name {
+  color: #fff !important;
+  letter-spacing: 4px; /* Se expande un poco al tocarlo */
+}
+
+.hub-item:hover .hub-icon {
+  color: #fff !important;
+  transform: scale(1.2);
+}
+
+.hub-item:hover .hub-id {
+  color: #d00000 !important;
+  opacity: 1;
+}
+
+/* Ajuste para móviles */
+@media (max-width: 1024px) {
+  .hub-item {
+    padding: 15px 20px !important;
+  }
+  .hub-name {
+    font-size: 1.2rem !important;
+  }
+}
+/* ============================================================
+   FIX MÓVIL: CONTACTO (SIN SOMBRAS Y CON AIRE SUPERIOR)
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  /* 1. EL PILAR CENTRAL: Quitamos sombras y bajamos el inicio */
+  .ct-pilar-central {
+    width: 100% !important;
+    /* Subimos de 80px a 110px el padding superior para esquivar el Navbar */
+    padding: 110px 20px 250px 20px !important; 
+    
+    border: none !important;
+    /* MATA LAS SOMBRAS ROJAS LATERALES */
+    box-shadow: none !important; 
+    background: #000 !important; /* Fondo negro sólido para evitar transparencias raras */
+  }
+
+  /* Aseguramos que no haya resplandores ocultos */
+  .ct-pilar-central::before, 
+  .ct-pilar-central::after {
+    display: none !important;
+  }
+
+  /* 2. ALINEACIÓN DEL PRE-TITLE (Punto y Texto) */
+  .h-pretitle {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px !important;
+    margin-bottom: 20px !important;
+  }
+
+  .h-label {
+    font-size: 0.6rem !important;
+    letter-spacing: 2px !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+  }
+
+  /* 3. TÍTULOS EN MÓVIL */
+  .ct-title-wrap {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: baseline !important;
+    gap: 10px !important;
+  }
+
+  .ct-main-title {
+    font-size: 3.2rem !important; /* Ajuste para que no desborde */
+  }
+
+  .ct-sig-title {
+    font-size: 3rem !important;
+    position: relative !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    margin-top: 5px !important;
+  }
+
+  /* 4. MÓDULOS DE HARDWARE (Tarjetas) */
+  .ct-tech-card {
+    padding: 35px 20px !important;
+    margin-bottom: 25px !important;
+    background: rgba(20, 20, 20, 0.8) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
+
+  .mod-title {
+    font-size: 2.2rem !important;
+  }
+
+  /* 5. FORMULARIO TERMINAL */
+  .ct-terminal-box {
+    margin-top: 40px !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  .ct-terminal-form {
+    padding: 30px 10px !important;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr !important; /* Todo en una columna */
+    gap: 20px !important;
+  }
+}
+
+/* Fix extra para pantallas muy pequeñas (iPhone SE) */
+@media (max-width: 370px) {
+  .ct-main-title { font-size: 2.5rem !important; }
+  .ct-sig-title { font-size: 2.2rem !important; }
+  .mod-title { font-size: 1.8rem !important; }
+}
+/* --- CENTRADO TOTAL SUPREMO PARA MÓVIL --- */
+@media (max-width: 1024px) {
+
+  /* 1. CENTRADO DE CABECERA (Punto, Título y Subtítulo) */
+  .h-pretitle {
+    justify-content: center !important; /* Centra el punto con el texto */
+  }
+
+  .ct-title-wrap {
+    justify-content: center !important; /* Centra "CONTACTO & Prensa" */
+    text-align: center !important;
+  }
+
+  .ct-hr-neon {
+    margin: 30px auto !important; /* Centra la línea roja */
+  }
+
+  .ct-subtitle {
+    text-align: center !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  /* 2. CENTRADO DE TARJETAS (WhatsApp, Email) */
+  .ct-tech-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  .mod-header {
+    justify-content: center !important; /* Centra el icono y la etiqueta [DIRECTO] */
+  }
+
+  .mail-anchor {
+    text-align: center !important;
+    display: block !important;
+  }
+
+  /* 3. CENTRADO DE REDES SOCIALES */
+  .hub-label {
+    text-align: center !important;
+  }
+
+  .hub-item {
+    justify-content: center !important; /* Centra Instagram / Facebook */
+    gap: 20px !important;
+  }
+
+  .hub-id {
+    display: none !important; /* Quitamos el //01 para que no rompa el centrado */
+  }
+
+  /* 4. CENTRADO DE FORMULARIO */
+  .form-header-title {
+    text-align: center !important;
+    border-left: none !important; /* Quitamos la rayita lateral para centrar mejor */
+    padding-left: 0 !important;
+    border-bottom: 2px solid #d00000; /* La pasamos abajo como subrayado */
+    padding-bottom: 10px;
+    margin-bottom: 30px !important;
+  }
+
+  .form-group label {
+    text-align: center !important; /* Centra las etiquetas de los inputs */
+  }
+
+  .form-group input, 
+  .form-group select, 
+  .form-group textarea {
+    text-align: center !important; /* El texto que escribe el usuario sale centrado */
+  }
 }
