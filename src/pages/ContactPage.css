@@ -151,9 +151,32 @@
 .input-field textarea { min-height: 140px; resize: none; }
 
 .ct-btn-supreme {
-  background: #d00000; color: #fff; border: none; padding: 25px;
-  font-family: 'Helvetica Compressed', sans-serif !important; font-size: 1.8rem; letter-spacing: 4px;
-  cursor: pointer; transition: 0.4s; display: flex; justify-content: space-between; align-items: center;
+  /* 1. ACTIVAMOS EL MOTOR DE CENTRADO */
+  display: flex !important;
+  justify-content: center !important; /* Centra horizontalmente */
+  align-items: center !important;     /* Centra verticalmente */
+  text-align: center !important;      /* Refuerzo para el texto */
+
+  /* 2. ESPACIADO Y FORMA */
+  width: 100%;
+  padding: 20px !important; 
+  min-height: 60px; /* Le da una altura sólida para que el centro se note */
+  
+  /* 3. TU ESTILO ACTUAL (Asegúrate de mantenerlo) */
+  background: #d00000;
+  color: #fff;
+  border: none;
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.ct-btn-supreme:hover {
+  background: #fff;
+  color: #000;
 }
 .ct-btn-supreme span { font-size: 1rem; opacity: 0.6; letter-spacing: 2px; }
 .ct-btn-supreme:hover { background: #fff; color: #000; transform: translateY(-5px); }
@@ -603,4 +626,31 @@
 html, body {
   max-width: 100% !important;
   overflow-x: hidden !important;
+}
+/* --- FIX PARA DESPLEGABLE (SELECT OPTION) --- */
+
+/* 1. Estilo del contenedor del Select */
+.input-field select {
+  cursor: pointer;
+  appearance: none; /* Quitamos la flecha fea por defecto */
+  /* Agregamos una flecha roja personalizada estilo CJ */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='red' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 20px center !important;
+  padding-right: 50px !important;
+}
+
+/* 2. MATA EL FONDO BLANCO: Estilo para las opciones de la lista */
+.input-field select option {
+  background-color: #0a0a0a !important; /* Fondo negro profundo */
+  color: #fff !important;               /* Texto blanco */
+  padding: 15px !important;
+  font-family: 'Causten', sans-serif !important;
+  font-size: 1rem;
+}
+
+/* 3. Ajuste para cuando el Select está abierto (en algunos navegadores) */
+.input-field select:focus {
+  background-color: rgba(208, 0, 0, 0.1) !important;
+  color: #fff !important;
 }

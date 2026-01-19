@@ -54,7 +54,8 @@ export default function LoginPage() {
             </header>
 
             <h2 className="login-main-title">
-              ACCESO <span>Portal</span>
+              ACCESO 
+              <span>Portal</span>
             </h2>
 
             <form onSubmit={handleSubmit} className="login-form-federal">

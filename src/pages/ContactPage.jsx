@@ -29,7 +29,7 @@ export default function Contacto() {
         <section className="ct-hero">
           <div className="h-pretitle">
             <span className="h-dot"></span>
-            <span className="h-label">CENTRAL DE COMUNICACIONES // CJ_COMM_V29</span>
+            <span className="h-label">CENTRAL DE COMUNICACIONES.</span>
           </div>
           <div className="ct-title-wrap">
             <h1 className="ct-main-title">CONTACTO y..  </h1>
@@ -61,7 +61,7 @@ export default function Contacto() {
               <h3 className="mod-title">WHATSAPP <br/>DELEGADOS</h3>
               <p className="mod-desc">Gestión de inscripciones y logística para directores.</p>
               <a href="https://wa.me/5493541393487" target="_blank" rel="noreferrer" className="ct-glitch-btn">
-                INICIAR PROTOCOLO
+                INICIAR CONVERSACIÓN
               </a>
             </div>
 
@@ -145,11 +145,13 @@ export default function Contacto() {
                 <div className="input-field">
                   <label>ASUNTO ESTRATÉGICO</label>
                   <select name="asunto" value={formData.asunto} onChange={handleChange} required>
-                    <option value="">SELECCIONAR...</option>
-                    <option value="Inscripción Cosquín Joven 2026">INSCRIPCIÓN 2026</option>
-                    <option value="Información Cartagena 2026">CARTAGENA 2026</option>
-                    <option value="Prensa">PRENSA</option>
-                    <option value="Otros">OTROS</option>
+                    <option value="">SELECCIONAR CATEGORÍA...</option>
+                    <option value="Inscripción Cosquín Joven 2026">INSCRIPCIÓN COSQUÍN JOVEN 2026</option>
+                    <option value="Certamen Danzabuelos 2026">CERTAMEN DANZABUELOS 2026</option>
+                    <option value="Gran Bono 5 Millones">CONSULTA GRAN BONO</option>
+                    <option value="Información Cartagena 2026">CERTAMEN CARTAGENA 2026</option>
+                    <option value="Prensa y Acreditaciones">PRENSA Y ACREDITACIONES</option>
+                    <option value="Otras Consultas">OTRAS CONSULTAS</option>
                   </select>
                 </div>
 
@@ -159,7 +161,7 @@ export default function Contacto() {
                 </div>
 
                 <button type="submit" className="ct-btn-supreme">
-                  ENVIAR MENSAJE <span>[ TRANSMITIR ]</span>
+                  ENVIAR MENSAJE
                 </button>
               </form>
             </div>
