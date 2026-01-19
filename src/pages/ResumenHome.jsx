@@ -11,7 +11,7 @@ const ResumenHome = () => {
       <div className="pillars-container">
         
         {/* PILAR 1: NOSOTROS */}
-        <article className="pillar-item">
+        <article className="pillar-item pillar-historia">
           <div className="pillar-inner">
             <span className="p-signature">Nosotros</span>
             <h2 className="p-title">HISTORIA</h2>
@@ -26,7 +26,7 @@ const ResumenHome = () => {
         </article>
 
         {/* PILAR 2: EVENTOS */}
-        <article className="pillar-item">
+        <article className="pillar-item pillar-danza">
           <div className="pillar-inner">
             <span className="p-signature">Certámenes</span>
             <h2 className="p-title">DANZABUELOS</h2>
@@ -41,7 +41,7 @@ const ResumenHome = () => {
         </article>
 
         {/* PILAR 3: GRAN BONO (HIGHLIGHT) */}
-        <article className="pillar-item highlight">
+        <article className="pillar-item pillar-bono highlight">
           <div className="pillar-inner">
             <span className="p-signature">Sorteo Federal</span>
             <h2 className="p-title">GRAN BONO</h2>
@@ -63,7 +63,7 @@ const ResumenHome = () => {
         </article>
 
         {/* PILAR 4: CONTACTO */}
-        <article className="pillar-item">
+        <article className="pillar-item pillar-contacto">
           <div className="pillar-inner">
             <span className="p-signature">Unite</span>
             <h2 className="p-title">CONTACTO</h2>

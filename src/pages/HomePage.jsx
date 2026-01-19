@@ -61,30 +61,40 @@ return (
       <div className="overlay" />
 
       <main className="inicio-hero" role="main">
-        <img src="/logo.png" alt="COSQUIN JOVEN" className="inicio-logo" />
+  {/* 1. LOGO: Aparece primero (0.2s) */}
+  <img 
+    src="/logo.png" 
+    alt="COSQUIN JOVEN" 
+    className="inicio-logo anim-reveal" 
+    style={{ animationDelay: '0.4s' }} 
+  />
+  
+  <div className="hero-content-box"></div>
 
-        <div className="inicio-stats">
-          <div className="stat-item">
-            <span className="stat-number"><CountUp end={30} prefix="+" /></span>
-            <span className="stat-label">Años Cumpliendo Sueños</span>
-          </div>
-          <div className="stat-divider"></div>
-          <div className="stat-item">
-            <span className="stat-number"><CountUp end={5000} prefix="+" /></span>
-            <span className="stat-label">Participantes</span>
-          </div>
-        </div>
+  {/* 2. ESTADÍSTICAS: Aparecen después (0.4s) */}
+  <div className="inicio-stats anim-reveal" style={{ animationDelay: '0.5s' }}>
+    <div className="stat-item">
+      <span className="stat-number"><CountUp end={30} prefix="+" /></span>
+      <span className="stat-label">Años Cumpliendo Sueños</span>
+    </div>
+    <div className="stat-divider"></div>
+    <div className="stat-item">
+      <span className="stat-number"><CountUp end={5000} prefix="+" /></span>
+      <span className="stat-label">Participantes</span>
+    </div>
+  </div>
 
-        <div className="inicio-actions">
-          <Link to="/noticias" className="cj-btn cj-btn-primary">Ver Próximos Eventos</Link>
-          <button onClick={scrollToPilares} className="cj-btn cj-btn-outline">
-  Explorar
-</button>
-        </div>
+  {/* 3. ACCIONES: Aparecen al final (0.6s) */}
+  <div className="inicio-actions anim-reveal" style={{ animationDelay: '0.6s' }}>
+    <Link to="/noticias" className="cj-btn cj-btn-primary">Ver Próximos Eventos</Link>
+    <button onClick={scrollToPilares} className="cj-btn cj-btn-outline">
+      Explorar
+    </button>
+  </div>
 
-        {/* El degradado para fundir el video con el negro de abajo */}
-        <div className="hero-transition-fade"></div>
-      </main>
+  {/* DEGRADADO DE SALIDA: Necesario para fundir con los pilares de abajo */}
+  <div className="hero-transition-fade"></div>
+</main>
 
       {/* Aquí soltamos el componente nuevo */}
       <ResumenHome />

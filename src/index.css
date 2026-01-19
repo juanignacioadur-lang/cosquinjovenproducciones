@@ -89,3 +89,79 @@ html {
   filter: drop-shadow(0 0 2em #646cffaa); 
 }
 
+/* ============================================================
+   BLINDAJE ESTRUCTURAL ANTI-GAPS (ZOOM FIX)
+   ============================================================ */
+
+/* 1. SELLADO LATERAL: MATA LA LÍNEA DEL COSTADO */
+html, body {
+  background-color: #000 !important; /* El fondo del "universo" del navegador ahora es negro */
+  overflow-x: hidden !important;     /* Prohíbe el scroll lateral que genera la línea */
+  width: 100% !important;
+}
+
+/* 2. OVERSIZING DE SEGURIDAD (MATA-FRANJAS) */
+/* Hacemos que el video y el filtro sean un 1% más grandes que la pantalla.
+   Ese 1% sobra hacia afuera y tapa cualquier error de redondeo del zoom. */
+.video-fondo, 
+.login-video-bg, 
+.overlay, 
+.login-overlay-dark,
+.video-overlay-master {
+  width: 101vw !important; 
+  height: 101vh !important;
+  min-width: 101% !important;
+  min-height: 101% !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+/* 3. SELLADO HORIZONTAL: MATA LA LÍNEA DEL MEDIO */
+/* Forzamos a que todas las secciones principales se "encimen" 1 píxel sobre la anterior */
+section, main, .resumen-home-section {
+  margin-top: -1px !important;
+  position: relative;
+  z-index: 10;
+  /* Suaviza los bordes para que la placa de video no los deje transparentes */
+  outline: 1px solid transparent; 
+  backface-visibility: hidden;
+}
+
+/* 4. FIX DE VISIBILIDAD PARA EL VIDEO */
+/* Aseguramos que nada tape al video por error de fondo sólido */
+#root, .main-content {
+  background-color: transparent !important;
+}
+
+/* 5. PARCHE DE SEGURIDAD PARA EL BORDE DERECHO (FINAL BOSS) */
+/* Creamos un borde negro invisible que solo aparece si el zoom falla */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: #000;
+  z-index: 9999999;
+  pointer-events: none;
+}
+@keyframes monumentalFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px); /* Empieza 40px abajo */
+    filter: blur(5px);           /* Un toque de desenfoque inicial pro */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);    /* Llega a su posición original */
+    filter: blur(0);
+  }
+}
+
+/* Esta clase activa la animación */
+.anim-reveal {
+  opacity: 0; /* Empieza invisible */
+  animation: monumentalFadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}

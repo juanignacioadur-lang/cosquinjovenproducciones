@@ -1,4 +1,6 @@
-/* --- SECCIÓN PRINCIPAL: FONDO NEGRO INFINITO --- */
+/* ============================================================
+   SECCIÓN PRINCIPAL: FONDO NEGRO INFINITO
+   ============================================================ */
 .resumen-home-section {
   background: #000;
   width: 100%;
@@ -12,7 +14,7 @@
 /* 1. EL DEGRADADO SEPARADOR (The Fade) */
 .resumen-top-gradient {
   position: absolute;
-  top: -35vh; /* Se "mete" en la sección de arriba */
+  top: -35vh; 
   left: 0;
   width: 100%;
   height: 35vh;
@@ -21,52 +23,108 @@
   z-index: 5;
 }
 
-/* 2. CONTENEDOR DE PILARES */
+/* 2. CONTENEDOR DE PILARES (Garantiza Simetría) */
 .pillars-container {
   display: flex; 
   flex-direction: row;
   width: 100%;
-  min-height: 90vh; /* Ocupa casi toda la pantalla */
+  min-height: 90vh;
   margin: 0;
 }
 
+/* 3. EL PILAR INDIVIDUAL (Base, Fotos y Capas) */
 .pillar-item {
-  flex: 1; /* Esto obliga a que los 4 midan exactamente lo mismo */
+  flex: 1; /* Todos miden lo mismo */
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centrado vertical */
-  align-items: center;     /* Centrado horizontal */
+  justify-content: center;
+  align-items: center;
   padding: 80px 30px;
   text-align: center;
-  border-right: 1px solid rgba(255, 255, 255, 0.05); 
   box-sizing: border-box;
-  transition: background 0.5s ease;
+  position: relative;
+  overflow: hidden;
+  
+  /* Configuración de Imagen de Fondo */
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  transition: all 0.7s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+  z-index: 1;
 }
 
-.pillar-item:last-child { border-right: none; }
-
-.p-description {
-  font-family: 'CaustenRegular', sans-serif !important;
-  color: #888;
-  font-size: 1rem;
-  line-height: 1.6;
-  max-width: 280px;
-  margin-bottom: 40px;
-  /* Altura mínima para que los botones queden alineados entre pilares */
-  min-height: 100px; 
+.pillar-item:hover {
+  transform: scale(1.02) !important;
 }
 
-/* HOVER EFFECTS */
-.pillar-item:hover { background: rgba(255, 255, 255, 0.02); }
-.pillar-item.highlight:hover { background: rgba(208, 0, 0, 0.03); }
+.pillar-item:hover::before {
+  background: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0.9) 0%, 
+    rgba(0, 0, 0, 0.5) 50%,   /* Mantener un nivel de oscuridad incluso en hover */
+    rgba(0, 0, 0, 0.9) 100%
+  );
+}
 
-/* --- TIPOGRAFÍAS --- */
+/* --- CAPAS DE FILTRO OSCURO (Muro Cinematográfico) --- */
+
+/* CAPA A: Oscuridad Vertical (Fundido arriba/abajo) */
+.pillar-item::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 1) 0%,       /* Negro absoluto arriba */
+    rgba(0, 0, 0, 0.75) 40%,   /* Antes era 0.4 (subimos a 0.75 para oscurecer el centro) */
+    rgba(0, 0, 0, 0.75) 60%,   /* Antes era 0.4 */
+    rgba(0, 0, 0, 1) 100%      /* Negro absoluto abajo */
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* CAPA B: Viñeta Lateral (Disimula el cambio entre fotos) */
+.pillar-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.9) 0%,    /* Antes era 0.6 (casi negro en los bordes) */
+    transparent 25%,          /* Aumentamos el ancho de la sombra lateral */
+    transparent 75%,
+    rgba(0, 0, 0, 0.9) 100%   /* Antes era 0.6 */
+  );
+  z-index: 3;
+  pointer-events: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.pillar-item:last-child::after { border-right: none; }
+
+/* --- ASIGNACIÓN DE IMÁGENES --- */
+.pillar-historia { background-image: url('/Informacion.jpg') !important; }
+.pillar-danza { background-image: url('/DANZA ABUELOS.jpg') !important; }
+.pillar-bono { background-image: url('/sobre nosotros/1.jpg') !important; }
+.pillar-contacto { background-image: url('/folklore3.jpg') !important; }
+
+/* --- CAPA DE CONTENIDO (TEXTO ARRIBA DE TODO) --- */
+.pillar-inner {
+  position: relative !important;
+  z-index: 10 !important; /* Salta por encima de los filtros */
+  width: 100%;
+  pointer-events: all !important;
+}
+
+/* --- TIPOGRAFÍAS Y ELEMENTOS --- */
 .p-signature {
   font-family: 'Photograph Signature', cursive !important;
   font-size: 3.5rem;
   color: #d00000;
   margin-bottom: -15px;
   display: block;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
 .p-title {
@@ -75,125 +133,135 @@
   color: #fff;
   letter-spacing: 2px;
   margin: 0;
+  text-shadow: 0 2px 20px rgba(0,0,0,1);
 }
 
 .p-divider {
-  /* 1. Definimos el nuevo largo (80px es el doble de antes) */
   width: 80px !important; 
-  height: 3px !important; /* Un pelín más gruesa para que se vea pro */
+  height: 3px !important;
   background-color: #d00000 !important;
-  
-  /* 2. EL SECRETO DEL CENTRADO: margin auto a los costados */
   margin: 30px auto !important; 
-  
-  /* 3. Estilo cinemático */
   display: block !important;
   box-shadow: 0 0 15px rgba(208, 0, 0, 0.6);
-  border: none !important;
-  border-radius: 2px;
+  position: relative;
+  z-index: 11;
 }
 
+/* --- DESCRIPCIÓN (Fix para el Bono y Alineación) --- */
 .p-description {
+  display: block !important; /* Evita que flex rompa el texto */
+  text-align: center !important;
   font-family: 'CaustenRegular', sans-serif !important;
-  color: #888;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  max-width: 320px;
-  margin-bottom: 45px;
-  min-height: 120px; /* Alineación de botones */
+  color: #fff !important; /* Texto brillante */
+  font-size: 1.05rem !important;
+  line-height: 1.6 !important;
+  max-width: 320px !important;
+  margin: 0 auto 45px auto !important;
+  min-height: 120px !important; /* Mantiene los botones alineados */
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 1);
 }
 
+.p-description strong {
+  color: #fff !important;
+  font-weight: 700 !important;
+  display: inline !important;
+}
+
+/* --- BOTONES --- */
 .p-btn {
   font-family: 'Helvetica Compressed', sans-serif !important;
   text-decoration: none;
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 12px 35px;
   font-size: 1.1rem;
   letter-spacing: 2px;
   transition: 0.3s;
   text-transform: uppercase;
+  background: transparent;
 }
 
-.p-btn.btn-red { background: #d00000; border-color: #d00000; }
-.p-btn:hover { background: #fff; color: #000; border-color: #fff; }
+.p-btn.btn-red {
+  background: #d00000 !important;
+  border-color: #d00000 !important;
+  box-shadow: 0 10px 20px rgba(208, 0, 0, 0.2) !important;
+}
 
-/* --- ADAPTACIÓN MÓVIL (Paso a Paso) --- */
+.p-btn:hover {
+  background: #fff !important;
+  color: #000 !important;
+  border-color: #fff !important;
+}
+
+/* --- ADAPTACIÓN MÓVIL --- */
 @media (max-width: 1024px) {
+  .resumen-home-section {
+    padding-bottom: 120px !important; /* Espacio extra abajo */
+  }
+
   .pillars-container {
-    flex-direction: column; /* Se ponen uno arriba del otro */
+    flex-direction: column;
   }
 
   .pillar-item {
     width: 100%;
     min-height: auto;
-    padding: 60px 20px;
+    padding: 100px 20px;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .p-title {
-    font-size: 3rem !important; /* Más chico en móvil para que no se corte */
+  .p-title { font-size: 3rem !important; }
+  .p-signature { font-size: 2.5rem !important; }
+  .p-description { 
+    font-size: 0.95rem !important; 
+    min-height: auto; 
+    max-width: 100%; 
   }
 
-  .p-signature {
-    font-size: 2.5rem !important;
-  }
-
-  .p-description {
-    font-size: 0.9rem !important;
-    min-height: auto;
-    max-width: 100%;
-  }
+  .pillar-item:last-child { margin-bottom: 20px; }
 }
-/* --- CORRECCIÓN QUIRÚRGICA PARA EL TEXTO DEL BONO --- */
+/* ============================================================
+   SELLADO TÉCNICO DE GAPS (MANUAL FIX)
+   ============================================================ */
 
-.p-description {
-  /* 1. Cambiamos flex por block para que el texto fluya normal */
-  display: block !important; 
-  text-align: center !important;
-  
-  /* 2. Mantenemos el alineado con los otros cuadros */
-  max-width: 320px !important; 
-  min-height: 120px !important; 
-  margin: 0 auto 40px auto !important;
-  
-  /* 3. Ajuste de fuente para que no se amontone */
-  font-family: 'Causten Regular', sans-serif !important;
-  font-size: 1.05rem !important;
-  line-height: 1.6 !important;
-  color: #888 !important;
+/* 1. Forzamos que cada pilar "muerda" al de arriba para cerrar la grieta */
+.pillar-item {
+    /* Subimos cada cuadro 2 píxeles para que se encime sobre el anterior */
+    margin-top: -2px !important; 
+    
+    /* Le ponemos una sombra negra de 1px a todo el borde (como una cinta aislante) */
+    box-shadow: 0 0 0 1px #000 !important;
+    
+    /* Evitamos que el navegador intente suavizar los bordes con transparencias */
+    outline: 1px solid #000 !important;
+    outline-offset: -1px;
 }
 
-/* Forzamos que los destacados (el precio) no rompan la línea */
-.p-description strong {
-  color: #fff !important;
-  font-weight: 700 !important;
-  display: inline !important; /* Evita que el precio salte solo a otra fila de forma rara */
+/* 2. El primer pilar no necesita subir porque no tiene nada arriba */
+.pillar-item:first-child {
+    margin-top: 0 !important;
 }
 
-/* REFINAMIENTO DEL BOTÓN ROJO (ADQUIRIR) */
-.p-btn.btn-red {
-    background: #d00000 !important;
-    border: 1px solid #d00000 !important;
-    color: #fff !important;
-    box-shadow: 0 10px 20px rgba(208, 0, 0, 0.2) !important;
+/* 3. Ajuste específico para el degradado de entrada (el de arriba de todo) */
+.resumen-top-gradient {
+    /* Lo bajamos un poquito para que el negro sólido empiece antes del hueco */
+    bottom: -3px !important;
+    height: 36vh !important;
 }
 
-.p-btn.btn-red:hover {
-    background: #fff !important;
-    color: #000 !important;
-    border-color: #fff !important;
-}
-/* --- ESPACIO EXTRA AL FINAL DEL SCROLL (MÓVIL) --- */
+/* 4. BLINDAJE PARA MÓVILES (Donde se ve la línea en tu captura) */
 @media (max-width: 1024px) {
-  .resumen-home-section {
-    /* Agregamos un margen interno abajo para que el contenido "respire" */
-    padding-bottom: 120px !important; 
-  }
-
-  /* Ajuste por si el footer se pega mucho a los botones */
-  .pillar-item:last-child {
-    margin-bottom: 20px;
-  }
+    .pillar-item {
+        /* Aumentamos el solapamiento en móvil */
+        margin-top: -3px !important;
+        /* Nos aseguramos de que el fondo del pilar sea negro sólido detrás de la imagen */
+        background-color: #000 !important;
+    }
+    
+    /* Si la línea blanca persiste, es por un borde fantasma del contenedor */
+    .pillars-container {
+        gap: 0 !important;
+        background-color: #000 !important;
+    }
 }
