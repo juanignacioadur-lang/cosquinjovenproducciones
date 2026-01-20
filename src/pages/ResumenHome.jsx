@@ -25,29 +25,37 @@ const ResumenHome = () => {
           </div>
         </article>
 
-        {/* PILAR 2: EVENTOS */}
-        <article className="pillar-item pillar-danza">
-          <div className="pillar-inner">
-            <span className="p-signature">Certámenes</span>
-            <h2 className="p-title">DANZABUELOS</h2>
-            <div className="p-divider"></div>
-            <p className="p-description">
-              Lanzamiento oficial 2026: Un nuevo escenario dedicado a honrar 
-              la sabiduría y el baile de nuestros adultos mayores en una gala única 
-              bajo el cielo de Cosquín. Descubrí la cartelera completa.
-            </p>
-            <Link to="/noticias" className="p-btn">VER GRILLA</Link>
-          </div>
-        </article>
+        {/* PILAR 2: EVENTOS (CON COLLAGE 2x2) */}
+<article className="pillar-item pillar-danza">
+  
+  /* 1. AGREGAMOS EL CONTENEDOR DEL COLLAGE */
+  <div className="pillar-collage-bg">
+    <div className="collage-img" style={{ backgroundImage: "url('/COSQUIN JOVEN AL TEATRO.jpg')" }}></div>
+    <div className="collage-img" style={{ backgroundImage: "url('/COSQUIN JOVEN CARTAGENA.jpg')" }}></div>
+    <div className="collage-img" style={{ backgroundImage: "url('/EL ARGENTINO.jpg')" }}></div>
+    <div className="collage-img" style={{ backgroundImage: "url('/DANZA ABUELOS.jpg')" }}></div>
+  </div>
+
+  <div className="pillar-inner">
+    <span className="p-signature">Descubrir</span>
+    <h2 className="p-title">EVENTOS</h2>
+    <div className="p-divider"></div>
+    <p className="p-description">
+      Explorá nuestra cartelera 2026. Desde galas en teatros icónicos hasta certámenes internacionales. 
+      Un despliegue artístico único diseñado para cada etapa del bailarín.
+    </p>
+    <Link to="/noticias" className="p-btn">VER GRILLA</Link>
+  </div>
+</article>
 
         {/* PILAR 3: GRAN BONO (HIGHLIGHT) */}
         <article className="pillar-item pillar-bono highlight">
           <div className="pillar-inner">
-            <span className="p-signature">Sorteo Federal</span>
+            <span className="p-signature">Sorteo</span>
             <h2 className="p-title">GRAN BONO</h2>
             <div className="p-divider"></div>
             <p className="p-description">
-              Participá por más de <strong>$5.000.000 de pesos</strong> en premios. 
+              Participá por más de <strong>$5.000.000</strong> en premios. 
               Tu apoyo nos permite seguir impulsando la cultura argentina y los 
               sueños de miles de delegaciones en todo el país.
             </p>

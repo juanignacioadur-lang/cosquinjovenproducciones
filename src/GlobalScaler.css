@@ -233,86 +233,82 @@ body:has(.user-uefi-overlay), body:has(.bono-uefi-overlay) { overflow: hidden !i
 }
 
 /* ============================================================
-   FIX FINAL 1080p: IMÁGENES TOTALES Y ALTURA 1440p
+   FIX NIVELACIÓN TOTAL 1080p: ZOOM CONTACTO Y SIMETRÍA
    ============================================================ */
 
 @media (min-width: 1025px) and (max-width: 2000px) {
-    html { 
-        zoom: 0.75 !important; 
-        --zoom-factor: 0.75; 
-    }
 
-    /* 1. SECCIÓN DE FONDO: Eliminamos el límite de altura */
-    .resumen-home-section {
-        margin-top: -10px !important; 
-        width: 133.5vw !important; 
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #000 !important;
-        /* Hacemos que la sección sea MUY larga */
-        min-height: 120vh !important; 
-        padding-bottom: 0 !important;
-    }
-
-    /* 2. CONTENEDOR DE PILARES: Estirado total */
+    /* 1. CONTENEDOR: Forzamos el uso del 100% del ancho del Scaler */
     .pillars-container {
+        display: flex !important;
+        flex-direction: row !important;
         width: 100% !important;
         max-width: 100% !important;
-        margin: 0 !important;
-        display: flex !important;
-        align-items: stretch !important; /* Estira los pilares al máximo */
         gap: 0 !important;
+        margin: 0 !important;
     }
 
-    /* 3. CADA PILAR: Altura extendida y relleno de imagen */
+    /* 2. CADA PILAR: Forzamos igualdad absoluta (25% cada uno) */
     .pillar-item {
-        flex: 1 !important;
-        /* 120vh asegura que la sección sea más larga que tu monitor */
-        min-height: 120vh !important; 
-        margin-right: -1px !important; 
-        border: none !important;
+        /* flex: 1 0 25% garantiza que NUNCA se achiquen menos del 25% */
+        flex: 1 0 25% !important; 
+        width: 25% !important;
+        min-height: 115vh !important;
+        position: relative !important;
         
-        /* CENTRADO: Todo el contenido queda en el medio del nuevo largo */
+        /* SELLADO: Mantenemos el solapamiento que borró las líneas */
+        margin-right: -2px !important; 
+        border: none !important;
+        outline: 2px solid #000 !important;
+        outline-offset: -2px;
+        z-index: 1 !important;
+        background-color: #000 !important;
+    }
+
+    /* 3. ZOOM ESPECÍFICO PARA NIVELAR IMÁGENES */
+    .pillar-item {
+        background-size: 140% !important; /* Zoom general un poco más alto */
+        background-position: center center !important;
+    }
+
+    /* FIX CONTACTO: Le damos un zoom extra para que la imagen tenga más peso visual */
+    .pillar-contacto {
+        background-size: 160% !important; /* Zoom extra para que no parezca vacía */
+        margin-right: 0 !important; /* El último no necesita margen derecho */
+    }
+
+    /* 4. BLINDAJE DE SOMBRAS (ENCIMA DE TODO) */
+    .pillar-item::before {
+        background: linear-gradient(
+            to bottom, 
+            rgba(0,0,0,1) 0%, 
+            rgba(0,0,0,0.85) 20%, 
+            rgba(0,0,0,0.85) 80%, 
+            rgba(0,0,0,1) 100%
+        ) !important;
+        z-index: 5 !important;
+    }
+
+    .pillar-item::after {
+        background: linear-gradient(
+            to right, 
+            #000 0%, 
+            transparent 15%, 
+            transparent 85%, 
+            #000 100%
+        ) !important;
+        z-index: 6 !important;
+    }
+
+    /* 5. CONTENIDO: Centrado y Nivelado */
+    .pillar-inner {
+        width: 100% !important;
+        max-width: 400px !important;
+        margin: 0 auto !important;
         display: flex !important;
         flex-direction: column !important;
-        justify-content: center !important; 
+        justify-content: center !important;
         align-items: center !important;
-        padding: 60px 40px !important;
-
-        /* EL FIX DE LA IMAGEN: Rellena todo el hueco negro */
-        background-size: cover !important; 
-        background-position: center center !important;
-        background-attachment: scroll !important; /* Mantiene la imagen pegada al pilar */
+        z-index: 100 !important;
     }
-
-    /* 4. AJUSTE DE TEXTOS PARA EL NUEVO LARGO */
-    .p-description {
-        min-height: 120px !important; /* Mantenemos alineación de botones */
-        margin-bottom: 50px !important;
-    }
-}
-
-/* REFUERZO DE SELLADO (Para que no se vea nada abajo al scrollear) */
-footer {
-    position: relative;
-    z-index: 100;
-    background: #000 !important;
-    margin-top: -2px !important; /* Sella la unión con los pilares largos */
-}
-html, body {
-  background-color: #000 !important;
-  overflow-x: hidden !important;
-}
-
-/* Crea un parche negro fijo a la derecha por si el zoom falla */
-body::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 4px;
-  height: 100%;
-  background: #000;
-  z-index: 9999999;
-  pointer-events: none;
 }

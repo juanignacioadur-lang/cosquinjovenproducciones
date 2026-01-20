@@ -1,0 +1,146 @@
+/* ============================================================
+   HOME GALLERY - GRILLA CUADRADA SIMÉTRICA
+   ============================================================ */
+
+.home-gallery-section {
+  background: #000;
+  width: 100%;
+  padding: 80px 4% 150px 4%;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 20;
+}
+
+/* --- CABECERA --- */
+.gallery-header { text-align: center; margin-bottom: 50px; }
+.gallery-sig { font-family: 'Photograph Signature', cursive !important; font-size: 3rem; color: #d00000; margin-bottom: -10px; display: block; }
+.gallery-title { font-family: 'Helvetica Compressed', sans-serif !important; font-size: 4.5rem; color: #fff; letter-spacing: 2px; text-transform: uppercase; }
+
+/* --- GRILLA UNIFORME --- */
+.gallery-grid {
+  display: grid !important;
+  /* FORZAMOS 5 COLUMNAS */
+  grid-template-columns: repeat(5, 1fr) !important; 
+  
+  /* Aumentamos el ancho máximo para que entren las 5 cómodas */
+  max-width: 1700px !important; 
+  width: 100% !important;
+  
+  gap: 12px !important; /* Espacio entre fotos */
+  margin: 0 auto !important;
+  
+  /* Limpiamos cualquier rastro de Masonry de columnas anterior */
+  column-count: auto !important; 
+}
+
+/* --- EL ITEM CUADRADO --- */
+.gallery-item {
+  position: relative;
+  width: 100%;
+  /* EL SECRETO: Fuerza a que el alto sea igual al ancho siempre */
+  aspect-ratio: 1 / 1; 
+  overflow: hidden;
+  border-radius: 4px;
+  background: #0a0a0a;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Forzamos a ignorar los spans de las clases vertical/horizontal */
+.gallery-item.vertical, 
+.gallery-item.horizontal {
+  grid-column: span 1 !important;
+  grid-row: span 1 !important;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  /* CLAVE: Corta los bordes de la foto original para que rellene el cuadrado */
+  object-fit: cover; 
+  display: block;
+  filter: brightness(0.8) contrast(1.1);
+  transition: 0.6s ease;
+}
+
+/* --- EFECTOS AL PASAR EL MOUSE --- */
+.gallery-item:hover {
+  transform: scale(1.03);
+  z-index: 30;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.9);
+}
+
+.gallery-item:hover img {
+  filter: brightness(1) contrast(1.2);
+}
+
+/* Overlay sutil */
+.item-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(208, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.item-overlay span {
+  font-family: 'Helvetica Compressed', sans-serif;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 5px 15px;
+  font-size: 1rem;
+}
+
+.gallery-item:hover .item-overlay { opacity: 1; }
+
+/* ============================================================
+   OPTIMIZACIÓN MÓVIL
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  .gallery-grid {
+    /* 2 columnas en el iPhone para que las fotos se vean grandes */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 10px;
+  }
+
+  .gallery-title { font-size: 2.8rem; }
+  
+  .home-gallery-section {
+    padding-bottom: 120px !important;
+  }
+}
+
+/* --- LIGHTBOX --- */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.98);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(15px);
+}
+
+.lightbox-content img {
+  max-width: 95vw;
+  max-height: 85vh;
+  object-fit: contain; /* En grande la foto se ve entera, sin recortar */
+}
+
+.nav-btn {
+  position: absolute;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 4rem;
+  cursor: pointer;
+  padding: 20px;
+}
+.prev { left: 10px; }
+.next { right: 10px; }
+.close-btn { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 3rem; border: none; background: none; cursor: pointer; }

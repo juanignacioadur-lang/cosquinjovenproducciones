@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"; // 1. Agregamos useEffect aq
 import { Link } from "react-router-dom";
 import "./HomePage.css";
 import ResumenHome from './ResumenHome';
+import HomeGallery from './HomeGallery';
 <meta name="google-site-verification" content="PHMSJJG6ZRd7dnQwV4UznPyrRV8DY-ruhRg8ptbQMCc" />
 
 // 2. Definimos CountUp AFUERA de la función Inicio
@@ -32,12 +33,17 @@ export default function Inicio() {
 
   const scrollToPilares = (e) => {
   e.preventDefault();
-  // Buscamos la sección por su ID
-  const section = document.getElementById("resumen-explorar"); 
+  const section = document.getElementById("resumen-explorar");
+  
   if (section) {
-    section.scrollIntoView({ 
-      behavior: "smooth", // Esto activa el movimiento lento/suave
-      block: "start"      // Lo alinea al principio de la pantalla
+    // 1. Obtenemos la posición de la sección respecto a la parte superior
+    const yOffset = -80; // CAMBIÁ ESTO: -80 te deja más arriba, -150 mucho más arriba.
+    const y = section.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+    // 2. Ejecutamos el scroll manual suave
+    window.scrollTo({
+      top: y,
+      behavior: "smooth"
     });
   }
 };
@@ -98,6 +104,8 @@ return (
 
       {/* Aquí soltamos el componente nuevo */}
       <ResumenHome />
+
+      <HomeGallery />
     </div>
  );
 }

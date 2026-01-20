@@ -165,3 +165,18 @@ body::after {
   opacity: 0; /* Empieza invisible */
   animation: monumentalFadeUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
+/* 3. SELLADO HORIZONTAL REFORZADO (MATA LA LÍNEA DEL MEDIO) */
+section, main, .resumen-home-section, .home-pillars-section {
+  /* Subimos el solapamiento a -3px para que el zoom no lo venza */
+  margin-top: -3px !important; 
+  position: relative;
+  z-index: 10;
+  /* Evita que los bordes se desvanezcan */
+  outline: 1px solid #000 !important; 
+  background-color: #000 !important;
+}
+
+/* Fix extra para el borde derecho: lo hacemos más ancho (5px) */
+body::after {
+  width: 5px !important;
+}
