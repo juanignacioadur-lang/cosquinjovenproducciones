@@ -6,6 +6,7 @@ import HomeGallery from './HomeGallery';
 <meta name="google-site-verification" content="PHMSJJG6ZRd7dnQwV4UznPyrRV8DY-ruhRg8ptbQMCc" />
 
 // 2. Definimos CountUp AFUERA de la función Inicio
+
 const CountUp = ({ end, duration = 2000, prefix = "" }) => {
   const [count, setCount] = useState(0);
 
@@ -30,7 +31,21 @@ const CountUp = ({ end, duration = 2000, prefix = "" }) => {
 
 export default function Inicio() {
   const [videoLoaded, setVideoLoaded] = useState(false);
+   const [isVisible, setIsVisible] = useState(true);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      // Si el usuario bajó más de 50px, ocultamos la flecha
+      if (window.scrollY > 50) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
   const scrollToPilares = (e) => {
   e.preventDefault();
   const section = document.getElementById("resumen-explorar");
@@ -97,6 +112,10 @@ return (
       Explorar
     </button>
   </div>
+   <div className={`home-scroll-hint ${isVisible ? 'fade-in' : 'fade-out'}`}>
+          <span className="scroll-hint-text">CONÓCENOS</span>
+          <div className="scroll-arrow-icon">↓</div>
+   </div>
 
   {/* DEGRADADO DE SALIDA: Necesario para fundir con los pilares de abajo */}
   <div className="hero-transition-fade"></div>

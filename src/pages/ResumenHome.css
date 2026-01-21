@@ -425,29 +425,43 @@
 }
 
 /* "Así vivimos las experiencias en" */
-.pillars-pretext {
-  font-family: 'Causten', sans-serif !important; /* Fuente fina blanca */
-  color: #ffffff;
-  font-size: 1.1rem;
-  font-weight: 300;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  opacity: 0.8;
-}
-
-/* "Cosquín Joven" */
 .pillars-brandname {
   font-family: 'Photograph Signature', cursive !important;
-  color: rgba(138, 0, 0, 0.6) !important; 
-  font-size: 6rem; /* Grande e impactante */
-  -webkit-text-stroke: 2px #8f0000 !important;
+  
+  /* 1. COLOR ROJO OSCURO: Cambiamos el rojo vibrante por un bordó profundo */
+  color: #8b0000 !important; 
+  
+  font-size: 6rem;
   margin: 0;
   line-height: 0.8;
-  /* Sombreado para que resalte sobre las fotos de fondo */
-  filter: drop-shadow(0 0 8px rgba(138, 0, 0, 0.8)) !important;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-transform: none !important;
+
+  /* 2. BORDE BLANCO ATENUADO: Usamos un blanco traslúcido para que sea más discreto */
+  text-shadow: 
+    -1px -1px 0 rgba(255, 255, 255, 0.267), 
+     1px -1px 0 rgba(255, 255, 255, 0.267),
+    -1px  1px 0 rgba(255, 255, 255, 0.267),
+     1px  1px 0 rgba(255, 255, 255, 0.267),
+     0px  1px 0 rgba(255, 255, 255, 0.267),
+     0px -1px 0 rgba(255, 255, 255, 0.267),
+    -1px  0px 0 rgba(255, 255, 255, 0.267),
+     1px  0px 0 rgba(255, 255, 255, 0.267),
+     /* 3. GLOW ROJO APAGADO: Bajamos la intensidad y el brillo */
+     0 0 10px rgba(102, 0, 0, 0.5) !important;
+
+  /* 4. REFUERZO DE SOMBRA NEGRA: Para dar más profundidad */
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
 }
+
+/* Ajuste del texto de abajo (Móvil style) */
+.pillars-pretext {
+  font-family: 'Causten', sans-serif !important;
+  color: rgba(255, 255, 255, 0.3) !important; /* Más opaco */
+  letter-spacing: 8px !important;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
 
 /* --- AJUSTE PARA MÓVILES (iPhone/Android) --- */
 @media (max-width: 1024px) {
@@ -492,4 +506,77 @@
   
   /* Asegurate de que no tenga márgenes que te muevan el diseño */
   margin-top: 0 !important; 
+}
+/* --- CÁPSULA DE INFORMACIÓN TÁCTICA V2 (Puntero Superior) --- */
+.pillars-info-cloud {
+  position: relative;
+  margin-top: 60px; /* Espacio para que el puntero no toque el texto de arriba */
+  background: rgba(208, 0, 0, 0.03); /* Un toque mínimo de rojo de fondo */
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 14px 28px;
+  border-radius: 4px; /* Bordes más rectos = Look más técnico y pro */
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+  
+  /* Animación de flotado sutil */
+  animation: floatingCloud 3s infinite ease-in-out;
+  display: inline-block;
+}
+
+/* El texto dentro de la cápsula */
+.pillars-info-cloud p {
+  font-family: 'Causten', sans-serif !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  margin: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* EL PIQUITO (Puntero hacia ARRIBA) */
+.cloud-pointer-top {
+  position: absolute;
+  top: -7px; /* Lo sacamos por arriba */
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: #0a0a0a; /* Color oscuro para fundirse con la cápsula */
+  
+  /* Solo dibujamos los bordes superiores para que parezca una flecha que nace de la caja */
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  z-index: -1;
+}
+
+/* Efecto Neón en el borde al pasar el mouse */
+.pillars-info-cloud:hover {
+  border-color: #ffffff;
+  box-shadow: 0 0 20px rgba(208, 0, 0, 0.2);
+}
+
+.pillars-info-cloud:hover .cloud-pointer-top {
+  border-color: #ffffff;
+}
+
+/* --- ANIMACIÓN REFINADA --- */
+@keyframes floatingCloud {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); } /* Flota hacia arriba sutilmente */
+}
+
+/* --- AJUSTE MÓVIL --- */
+@media (max-width: 1024px) {
+  .pillars-info-cloud {
+    margin-top: 50px;
+    padding: 12px 20px;
+    max-width: 85%;
+  }
+  
+  .pillars-info-cloud p {
+    font-size: 0.6rem;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+  }
 }

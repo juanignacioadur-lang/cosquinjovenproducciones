@@ -402,3 +402,47 @@
     letter-spacing: 3px;
   }
 }
+/* --- INDICADOR DE SCROLL (HOME) --- */
+.home-scroll-hint {
+  position: absolute;
+  bottom: 100px; /* Posicionada arriba del degradado final */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.scroll-hint-text {
+  font-family: 'Causten', sans-serif !important;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  letter-spacing: 5px;
+  font-weight: 600;
+}
+
+.scroll-arrow-icon {
+  color: #ff0000; /* Flecha en el rojo de la marca */
+  font-size: 2rem;
+  animation: arrowBounce 2s infinite;
+}
+
+/* Clases de visibilidad controladas por JS */
+.fade-in { opacity: 1; transform: translateY(0); }
+.fade-out { opacity: 0; transform: translateY(20px); }
+
+/* Animación de rebote sutil */
+@keyframes arrowBounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(10px); }
+  60% { transform: translateY(5px); }
+}
+
+/* Ajuste móvil */
+@media (max-width: 1024px) {
+  .home-scroll-hint {
+    bottom: 70px; /* La subimos un poco para que no choque con el botón Fundación */
+  }
+}
