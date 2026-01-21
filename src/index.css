@@ -196,3 +196,47 @@ section, main, .resumen-home-section, .home-pillars-section {
 body::after {
   width: 5px !important;
 }
+/* ============================================================
+   FIX ESTRUCTURAL: DISOLUCIÓN SUAVE (HACIA ARRIBA)
+   ============================================================ */
+
+/* 1. Preparamos el elemento para una transición ultra suave */
+.home-scroll-hint {
+  will-change: opacity, transform, filter;
+  /* Esta transición es la que hará el "esfume" lento */
+  transition: 
+    opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), 
+    transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), 
+    filter 1.5s ease !important;
+}
+
+/* 2. CLASE DE SALIDA: El "Martillazo" para matar la animación */
+.home-scroll-hint.fade-out {
+  /* ELIMINA la animación de entrada para liberar la opacidad */
+  animation: none !important; 
+  
+  /* ESTADO FINAL: Invisible, arriba y desenfocado */
+  opacity: 0 !important;
+  transform: translateY(-80px) !important; /* Sube mientras desaparece */
+  filter: blur(15px) !important;           /* Se disuelve como humo */
+  
+  /* Forzamos que la transición de salida sea la que mande */
+  transition: 
+    opacity 1.2s ease-in, 
+    transform 1.2s ease-in, 
+    filter 1.2s ease-in !important;
+}
+
+/* 3. CLASE DE ENTRADA: Aseguramos que la animación trabaje limpia */
+.home-scroll-hint.fade-in {
+  /* Dejamos que anim-reveal haga su trabajo al cargar */
+}
+
+/* 4. REFUERZO DE ANIMACIÓN (En tu index.css actualiza este bloque) */
+.anim-reveal {
+  animation-name: monumentalFadeUp;
+  animation-duration: 1.2s;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* 'both' es vital para el delay, pero 'animation: none' en fade-out lo romperá */
+  animation-fill-mode: both !important;
+}

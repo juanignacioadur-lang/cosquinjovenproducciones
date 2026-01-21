@@ -476,8 +476,8 @@
 }
 
 /* Clases de desvanecimiento (JS) */
-.home-scroll-hint.fade-in { opacity: 1; transition: opacity 0.6s ease; }
-.home-scroll-hint.fade-out { opacity: 0; transition: opacity 0.4s ease; }
+.home-scroll-hint.fade-in { opacity: 1; transition: opacity 1s ease; }
+.home-scroll-hint.fade-out { opacity: 0; transition: opacity 1s ease; }
 /* --- AJUSTE DE POSICIÓN SUPREMA PARA EL INDICADOR DE SCROLL --- */
 
 .home-scroll-hint {
