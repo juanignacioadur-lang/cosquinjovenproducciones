@@ -478,3 +478,33 @@
 /* Clases de desvanecimiento (JS) */
 .home-scroll-hint.fade-in { opacity: 1; transition: opacity 0.6s ease; }
 .home-scroll-hint.fade-out { opacity: 0; transition: opacity 0.4s ease; }
+/* --- AJUSTE DE POSICIÓN SUPREMA PARA EL INDICADOR DE SCROLL --- */
+
+.home-scroll-hint {
+  /* 1. Lo subimos en PC para que el footer que agregamos no lo moleste */
+  bottom: 140px !important; 
+  
+  /* 2. Aseguramos que esté por encima de cualquier capa de fondo */
+  z-index: 100 !important;
+  
+  /* 3. Mantenemos el centrado */
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* --- AJUSTE PARA MÓVILES (IPHONE / ANDROID) --- */
+@media (max-width: 1024px) {
+  .home-scroll-hint {
+    /* 4. En móvil lo subimos un poco más porque el footer y el botón 
+       rojo de Fundación ocupan mucho espacio abajo */
+    bottom: 115px !important; 
+  }
+}
+
+/* Ajuste específico para 1080p con GlobalScaler (Zoom 0.75) */
+@media (min-width: 1025px) and (max-width: 1920px) {
+    .home-scroll-hint {
+        /* En 1080p compensamos el escalado para que no se vea tan abajo */
+        bottom: 180px !important; 
+    }
+}
