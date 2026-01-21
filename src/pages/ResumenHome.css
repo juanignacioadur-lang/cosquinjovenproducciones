@@ -10,6 +10,7 @@
   margin: 0;
   overflow: hidden;
   scroll-margin-top: 100px !important; 
+  padding-bottom: 30px !important; 
 }
 
 /* 1. EL DEGRADADO SEPARADOR (The Fade) */
@@ -410,4 +411,85 @@
 .p-description {
   line-height: 1.6 !important;
   display: block !important;
+}
+/* --- ESTILO DEL NUEVO ENCABEZADO --- */
+.pillars-main-header {
+  width: 100%;
+  text-align: center;
+  padding: 60px 20px 40px 20px; /* Aire arriba y abajo */
+  position: relative;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* "Así vivimos las experiencias en" */
+.pillars-pretext {
+  font-family: 'Causten', sans-serif !important; /* Fuente fina blanca */
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  opacity: 0.8;
+}
+
+/* "Cosquín Joven" */
+.pillars-brandname {
+  font-family: 'Photograph Signature', cursive !important;
+  color: rgba(138, 0, 0, 0.6) !important; 
+  font-size: 6rem; /* Grande e impactante */
+  -webkit-text-stroke: 2px #8f0000 !important;
+  margin: 0;
+  line-height: 0.8;
+  /* Sombreado para que resalte sobre las fotos de fondo */
+  filter: drop-shadow(0 0 8px rgba(138, 0, 0, 0.8)) !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* --- AJUSTE PARA MÓVILES (iPhone/Android) --- */
+@media (max-width: 1024px) {
+  .pillars-main-header {
+    padding: 40px 15px 20px 15px;
+  }
+
+  .pillars-pretext {
+  font-family: 'Causten', sans-serif !important;
+  
+  /* CAMBIO: De blanco puro a un gris técnico suave */
+  /* El 0.5 lo hace 50% transparente, podés bajarlo a 0.4 para más oscuro */
+  color: rgba(255, 255, 255, 0.5) !important; 
+  
+  /* Ajustes para que se mantenga prolijo */
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  font-weight: 300;
+  margin-top: 0;
+  transition: color 0.3s ease;
+}
+
+  .pillars-brandname {
+    font-size: 3.5rem; /* Ajustamos para que entre en el ancho del celu */
+    margin-top: 5px;
+  }
+}
+/* --- AJUSTE DE ESPACIO MANUAL --- */
+
+.pillars-brandname {
+  /* ... mantené todo lo que ya tenías (fuente, stroke, glow) ... */
+  
+  /* AGREGÁ ESTA LÍNEA: */
+  margin-bottom: 30px !important; /* Subí este número si querés más espacio aún */
+  
+  line-height: 0.9;
+  display: block;
+}
+
+.pillars-pretext {
+  /* ... mantené tu fuente Causten y el blanco ... */
+  
+  /* Asegurate de que no tenga márgenes que te muevan el diseño */
+  margin-top: 0 !important; 
 }

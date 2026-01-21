@@ -106,6 +106,11 @@ return (
       <ResumenHome />
 
       <HomeGallery />
+      <footer className="main-footer-supreme">
+        <p>
+          TODOS LOS DERECHOS DE CONTENIDO ESTÁN RESERVADOS A <span className="footer-brand-red">COSQUÍN JOVEN</span> PRODUCCIONES
+        </p>
+      </footer>
     </div>
  );
 }

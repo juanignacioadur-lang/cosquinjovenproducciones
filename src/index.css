@@ -64,6 +64,22 @@ html {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
+video {
+  /* 1. Forzamos el uso de la tarjeta gráfica (GPU) para evitar tirones */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000;
+
+  /* 2. Filtro de nitidez técnica: mejora el contraste y la claridad visual */
+  filter: contrast(1.05) brightness(1.02) saturate(1.1);
+
+  /* 3. Evitamos que el navegador suavice los bordes y los deje borrosos */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+
+  /* 4. Suavizado de movimiento */
+  will-change: transform;
+}
 
 /* --- BASES DE VIDEO Y OVERLAY (SIN TAMAÑOS FIJOS AQUÍ) --- */
 /* Dejamos que el GlobalScaler maneje el tamaño para evitar el bug del zoom */
@@ -80,7 +96,7 @@ html {
 .overlay, .login-overlay-dark {
   position: fixed; 
   inset: 0;
-  background: rgba(0, 0, 0, 0.6); 
+  background: rgba(0, 0, 0, 0.4); 
   z-index: -1;
   pointer-events: none;
 }

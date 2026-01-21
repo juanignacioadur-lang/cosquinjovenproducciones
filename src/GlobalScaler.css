@@ -7,6 +7,8 @@
   --zoom-factor: 1;
 }
 
+
+
 /* --- ESCENARIO 1: PC 1080p / LAPTOPS (Zoom 0.75) --- */
 @media (min-width: 1025px) and (max-width: 2000px) {
   html { 
@@ -323,4 +325,244 @@ body::after {
         font-size: 4.5rem !important;
         opacity: 0.8;
     }
+}
+/* ============================================================
+   REFINAMIENTO MÓVIL: ESPACIADO EQUILIBRADO (EL PUNTO DULCE)
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  
+  /* 1. SECCIÓN DE PILARES: Le damos un aire prolijo abajo */
+  .resumen-home-section, 
+  .home-pillars-section {
+    min-height: auto !important; 
+    height: auto !important;
+    padding-bottom: 40px !important; /* Espacio justo después del último botón */
+    margin-bottom: 0 !important;
+  }
+
+  /* 2. PILARES INDIVIDUALES: Menos margen interno para no estirar */
+  .pillar-item {
+    min-height: auto !important;
+    padding: 50px 20px !important; 
+  }
+
+  /* 3. GALERÍA: Reseteamos el margen y damos aire arriba */
+  .home-gallery-section, 
+  .home-gallery-root {
+    /* Quitamos el margen negativo (-60px) que lo pegaba todo */
+    margin-top: 0 !important; 
+    /* Damos un aire de 30px antes del título rojo "Reviví..." */
+    padding-top: 30px !important; 
+    z-index: 30;
+  }
+
+  /* 4. CABECERA GALERÍA: Centrada y sin espacios muertos extras */
+  .gallery-header {
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+  }
+}
+/* ============================================================
+   FIX ABOUT PAGE: UNIFICACIÓN DE PILAR CENTRAL (ANTI-PARCHES)
+   ============================================================ */
+
+/* 1. Forzamos que todas las secciones internas sean transparentes */
+/* Esto elimina los "cuadros" que se ven más oscuros que el fondo */
+.about-pilar-central section, 
+.h-editorial-section, 
+.f-master-section, 
+.m-multimedia-section {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important; /* Eliminamos sombras internas que ensucian */
+}
+
+/* 2. Aseguramos que el Pilar sea la única fuente de color */
+.about-pilar-central {
+    background: rgba(7, 7, 7, 0.98) !important;
+    /* Mantenemos solo la sombra roja exterior (Aureola) */
+    box-shadow: 
+        0 0 100px rgba(0, 0, 0, 1),
+        -60px 0 150px -20px rgba(208, 0, 0, 0.4), 
+         60px 0 150px -20px rgba(208, 0, 0, 0.4) !important;
+}
+
+/* 3. Limpieza de los fondos de las tarjetas (Cimientos) */
+/* Hacemos que el fondo de los cuadros de "ADN Familiar", etc., sea más prolijo */
+.f-inner-wrap {
+    background: rgba(255, 255, 255, 0.02) !important; /* Muy sutil para que no parezca un parche */
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* 4. Fix para el degradado del visor de cine abajo */
+.archive-section-bottom {
+    background: transparent !important;
+}
+
+/* 5. ELIMINACIÓN DE LÍNEAS DE CORTE EN PC (1080p/1440p) */
+@media (min-width: 1025px) {
+    .about-pilar-central {
+        /* Aseguramos que el pilar central esté perfectamente centrado y no se mueva */
+        margin-left: auto !important;
+        margin-right: auto !important;
+        position: relative !important;
+        left: 0 !important;
+        transform: none !important;
+    }
+}
+/* ============================================================
+   FIX CONTACT PAGE: UNIFICACIÓN Y ELIMINACIÓN DE CUADROS
+   ============================================================ */
+
+/* 1. Volvemos transparente la cabecera para que no parezca un cuadro aparte */
+.ct-hero {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding-bottom: 0 !important; /* Ajuste para que no flote */
+}
+
+/* 2. Limpieza del lado izquierdo (WhatsApp / Mail) */
+/* Hacemos que el contenedor de la izquierda sea transparente 
+   pero mantenemos los módulos (cards) con su estilo técnico */
+.ct-info-side {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* 3. MANTENEMOS EL FORMULARIO OSCURO (LO QUE PEDISTE) */
+/* No tocamos la clase .ct-terminal-box ni .ct-form-glass 
+   para que el área de "enviar mensaje" siga siendo un bloque sólido */
+.ct-terminal-box {
+  background: rgba(0, 0, 0, 0.5) !important; /* Fondo oscuro táctico */
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 4. ASEGURAMOS QUE EL PILAR SEA EL FONDO ÚNICO */
+.ct-pilar-central {
+  background: rgba(7, 7, 7, 0.98) !important; /* Negro de base */
+}
+
+/* 5. FIX MÓVIL: Evita que en el iPhone se vean "rayas" entre secciones */
+@media (max-width: 1024px) {
+  .ct-hero, .ct-info-side, .ct-form-side {
+    margin-bottom: 0 !important;
+    border: none !important;
+  }
+}
+/* Aseguramos que el ancla del scroll tenga aire arriba */
+#resumen-explorar {
+  scroll-margin-top: 50px !important; /* Ajusta este valor si tienes navbar fijo */
+}
+
+/* Si usas el zoom 0.75, forzamos que el título también se centre en 1080p */
+@media (min-width: 1025px) and (max-width: 2000px) {
+    .pillars-main-header {
+        width: 100vw !important;
+        margin: 0 auto;
+    }
+}
+
+/* ============================================================
+   BLOQUE DEFINITIVO 720p (NOTEBOOKS 1366px)
+   SIMULACIÓN 1440p + SELLADO TOTAL
+   ============================================================ */
+
+@media (min-width: 1025px) and (max-width: 1366px) {
+  html { 
+    /* 1. Zoom agresivo para ganar aire y finura visual */
+    zoom: 0.65 !important; 
+    --zoom-factor: 0.65; 
+  }
+
+  /* 2. BLOQUEO DE PANTALLA HERO: Video 100% real sin filtraciones */
+  .inicio-hero { 
+    /* 1 / 0.65 = 1.54. Usamos 154vh para que el video tape TODO al entrar */
+    min-height: 154vh !important; 
+    height: 154vh !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    background: transparent !important;
+  }
+
+  /* 3. SECCIÓN DE PILARES: Altura monumental y Ancho infinito */
+  .resumen-home-section {
+    background-color: #000 !important;
+    width: 155vw !important; /* Estiramos para borrar la línea azul derecha */
+    left: 50%;
+    transform: translateX(-50%);
+    min-height: 125vh !important; 
+    margin-top: -20px !important; /* Succiona el video para sellar la junta */
+    position: relative;
+    z-index: 20;
+  }
+
+  /* 4. LOS 4 PILARES: Simetría perfecta (Iguales entre sí) */
+  .pillars-container {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 0 !important;
+  }
+
+  .pillar-item {
+    /* flex: 1 0 25% prohíbe que "Contacto" o cualquier otro se achique */
+    flex: 1 0 25% !important; 
+    width: 25% !important;
+    min-height: 125vh !important;
+    
+    /* EFECTO 1440p: Imagen con zoom, cortada y profunda */
+    background-size: 160% !important; 
+    background-position: center center !important;
+    
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    
+    /* Sellado de bordes internos */
+    margin-right: -1px !important;
+    outline: 2px solid #000 !important;
+    outline-offset: -2px;
+  }
+
+  /* 5. RE-ESCALADO DE TEXTOS (Para que no sean toscos) */
+  .p-title { font-size: 5rem !important; }
+  .p-signature { font-size: 3.8rem !important; }
+  .p-description { 
+    font-size: 1.1rem !important; 
+    max-width: 320px !important; 
+    line-height: 1.7 !important;
+  }
+
+  /* 6. LOGO HERO: Proporcional al nuevo espacio */
+  .inicio-logo {
+    width: 42vw !important; 
+    max-width: 550px !important;
+  }
+
+  /* 7. VISOR DE GALERÍA (Lightbox) en 720p */
+  .lb-master-root {
+    width: 155vw !important;
+    height: 155vh !important;
+  }
+}
+
+/* FIX DE JUNTA: El degradado del video debe ser negro puro al final */
+@media (min-width: 1025px) and (max-width: 1366px) {
+  .hero-transition-fade {
+    height: 45vh !important;
+    bottom: -10px !important;
+    background: linear-gradient(to bottom, transparent 0%, #000 90%, #000 100%) !important;
+    z-index: 15 !important;
+    width: 155vw !important;
+    left: 50%;
+    transform: translateX(-50%);
+  }
 }

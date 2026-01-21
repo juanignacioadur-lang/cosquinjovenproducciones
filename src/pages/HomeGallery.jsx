@@ -56,7 +56,10 @@ const HomeGallery = () => {
         onPrev={prevImg}
       />
     </section>
+    
   );
+  
+  
 };
 
 export default HomeGallery;

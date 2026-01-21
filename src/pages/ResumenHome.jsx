@@ -5,9 +5,14 @@ import './ResumenHome.css';
 const ResumenHome = () => {
   return (
     <section className="resumen-home-section" id="resumen-explorar">
+
       {/* 1. EL DEGRADADO DE ENTRADA: Funde el video del Home con este fondo negro */}
       <div className="resumen-top-gradient"></div>
-
+      <div className="resumen-top-gradient"></div>
+      <header className="pillars-main-header anim-reveal">
+        <h2 className="pillars-brandname">Cosquín Joven</h2>
+        <p className="pillars-pretext">VIVE LA EXPERIENCIA</p>
+      </header>
       <div className="pillars-container">
         
         {/* PILAR 1: NOSOTROS */}

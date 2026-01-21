@@ -80,12 +80,6 @@ const LightboxViewer = ({ images, currentIndex, onClose, onNext, onPrev }) => {
             alt="Visor Cosquin Joven" 
           />
         </div>
-
-        {/* ETIQUETA TÉCNICA INFERIOR */}
-        <footer className="lb-meta-tag">
-          SISTEMA DE PRESERVACIÓN VISUAL // FESTIVAL DANZABUELOS 2025
-        </footer>
-
       </div>
     </div>
   );

@@ -239,6 +239,7 @@
 
   .home-gallery-section, .home-gallery-root {
     padding-bottom: 120px !important;
+    padding-top: 10px !important; 
   }
 }
 /* --- OCULTAR ELEMENTOS MÓVIL EN PC --- */
@@ -296,4 +297,50 @@
     max-height: 65vh !important; /* Achicamos un poco el alto */
     width: 90% !important;
   }
+}
+/* ============================================================
+   AJUSTE DE TÍTULO GALERÍA: MÓVIL CENTRADO Y COMPACTO
+   ============================================================ */
+@media (max-width: 1024px) {
+  
+  .gallery-header {
+    margin-top: 0 !important;
+    margin-bottom: 25px !important;
+    padding: 0 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+
+  /* 1. FIRMA: Más pequeña y pegada */
+  .gallery-sig {
+    font-size: 1.8rem !important; /* Antes era 3rem */
+    margin-bottom: -8px !important; 
+    letter-spacing: 1px !important;
+  }
+
+  /* 2. TÍTULO PRINCIPAL: Achicado para que no sea gigante */
+  .gallery-title {
+    font-size: 2.2rem !important; /* Antes era 4.5rem o 11vw */
+    line-height: 1 !important;    /* Pegamos los renglones */
+    letter-spacing: 1px !important;
+    max-width: 280px !important;  /* Forzamos un ancho para que no se estire */
+    margin: 0 auto !important;
+    white-space: normal !important; /* Permitimos que baje de renglón si es necesario */
+  }
+
+  /* 3. LÍNEA ROJA: Más corta y centrada */
+  .gallery-header .p-divider {
+    width: 50px !important; /* Más corta en el celu */
+    height: 2px !important;
+    margin: 15px auto 0 auto !important; /* Clavada al centro */
+    box-shadow: 0 0 10px rgba(208, 0, 0, 0.5);
+  }
+}
+
+/* Fix para iPhone SE o pantallas muy chicas */
+@media (max-width: 360px) {
+  .gallery-title { font-size: 1.8rem !important; }
+  .gallery-sig { font-size: 1.5rem !important; }
 }

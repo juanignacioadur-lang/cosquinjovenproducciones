@@ -329,7 +329,7 @@
 .overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.2);
     z-index: -1; /* Detrás del contenido, delante del video */
 }
 
@@ -354,4 +354,51 @@
     background: linear-gradient(to bottom, transparent, #000 95%);
     pointer-events: none;
     z-index: 15;
+}
+/* ============================================================
+   FOOTER SUPREME - GRANDE Y SIN SEPARADORES
+   ============================================================ */
+.main-footer-supreme {
+  background-color: #000;
+  width: 100%;
+  /* 1. ESPACIO: Damos 120px arriba para que respire después de la galería */
+  padding: 120px 20px 80px 20px; 
+  text-align: center;
+  position: relative;
+  z-index: 50;
+  border: none !important;
+  box-sizing: border-box;
+}
+
+.main-footer-supreme p {
+  font-family: 'Causten', sans-serif !important;
+  color: #666; /* Un gris un poco más claro para que se lea mejor */
+  /* 2. TAMAÑO: Lo subimos a 1.1rem para que tenga más presencia */
+  font-size: 1.1rem; 
+  letter-spacing: 5px; /* Estilo cinemático expandido */
+  text-transform: uppercase;
+  margin: 0;
+  font-weight: 300;
+  line-height: 1.5;
+}
+
+/* Marca en Rojo - Estilo Fuerte */
+.footer-brand-red {
+  color: #d00000;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+/* --- AJUSTE MÓVIL (IPHONE) --- */
+@media (max-width: 1024px) {
+  .main-footer-supreme {
+    /* En móvil bajamos un poco el espacio pero mantenemos el aire abajo */
+    padding: 80px 15px 150px 15px; 
+  }
+  
+  .main-footer-supreme p {
+    /* En el celu lo dejamos en un tamaño equilibrado para que no se corte */
+    font-size: 0.85rem; 
+    letter-spacing: 3px;
+  }
 }
