@@ -113,9 +113,19 @@ return (
     </button>
   </div>
    <div className={`home-scroll-hint ${isVisible ? 'fade-in' : 'fade-out'}`}>
-          <span className="scroll-hint-text">CONÓCENOS</span>
-          <div className="scroll-arrow-icon">↓</div>
-   </div>
+  <span className="scroll-hint-text">CONÓCENOS</span>
+  
+  <svg className="scroll-arrow-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Línea central gruesa y punta en ángulo recto */}
+    <path 
+      d="M12 3V21M12 21L5 14M12 21L19 14" 
+      stroke="currentColor" 
+      strokeWidth="2.5" 
+      strokeLinecap="square" 
+      strokeLinejoin="miter"
+    />
+  </svg>
+</div>
 
   {/* DEGRADADO DE SALIDA: Necesario para fundir con los pilares de abajo */}
   <div className="hero-transition-fade"></div>
