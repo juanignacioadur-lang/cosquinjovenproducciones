@@ -365,7 +365,7 @@
   padding: 120px 20px 80px 20px; 
   text-align: center;
   position: relative;
-  z-index: 50;
+  z-index: 1;
   border: none !important;
   box-sizing: border-box;
 }
