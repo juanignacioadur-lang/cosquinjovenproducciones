@@ -405,7 +405,7 @@
 /* --- INDICADOR DE SCROLL (HOME) --- */
 .home-scroll-hint {
   position: absolute;
-  bottom: 100px; /* Posicionada arriba del degradado final */
+  bottom: 115px; /* Posicionada arriba del degradado final */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -443,6 +443,6 @@
 /* Ajuste móvil */
 @media (max-width: 1024px) {
   .home-scroll-hint {
-    bottom: 70px; /* La subimos un poco para que no choque con el botón Fundación */
+    bottom: 80px; /* La subimos un poco para que no choque con el botón Fundación */
   }
 }
