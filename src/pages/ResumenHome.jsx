@@ -15,7 +15,7 @@ const ResumenHome = () => {
         <div className="pillars-info-cloud anim-reveal" style={{ animationDelay: '0.8s' }}>
            {/* El piquito ahora arriba */}
           <div className="cloud-pointer-top"></div> 
-            <p>AQUÍ ABAJO ENCONTRARÁS TODA NUESTRA INFORMACIÓN BIEN DETALLADA</p>
+            <p>AQUÍ ABAJO ENCONTRARÁS TODA NUESTRA INFORMACIÓN BIEN DETALLADA.</p>
           </div>
       </header>
       <div className="pillars-container">
