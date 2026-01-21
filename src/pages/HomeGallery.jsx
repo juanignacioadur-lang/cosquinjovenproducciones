@@ -1,41 +1,29 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import LightboxViewer from './LightboxViewer'; // Importamos el componente nuevo
 import './HomeGallery.css';
 
-const HomeGallery = () => {
-  const [selectedImg, setSelectedImg] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(null);
+// Generamos el array de fotos: 1-13 Verticales, 14-25 Horizontales
+const images = Array.from({ length: 25 }, (_, i) => ({
+  id: i + 1,
+  url: `/home/${i + 1}.jpg`,
+  orientation: i + 1 <= 13 ? 'vertical' : 'horizontal'
+}));
 
-  // Generamos el array de fotos del 1 al 25
-  const images = Array.from({ length: 25 }, (_, i) => ({
-    id: i + 1,
-    url: `/home/${i + 1}.jpg`,
-    orientation: i + 1 <= 13 ? 'vertical' : 'horizontal'
-  }));
+const HomeGallery = () => {
+  const [currentIndex, setCurrentIndex] = useState(null);
 
   const openLightbox = (index) => {
     setCurrentIndex(index);
-    setSelectedImg(images[index].url);
-    document.body.style.overflow = 'hidden'; // Bloquea scroll al abrir
+    document.body.style.overflow = 'hidden'; // Bloquea el scroll del fondo
   };
 
   const closeLightbox = () => {
-    setSelectedImg(null);
-    document.body.style.overflow = 'auto'; // Devuelve scroll al cerrar
+    setCurrentIndex(null);
+    document.body.style.overflow = 'auto'; // Devuelve el scroll
   };
 
-  const nextImg = (e) => {
-    e.stopPropagation();
-    const newIndex = (currentIndex + 1) % images.length;
-    setCurrentIndex(newIndex);
-    setSelectedImg(images[newIndex].url);
-  };
-
-  const prevImg = (e) => {
-    e.stopPropagation();
-    const newIndex = (currentIndex - 1 + images.length) % images.length;
-    setCurrentIndex(newIndex);
-    setSelectedImg(images[newIndex].url);
-  };
+  const nextImg = () => setCurrentIndex((currentIndex + 1) % images.length);
+  const prevImg = () => setCurrentIndex((currentIndex - 1 + images.length) % images.length);
 
   return (
     <section className="home-gallery-section">
@@ -45,7 +33,7 @@ const HomeGallery = () => {
         <div className="p-divider"></div>
       </header>
 
-      {/* GRILLA DE IMÁGENES */}
+      {/* GRILLA MONUMENTAL 5x5 */}
       <div className="gallery-grid">
         {images.map((img, index) => (
           <div 
@@ -53,31 +41,20 @@ const HomeGallery = () => {
             className={`gallery-item ${img.orientation}`}
             onClick={() => openLightbox(index)}
           >
-            <img src={img.url} alt={`Danzabuelos ${img.id}`} loading="lazy" />
-            <div className="item-overlay">
-              <span>AMPLIAR</span>
-            </div>
+            <img src={img.url} alt={`Festival CJ ${img.id}`} loading="lazy" />
+            <div className="item-overlay"><span>AMPLIAR</span></div>
           </div>
         ))}
       </div>
 
-      {/* LIGHTBOX (PANTALLA COMPLETA) */}
-      {selectedImg && (
-        <div className="lightbox-overlay" onClick={closeLightbox}>
-          <button className="close-btn">&times;</button>
-          <button className="nav-btn prev" onClick={prevImg}>‹</button>
-          
-          <div className="lightbox-content">
-            <img src={selectedImg} alt="Enfoque" />
-          </div>
-
-          <button className="nav-btn next" onClick={nextImg}>›</button>
-          
-          <div className="lightbox-counter">
-            {currentIndex + 1} / {images.length}
-          </div>
-        </div>
-      )}
+      {/* VISOR INDEPENDIENTE */}
+      <LightboxViewer 
+        images={images}
+        currentIndex={currentIndex}
+        onClose={closeLightbox}
+        onNext={nextImg}
+        onPrev={prevImg}
+      />
     </section>
   );
 };

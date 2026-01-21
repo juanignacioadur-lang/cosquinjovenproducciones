@@ -1,0 +1,241 @@
+/* ============================================================
+   LIGHTBOX VIEWER SUPREME - ARQUITECTURA DE CENTRADO TOTAL
+   ============================================================ */
+
+/* 1. FONDO (ROOT): Cubre todo el monitor físico */
+.lb-master-root {
+  position: fixed !important;
+  inset: 0 !important;
+  /* El 150vw asegura que el negro sea infinito ante cualquier zoom */
+  width: 150vw !important; 
+  height: 150vh !important;
+  background: #000000 !important;
+  /* El Z-INDEX más alto posible para ganarle al Navbar */
+  z-index: 2147483647 !important; 
+  display: block !important;
+  overflow: hidden;
+}
+
+/* 2. EL ESCENARIO (STAGE): Es el que manda el centrado real */
+.lb-stage {
+  position: absolute !important;
+  top: 0; 
+  left: 0;
+  /* 100vw relativo al zoom 0.75 es el ancho real de tu monitor */
+  width: 100vw !important;
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: transparent;
+}
+
+/* 3. IMAGEN VIEWPORT: El cuadro de la foto */
+.lb-image-container {
+  width: 80% !important;
+  height: 80vh !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative !important;
+  z-index: 10;
+}
+
+.lb-main-render {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important; /* Foto entera siempre */
+  box-shadow: 0 0 100px rgba(0,0,0,1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 4. HUD SUPERIOR (CONTADOR Y CIERRE) */
+.lb-hud-interface {
+  position: absolute !important;
+  top: 60px; /* Bajamos para no chocar con el Navbar de PC */
+  width: 90%;
+  max-width: 1600px;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  z-index: 100;
+}
+
+.lb-counter-box {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px 25px;
+  border-radius: 4px;
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 1.8rem;
+  letter-spacing: 3px;
+  color: #fff;
+}
+.lb-current { color: #d00000; font-weight: 800; }
+
+.lb-close-trigger {
+  width: 50px; height: 50px;
+  background: rgba(208, 0, 0, 0.8);
+  border-radius: 4px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: 0.3s;
+}
+.lb-close-trigger:hover { background: #fff; color: #000; }
+
+/* 5. NAVEGACIÓN PC: FLECHAS SIEMPRE BLANCAS Y VISIBLES */
+.lb-arrow-zone {
+  position: absolute !important;
+  top: 0; height: 100%;
+  width: 10vw !important;
+  background: transparent;
+  border: none;
+  display: flex !important;
+  align-items: center !important;
+  cursor: pointer !important;
+  z-index: 50;
+  /* VISIBILIDAD TOTAL */
+  opacity: 1 !important; 
+}
+
+.lb-chevron {
+  font-size: 6rem;
+  color: #ffffff !important; /* Blanco sólido siempre */
+  font-weight: 100;
+  text-shadow: 0 0 20px #000;
+  transition: 0.3s;
+}
+
+.lb-arrow-zone:hover .lb-chevron { color: #d00000 !important; transform: scale(1.2); }
+.left { left: 2vw !important; justify-content: flex-start; }
+.right { right: 2vw !important; justify-content: flex-end; }
+
+/* 6. ETIQUETA INFERIOR */
+.lb-meta-tag {
+  position: absolute !important;
+  bottom: 25px;
+  font-family: 'Causten', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 5px;
+  color: #333;
+}
+
+/* --- COMPORTAMIENTO PC: FLECHAS SIEMPRE VISIBLES --- */
+@media (min-width: 1025px) {
+  .lb-arrow-zone, .nav-arrow {
+    opacity: 1 !important; /* Siempre blancas y visibles */
+    color: #ffffff !important;
+    visibility: visible !important;
+  }
+  
+  .lb-hud-interface, .lb-hud-top {
+    display: flex !important; /* Se mantienen en PC */
+  }
+}
+
+/* --- COMPORTAMIENTO MÓVIL: ELIMINAR BOTONES SUPERIORES --- */
+@media (max-width: 1024px) {
+  
+  /* 1. MATAMOS EL HUD (X y 1/25) EN EL CELULAR */
+  /* Así el Navbar ya no tiene nada que tapar */
+  .lb-hud-interface, 
+  .lb-hud-top, 
+  .lb-counter-box, 
+  .lb-close-trigger,
+  .lb-counter {
+    display: none !important;
+  }
+
+  /* 2. FLECHAS EN MÓVIL (Opcional: puedes dejarlas sutiles o borrarlas) */
+  /* Como pediste que se use solo con el dedo, las ocultamos también */
+  .lb-arrow-zone, .nav-arrow {
+    display: none !important;
+  }
+
+  /* 3. IMAGEN FULL-SCREEN REAL */
+  /* Al no haber botones arriba, la imagen puede ocupar todo el alto */
+  .lb-image-container {
+    height: 100vh !important;
+    width: 100vw !important;
+    padding-top: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .lb-main-render {
+    max-height: 90vh !important; /* Casi toda la pantalla */
+    width: 100vw !important;
+    object-fit: contain !important;
+  }
+}
+/* --- OCULTAR ELEMENTOS MÓVIL EN PC --- */
+.lb-close-mobile-btn, 
+.lb-arrow-mobile {
+  display: none !important;
+}
+
+/* ============================================================
+   FIX MÓVIL: BOTÓN CERRAR JUSTO ARRIBA DE LA IMAGEN
+   ============================================================ */
+
+@media (max-width: 1024px) {
+  
+  /* 1. EL ESCENARIO: Lo convertimos en una columna centrada */
+  .lb-stage {
+    display: flex !important;
+    flex-direction: column !important; /* Apila elementos: Botón arriba, Imagen abajo */
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100vw !important;
+    height: 100vh !important;
+  }
+
+  /* 2. BOTÓN CERRAR: Lo sacamos de 'absolute' para que ocupe su lugar arriba */
+  .lb-close-mobile-btn {
+    display: block !important;
+    position: relative !important; /* Cambiado de absolute a relative */
+    bottom: auto !important;
+    left: auto !important;
+    transform: none !important;
+    
+    /* ESPACIADO: Lo pegamos a la imagen con un pequeño margen */
+    margin-bottom: 20px !important; 
+    
+    /* TU DISEÑO ROJO */
+    background: #d00000 !important;
+    color: #fff !important;
+    border: none !important;
+    padding: 10px 35px !important;
+    font-family: 'Helvetica Compressed', sans-serif !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 2px !important;
+    border-radius: 4px;
+    z-index: 100 !important;
+  }
+
+  /* 3. CONTENEDOR DE IMAGEN: Se ajusta debajo del botón */
+  .lb-image-container {
+    position: relative !important;
+    width: 90% !important;
+    height: auto !important; /* Que la altura dependa de la foto */
+    max-height: 70vh !important; /* Limitamos para que no empuje el botón afuera */
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+
+  .lb-main-render {
+    max-height: 70vh !important;
+    width: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+  }
+
+  /* Escondemos los elementos de PC */
+  .lb-hud-interface, .lb-arrow-zone {
+    display: none !important;
+  }
+}

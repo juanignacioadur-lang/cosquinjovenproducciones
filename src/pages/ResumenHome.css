@@ -380,3 +380,34 @@
     /* Ponemos un marco interno negro */
     box-shadow: inset 0 0 10px #000 !important;
 }
+/* --- AJUSTE DE PRECISIÓN PARA EL MONTO DEL BONO --- */
+
+.p-description strong {
+  /* 1. Lo convertimos en bloque en línea para que respete el renglón */
+  display: inline-block !important; 
+  
+  /* 2. Tamaño de impacto pero controlado */
+  font-size: 1.5rem !important; 
+  
+  /* 3. Evitamos que el renglón se estire por la altura de la fuente */
+  line-height: 1 !important; 
+  
+  /* 4. Alineación milimétrica con el texto de los costados */
+  vertical-align: middle !important; 
+  
+  /* 5. Ajuste fino de posición (sube 2px para centrarse visualmente) */
+  transform: translateY(-2px); 
+  
+  /* 6. Espacio lateral para que no toque las palabras "de" y "en" */
+  margin: 0 6px !important;
+  
+  color: #ffffff !important;
+  text-shadow: 0 0 15px rgba(208, 0, 0, 0.5);
+  font-weight: normal !important;
+}
+
+/* Forzamos que el párrafo tenga un respiro constante */
+.p-description {
+  line-height: 1.6 !important;
+  display: block !important;
+}

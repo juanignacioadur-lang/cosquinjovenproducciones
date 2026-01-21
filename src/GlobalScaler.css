@@ -1,314 +1,326 @@
 /* ============================================================
-   ARCHITECTURAL GLOBAL SCALER V71 - ANTI-BUG & CENTRADO REAL
+   ARCHITECTURAL GLOBAL SCALER V73 - SUPREME EDITION
+   INGENIERÍA DE COMPENSACIÓN TOTAL & LIGHTBOX BLINDADO
    ============================================================ */
 
 :root {
   --zoom-factor: 1;
 }
 
-/* --- ESCENARIO 1: PC MEDIANA (Zoom 0.75) --- */
+/* --- ESCENARIO 1: PC 1080p / LAPTOPS (Zoom 0.75) --- */
 @media (min-width: 1025px) and (max-width: 2000px) {
   html { 
     zoom: 0.75 !important; 
     --zoom-factor: 0.75; 
   }
   .inicio-hero, .login-v29-root { min-height: 133.4vh !important; }
-  .navbar { height: 60px !important; }
-  .subnav-fixed-wrapper { top: 60px !important; }
-
-  /* El video debe ser 1/0.75 = 133.33 para verse como 100% real */
-  .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
-    width: 133.4vw !important;
-    height: 133.4vh !important;
+  
+  /* Blindaje de fondos para evitar franjas laterales */
+  .video-fondo, .login-video-bg, .overlay, .login-overlay-dark, .lb-master-root {
+    width: 133.5vw !important; /* 1 / 0.75 + margen */
+    height: 133.5vh !important;
   }
 }
 
-/* --- ESCENARIO 2: PC GRANDE / 4K (Zoom 0.95) --- */
+/* --- ESCENARIO 2: PC GRANDE / 4K / 1440p (Zoom 0.95) --- */
 @media (min-width: 2001px) {
   html { 
     zoom: 0.95 !important; 
     --zoom-factor: 0.95; 
   }
   .inicio-hero, .login-v29-root { min-height: 105.3vh !important; }
-  .navbar { height: 80px !important; }
-  .subnav-fixed-wrapper { top: 80px !important; }
 
-  /* El video debe ser 1/0.95 = 105.26 para verse como 100% real */
-  .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
-    width: 105.3vw !important;
-    height: 105.3vh !important;
+  .video-fondo, .login-video-bg, .overlay, .login-overlay-dark, .lb-master-root {
+    width: 105.5vw !important; 
+    height: 105.5vh !important;
   }
 }
 
-/* --- FIX UNIVERSAL DE FONDOS Y CARTELES (PC) --- */
+/* --- FIX UNIVERSAL: CENTRADO REAL DE CAPAS FIJAS --- */
 @media (min-width: 1025px) {
-  
-  /* 1. EL FONDO OSCURO "INFINITO" (Capa del Modal) */
-  .be-overlay-v72 {
+  .video-fondo, .login-video-bg, .overlay, .login-overlay-dark, .lb-master-root, .be-overlay-v72 {
     position: fixed !important;
-    /* Usamos 200vw para asegurar que sea "infinito" ante cualquier zoom o scroll */
-    width: 200vw !important; 
-    height: 200vh !important;
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    
-    /* Fondo ultra oscuro */
-    background: rgba(0, 0, 0, 0.92) !important; 
-    backdrop-filter: blur(4px); /* Opcional: desenfoca lo que hay detrás */
-    
-    /* Centrado absoluto del contenido */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    
-    z-index: 999999 !important;
-    pointer-events: all !important;
   }
 
-  /* Z-INDEX MANAGEMENT */
-  .video-fondo, .login-video-bg { z-index: -10 !important; }
-  .overlay, .login-overlay-dark { z-index: -10 !important; }
+  .video-fondo, .login-video-bg { z-index: -10 !important; object-fit: cover !important; }
+  .overlay, .login-overlay-dark { z-index: -5 !important; }
 
-  /* 3. AJUSTE DEL CONTENIDO DEL MODAL */
-  /* Para que el formulario no se vea afectado por el estiramiento del padre */
-  .be-overlay-v72 > div {
-    position: relative !important;
-    zoom: 1 !important; /* Resetea el zoom interno */
-    transform: scale(1) !important;
-    max-width: 90%;
-    max-height: 90%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /* Modales UEFI y Editor */
+  .be-overlay-v72, .user-uefi-overlay, .bono-uefi-overlay {
+    width: 200vw !important; height: 200vh !important;
+    background: rgba(0, 0, 0, 0.95) !important;
+    z-index: 99999999 !important;
   }
-}
-
-/* --- RESET MÓVIL (Sin zoom, centrado simple) --- */
-@media (max-width: 1024px) {
-  .be-overlay-v72 {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: #000 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    z-index: 999999 !important;
-    transform: none !important;
-  }
-
-
-
-  /* ALINEACIÓN DE ELEMENTOS INTERNOS */
-  .f-icon-box { height: 120px !important; display: flex !important; align-items: center !important; justify-content: center !important; }
-  .f-title-h4 { height: 50px !important; display: flex !important; align-items: center !important; justify-content: center !important; text-align: center !important; }
-  .f-hr { margin: 0 auto 20px auto !important; }
-  .f-grid-matrix {
-    width: 100% !important; display: grid !important;
-    grid-template-columns: repeat(4, 1fr) !important; 
-    grid-auto-rows: 1fr !important;
-    gap: 25px !important; justify-items: center !important;
-  }
-}
-
-/* --- RESET MÓVIL (100% Real sin Zoom) --- */
-@media (max-width: 1024px) {
-  html { font-size: 14px !important; --zoom-factor: 1; }
-  .video-fondo, .login-video-bg, .overlay, .login-overlay-dark {
-    width: 100vw !important; 
-    height: 100vh !important;
-    height: 100dvh !important;
-    transform: none !important; 
-    top: 0 !important; 
-    left: 0 !important;
-    position: fixed !important;
-    object-fit: cover !important;
-  }
-}
-
-/* --- REGLAS DE LIMPIEZA --- */
-body, #root { background-color: #000 !important; margin: 0; padding: 0; }
-.video-hidden { opacity: 0 !important; }
-.video-visible { opacity: 1 !important; transition: opacity 1s ease-in; }
-
-/* BLOQUEO UEFI */
-body:has(.user-uefi-overlay) .infocard-wrapper,
-body:has(.bono-uefi-overlay) .infocard-wrapper { display: none !important; }
-body:has(.user-uefi-overlay), body:has(.bono-uefi-overlay) { overflow: hidden !important; }
-
-/* --- OPTIMIZACIÓN DE GRILLA "CIMIENTOS" PARA MÓVIL (2x2) --- */
-@media (max-width: 1024px) {
-  
-  .f-grid-matrix {
-    display: grid !important;
-    /* Forzamos 2 columnas exactas del mismo tamaño */
-    grid-template-columns: repeat(2, 1fr) !important; 
-    /* Ajustamos el espacio entre cuadros para que no se peguen a los bordes */
-    gap: 15px !important; 
-    padding: 15px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-    justify-items: center !important;
-  }
-
-  /* Ajuste de los cuadros internos para que entren bien en el 2x2 */
-  .f-icon-box {
-    width: 100% !important;
-    height: 110px !important; /* Un poco más bajo para que no scrollee tanto */
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .f-title-h4 {
-    font-size: 0.85rem !important; /* Achicamos un poco la letra para que no se corte */
-    text-align: center !important;
-    height: auto !important;
-    margin-top: 8px !important;
-    line-height: 1.2 !important;
-  }
-
-  /* Ajuste de la línea separadora si la usas */
-  .f-hr {
-    width: 40px !important;
-    margin: 5px auto !important;
-  }
-}
-
-/* Fix extra por si el contenedor padre tiene un padding que empuja la grilla */
-@media (max-width: 480px) {
-    .f-grid-matrix {
-        gap: 10px !important; /* Más apretado en celulares muy chicos */
-    }
-}
-
-/* --- OPTIMIZACIÓN DE TEXTOS DE CABECERA EN MÓVIL --- */
-@media (max-width: 1024px) {
-
-  /* El contenedor de los títulos */
-  .f-header-cimientos { 
-    text-align: center !important;
-    padding: 0 15px !important;
-    margin-bottom: 25px !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-  }
-
-  /* TÍTULO: "NUESTROS CIMIENTOS" */
-  .f-header-cimientos h2, 
-  .inicio-hero h2 { /* Ajusta según tu clase real */
-    font-size: 1.8rem !important; /* Tamaño grande pero contenido */
-    line-height: 1.1 !important;
-    letter-spacing: 1px !important;
-    margin-bottom: 8px !important;
-    text-transform: uppercase !important;
-    width: 100% !important;
-    display: block !important;
-  }
-
-  /* SUBTÍTULO: "LA BASE ESTRUCTURAL..." */
-  .f-header-cimientos p, 
-  .inicio-hero p { /* Ajusta según tu clase real */
-    font-size: 0.85rem !important; /* Más pequeño para dar jerarquía */
-    font-weight: 300 !important;   /* Un poco más fino para que se vea pro */
-    color: rgba(255, 255, 255, 0.8) !important; /* Un blanco sutil */
-    line-height: 1.4 !important;
-    max-width: 90% !important;   /* Para que no toque los bordes del celu */
-    margin: 0 auto !important;   /* Centrado */
-    text-transform: uppercase !important;
-    letter-spacing: 0.5px !important;
-  }
-}
-
-/* Fix extra para pantallas muy angostas (iPhone SE o similares) */
-@media (max-width: 380px) {
-    .f-header-cimientos h2 {
-        font-size: 1.5rem !important;
-    }
-    .f-header-cimientos p {
-        font-size: 0.75rem !important;
-    }
 }
 
 /* ============================================================
-   FIX NIVELACIÓN TOTAL 1080p: ZOOM CONTACTO Y SIMETRÍA
+   LIGHTBOX VIEWER SUPREME - VISIBILIDAD Y ORDEN
+   ============================================================ */
+
+/* 1. EL FONDO: Negro absoluto para que nada se vea detrás */
+.lb-master-root {
+  background-color: #000000 !important;
+  opacity: 1 !important;
+  z-index: 2000000000 !important; /* Capa suprema absoluta */
+  display: block !important;
+}
+
+/* 2. EL ESCENARIO (STAGE): Centrado perfecto bajo zoom */
+.lb-stage {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 100vw !important; /* Mide exactamente tu monitor físico */
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* 3. HUD (CONTADOR Y CIERRE): Baja para no ser tapado por el Navbar */
+.lb-hud-interface {
+  position: absolute !important;
+  top: 100px !important; /* Bajamos para respetar el Navbar físico */
+  width: 90% !important;
+  max-width: 1600px;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  z-index: 100 !important;
+}
+
+.lb-counter-box {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(10px);
+  padding: 8px 20px !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(255,255,255,0.1);
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 1.5rem !important;
+}
+
+.lb-close-trigger {
+  width: 45px !important; height: 45px !important;
+  background: rgba(208, 0, 0, 0.8) !important;
+  border: none !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* 4. FLECHAS POR PROXIMIDAD */
+.lb-arrow-zone {
+  width: 15vw !important;
+  height: 100% !important;
+  z-index: 50 !important;
+}
+.lb-arrow-zone:hover { opacity: 1 !important; }
+
+/* 5. VIEWPORT DE IMAGEN */
+.lb-image-container {
+  width: 85% !important;
+  height: 80vh !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.lb-main-render {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  box-shadow: 0 0 100px rgba(0,0,0,1) !important;
+  border: 1px solid rgba(255,255,255,0.05) !important;
+}
+
+/* ============================================================
+   GRILLA DE GALERÍA - POSICIONAMIENTO
+   ============================================================ */
+.home-gallery-section, .home-gallery-root {
+  padding-top: 180px !important; /* Empieza más abajo para ganar aire */
+  background-color: #000 !important;
+  position: relative;
+  z-index: 10;
+}
+
+/* ============================================================
+   OPTIMIZACIÓN MÓVIL (ESCALE 1:1)
+   ============================================================ */
+@media (max-width: 1024px) {
+  html { zoom: 1 !important; }
+  
+  .lb-master-root { 
+    width: 100vw !important; height: 100vh !important; 
+    transform: none !important; left: 0 !important; top: 0 !important;
+  }
+
+  .lb-hud-interface {
+    top: 25px !important; /* En móvil el navbar suele ser más chico */
+    width: 92% !important;
+  }
+
+  .lb-main-render {
+    max-height: 70vh !important;
+  }
+
+  .home-gallery-section, .home-gallery-root {
+    padding-top: 100px !important;
+  }
+}
+
+/* --- REGLAS DE LIMPIEZA FINAL --- */
+body, #root { background-color: #000 !important; margin: 0; padding: 0; }
+html, body { overflow-x: hidden !important; }
+/* Seguro contra la línea azul derecha */
+body::after { 
+  content: ""; position: fixed; top: 0; right: 0; 
+  width: 4px; height: 100%; background: #000; 
+  z-index: 999999999; pointer-events: none; 
+}
+/* ============================================================
+   REFINAMIENTO MONUMENTAL 1080p: CLONACIÓN LOOK 1440p
+   ============================================================ */
+
+@media (min-width: 1025px) and (max-width: 1920px) {
+
+    /* 1. PILARES: Altura extendida y fotos con zoom (Look 2K) */
+    .resumen-home-section {
+        min-height: 125vh !important; /* Más largo que el monitor para forzar scroll elegante */
+    }
+
+    .pillar-item {
+        min-height: 125vh !important;
+        /* Zoom de imagen: 150% hace que se vea cortada y cercana como en 1440p */
+        background-size: 150% !important; 
+        background-position: center center !important;
+    }
+
+    .p-title {
+        font-size: 5.5rem !important; /* Título más masivo */
+        letter-spacing: 5px !important;
+    }
+
+    .p-description {
+        font-size: 1.2rem !important;
+        max-width: 400px !important;
+        line-height: 1.8 !important;
+    }
+
+    /* 2. VISOR GALERÍA: Imagen mucho más grande (Pantalla Completa Real) */
+    .lb-image-container {
+        width: 100% !important;
+        height: 90vh !important; /* Ocupa el 90% del alto del monitor */
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .lb-main-render {
+        /* Expandimos la foto al máximo posible sin que toque los bordes */
+        max-width: 95% !important;
+        max-height: 95% !important;
+        width: auto !important;
+        height: auto !important;
+        box-shadow: 0 0 120px rgba(0,0,0,1) !important;
+        border: 1px solid rgba(255,255,255,0.1) !important;
+        transform: scale(1.05) !important; /* Un toque de escala extra para impacto */
+    }
+
+    /* 3. HUD DEL VISOR: Ajuste de posición para imagen grande */
+    .lb-hud-interface {
+        top: 30px !important;
+        width: 95% !important;
+    }
+
+    .lb-counter-box {
+        transform: scale(1.1); /* Contador un poco más grande */
+        background: rgba(0, 0, 0, 0.8) !important;
+    }
+
+    .lb-close-trigger {
+        transform: scale(1.1);
+        background: rgba(208, 0, 0, 1) !important;
+    }
+}
+
+/* --- FIX DE SEGURIDAD PARA 1440p REAL --- */
+@media (min-width: 2001px) {
+    .lb-main-render {
+        max-height: 92vh !important;
+        transform: scale(1) !important;
+    }
+    .pillar-item {
+        background-size: 130% !important;
+    }
+}
+/* --- NIVELACIÓN VISUAL DE FONDOS (SOLO ZOOM) --- */
+
+.pillar-item {
+  /* Forzamos un zoom base del 150% para que todas luzcan cercanas y épicas */
+  background-size: 150% !important; 
+  background-position: center center !important;
+}
+
+/* Ajuste específico para CONTACTO: 
+   Le damos un 20% más de zoom que a las demás para compensar su encuadre */
+.pillar-contacto {
+  background-size: 170% !important; 
+}
+
+/* Ajuste para el COLLAGE de Eventos:
+   Nos aseguramos que las 4 mini-fotos también respiren igual */
+.pillar-collage-bg {
+  transform: scale(1.1) !important; /* Zoom interno al collage para nivelar */
+  width: 100% !important;
+  height: 100% !important;
+}
+/* ============================================================
+   RESCALADO MONUMENTAL LIGHTBOX PARA 1080p
    ============================================================ */
 
 @media (min-width: 1025px) and (max-width: 2000px) {
 
-    /* 1. CONTENEDOR: Forzamos el uso del 100% del ancho del Scaler */
-    .pillars-container {
+    /* 1. MAXIMIZAMOS EL ESPACIO DEL VISOR */
+    .lb-image-container {
+        /* Aumentamos de 85% a 98% para que la foto ocupe casi todo el ancho */
+        width: 98% !important; 
+        /* Subimos de 75vh a 92vh para que toque casi el techo y el suelo */
+        height: 92vh !important; 
         display: flex !important;
-        flex-direction: row !important;
-        width: 100% !important;
-        max-width: 100% !important;
-        gap: 0 !important;
-        margin: 0 !important;
-    }
-
-    /* 2. CADA PILAR: Forzamos igualdad absoluta (25% cada uno) */
-    .pillar-item {
-        /* flex: 1 0 25% garantiza que NUNCA se achiquen menos del 25% */
-        flex: 1 0 25% !important; 
-        width: 25% !important;
-        min-height: 115vh !important;
-        position: relative !important;
-        
-        /* SELLADO: Mantenemos el solapamiento que borró las líneas */
-        margin-right: -2px !important; 
-        border: none !important;
-        outline: 2px solid #000 !important;
-        outline-offset: -2px;
-        z-index: 1 !important;
-        background-color: #000 !important;
-    }
-
-    /* 3. ZOOM ESPECÍFICO PARA NIVELAR IMÁGENES */
-    .pillar-item {
-        background-size: 140% !important; /* Zoom general un poco más alto */
-        background-position: center center !important;
-    }
-
-    /* FIX CONTACTO: Le damos un zoom extra para que la imagen tenga más peso visual */
-    .pillar-contacto {
-        background-size: 160% !important; /* Zoom extra para que no parezca vacía */
-        margin-right: 0 !important; /* El último no necesita margen derecho */
-    }
-
-    /* 4. BLINDAJE DE SOMBRAS (ENCIMA DE TODO) */
-    .pillar-item::before {
-        background: linear-gradient(
-            to bottom, 
-            rgba(0,0,0,1) 0%, 
-            rgba(0,0,0,0.85) 20%, 
-            rgba(0,0,0,0.85) 80%, 
-            rgba(0,0,0,1) 100%
-        ) !important;
-        z-index: 5 !important;
-    }
-
-    .pillar-item::after {
-        background: linear-gradient(
-            to right, 
-            #000 0%, 
-            transparent 15%, 
-            transparent 85%, 
-            #000 100%
-        ) !important;
-        z-index: 6 !important;
-    }
-
-    /* 5. CONTENIDO: Centrado y Nivelado */
-    .pillar-inner {
-        width: 100% !important;
-        max-width: 400px !important;
-        margin: 0 auto !important;
-        display: flex !important;
-        flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
-        z-index: 100 !important;
+    }
+
+    /* 2. FORZAMOS EL TAMAÑO DE LA FOTO (Look 1440p) */
+    .lb-main-render {
+        /* Permitimos que la foto use el 100% del contenedor maximizado */
+        max-width: 100% !important;
+        max-height: 100% !important;
+        width: auto !important;
+        height: auto !important;
+        
+        /* Aumentamos el factor de escala para que se vea imponente */
+        transform: scale(1.08) !important; 
+        
+        /* Sombra mucho más profunda para que la foto "salte" del fondo negro */
+        box-shadow: 0 0 150px rgba(0,0,0,1), 0 0 40px rgba(255,255,255,0.05) !important;
+        border: 1px solid rgba(255,255,255,0.08) !important;
+    }
+
+    /* 3. RE-POSICIONAMIENTO DEL HUD (Para que no tape la foto gigante) */
+    .lb-hud-interface {
+        top: 25px !important; /* Lo subimos un poquito más */
+        width: 96% !important; /* Lo pegamos más a los bordes laterales */
+    }
+
+    /* 4. FLECHAS MÁS SUTILES PARA NO MOLESTAR LA VISIÓN */
+    .lb-chevron {
+        font-size: 4.5rem !important;
+        opacity: 0.8;
     }
 }
