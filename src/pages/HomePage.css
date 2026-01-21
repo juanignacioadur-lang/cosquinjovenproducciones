@@ -417,15 +417,15 @@
 
 .scroll-hint-text {
   font-family: 'Causten', sans-serif !important;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.568);
   font-size: 1rem;
-  letter-spacing: 5px;
+  letter-spacing: 4px;
   font-weight: 600;
 }
 
 .scroll-arrow-icon {
-  color: #ff0000; /* Flecha en el rojo de la marca */
-  font-size: 2rem;
+  color: #ff0000de; /* Flecha en el rojo de la marca */
+  font-size: 1.7rem;
   animation: arrowBounce 2s infinite;
 }
 
@@ -443,6 +443,6 @@
 /* Ajuste móvil */
 @media (max-width: 1024px) {
   .home-scroll-hint {
-    bottom: 80px; /* La subimos un poco para que no choque con el botón Fundación */
+    bottom: 90px; /* La subimos un poco para que no choque con el botón Fundación */
   }
 }
