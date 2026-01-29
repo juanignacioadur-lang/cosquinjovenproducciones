@@ -88,8 +88,8 @@ export default function Monitoreo() {
         <div className="mnt-h-left">
           <div className="mnt-heartbeat"><div className="mnt-dot-glow"></div></div>
           <div className="mnt-title-block">
-            <span className="mnt-sub-code">STATION: CJ_CENTRAL_CORE_V33</span>
-            <h2 className="mnt-main-title-tech">CONSOLA DE <span>MONITOREO</span></h2>
+            <span className="mnt-sub-code">Consola para Monitorear a Delegación.</span>
+            <h2 className="mnt-main-title-tech"><span>MONITOREO</span></h2>
           </div>
         </div>
         <div className="mnt-h-right">
@@ -107,18 +107,18 @@ export default function Monitoreo() {
       <section className="mnt-analytics">
         <div className="mnt-a-card glass-v33">
           <span className="mnt-a-tag">TOTAL DE BONOS</span>
-          <div className="mnt-a-val">{logs.length} <small>/ 768</small></div>
+          <div className="mnt-a-val">{logs.length} <small>/ 1000</small></div>
           <div className="mnt-a-bar"><div className="fill" style={{width: `${(logs.length/768)*100}%`}}></div></div>
         </div>
         <div className="mnt-a-card glass-v33 highlight">
           <span className="mnt-a-tag">RECAUDACIÓN BRUTA</span>
           <div className="mnt-a-val">${recaudacionTotal.toLocaleString()}</div>
-          <span className="mnt-a-profit">GANANCIA CJ (35%): <strong>${utilidadProductora.toLocaleString()}</strong></span>
+          <span className="mnt-a-profit">GANANCIA Cosquín Joven (35%): <strong>${utilidadProductora.toLocaleString()}</strong></span>
         </div>
         <div className="mnt-a-card glass-v33">
-          <span className="mnt-a-tag">SISTEMA VIRTUAL</span>
+          <span className="mnt-a-tag">BASE DE DATOS</span>
           <div className="mnt-a-val">ONLINE</div>
-          <span className="mnt-a-profit">PROTOCOL: AES-256_ENCRYPTED</span>
+          <span className="mnt-a-profit">PROTOCOLO: TODO FUNCIONANDO.</span>
         </div>
       </section>
 
@@ -167,7 +167,7 @@ export default function Monitoreo() {
           {viewMode === 'ops' ? (
             <div className="mnt-ops-scroll custom-scroll">
               {filteredData.length === 0 ? (
-                <div className="mnt-empty">SIN TRANSACCIONES ACTIVAS EN ESTE CANAL...</div>
+                <div className="mnt-empty"><center>CARGANDO DATOS...</center></div>
               ) : (
                 filteredData.map((log, i) => (
                   <article key={i} className={`mnt-log-entry ${log.estado.toLowerCase()}`}>
@@ -230,7 +230,7 @@ export default function Monitoreo() {
         {/* 5. SIDEBAR: INTELIGENCIA & HARDWARE */}
         <aside className="mnt-sidebar">
           <div className="mnt-side-block ia-report">
-            <header className="side-head"><div className="led-ai"></div><span>CJ-PILOT ANALYTICS</span></header>
+            <header className="side-head"><div className="led-ai"></div><span>NOTIFICACIONES</span></header>
             <div className="reports-area">
               {aiReports.map((r, i) => (
                 <div key={i} className={`report-pill ${r.type}`}>
@@ -244,8 +244,8 @@ export default function Monitoreo() {
           <div className="mnt-side-block hardware">
              <header className="side-head"><span>SISTEMA DE RED</span></header>
              <div className="hw-info"><span>GATEWAY:</span> <strong>CLOUD_SECURE</strong></div>
-             <div className="hw-info"><span>DB:</span> <strong>G_SHEETS_V4</strong></div>
-             <div className="hw-info"><span>REGIONS:</span> <strong>FEDERAL_ARG</strong></div>
+             <div className="hw-info"><span>DB:</span> <strong>CORRECTA.</strong></div>
+             <div className="hw-info"><span>REGION:</span> <strong>ARG</strong></div>
           </div>
         </aside>
 

@@ -102,9 +102,47 @@ video {
 }
 
 .logo:hover { 
-  filter: drop-shadow(0 0 2em #646cffaa); 
+  filter: blur(0.5px) drop-shadow(12px 0 15px rgba(150, 0, 0, 0.5));
+}
+/* --- LADO IZQUIERDO (ESPEJO HACIA AFUERA) --- */
+.about-pilar-central::before, .ct-pilar-central::before, .nt-container::before {
+    right: -48px;
+    transform: none; /* Picos apuntan a la derecha naturalmente */
+    
+    /* GRADIENTE: El color brillante (#ff8c00) empieza en la IZQUIERDA (donde toca el pilar) */
+    background: linear-gradient(to right, 
+        #ff0000 0%, 
+        #f10000 20%, 
+        #e20000 50%, 
+        #600000 80%, 
+        #1a0000 100%
+    ) !important;
+
+    /* Sombra proyectada a la DERECHA */
+    filter: blur(0.5px) drop-shadow(12px 0 15px rgba(208, 0, 0, 0.5)) !important;
+    
+    animation: fireRiseV35 25s linear infinite;
 }
 
+/* --- LADO DERECHO (ESPEJO HACIA AFUERA) --- */
+.about-pilar-central::after, .ct-pilar-central::after, .nt-container::after {
+    right: -48px;
+    transform: none; /* Picos apuntan a la derecha naturalmente */
+    
+    /* GRADIENTE: El color brillante (#ff8c00) empieza en la IZQUIERDA (donde toca el pilar) */
+    background: linear-gradient(to right, 
+        #ff0000 0%, 
+        #f10000 20%, 
+        #e20000 50%, 
+        #600000 80%, 
+        #1a0000 100%
+    ) !important;
+
+    /* Sombra proyectada a la DERECHA */
+    filter: blur(0.5px) drop-shadow(12px 0 15px rgba(208, 0, 0, 0.5)) !important;
+    
+    animation: fireRiseV35 25s linear infinite;
+}
 /* ============================================================
    BLINDAJE ESTRUCTURAL ANTI-GAPS (ZOOM FIX)
    ============================================================ */
@@ -197,46 +235,81 @@ body::after {
   width: 5px !important;
 }
 /* ============================================================
-   FIX ESTRUCTURAL: DISOLUCIÓN SUAVE (HACIA ARRIBA)
+   EFECTO "DARK SYMMETRY" V35 - LLAMAS PEQUEÑAS Y OSCURAS
    ============================================================ */
 
-/* 1. Preparamos el elemento para una transición ultra suave */
-.home-scroll-hint {
-  will-change: opacity, transform, filter;
-  /* Esta transición es la que hará el "esfume" lento */
-  transition: 
-    opacity 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), 
-    transform 1.5s cubic-bezier(0.2, 0.8, 0.2, 1), 
-    filter 1.5s ease !important;
+.about-pilar-central, 
+.ct-pilar-central, 
+.nt-container {
+    position: relative !important;
+    overflow: visible !important; 
+    background: #000 !important;
+    box-shadow: 0 0 100px rgba(0,0,0,1) !important;
+    z-index: 10;
 }
 
-/* 2. CLASE DE SALIDA: El "Martillazo" para matar la animación */
-.home-scroll-hint.fade-out {
-  /* ELIMINA la animación de entrada para liberar la opacidad */
-  animation: none !important; 
-  
-  /* ESTADO FINAL: Invisible, arriba y desenfocado */
-  opacity: 0 !important;
-  transform: translateY(-80px) !important; /* Sube mientras desaparece */
-  filter: blur(15px) !important;           /* Se disuelve como humo */
-  
-  /* Forzamos que la transición de salida sea la que mande */
-  transition: 
-    opacity 1.2s ease-in, 
-    transform 1.2s ease-in, 
-    filter 1.2s ease-in !important;
+/* MOTOR DE LLAMAS (DETRÁS DEL PILAR) */
+.about-pilar-central::before, .about-pilar-central::after,
+.ct-pilar-central::before, .ct-pilar-central::after,
+.nt-container::before, .nt-container::after {
+    content: "" !important;
+    position: absolute !important;
+    top: 0;
+    width: 50px; /* LLAMAS MÁS PEQUEÑAS: Antes 110px, ahora 50px */
+    height: 100%;
+    pointer-events: none;
+    z-index: -1 !important;
+
+    /* --- MÁSCARA ORGÁNICA VARIADA --- */
+    --mask-v35: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 800' preserveAspectRatio='none'%3E%3Cpath d='M0 0 L0 800 L10 800 C 15 780, 25 765, 100 750 C 25 735, 15 720, 10 700 C 15 670, 30 650, 85 620 C 30 590, 15 570, 10 540 C 20 510, 45 490, 95 450 C 45 410, 20 390, 10 360 C 15 320, 35 300, 75 250 C 35 200, 15 180, 10 140 C 20 110, 30 90, 100 50 C 30 20, 20 10, 10 0 Z' fill='black'/%3E%3C/svg%3E");
+    -webkit-mask-image: var(--mask-v35);
+    mask-image: var(--mask-v35);
+    -webkit-mask-size: 100% 600px;
+    mask-size: 100% 600px;
+
+    /* ANIMACIÓN SINCRONIZADA */
+    animation: fireRiseV35 25s linear infinite;
 }
 
-/* 3. CLASE DE ENTRADA: Aseguramos que la animación trabaje limpia */
-.home-scroll-hint.fade-in {
-  /* Dejamos que anim-reveal haga su trabajo al cargar */
+/* LADO IZQUIERDO: Oscuro y Puntiagudo hacia afuera */
+.about-pilar-central::before, .ct-pilar-central::before, .nt-container::before {
+    left: -48px; /* Solapamiento de 2px */
+    transform: scaleX(-1); /* Espejo para que la punta dispare a la izquierda */
+    
+    /* GRADIENTE OSCURO: Naranja quemado a Rojo Sangre (Sin mucho blanco/amarillo) */
+    background: linear-gradient(to left, 
+        #ff8c00 100%, 
+        #ff4500 85%, 
+        #d00000 55%, 
+        #600000 25%, 
+        #1a0000 0%
+    );
+    
+    filter: blur(0.5px) drop-shadow(-8px 0 12px rgba(150, 0, 0, 0.4));
 }
 
-/* 4. REFUERZO DE ANIMACIÓN (En tu index.css actualiza este bloque) */
-.anim-reveal {
-  animation-name: monumentalFadeUp;
-  animation-duration: 1.2s;
-  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
-  /* 'both' es vital para el delay, pero 'animation: none' en fade-out lo romperá */
-  animation-fill-mode: both !important;
+/* LADO DERECHO: Igual al izquierdo (Sincronía total) */
+.about-pilar-central::after, .ct-pilar-central::after, .nt-container::after {
+    right: -48px;
+    /* Apunta a la derecha naturalmente */
+    
+    background: linear-gradient(to right, 
+        #1a0000 0%, 
+        #600000 25%, 
+        #d00000 55%, 
+        #ff4500 85%, 
+        #ff8c00 100%
+    );
+
+    /* Sombra proyectada hacia la derecha */
+    filter: blur(0.5px) drop-shadow(12px 0 15px rgba(150, 0, 0, 0.5));
+    
+    /* Usamos la misma animación que el izquierdo */
+    animation: fireRiseV35 25s linear infinite;
+}
+
+@keyframes fireRiseV35 {
+    0% { -webkit-mask-position: 0 0; mask-position: 0 0; opacity: 0.7; }
+    50% { opacity: 1; }
+    100% { -webkit-mask-position: 0 -1200px; mask-position: 0 -1200px; opacity: 0.7; }
 }

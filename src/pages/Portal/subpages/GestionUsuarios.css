@@ -80,47 +80,65 @@
 }
 
 /* --- INFO DE NODO --- */
-.node-header {
+
+  .node-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  justify-content: space-between; /* DEL a la izquierda, Meta a la derecha */
+  align-items: flex-start;
+  margin-bottom: 25px;
+  width: 100%;
 }
+.node-header-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinea los textos a la derecha */
+  gap: 5px;
+}
+
 
 .node-id {
   font-family: 'Oswald', sans-serif;
-  color: #333;
-  font-size: 0.7rem;
-  letter-spacing: 3px;
+  color: #d00000 !important; /* Rojo CJ */
+  font-size: 0.9rem;
+  letter-spacing: 2px;
   font-weight: 800;
 }
 
 .active .node-id { color: #d00000; }
 
 .node-range {
-  background: #1a1a1a;
-  color: #fff;
-  padding: 4px 10px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.65rem !important;
+  color: #555; /* Gris tenue */
+  background: rgba(255, 255, 255, 0.03); /* Fondo tipo badge */
+  padding: 3px 8px;
   border-radius: 4px;
-  font-family: 'Oswald', sans-serif;
-  font-size: 0.75rem;
+  text-transform: uppercase;
   letter-spacing: 1px;
+  white-space: nowrap;
 }
+.node-range:last-child {
+  color: #aaa; /* Un poco más claro para el rango */
+  border: 1px solid rgba(208, 0, 0, 0.1);
+}
+
 
 .node-info h4 {
   font-family: 'Oswald', sans-serif;
+  font-size: 1.4rem;
   color: #fff;
-  font-size: 1.2rem;
   text-transform: uppercase;
   margin-bottom: 5px;
   letter-spacing: 1px;
 }
 
+
 .node-info p {
-  color: #666;
+  color: #444;
   font-size: 0.8rem;
-  font-weight: 300;
+  font-weight: 700;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 
 /* --- BOTONES DE NODO --- */
@@ -187,179 +205,238 @@
 
 /* --- 1. EL FONDO (OVERLAY): CLAVADO AL TECHO --- */
 /* --- 1. EL FONDO (OVERLAY) --- */
+/* ============================================================
+   SISTEMA DE MODALES UEFI - GESTIÓN DE USUARIOS (V72)
+   CENTRADO ABSOLUTO Y COMPENSACIÓN DE ZOOM
+   ============================================================ */
+
+/* ============================================================
+   SISTEMA DE MODALES UEFI V3.0 - CENTRADO ABSOLUTO
+   ============================================================ */
+
 .modal-overlay {
-  /* position: fixed !important es la ley para que no se mueva con el scroll */
-  position: fixed !important; 
-  
-  /* CLAVAMOS EL PUNTO DE ORIGEN EN EL CENTRO FÍSICO DE LA PANTALLA */
+  position: fixed !important;
+  /* CLAVAMOS EL ORIGEN EN EL CENTRO FÍSICO DEL MONITOR */
   top: 50% !important;
   left: 50% !important;
   
-  /* EL TRUCO: El translate(-50%, -50%) es lo que lo devuelve al medio exacto 
-     y anula cualquier desplazamiento por el zoom del GlobalScaler */
+  /* EL TRUCO MAESTRO: Desplazamos hacia atrás el 50% de su tamaño. 
+     Esto anula cualquier error del zoom del Scaler */
   transform: translate(-50%, -50%) !important;
   
-  /* Obligamos a que sea más grande que la pantalla para tapar todo el fondo */
-  width: 200vw !important; 
-  height: 200vh !important;
+  /* Hacemos que el fondo sea gigante para que siempre tape todo el pilar */
+  width: 150vw !important; 
+  height: 150vh !important;
   
-  background: rgba(0, 0, 0, 0.95) !important;
-  backdrop-filter: blur(15px);
+  background: rgba(0, 0, 0, 0.96) !important;
+  backdrop-filter: blur(15px) !important;
   -webkit-backdrop-filter: blur(15px);
-  z-index: 9999 !important;
+  z-index: 99999999 !important;
 
+  /* Motor de centrado interno */
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
 }
 
-/* --- 2. LA TARJETA (CUADRO NEGRO) --- */
 .modal-card-tech {
   background: #080808 !important;
   border: 1px solid #d00000 !important;
-  border-radius: 20px;
-  width: 90% !important;
-  max-width: 550px !important;
-  
-  /* Lógica para iPhone 15: que no se pase de altura */
-  max-height: 85vh !important; 
-  overflow-y: auto !important; 
-  
-  padding: 40px;
-  box-shadow: 0 0 100px rgba(208, 0, 0, 0.2);
-  
-  /* Reset de posiciones para que no herede nada del padre */
+  border-radius: 28px;
+  width: 90%;
+  max-width: 500px;
+  padding: 45px;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 1);
   position: relative !important;
-  margin: 0 !important;
-  top: auto !important;
-  left: auto !important;
+  
+  /* En PC lo dejamos con altura libre o máxima muy alta */
+  max-height: 95vh; 
+  overflow: visible; 
 }
 
-/* Ocultar scroll interno */
-.modal-card-tech::-webkit-scrollbar { display: none; }
 
-/* --- 3. ELEMENTOS INTERNOS (SIMETRÍA) --- */
+@keyframes modalRevealV72 {
+  from { opacity: 0; transform: translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
 .modal-card-tech h3 {
   font-family: 'Oswald', sans-serif;
   color: #fff;
-  font-size: 1.8rem;
   text-align: center;
   margin-bottom: 40px;
-  letter-spacing: 4px;
+  font-size: 1.8rem;
   text-transform: uppercase;
+  letter-spacing: 3px;
 }
 
-.modal-form-tech {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  width: 100%;
-}
+/* GRILLA DE INPUTS */
+.modal-form-tech { display: flex; flex-direction: column; gap: 20px; }
+.m-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-.m-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.m-input {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.m-input label {
-  font-size: 0.7rem;
-  color: #444;
-  font-weight: 800;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
+.m-input { display: flex; flex-direction: column; gap: 8px; }
+.m-input label { font-size: 0.7rem; color: #444; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
 
 .m-input input {
   background: #000 !important;
   border: 1px solid #222 !important;
   padding: 18px;
-  border-radius: 8px;
+  border-radius: 12px;
   color: #fff;
   font-size: 1.1rem;
-  transition: 0.3s;
+  text-align: center;
   width: 100%;
   box-sizing: border-box;
+  transition: 0.3s;
 }
 
-.m-input input:focus {
-  border-color: #d00000 !important;
-  outline: none;
-  background: #050505 !important;
-}
+.m-input input:focus { border-color: #d00000 !important; background: #050505 !important; }
 
+/* BOTONES ESTILO MONITOREO */
 .modal-actions-pro {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
-  gap: 20px;
-  margin-top: 30px;
+  gap: 15px;
+  margin-top: 20px;
 }
 
-/* --- 4. RESPONSIVE IPHONE 15 / MÓVIL --- */
-@media (max-width: 900px) {
-  .modal-overlay {
-    padding: 10px !important;
-    /* En móvil forzamos el centrado vertical para que no se pegue al Navbar */
-    align-items: center !important; 
-  }
-  
-  .modal-card-tech {
-    padding: 30px 20px !important;
-    max-height: 80vh !important; /* Más aire para el teclado en pantalla */
-  }
-
-  .m-row {
-    grid-template-columns: 1fr !important; /* Se apilan los inputs */
-    gap: 15px;
-  }
-  
-  .modal-actions-pro {
-    grid-template-columns: 1fr !important; /* Botones uno arriba del otro */
-  }
+.btn-modal-tech {
+  padding: 18px;
+  border-radius: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.3s;
 }
+
+.btn-modal-tech.cancel { background: transparent; border: 1px solid #222; color: #555; }
+.btn-modal-tech.save { background: #d00000; border: none; color: #fff; }
+.btn-modal-tech.save:hover { background: #ff0000; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(208, 0, 0, 0.3); }
 
 /* ============================================================
-   RESPONSIVE MÓVIL
+   BLINDAJE MÓVIL UNIVERSAL - MODAL DE USUARIOS
    ============================================================ */
 
-@media (max-width: 900px) {
-  .nodes-grid {
-    grid-template-columns: 1fr; /* Columna única en móviles */
-  }
-  
+@media (max-width: 950px) {
   .modal-card-tech {
-    padding: 40px 20px;
+    /* Limitamos la altura al 80% de la pantalla del celular */
+    max-height: 80vh !important; 
+    overflow-y: auto !important; /* ACTIVAMOS SCROLL SOLO AQUÍ */
+    overflow-x: hidden;
+    padding: 30px 20px !important;
+    border-radius: 20px !important;
   }
 
-  .m-row {
-    grid-template-columns: 1fr;
+  /* --- BARRA DE SCROLL ROJA CJ (SOLO MÓVIL) --- */
+  .modal-card-tech::-webkit-scrollbar {
+    width: 3px;
   }
-  
-  .modal-actions-pro {
-    grid-template-columns: 1fr;
+  .modal-card-tech::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .modal-card-tech::-webkit-scrollbar-thumb {
+    background: #d00000;
+    border-radius: 10px;
+  }
+
+  /* Ajuste de formulario para que respire al final del scroll */
+  .modal-form-tech {
+    padding-bottom: 15px;
   }
 }
 
-@media (max-width: 430px) {
-  .modal-card-tech {
-    padding: 25px 20px;
-    max-height: 85vh; /* Un poquito más de aire para el notch y el indicador de inicio */
-  }
-  
-  .modal-card-tech h3 {
-    font-size: 1.4rem !important;
-    margin-bottom: 25px !important;
-  }
-
-  .m-input input {
-    padding: 14px !important;
-    font-size: 1rem !important;
-  }
+/* Tarjeta de añadir delegado */
+.add-main-node {
+  border: 2px dashed #333 !important;
+  cursor: pointer;
+  background: transparent !important;
+  transition: 0.3s;
 }
 
+.add-main-node:hover {
+  border-color: #d00000 !important;
+  background: rgba(208, 0, 0, 0.05) !important;
+}
+
+.plus-icon {
+  font-size: 3rem;
+  color: #222;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.add-main-node:hover .plus-icon {
+  color: #d00000;
+  transform: scale(1.1);
+}
+
+/* Color destacado para la sección de rangos en el modal */
+.range-section {
+  background: rgba(208, 0, 0, 0.05);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(208, 0, 0, 0.1);
+}
+.add-btn-node {
+  border: 2px dashed #333 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+  background: transparent !important;
+}
+
+.add-btn-node:hover {
+  border-color: #d00000 !important;
+  background: rgba(208, 0, 0, 0.05) !important;
+}
+
+.add-content { text-align: center; }
+.add-content .plus { font-size: 3rem; color: #222; display: block; line-height: 1; }
+.add-content p { font-family: 'Oswald'; color: #444; letter-spacing: 2px; margin-top: 10px; }
+
+.add-btn-node:hover .plus, .add-btn-node:hover p { color: #d00000; }
+/* --- CONTENEDOR DE NÚMEROS ABAJO --- */
+.node-stats-footer {
+  margin-top: 20px;
+  margin-bottom: 25px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Línea divisoria fina */
+  display: flex;
+  justify-content: center;
+}
+
+.stat-item-pro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.stat-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.6rem;
+  color: #444; /* Gris oscuro */
+  letter-spacing: 3px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.2rem; /* Número bien grande */
+  color: #d00000; /* Rojo CJ */
+  line-height: 1;
+  font-weight: 700;
+  text-shadow: 0 0 15px rgba(208, 0, 0, 0.3); /* Brillo sutil */
+}
+
+/* Efecto hover: cuando pasas el mouse por la tarjeta, el número brilla más */
+.node-card:hover .stat-value {
+  color: #ff0000;
+  transform: scale(1.1);
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}

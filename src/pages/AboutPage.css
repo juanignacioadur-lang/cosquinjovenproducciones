@@ -50,20 +50,19 @@
 
 .about-pilar-central {
   width: 90%;
-  max-width: 1200px; /* Contención para 1080p */
+  max-width: 1200px;
   margin: 0 auto;
   
-  /* FONDO OPACO: Bloquea el rojo para que no manche el texto */
+  /* CORRECCIÓN: Fondo negro traslúcido, no rojo sólido */
   background: rgba(7, 7, 7, 0.98) !important; 
   backdrop-filter: blur(40px);
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
   
-  /* SOMBRA ROJA EXTERNA (AUREOLA) */
-  box-shadow: 
-    0 0 100px rgba(0, 0, 0, 1),
-    -60px 0 150px -20px rgba(208, 0, 0, 0.4), 
-     60px 0 150px -20px rgba(208, 0, 0, 0.4);
+  /* Borde fino para dar relieve */
+  border-left: 1px solid rgba(255, 0, 0, 0.3);
+  border-right: 1px solid rgba(255, 0, 0, 0.3);
+  
+  /* SOMBRA SUTIL (El fuego de index.css hará el resto) */
+  box-shadow: 0 0 100px rgba(0, 0, 0, 1);
 
   padding: 120px 50px 80px 50px;
   display: flex;
@@ -75,8 +74,8 @@
   position: relative;
   z-index: 20;
   
-  /* BLINDAJE: Evita que los cuadros se salgan */
-  overflow: hidden; 
+  /* CORRECCIÓN: Cambiado de hidden a visible para que se vean las llamas */
+  overflow: visible !important; 
 }
 
 /* --- CAPA DE SOMBRA / AUREOLA DE ALTA POTENCIA (FIX 1080p) --- */
@@ -98,14 +97,14 @@
   */
   box-shadow: 
     /* LUZ IZQUIERDA */
-    -30px 0 70px rgba(208, 0, 0, 0.6), 
-    -60px 0 120px rgba(208, 0, 0, 0.3),
-    -100px 0 250px rgba(180, 0, 0, 0.15),
+    -30px 0 70px rgb(255, 0, 0), 
+    -60px 0 120px rgb(255, 0, 0),
+    -100px 0 250px rgb(255, 0, 0),
     
     /* LUZ DERECHA */
-    30px 0 70px rgba(208, 0, 0, 0.6), 
-    60px 0 120px rgba(208, 0, 0, 0.3),
-    100px 0 250px rgba(180, 0, 0, 0.15);
+    30px 0 70px rgb(255, 0, 0),
+    60px 0 120px rgb(255, 0, 0),
+    100px 0 250px rgb(255, 0, 0);
 
   /* MÁSCARA: Sincronizada para empezar después de la historia */
   -webkit-mask-image: linear-gradient(to bottom, 
@@ -122,37 +121,43 @@
   pointer-events: none;
 }
 
-/* EFECTO SCANLINE */
-.about-pilar-central::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.2) 50%);
-  background-size: 100% 4px;
-  pointer-events: none;
-  opacity: 0.2;
-  z-index: 1;
-}
+
 
 /* RESPONSIVE MÓVIL (CORREGIDO V28) */
 @media (max-width: 1024px) {
   .about-pilar-central {
-    width: 100% !important;
-    
-    /* 1. Subimos de 100px a 130px para que el texto baje y no lo tape el Navbar */
-    /* 2. Subimos de 80px a 220px abajo para que no lo tape la InfoCard roja */
-    padding: 130px 20px 220px 20px !important;
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  
+  /* CORRECCIÓN: Fondo negro traslúcido, no rojo sólido */
+  background: rgba(7, 7, 7, 0.98) !important; 
+  backdrop-filter: blur(40px);
+  
+  /* Borde fino para dar relieve */
+  border-left: 1px solid rgba(255, 0, 0, 0.3);
+  border-right: 1px solid rgba(255, 0, 0, 0.3);
+  
+  /* SOMBRA SUTIL (El fuego de index.css hará el resto) */
+  box-shadow: 0 0 100px rgba(0, 0, 0, 1);
 
-    gap: 60px;
-    border: none;
-    box-shadow: none;
-    display: flex;
-    flex-direction: column;
-  }
+  padding: 120px 50px 80px 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  min-height: 100vh;
+  height: auto;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 20;
+  
+  /* CORRECCIÓN: Cambiado de hidden a visible para que se vean las llamas */
+  overflow: visible !important; 
+ }
 
   .about-pilar-central::before {
-    display: none; /* En móvil la luz lateral suele verse mal */
-  }
+    display: none !important; /* Desactivamos el before viejo para que no choque con el fuego */
+}
 
   /* Ajuste extra para que el título no quede tan pegado arriba */
   .h-header {
@@ -263,9 +268,9 @@
   width: 100%;
   max-width: 900px;
   height: 6px;
-  background: linear-gradient(90deg, #d00000 0%, #7a0000 70%, transparent 100%);
+  background: linear-gradient(90deg, #ff0202 0%, #ff0000 70%, transparent 100%);
   margin-top: 45px;
-  box-shadow: 0 0 30px rgba(208, 0, 0, 0.6);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
   border-radius: 4px;
 }
 
@@ -284,11 +289,11 @@
   color: #f5f5f5;
   font-style: italic;
   margin-bottom: 40px;
-  border-left: 6px solid #d00000;
+  border-left: 6px solid #e20202;
   padding-left: 35px;
   line-height: 1.3;
   text-transform: uppercase;
-  background: linear-gradient(90deg, rgba(208, 0, 0, 0.05) 0%, transparent 100%);
+  background: linear-gradient(90deg, rgba(243, 0, 0, 0.151) 0%, transparent 70%);
 }
 
 .h-editorial-body {

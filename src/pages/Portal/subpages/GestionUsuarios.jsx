@@ -1,31 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { getBonds, saveDelegate, deleteDelegate } from "../../../services/api";
 import "./GestionUsuarios.css";
+import ReactDOM from "react-dom";
 
 export default function GestionUsuarios() {
   const [delegates, setDelegates] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [modalMode, setModalMode] = useState(null); // 'add' | 'edit'
-  const [selectedSlot, setSelectedSlot] = useState(null);
-  const [form, setForm] = useState({ dni: "", nombre: "", academia: "", provincia: "", password: "" });
-  // --- BLOQUEO DE SCROLL AL ABRIR MODAL ---
-  useEffect(() => {
-    if (modalMode) {
-      // Cuando el modal se abre: bloqueamos scroll y táctil
-      document.body.style.overflow = "hidden";
-      document.body.style.height = "100vh";
-    } else {
-      // Cuando se cierra: devolvemos la libertad de scroll
-      document.body.style.overflow = "auto";
-      document.body.style.height = "auto";
-    }
-    // Limpieza por seguridad si el componente se desmonta
-    return () => {
-      document.body.style.overflow = "auto";
-      document.body.style.height = "auto";
-    };
-  }, [modalMode]);
-  
+  const [modalMode, setModalMode] = useState(null); 
+  const [form, setForm] = useState({ 
+    dni: "", nombre: "", academia: "", provincia: "", password: "",
+    cantidad: "" // <--- Solo pedimos cantidad
+  });
+
   useEffect(() => {
     fetchDelegates();
   }, []);
@@ -34,40 +20,62 @@ export default function GestionUsuarios() {
     setLoading(true);
     try {
       const res = await getBonds();
-      // El script devuelve { sales: [], delegates: [], audit: [] }
       setDelegates(res.delegates || []);
     } catch (error) {
-      console.error("Error al cargar la red federal:", error);
+      console.error("Error:", error);
     }
     setLoading(false);
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    // Cálculo automático de rangos (32 bonos por delegado)
-    const start = ((selectedSlot - 1) * 32) + 1;
-    const end = start + 31;
+  e.preventDefault();
+  const qty = parseInt(form.cantidad);
 
-    const res = await saveDelegate({ 
-      ...form, 
-      rango_inicio: start, 
-      rango_fin: end 
-    });
+  if (isNaN(qty) || qty < 1) {
+    alert("POR FAVOR INGRESA UNA CANTIDAD VÁLIDA");
+    return;
+  }
 
-    if (res.status === "success") {
-      alert("NODO SINCRONIZADO: El delegado ha sido registrado con éxito.");
-      setModalMode(null);
-      fetchDelegates();
-    } else {
-      alert("ERROR DE RED: " + res.message);
-    }
-    setLoading(false);
+  setLoading(true);
+
+  let start, end;
+  if (modalMode === 'add') {
+    // BUSCAMOS EL ÚLTIMO NÚMERO REAL EN EL EXCEL
+    // Usamos Number() para asegurarnos que la comparación sea matemática
+    const lastBono = delegates.reduce((max, d) => {
+      const hastaVal = Number(d.hasta) || 0;
+      return hastaVal > max ? hastaVal : max;
+    }, 0);
+
+    start = lastBono + 1;
+    end = start + qty - 1;
+  } else {
+    // Si editamos, el inicio se queda igual y recalculamos el fin
+    start = Number(form.de);
+    end = start + qty - 1;
+  }
+
+  // Enviamos al script
+  const res = await saveDelegate({ 
+    ...form, 
+    rango_inicio: start, 
+    rango_fin: end 
+  });
+
+  if (res.status === "success") {
+    alert(`DELEGADO SINCRONIZADO: Números del #${start} al #${end}`);
+    setModalMode(null);
+    fetchDelegates();
+  }
+  setLoading(false);
+};
+  const openAddModal = () => {
+    setForm({ dni: "", nombre: "", academia: "", provincia: "", password: "", cantidad: "" });
+    setModalMode('add');
   };
 
   const handleDelete = async (dni) => {
-    if (!window.confirm("¿ORDEN DE BAJA? Se eliminarán las credenciales de este nodo.")) return;
+    if (!window.confirm("¿ORDEN DE BAJA?")) return;
     setLoading(true);
     const res = await deleteDelegate(dni);
     if (res.status === "success") fetchDelegates();
@@ -77,124 +85,106 @@ export default function GestionUsuarios() {
   return (
     <div className="gestion-user-root anim-fade-in">
       <header className="area-title-tech">
-        <h3>ADMINISTRACIÓN DE DELEGADOS <span>(CAPACIDAD: 24 DELEGADOS)</span></h3>
-        <p>Configuración de credenciales y asignación de delegados automáticos.</p>
+        <h3>ADMINISTRACIÓN DE RED FEDERAL</h3>
+        <p>El sistema asigna rangos automáticamente para evitar duplicados.</p>
       </header>
 
       <div className="nodes-grid">
-        {Array.from({ length: 24 }, (_, i) => {
-          const slotNum = i + 1;
-          const start = ((slotNum - 1) * 32) + 1;
-          const end = start + 31;
-          
-          // Buscamos si hay un delegado cargado en esta posición
-          const delegate = delegates[i];
+        {/* CASILLA ÚNICA PARA NUEVO USUARIO */}
+        <div className="node-card empty add-btn-node" onClick={openAddModal}>
+           <div className="add-content">
+              <span className="plus">+</span>
+              <p>NUEVO DELEGADO</p>
+           </div>
+        </div>
 
-          return (
-            <div key={slotNum} className={`node-card ${delegate ? 'active' : 'empty'}`}>
-              <div className="node-header">
-                <span className="node-id">DEL_{slotNum}</span>
-                <span className="node-range">{start} — {end}</span>
+        {/* LISTADO DINÁMICO */}
+        {delegates.map((d, i) => (
+          <div key={d.dni} className="node-card active">
+            <div className="node-header">
+              <span className="node-id">DEL_{i + 1}</span>
+              <div className="node-header-meta">
+                <span className="node-range">DNI: {d.dni}</span>
+                <span className="node-range">RANGO: {d.de} — {d.hasta}</span>
               </div>
-
-              {delegate ? (
-                <div className="node-info">
-                  <h4>{delegate.nombre}</h4>
-                  <p>{delegate.academia}</p>
-                  <div className="node-actions">
-                    <button className="btn-node edit" onClick={() => {
-                      setForm(delegate);
-                      setSelectedSlot(slotNum);
-                      setModalMode('edit');
-                    }}>EDITAR</button>
-                    <button className="btn-node delete" onClick={() => handleDelete(delegate.dni)}>BAJA</button>
-                  </div>
-                </div>
-              ) : (
-                <div className="node-empty-content">
-                  <p>SLOT DISPONIBLE</p>
-                  <button className="btn-node-add" onClick={() => {
-                    setForm({ dni: "", nombre: "", academia: "", provincia: "", password: "" });
-                    setSelectedSlot(slotNum);
-                    setModalMode('add');
-                  }}>CONFIGURAR</button>
-                </div>
-              )}
             </div>
-          );
-        })}
+            <div className="node-info">
+             <h4>{d.nombre}</h4>
+                   <p>{d.academia}</p>
+       <div className="node-stats-footer">
+        <div className="stat-item-pro">
+         <span className="stat-label">NÚMEROS</span>
+         <span className="stat-value">{d.hasta - d.de + 1}</span>
+        </div>
+       </div>
+  
+           {/* NUEVO: Contador de números asignados */}
+                <div className="node-counter-badge">
+                 <span className="count-num">{d.hasta - d.de + 1}</span>
+                  <span className="count-text">NÚMEROS ASIGNADOS</span>
+                </div>
+
+          <div className="node-actions">
+                <button className="btn-node edit" onClick={() => {
+                  setForm({ ...d, cantidad: (d.hasta - d.de + 1) });
+                  setModalMode('edit');
+                  }}>EDITAR</button>
+                <button className="btn-node delete" onClick={() => handleDelete(d.dni)}>BAJA</button>
+               </div>
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* --- MODAL DE CONFIGURACIÓN (CON CLASES DE TU CSS) --- */}
-      {modalMode && (
-        <div className="modal-overlay">
-          <div className="modal-card-tech">
-            <h3>{modalMode === 'add' ? 'REGISTRAR NUEVO' : 'EDITAR'} DELEGADO</h3>
+      {modalMode && ReactDOM.createPortal(
+        <div className="modal-overlay" onClick={() => setModalMode(null)}>
+          <div className="modal-card-tech" onClick={e => e.stopPropagation()}>
+            <h3>{modalMode === 'add' ? 'CONFIGURAR' : 'RE-AJUSTAR'} DELEGADO</h3>
             
             <form onSubmit={handleSubmit} className="modal-form-tech">
               <div className="m-row">
                 <div className="m-input">
-                  <label>DNI (USUARIO)</label>
-                  <input 
-                    type="number" 
-                    value={form.dni} 
-                    onChange={e => setForm({...form, dni: e.target.value})} 
-                    required 
-                    disabled={modalMode === 'edit'} 
-                  />
+                  <label>DNI</label>
+                  <input type="number" value={form.dni} onChange={e => setForm({...form, dni: e.target.value})} required disabled={modalMode === 'edit'} />
                 </div>
                 <div className="m-input">
-                  <label>CLAVE (CUMPLE)</label>
-                  <input 
-                    type="text" 
-                    placeholder="DDMMAAAA" 
-                    value={form.password} 
-                    onChange={e => setForm({...form, password: e.target.value})} 
-                    required 
-                  />
+                  <label>CONTRASEÑA</label>
+                  <input type="text" value={form.password} onChange={e => setForm({...form, password: e.target.value})} required />
                 </div>
               </div>
 
               <div className="m-input">
                 <label>NOMBRE COMPLETO</label>
-                <input 
-                  type="text" 
-                  value={form.nombre} 
-                  onChange={e => setForm({...form, nombre: e.target.value})} 
-                  required 
-                />
+                <input type="text" value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} required />
               </div>
 
               <div className="m-row">
                 <div className="m-input">
                   <label>ACADEMIA</label>
-                  <input 
-                    type="text" 
-                    value={form.academia} 
-                    onChange={e => setForm({...form, academia: e.target.value})} 
-                    required 
-                  />
+                  <input type="text" value={form.academia} onChange={e => setForm({...form, academia: e.target.value})} required />
                 </div>
                 <div className="m-input">
-                  <label>PROVINCIA</label>
+                  <label>CANTIDAD DE BONOS</label>
                   <input 
-                    type="text" 
-                    value={form.provincia} 
-                    onChange={e => setForm({...form, provincia: e.target.value})} 
+                    type="number" 
+                    placeholder="Ej: 32 o 100" 
+                    value={form.cantidad} 
+                    onChange={e => setForm({...form, cantidad: e.target.value})} 
                     required 
                   />
                 </div>
               </div>
               
               <div className="modal-actions-pro">
-                <button type="button" onClick={() => setModalMode(null)}>CANCELAR</button>
-                <button type="submit">
-                  {loading ? "PROCESANDO..." : "GUARDAR"}
+                <button type="button" className="btn-modal-tech cancel" onClick={() => setModalMode(null)}>ABORTAR</button>
+                <button type="submit" className="btn-modal-tech save">
+                  {loading ? "PROCESANDO..." : "CONFIRMAR"}
                 </button>
               </div>
             </form>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

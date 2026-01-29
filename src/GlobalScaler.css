@@ -367,27 +367,7 @@ body::after {
    FIX ABOUT PAGE: UNIFICACIÓN DE PILAR CENTRAL (ANTI-PARCHES)
    ============================================================ */
 
-/* 1. Forzamos que todas las secciones internas sean transparentes */
-/* Esto elimina los "cuadros" que se ven más oscuros que el fondo */
-.about-pilar-central section, 
-.h-editorial-section, 
-.f-master-section, 
-.m-multimedia-section {
-    background: transparent !important;
-    background-color: transparent !important;
-    border: none !important;
-    box-shadow: none !important; /* Eliminamos sombras internas que ensucian */
-}
 
-/* 2. Aseguramos que el Pilar sea la única fuente de color */
-.about-pilar-central {
-    background: rgba(7, 7, 7, 0.98) !important;
-    /* Mantenemos solo la sombra roja exterior (Aureola) */
-    box-shadow: 
-        0 0 100px rgba(0, 0, 0, 1),
-        -60px 0 150px -20px rgba(208, 0, 0, 0.4), 
-         60px 0 150px -20px rgba(208, 0, 0, 0.4) !important;
-}
 
 /* 3. Limpieza de los fondos de las tarjetas (Cimientos) */
 /* Hacemos que el fondo de los cuadros de "ADN Familiar", etc., sea más prolijo */
@@ -401,17 +381,7 @@ body::after {
     background: transparent !important;
 }
 
-/* 5. ELIMINACIÓN DE LÍNEAS DE CORTE EN PC (1080p/1440p) */
-@media (min-width: 1025px) {
-    .about-pilar-central {
-        /* Aseguramos que el pilar central esté perfectamente centrado y no se mueva */
-        margin-left: auto !important;
-        margin-right: auto !important;
-        position: relative !important;
-        left: 0 !important;
-        transform: none !important;
-    }
-}
+
 /* ============================================================
    FIX CONTACT PAGE: UNIFICACIÓN Y ELIMINACIÓN DE CUADROS
    ============================================================ */
@@ -444,9 +414,7 @@ body::after {
 }
 
 /* 4. ASEGURAMOS QUE EL PILAR SEA EL FONDO ÚNICO */
-.ct-pilar-central {
-  background: rgba(7, 7, 7, 0.98) !important; /* Negro de base */
-}
+
 
 /* 5. FIX MÓVIL: Evita que en el iPhone se vean "rayas" entre secciones */
 @media (max-width: 1024px) {
@@ -565,4 +533,70 @@ body::after {
     left: 50%;
     transform: translateX(-50%);
   }
+}
+/* ============================================================
+   ATMÓSFERA CINEMATOGRÁFICA V27 - "BLACK OPS CORE"
+   ============================================================ */
+
+@keyframes cinematicPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.7; }
+}
+
+body {
+  background: #000 !important;
+  background-image: 
+    radial-gradient(circle at 2vw 50vh, rgba(208, 0, 0, 0.1) 0%, transparent 50vw),
+    radial-gradient(circle at 98vw 50vh, rgba(208, 0, 0, 0.1) 0%, transparent 50vw);
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  /* Textura de grano de película / ruido técnico */
+  background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+  opacity: 0.2;
+  z-index: -1;
+  pointer-events: none;
+  animation: cinematicPulse 4s infinite ease-in-out;
+}
+body::before, body::after, .about-pilar-central::before, .about-pilar-central::after {
+    image-rendering: -webkit-optimize-contrast;
+    backface-visibility: hidden;
+    perspective: 1000;
+}
+/* ============================================================
+   MICRO-BLINDAJE MÓVIL: ELIMINACIÓN DE EFECTOS DE FUEGO
+   ============================================================ */
+
+@media (max-width: 1024px) {
+    /* 1. APAGADO TOTAL DE PSEUDO-ELEMENTOS (LLAMAS) */
+    .about-pilar-central::before, .about-pilar-central::after,
+    .ct-pilar-central::before, .ct-pilar-central::after,
+    .nt-container::before, .nt-container::after {
+        display: none !important;
+        content: none !important;
+        animation: none !important;
+        filter: none !important;
+    }
+
+    /* 2. RESET DE CONTENEDORES PARA EVITAR DESBORDES LATERALES EN CELULAR */
+    .about-pilar-central, 
+    .ct-pilar-central, 
+    .nt-container {
+        overflow: hidden !important; /* En móvil no dejamos que nada salga del ancho */
+        box-shadow: none !important; /* Quitamos sombras pesadas */
+        border: none !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+    }
+
+    /* 3. LIMPIEZA DE ATMÓSFERA GLOBAL EN EL BODY */
+    body::before, body::after {
+        display: none !important;
+        background: #000 !important;
+    }
 }

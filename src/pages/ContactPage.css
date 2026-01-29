@@ -22,25 +22,37 @@
 }
 
 .ct-pilar-central {
-  /* 1. Volvemos al ancho original del pilar */
+  /* DIMENSIONES EXACTAS DE EVENTOS */
   width: 90% !important; 
   max-width: 1200px !important; 
   margin: 0 auto !important;
   
-  /* 2. Reseteamos posiciones para que el GlobalScaler no lo desvíe */
+  /* RESET DE POSICIÓN PARA EL SCALER */
   position: relative !important;
   left: auto !important;
   transform: none !important;
 
-  background: rgba(7, 7, 7, 0.98);
-  backdrop-filter: blur(40px);
-  padding: 120px 50px;
-  border-left: 1px solid rgba(255, 255, 255, 0.08);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 0 100px #000, 
-              -60px 0 150px -20px rgba(208, 0, 0, 0.4), 
-              60px 0 150px -20px rgba(208, 0, 0, 0.4);
+  /* CAMBIO CRÍTICO: Transparente para ver el fuego de fondo */
+  background: transparent !important;
+  backdrop-filter: none !important; /* Quitamos el blur para que la luz sea nítida */
+
+  /* PADDING SIMÉTRICO */
+  padding: 120px 50px 80px 50px;
+  
+  /* BORDES ROJOS LED (CLONADOS) */
+  border-left: 1px solid rgb(255, 0, 0) !important;
+  border-right: 1px solid rgb(255, 0, 0) !important;
+  
+  /* SOMBRA ROJA POTENTE (CLONADA) */
+  box-shadow: 
+    0 0 100px rgba(0, 0, 0, 1),
+    -60px 0 150px -20px rgba(255, 0, 0, 0.473), 
+     60px 0 150px -20px rgba(255, 0, 0, 0.473) !important;
+
   z-index: 10;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
 }
 
 /* 3. Definimos la animación de carga (si no está en tu index.css) */
@@ -63,7 +75,8 @@
 }
 
 /* --- HERO REFINADO --- */
-.ct-hero { margin-bottom: 70px; text-align: left; }
+.ct-hero { margin-bottom: 70px; text-align: left; background: transparent !important;
+    border: none !important;}
 
 .ct-title-wrap { position: relative; display: inline-block; }
 
@@ -183,7 +196,12 @@
 
 /* --- RESPONSIVO MÓVIL --- */
 @media (max-width: 1024px) {
-  .ct-pilar-central { width: 100%; padding: 80px 20px 250px 20px; border: none; }
+  .ct-pilar-central {
+    width: 100% !important;
+    padding: 110px 20px 250px 20px !important; 
+    border: none !important;
+    box-shadow: none !important; /* En móvil quitamos las sombras para evitar lag */
+  }
   .ct-main-title { font-size: 4rem; }
   .ct-sig-title { font-size: 3.5rem; left: 40px; bottom: -20px; }
   .ct-master-grid { grid-template-columns: 1fr; gap: 40px; }
