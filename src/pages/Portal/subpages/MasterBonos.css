@@ -89,7 +89,7 @@
 
 .d-card-header .d-prov {
   font-family: 'Oswald';
-  color: #444;
+  color: #8f8f8f;
   font-size: 0.7rem;
   letter-spacing: 4px;
   text-transform: uppercase;
@@ -132,9 +132,9 @@
 .d-card-footer {
   margin-top: 20px;
   padding-top: 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-top: 1px solid rgba(65, 65, 65, 0.904);
   font-size: 0.65rem;
-  color: #333;
+  color: #858484;
   letter-spacing: 2px;
 }
 
@@ -226,8 +226,16 @@
 
 /* --- INSPECTOR PANEL (DUEÑO) --- */
 .inspector-overlay {
-  position: fixed; inset: 0; background: rgba(0, 0, 0, 0.9);
-  z-index: 5000; display: flex; justify-content: flex-end;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.96) !important;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  z-index: 9999999 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 20px;
 }
 
 .inspector-panel {
@@ -258,11 +266,15 @@
 }
 
 .ins-slot {
-  background: #0a0a0a; padding: 15px 5px; border-radius: 6px;
-  text-align: center; display: flex; flex-direction: column;
-  border: 1px solid #111;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid #1a1a1a;
+  padding: 15px 5px;
+  border-radius: 10px;
+  text-align: center;
+  transition: 0.3s;
+  cursor: pointer;
 }
-
+.ins-slot:hover { border-color: #d00000; background: rgba(208,0,0,0.05); }
 .ins-slot.sold { border-color: rgba(208, 0, 0, 0.4); background: rgba(208, 0, 0, 0.05); }
 .ins-slot span { font-family: 'Oswald'; color: #fff; }
 .ins-slot small { font-size: 0.6rem; color: #333; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -292,18 +304,20 @@
 }
 
 .inspector-card-centered {
-  background: #080808;
-  width: 90%;
-  max-width: 700px; /* Más ancho para que luzca bien al medio */
+  background: #080808 !important;
+  border: 1px solid #d00000 !important;
+  border-radius: 24px;
+  width: 95%;
+  /* CAMBIO CLAVE: Aumentamos a 900px para que en PC se vea ancho */
+  max-width: 900px !important; 
   max-height: 85vh;
-  border: 1px solid #d00000;
-  border-radius: 20px;
-  padding: 40px;
-  position: relative;
-  box-shadow: 0 0 100px rgba(208, 0, 0, 0.2);
-  overflow: hidden;
+  padding: 45px;
+  box-shadow: 0 40px 120px rgba(0, 0, 0, 1);
+  position: relative !important;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  animation: modalRevealV72 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .ins-header {
@@ -331,27 +345,50 @@
 .btn-close-x:hover { color: #d00000; transform: rotate(90deg); }
 
 .ins-grid-scroll {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-  gap: 12px;
+  flex: 1;
   overflow-y: auto;
+  display: grid;
+  /* En PC entrarán unos 8 bonos por fila */
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
+  gap: 12px;
   padding-right: 10px;
+  margin-top: 20px;
 }
 
 /* --- TARJETA DE DETALLE PRO --- */
 .detail-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.98);
-  z-index: 6000; display: flex; justify-content: center; align-items: center;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.92) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  
+  /* IMPORTANTE: Este número debe ser mayor al del inspector */
+  z-index: 2147483647 !important; 
+  
+  display: grid !important;
+  place-items: center !important;
+  padding: 20px;
 }
 
 .detail-card-pro {
-  background: #050505;
-  border: 2px solid #d00000;
-  border-radius: 15px;
+  background: #050505 !important;
+  border: 1px solid #d00000 !important;
+  border-radius: 20px;
   width: 90%;
   max-width: 450px;
   padding: 40px;
   position: relative;
+  box-shadow: 0 50px 100px rgba(0,0,0,1);
+  animation: modalRevealV72 0.3s ease-out forwards;
+}
+
+/* Ajuste móvil para la ficha de venta */
+@media (max-width: 900px) {
+  .detail-card-pro {
+    padding: 30px 20px;
+    max-width: 380px;
+  }
 }
 
 .detail-header { margin-bottom: 30px; text-align: center; }
@@ -372,3 +409,106 @@
   to { transform: scale(1); opacity: 1; }
 }
 .anim-scale-up { animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+/* ============================================================
+   INSPECTOR DE ACADEMIA - DISEÑO UEFI COMPACTO (V43)
+   ============================================================ */
+
+
+
+
+
+/* 3. CABECERA DEL INSPECTOR */
+.ins-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  padding-bottom: 15px;
+}
+
+.ins-header h3 { font-family: 'Oswald'; font-size: 1.5rem; color: #fff; text-transform: uppercase; margin: 0; }
+.ins-header h3 span { color: #d00000; }
+.ins-header p { font-size: 0.75rem; color: #555; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
+
+
+
+/* Estilo del cuadrito de bono individual */
+
+
+.ins-slot.sold {
+  border-color: rgba(208, 0, 0, 0.4);
+  background: rgba(208, 0, 0, 0.05);
+}
+
+.ins-num { font-family: 'Oswald'; font-size: 1.1rem; color: #fff; display: block; }
+.ins-status { font-size: 0.6rem; color: #444; text-transform: uppercase; letter-spacing: 1px; }
+.sold .ins-status { color: #d00000; font-weight: bold; }
+
+/* 5. BARRA DE SCROLL TÉCNICA */
+.ins-grid-scroll::-webkit-scrollbar { width: 4px; }
+.ins-grid-scroll::-webkit-scrollbar-thumb { background: #d00000; border-radius: 10px; }
+
+/* ============================================================
+   FIX DE PRECISIÓN MÓVIL: INSPECTOR (V45)
+   ============================================================ */
+
+@media (max-width: 950px) {
+  /* 1. EL FONDO: Bajamos el inicio para no chocar con el Navbar */
+  .inspector-overlay {
+    align-items: flex-start !important; /* Empieza arriba */
+    padding-top: 140px !important; /* ESPACIO PARA NAVBAR + SUBNAV */
+    padding-bottom: 40px !important;
+    overflow-y: auto !important; /* Permite mover el fondo si es necesario */
+  }
+
+  /* 2. LA TARJETA: Más compacta y con límite de altura */
+  .inspector-card-centered {
+    width: 95% !important;
+    max-height: 65vh !important; /* ALTURA CORTA: Ocupa solo el 65% de la pantalla */
+    padding: 20px 15px !important;
+    border-radius: 16px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.8) !important;
+  }
+
+  /* 3. CABECERA DEL MODAL: Texto más pequeño */
+  .ins-header {
+    margin-bottom: 15px !important;
+    padding-bottom: 10px !important;
+  }
+  .ins-header h3 { font-size: 1.1rem !important; }
+  .ins-header p { font-size: 0.6rem !important; }
+
+  /* 4. LA GRILLA INTERNA: Es la que tiene el SCROLL ahora */
+  .ins-grid-scroll {
+    flex: 1 !important;
+    overflow-y: auto !important; /* ACTIVAMOS EL SCROLL SOLO AQUÍ */
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)) !important; /* 4 por fila */
+    gap: 8px !important;
+    padding-right: 5px !important;
+  }
+
+  /* 5. CUADRITOS MINI (Para que entren muchos) */
+  .ins-slot {
+    padding: 8px 2px !important;
+    border-radius: 6px !important;
+    background: rgba(255,255,255,0.02) !important;
+  }
+  .ins-num { font-size: 0.8rem !important; }
+  .ins-status { font-size: 0.45rem !important; }
+
+  /* 6. BOTÓN CERRAR (X): Lo hacemos más fácil de tocar */
+  .btn-close-x {
+    font-size: 2rem !important;
+    color: #d00000 !important;
+    line-height: 1 !important;
+  }
+}
+
+/* Ajuste para pantallas muy cortas (iPhone SE) */
+@media (max-height: 680px) and (max-width: 950px) {
+  .inspector-overlay { padding-top: 130px !important; }
+  .inspector-card-centered { max-height: 60vh !important; }
+}

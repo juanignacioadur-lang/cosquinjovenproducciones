@@ -96,7 +96,7 @@ export default function GestionUsuarios() {
         <div className="node-card empty add-btn-node" onClick={openAddModal}>
            <div className="add-content">
               <span className="plus">+</span>
-              <p>NUEVO DELEGADO</p>
+              <p>REGISTRAR DELEGADO</p>
            </div>
         </div>
 
@@ -112,10 +112,10 @@ export default function GestionUsuarios() {
             </div>
             <div className="node-info">
              <h4>{d.nombre}</h4>
-                   <p>{d.academia}</p>
+                   <p>ACADEMIA: {d.academia}</p>
        <div className="node-stats-footer">
         <div className="stat-item-pro">
-         <span className="stat-label2">NÚMEROS</span>
+         <span className="stat-label2">NÚMEROS ASIGNADOS</span>
          <span className="stat-value">{d.hasta - d.de + 1}</span>
         </div>
        </div>

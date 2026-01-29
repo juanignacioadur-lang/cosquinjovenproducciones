@@ -86,7 +86,7 @@ export default function Contacto() {
 
             {/* SOCIAL HUB - HARDWARE INTERFACE */}
             <div className="ct-social-hardware">
-              <h4 className="hub-label">SISTEMA DE ENLACES // SOCIAL_HUB</h4>
+              <h4 className="hub-label">NUESTRAS REDES SOCIALES.</h4>
               <div className="hub-grid">
                 
                 {/* INSTAGRAM */}
@@ -99,7 +99,7 @@ export default function Contacto() {
                     </svg>
                     <span className="hub-name">INSTAGRAM</span>
                   </div>
-                  <span className="hub-id">//01</span>
+                  <span className="hub-id">Descubre las últimas publicaciónes.</span>
                 </a>
 
                 {/* FACEBOOK */}
@@ -110,7 +110,7 @@ export default function Contacto() {
                     </svg>
                     <span className="hub-name">FACEBOOK</span>
                   </div>
-                  <span className="hub-id">//02</span>
+                  <span className="hub-id">Explora nuestro Facebook.</span>
                 </a>
 
               </div>

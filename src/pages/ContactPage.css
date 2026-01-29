@@ -96,7 +96,7 @@
 
 .ct-subtitle {
   font-family: 'Causten', sans-serif !important;
-  color: #555; font-size: 1.1rem; max-width: 550px; line-height: 1.6;
+  color: #c9c9c9; font-size: 1.1rem; max-width: 550px; line-height: 1.6;
 }
 
 /* --- GRID --- */
@@ -122,10 +122,10 @@
 .mod-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
 .mod-icon-box { width: 45px; height: 45px; background: rgba(208,0,0,0.1); display: flex; align-items: center; justify-content: center; color: #d00000; border-radius: 4px; }
 .mod-icon-box svg { width: 24px; }
-.mod-tag { font-family: 'Causten', sans-serif !important; font-size: 0.6rem; color: #444; letter-spacing: 3px; font-weight: 800; }
+.mod-tag { font-family: 'Causten', sans-serif !important; font-size: 0.6rem; color: #b9b8b8; letter-spacing: 3px; font-weight: 800; }
 
 .mod-title { font-family: 'Helvetica Compressed', sans-serif !important; font-size: 3rem; color: #fff; margin-bottom: 15px; line-height: 1; }
-.mod-desc { font-family: 'Causten', sans-serif !important; color: #666; font-size: 0.95rem; line-height: 1.5; margin-bottom: 30px; }
+.mod-desc { font-family: 'Causten', sans-serif !important; color: #e4e4e4; font-size: 0.95rem; line-height: 1.5; margin-bottom: 30px; }
 
 .ct-glitch-btn {
   background: #d00000; color: #fff; padding: 15px 35px; text-decoration: none;
@@ -146,8 +146,8 @@
   display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 .terminal-dots { display: flex; gap: 8px; }
-.terminal-dots span { width: 8px; height: 8px; border-radius: 50%; background: #333; }
-.terminal-title { font-family: 'Causten', sans-serif !important; font-size: 0.65rem; color: #555; letter-spacing: 2px; }
+.terminal-dots span { width: 8px; height: 8px; border-radius: 50%; background: #ff0000; }
+.terminal-title { font-family: 'Causten', sans-serif !important; font-size: 0.65rem; color: #c9c9c9; letter-spacing: 2px; }
 
 .ct-terminal-form { padding: 50px; display: flex; flex-direction: column; gap: 30px; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -238,13 +238,13 @@
 /* --- DIGITAL HUB: BOTONES DE HARDWARE --- */
 .ct-social-hardware {
   margin-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(206, 206, 206, 0.774);
   padding-top: 30px;
 }
 
 .hub-label {
   font-family: 'Causten', sans-serif !important;
-  color: #444;
+  color: #919191;
   font-size: 0.7rem;
   letter-spacing: 5px;
   margin-bottom: 20px;
@@ -262,8 +262,8 @@
   justify-content: space-between !important;
   align-items: center;
   padding: 18px 25px !important;
-  background: rgba(255, 255, 255, 0.02) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(182, 182, 182, 0.767) !important;
+  border: 1px solid rgba(179, 179, 179, 0.781) !important;
   color: #888 !important;
   text-decoration: none !important;
   font-family: 'Helvetica Compressed', sans-serif !important;
@@ -322,15 +322,7 @@
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.hub-label {
-  font-family: 'Causten', sans-serif !important;
-  color: #444;
-  font-size: 0.65rem;
-  letter-spacing: 5px;
-  font-weight: 900;
-  margin-bottom: 20px;
-  text-transform: uppercase;
-}
+
 
 .hub-grid {
   display: flex;
@@ -375,7 +367,7 @@
 
 .hub-id {
   font-family: 'Causten', sans-serif !important;
-  font-size: 0.6rem;
+  font-size: 0.8rem;
   color: #333;
   font-weight: 700;
   transition: 0.3s;

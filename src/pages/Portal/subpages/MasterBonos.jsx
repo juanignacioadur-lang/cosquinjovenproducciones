@@ -46,11 +46,23 @@ export default function MasterBonos() {
   };
 
   const delegatesWithStats = useMemo(() => {
-    return data.delegates.map((d, index) => {
-      const start = (index * 32) + 1;
-      const end = start + 31;
+    return data.delegates.map((d) => {
+      // 1. Convertimos a números reales los datos del Excel
+      const start = Number(d.de);
+      const end = Number(d.hasta);
+      const asignados = Number(d.cantidad) || (end - start + 1); // Si no hay cantidad, la calcula
+      
+      // 2. Filtramos las ventas de este delegado específico
       const sales = data.sales.filter(s => s.vendedor.toString() === d.dni.toString());
-      return { ...d, start, end, soldCount: sales.length, sales };
+      
+      return { 
+        ...d, 
+        start, 
+        end, 
+        totalAsignados: asignados, // <--- Guardamos el total real
+        soldCount: sales.length,   // <--- Cantidad vendida real
+        sales 
+      };
     });
   }, [data]);
 
@@ -63,9 +75,9 @@ export default function MasterBonos() {
       <header className="owner-header-tools">
         <div className="search-wrap">
           <span>🔍</span>
-          <input type="text" placeholder="BUSCAR DELEGACIÓN O ACADEMIA..." onChange={e => setSearchTerm(e.target.value)} />
+          <input type="text" placeholder="BUSCAR POR ACADEMIA O DELEGADO..." onChange={e => setSearchTerm(e.target.value)} />
         </div>
-        <div className="global-counter">TOTAL VENTAS: {data.sales.length}</div>
+        <div className="global-counter">TOTAL DE VENTAS: {data.sales.length}</div>
       </header>
 
       <div className="delegates-grid">
@@ -74,12 +86,12 @@ export default function MasterBonos() {
           .map((d, i) => (
           <div key={i} className="delegate-card" onClick={() => setSelectedDelegate(d)}>
             <div className="d-card-header">
-               <span className="d-prov">{d.provincia}</span>
-               <h4>{d.academia}</h4>
+               <span className="d-prov">{d.academia}</span>
+               <h4>{d.nombre}</h4>
             </div>
             <div className="d-card-stats">
                <div className="d-progress"><div className="fill" style={{width: `${(d.soldCount/32)*100}%`}}></div></div>
-               <span>{d.soldCount} / 32 VENDIDOS</span>
+               <span>{d.soldCount} / {d.totalAsignados} VENDIDOS</span>
             </div>
             <div className="d-card-footer">RANGO: {d.start} - {d.end}</div>
           </div>
@@ -89,10 +101,12 @@ export default function MasterBonos() {
   );
 
   const renderDelegateView = () => {
+    // Buscamos nuestra propia info en la lista de delegados
     const me = delegatesWithStats.find(d => d.dni.toString() === user.dni.toString());
-    if (!me) return <div className="loader-tech">ERROR: NO TIENES RANGO ASIGNADO</div>;
+    if (!me) return <div className="loader-tech">ERROR: NO TIENES RANGO ASIGNADO. CONTACTA AL ADMINISTRADOR.</div>;
 
     const slots = [];
+    // Creamos la grilla dinámicamente desde nuestro 'inicio' hasta nuestro 'fin'
     for (let i = me.start; i <= me.end; i++) {
       const sale = data.sales.find(s => s.id_bono.toString() === i.toString());
       slots.push({ idGlobal: i, nRelativo: (i - me.start) + 1, data: sale });
@@ -101,9 +115,12 @@ export default function MasterBonos() {
     return (
       <div className="delegate-slots-view anim-fade-in">
         <header className="slots-header">
-           <h3>GESTIÓN DE MIS 32 BONOS</h3>
-           <p>Rango asignado: {me.start} al {me.end}</p>
-        </header>
+   <h3>GESTIÓN DE MIS BONOS</h3>
+   <p>Progreso: <strong>{me.soldCount} vendidos</strong> de <strong>{me.totalAsignados}</strong></p>
+   <div className="d-progress" style={{maxWidth: '300px', margin: '15px auto'}}>
+      <div className="fill" style={{width: `${(me.soldCount / me.totalAsignados) * 100}%`}}></div>
+   </div>
+</header>
         <div className="slots-grid-pro">
            {slots.map(slot => (
              <div 
@@ -140,7 +157,8 @@ export default function MasterBonos() {
                  <button className="btn-close-x" onClick={() => setSelectedDelegate(null)}>×</button>
               </header>
               <div className="ins-grid-scroll">
-                 {Array.from({length: 32}, (_, i) => {
+                 {/* BUCLE DINÁMICO SEGÚN LA CANTIDAD DEL DELEGADO */}
+                 {Array.from({length: activeDelegateData.totalAsignados}, (_, i) => {
                     const id = activeDelegateData.start + i;
                     const sale = activeDelegateData.sales.find(s => s.id_bono.toString() === id.toString());
                     return (

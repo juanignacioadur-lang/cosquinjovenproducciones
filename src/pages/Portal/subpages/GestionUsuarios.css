@@ -109,8 +109,8 @@
 .node-range {
   font-family: 'Roboto', sans-serif;
   font-size: 0.65rem !important;
-  color: #555; /* Gris tenue */
-  background: rgba(255, 255, 255, 0.03); /* Fondo tipo badge */
+  color: #9c9c9c; /* Gris tenue */
+  background: rgba(182, 182, 182, 0.03); /* Fondo tipo badge */
   padding: 3px 8px;
   border-radius: 4px;
   text-transform: uppercase;
@@ -119,7 +119,7 @@
 }
 .node-range:last-child {
   color: #aaa; /* Un poco más claro para el rango */
-  border: 1px solid rgba(208, 0, 0, 0.1);
+  border: 1px solid rgba(208, 0, 0, 0.226);
 }
 
 
@@ -134,7 +134,7 @@
 
 
 .node-info p {
-  color: #444;
+  color: #7e7e7e;
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -362,7 +362,7 @@
 
 .plus-icon {
   font-size: 3rem;
-  color: #222;
+  color: #868686;
   display: block;
   margin-bottom: 10px;
 }
@@ -395,8 +395,8 @@
 }
 
 .add-content { text-align: center; }
-.add-content .plus { font-size: 3rem; color: #222; display: block; line-height: 1; }
-.add-content p { font-family: 'Oswald'; color: #444; letter-spacing: 2px; margin-top: 10px; }
+.add-content .plus { font-size: 3rem; color: #c0c0c0; display: block; line-height: 1; }
+.add-content p { font-family: 'Oswald'; color: #b6b6b6; letter-spacing: 2px; margin-top: 10px; }
 
 .add-btn-node:hover .plus, .add-btn-node:hover p { color: #d00000; }
 /* --- CONTENEDOR DE NÚMEROS ABAJO --- */

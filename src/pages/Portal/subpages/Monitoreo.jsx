@@ -173,7 +173,7 @@ export default function Monitoreo() {
                   <article key={i} className={`mnt-log-entry ${log.estado.toLowerCase()}`}>
                     <div className="log-badge-user">
                       <span className="u-name">{log.vendedor_nombre}</span>
-                      <span className="u-id">ID: {log.vendedor}</span>
+                      <span className="u-id">DNI: {log.vendedor}</span>
                     </div>
                     <div className="log-data-body">
                       <p>VENTA: <strong>BONO #{log.id_bono}</strong> <small>(R:{log.n_bono})</small></p>

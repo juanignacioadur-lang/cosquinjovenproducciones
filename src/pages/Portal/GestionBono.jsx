@@ -1,20 +1,47 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react"; // IMPORTACIÓN CORREGIDA
 import { useAuth } from "../../context/AuthContext";
 import { getBonds, registerSale } from "../../services/api";
-import { askCJAssistant } from "../../services/aiService"; // IMPORTAMOS IA REAL
+import { askCJAssistant } from "../../services/aiService";
+import ReactDOM from "react-dom"; // Necesario para el modal portal
 import "./GestionBono.css";
 
 export default function GestionBono() {
   const { user, logout } = useAuth();
-  const [bonds, setBonds] = useState([]);
+  
+  // 1. ESTADO INICIAL CORREGIDO (Objeto con sales y delegates)
+  const [data, setData] = useState({ sales: [], delegates: [] });
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [selectedBono, setSelectedBono] = useState(null);
   const [form, setForm] = useState({ nombre: "", dni: "", tel: "", dir: "" });
 
+  // --- LÓGICA DINÁMICA ---
+
+  // Obtener mis datos de rango desde la lista federal
+  const myData = useMemo(() => {
+    return data.delegates?.find(d => d.dni.toString() === user.dni.toString());
+  }, [data.delegates, user.dni]);
+
+  // Generar mi grilla de números real
+  const misNumeros = useMemo(() => {
+    if (!myData) return [];
+    const start = Number(myData.de);
+    const end = Number(myData.hasta);
+    const arr = [];
+    for (let i = start; i <= end; i++) {
+      arr.push(i);
+    }
+    return arr;
+  }, [myData]);
+
+  // Contar mis ventas reales
+  const vendidosCount = useMemo(() => {
+    return data.sales.filter(s => s.vendedor.toString() === user.dni.toString()).length;
+  }, [data.sales, user.dni]);
+
   // --- ESTADOS PARA LA IA ---
   const [chat, setChat] = useState([
-    { role: 'bot', content: `¡Hola ${user?.nombre}! Soy CJ-PILOT. Estoy conectado a la base de datos de Cosquín Joven. ¿En qué te puedo ayudar hoy?` }
+    { role: 'bot', content: `¡Hola ${user?.nombre}! Soy CJ-PILOT. Estoy listo para gestionar los bonos de ${user?.academia}. ¿Qué necesitás?` }
   ]);
   const [userInput, setUserInput] = useState("");
   const [aiTyping, setAiTyping] = useState(false);
@@ -26,18 +53,22 @@ export default function GestionBono() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const data = await getBonds();
-      setBonds(data);
-    } catch (e) { console.error(e); }
+      const res = await getBonds();
+      setData(res);
+    } catch (e) { console.error("Error cargando datos:", e); }
     setLoading(false);
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    if (!selectedBono) return;
+    
     setIsSaving(true);
     const res = await registerSale({
-      n_bono: selectedBono,
+      n_bono: (selectedBono - Number(myData.de)) + 1, // Número relativo (1-32)
+      id_bono: selectedBono, // ID Global (ej: 129)
       vendedor_dni: user.dni,
+      vendedor_nombre: user.nombre,
       comprador_nombre: form.nombre,
       comprador_dni: form.dni,
       telefono: form.tel,
@@ -56,32 +87,27 @@ export default function GestionBono() {
     setIsSaving(false);
   };
 
-  // --- LÓGICA DE LA IA REAL (GEMINI) ---
   const askAI = async (e) => {
     e.preventDefault();
     if (!userInput.trim() || aiTyping) return;
 
     const userMsg = userInput;
-    const newChat = [...chat, { role: 'user', content: userMsg }];
-    setChat(newChat);
+    setChat(prev => [...prev, { role: 'user', content: userMsg }]);
     setUserInput("");
     setAiTyping(true);
 
-    const vendidos = bonds.filter(b => b.vendedor === user?.dni).length;
-    
-    // Llamada al servicio de Google AI
     const aiResponse = await askCJAssistant(userMsg, {
       userName: user?.nombre,
       academia: user?.academia,
       rol: user?.rol,
-      soldCount: vendidos
+      soldCount: vendidosCount
     });
 
     setAiTyping(false);
-    setChat([...newChat, { role: 'bot', content: aiResponse }]);
+    setChat(prev => [...prev, { role: 'bot', content: aiResponse }]);
   };
 
-  const misNumeros = Array.from({ length: 32 }, (_, i) => i + 1);
+  if (loading) return <div className="loader-tech"><center>SINCRONIZANDO PANEL...</center></div>;
 
   return (
     <main className="gestion-root">
@@ -89,15 +115,25 @@ export default function GestionBono() {
         
         <header className="gestion-nav">
           <div className="user-info">
-            <span className="user-role">{user?.rol}</span>
+            <span className="user-role">DELEGADO: {user?.academia}</span>
             <h2 className="user-name">HOLA, {user?.nombre?.split(' ')[0]}</h2>
           </div>
-          <button onClick={logout} className="btn-logout">CERRAR SESIÓN</button>
+          <div className="user-stats-pill">
+             <div className="stat-box-mini">
+                <span className="s-label">VENDIDOS</span>
+                <span className="s-val">{vendidosCount} / {myData?.cantidad || 0}</span>
+             </div>
+             <button onClick={logout} className="btn-logout">SALIR</button>
+          </div>
         </header>
+
+        {/* BARRA DE PROGRESO */}
+        <div className="delegate-progress-bar">
+           <div className="fill" style={{width: `${(vendidosCount / (Number(myData?.cantidad) || 1)) * 100}%`}}></div>
+        </div>
 
         <div className="gestion-grid">
           
-          {/* LADO IZQUIERDO: IA TÁCTICA */}
           <aside className="gestion-tools">
             <div className="tool-card ai-assistant">
               <div className="ai-header">
@@ -116,7 +152,7 @@ export default function GestionBono() {
               <form onSubmit={askAI} className="ai-input-group">
                 <input 
                   type="text" 
-                  placeholder="Escribí tu duda aquí..." 
+                  placeholder="Consultar a la IA..." 
                   value={userInput} 
                   onChange={(e) => setUserInput(e.target.value)} 
                 />
@@ -125,19 +161,13 @@ export default function GestionBono() {
                 </button>
               </form>
             </div>
-            
-            <div className="tool-card">
-               <span className="user-role" style={{color:'#fff', opacity:0.5}}>MI ACADEMIA</span>
-               <p style={{color: '#d00000', fontWeight:'bold', marginTop:'5px'}}>{user?.academia}</p>
-            </div>
           </aside>
 
-          {/* LADO DERECHO: MAPA DE SLOTS */}
           <section className="gestion-main">
             <div className="slots-grid">
               {misNumeros.map((num) => {
-                const bonoData = bonds.find(b => b.n_bono === num);
-                const isSold = bonoData && bonoData.comprador !== "Disponible";
+                const bonoData = data.sales?.find(s => s.id_bono.toString() === num.toString());
+                const isSold = !!bonoData;
                 
                 return (
                   <div 
@@ -147,7 +177,7 @@ export default function GestionBono() {
                   >
                     <span className="slot-id">#{num}</span>
                     <span className="slot-status">{isSold ? "VENDIDO" : "LIBRE"}</span>
-                    {isSold && <span className="slot-owner">{bonoData.comprador}</span>}
+                    {isSold && <span className="slot-owner">{bonoData.comprador.split(' ')[0]}</span>}
                   </div>
                 );
               })}
@@ -155,27 +185,26 @@ export default function GestionBono() {
           </section>
         </div>
 
-        {/* MODAL DE REGISTRO */}
-        {selectedBono && (
-          <div className="form-overlay">
-            <div className="form-card-pro anim-fade-in">
-              <h3 className="form-modal-title">REGISTRAR BONO <span>#{selectedBono}</span></h3>
-              
+        {/* MODAL CON PORTAL PARA EVITAR CORTES EN IPHONE */}
+        {selectedBono && ReactDOM.createPortal(
+          <div className="form-overlay" onClick={() => setSelectedBono(null)}>
+            <div className="form-card-pro anim-impact" onClick={e => e.stopPropagation()}>
+              <h3 className="form-modal-title">REGISTRAR VENTA: <span>BONO #{selectedBono}</span></h3>
               <form onSubmit={handleRegister} className="form-grid-pro">
-                <input type="text" placeholder="Nombre completo del comprador" required value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} />
-                <input type="number" placeholder="DNI del comprador" required value={form.dni} onChange={e => setForm({...form, dni: e.target.value})} />
-                <input type="tel" placeholder="WhatsApp (Ej: 3541...)" required value={form.tel} onChange={e => setForm({...form, tel: e.target.value})} />
-                <input type="text" placeholder="Dirección / Localidad" required value={form.dir} onChange={e => setForm({...form, dir: e.target.value})} />
-                
+                <input type="text" placeholder="Nombre Comprador" required value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} />
+                <input type="number" placeholder="DNI Comprador" required value={form.dni} onChange={e => setForm({...form, dni: e.target.value})} />
+                <input type="tel" placeholder="WhatsApp" required value={form.tel} onChange={e => setForm({...form, tel: e.target.value})} />
+                <input type="text" placeholder="Ciudad / Localidad" required value={form.dir} onChange={e => setForm({...form, dir: e.target.value})} />
                 <div className="form-actions">
-                  <button type="button" className="btn-cancel" onClick={() => setSelectedBono(null)}>CANCELAR</button>
+                  <button type="button" className="btn-cancel" onClick={() => setSelectedBono(null)}>ABORTAR</button>
                   <button type="submit" className="btn-confirm" disabled={isSaving}>
-                    {isSaving ? "GUARDANDO..." : "CONFIRMAR VENTA"}
+                    {isSaving ? "GUARDANDO..." : "CONFIRMAR"}
                   </button>
                 </div>
               </form>
             </div>
-          </div>
+          </div>,
+          document.body
         )}
 
       </div>

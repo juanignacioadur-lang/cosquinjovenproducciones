@@ -2,7 +2,7 @@
    API SERVICE - CONECTOR GOOGLE SHEETS V28
    ============================================================ */
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbywey_W-x0hmBXgd9j2WooPSTEMnNUcnfZuK8TZTEnZV8yPRDSkHaSBu03pr080pQnkQw/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9p0fgLUINaqqDiwlcQ_RKrWCKjhvyFfHIH9E1Fpe9SqeEn3GOs9OqDhJqgnobLdIMbw/exec";
 
 // --- 1. INICIAR SESIÓN ---
 export const loginUser = async (dni, password) => {
