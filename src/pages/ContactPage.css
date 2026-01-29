@@ -39,9 +39,6 @@
   /* PADDING SIMÉTRICO */
   padding: 120px 50px 80px 50px;
   
-  /* BORDES ROJOS LED (CLONADOS) */
-  border-left: 1px solid rgb(255, 0, 0) !important;
-  border-right: 1px solid rgb(255, 0, 0) !important;
   
   /* SOMBRA ROJA POTENTE (CLONADA) */
   box-shadow: 

@@ -58,8 +58,6 @@
   z-index: 10;
   
   /* Bordes y luces rojas que ya tenías */
-  border-left: 1px solid rgb(255, 0, 0);
-  border-right: 1px solid rgb(255, 0, 0);
   box-shadow: 
     0 0 100px rgba(0, 0, 0, 1),
     -60px 0 150px -20px rgba(255, 0, 0, 0.473), 

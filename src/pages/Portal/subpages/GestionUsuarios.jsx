@@ -58,14 +58,15 @@ export default function GestionUsuarios() {
   // Enviamos al script
   const res = await saveDelegate({ 
     ...form, 
-    rango_inicio: start, 
-    rango_fin: end 
+    cantidad: parseInt(form.cantidad) 
   });
 
   if (res.status === "success") {
-    alert(`DELEGADO SINCRONIZADO: Números del #${start} al #${end}`);
+    alert("Sincronización Exitosa: Los rangos se han re-acomodado.");
     setModalMode(null);
-    fetchDelegates();
+    fetchDelegates(); // Esto recarga la lista y verás los nuevos rangos
+  } else {
+    alert("Error: " + res.message);
   }
   setLoading(false);
 };
@@ -73,6 +74,7 @@ export default function GestionUsuarios() {
     setForm({ dni: "", nombre: "", academia: "", provincia: "", password: "", cantidad: "" });
     setModalMode('add');
   };
+  
 
   const handleDelete = async (dni) => {
     if (!window.confirm("¿ORDEN DE BAJA?")) return;
@@ -113,7 +115,7 @@ export default function GestionUsuarios() {
                    <p>{d.academia}</p>
        <div className="node-stats-footer">
         <div className="stat-item-pro">
-         <span className="stat-label">NÚMEROS</span>
+         <span className="stat-label2">NÚMEROS</span>
          <span className="stat-value">{d.hasta - d.de + 1}</span>
         </div>
        </div>

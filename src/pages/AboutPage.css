@@ -57,9 +57,7 @@
   background: rgba(7, 7, 7, 0.98) !important; 
   backdrop-filter: blur(40px);
   
-  /* Borde fino para dar relieve */
-  border-left: 1px solid rgba(255, 0, 0, 0.3);
-  border-right: 1px solid rgba(255, 0, 0, 0.3);
+
   
   /* SOMBRA SUTIL (El fuego de index.css hará el resto) */
   box-shadow: 0 0 100px rgba(0, 0, 0, 1);

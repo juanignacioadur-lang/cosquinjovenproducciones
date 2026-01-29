@@ -416,10 +416,10 @@
   gap: 2px;
 }
 
-.stat-label {
+.stat-label2 {
   font-family: 'Roboto', sans-serif;
   font-size: 0.6rem;
-  color: #444; /* Gris oscuro */
+  color: #838383; /* Gris oscuro */
   letter-spacing: 3px;
   font-weight: 900;
   text-transform: uppercase;
@@ -439,4 +439,77 @@
   color: #ff0000;
   transform: scale(1.1);
   transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+/* ============================================================
+   FIX DE PRECISIÓN PARA MÓVIL (IPHONE / ANDROID)
+   ============================================================ */
+
+@media (max-width: 900px) {
+  /* 1. EL FONDO: Aseguramos que no empuje el contenido */
+  .modal-overlay {
+    padding: 10px !important; /* Margen mínimo para que no toque los bordes físicos */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* 2. LA TARJETA: La hacemos flexible */
+  .modal-card-tech {
+    width: 100% !important; /* Ocupa el ancho disponible dentro del padding */
+    max-width: 380px !important; /* Límite para que no se vea gigante en tablets */
+    margin: 0 auto !important;
+    padding: 25px 15px !important; /* Reducimos el aire interno lateral */
+    border-radius: 16px !important;
+    box-sizing: border-box !important; /* Evita que el padding sume al ancho */
+  }
+
+  /* 3. TÍTULO: Ajustamos tamaño para que no rompa en dos líneas feas */
+  .modal-card-tech h3 {
+    font-size: 1.3rem !important;
+    margin-bottom: 25px !important;
+    letter-spacing: 1px !important;
+  }
+
+  /* 4. LAS FILAS (DNI/PASS y ACADEMIA/CANTIDAD) */
+  /* Forzamos que se apilen uno debajo del otro para que no se estrujen */
+  .m-row {
+    grid-template-columns: 1fr !important; /* Adiós a las 2 columnas */
+    gap: 15px !important;
+  }
+
+  /* 5. INPUTS: Ajuste de tamaño para el dedo */
+  .m-input label {
+    font-size: 0.65rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  .m-input input {
+    padding: 15px !important; /* Más cómodo para tocar */
+    font-size: 1rem !important; /* Evita el zoom automático de iPhone */
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  /* 6. BOTONES: Los ponemos uno arriba del otro */
+  .modal-actions-pro {
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+    margin-top: 20px !important;
+  }
+
+  .btn-modal-tech {
+    width: 100% !important;
+    padding: 16px !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* Ajuste extra para celulares muy pequeños (iPhone SE) */
+@media (max-width: 370px) {
+  .modal-card-tech {
+    padding: 20px 10px !important;
+  }
+  .modal-card-tech h3 {
+    font-size: 1.1rem !important;
+  }
 }
