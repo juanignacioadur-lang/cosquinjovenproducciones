@@ -431,7 +431,7 @@
   /* 1. COLOR ROJO OSCURO: Cambiamos el rojo vibrante por un bordó profundo */
   color: #8b0000 !important; 
   
-  font-size: 6rem;
+  font-size: 7rem;
   margin: 0;
   line-height: 0.8;
   text-transform: none !important;
@@ -451,6 +451,7 @@
 
   /* 4. REFUERZO DE SOMBRA NEGRA: Para dar más profundidad */
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.8));
+  font-weight: 1 !important;  /* Mantiene el trazo base fino para que el hueco sea grande */
 }
 
 /* Ajuste del texto de abajo (Móvil style) */
@@ -471,13 +472,13 @@
 
   .pillars-pretext {
   font-family: 'Causten', sans-serif !important;
-  
+  font-size: 0.7rem;
   /* CAMBIO: De blanco puro a un gris técnico suave */
   /* El 0.5 lo hace 50% transparente, podés bajarlo a 0.4 para más oscuro */
   color: rgba(255, 255, 255, 0.5) !important; 
   
   /* Ajustes para que se mantenga prolijo */
-  letter-spacing: 6px;
+  letter-spacing: 5px;
   text-transform: uppercase;
   font-weight: 300;
   margin-top: 0;
@@ -485,7 +486,7 @@
 }
 
   .pillars-brandname {
-    font-size: 3.5rem; /* Ajustamos para que entre en el ancho del celu */
+    font-size: 4.5rem; /* Ajustamos para que entre en el ancho del celu */
     margin-top: 5px;
   }
 }
