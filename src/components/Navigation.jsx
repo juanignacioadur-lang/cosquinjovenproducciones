@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../context/AuthContext";
 import { NavLink, useLocation, useSearchParams } from "react-router-dom"; 
 import "./Navigation.css";
@@ -9,13 +9,28 @@ export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth(); 
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
-  
+  const scrollRef = useRef(null);
+  const [showLeftArrow, setShowLeftArrow] = useState(false);
+  const [showRightArrow, setShowRightArrow] = useState(true);
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+      setShowLeftArrow(scrollLeft > 10);
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  };
+
+  useEffect(() => {
+    checkScroll(); // Chequeo inicial
+  }, [isAuthenticated, location]);
+
   const isPortal = location.pathname.startsWith("/gestion-bono");
   const currentTab = searchParams.get("tab") || "monitoreo";
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -37,10 +52,31 @@ export default function Navbar() {
     { id: "perfil", label: "MIS DATOS", roles: ["DUEÑO", "DELEGADO"] },
   ];                                
 
-  return (
+return (
     <nav className={`navbar ${isScrolled ? "scrolled" : ""}`} role="navigation">
       <div className="nav-container">
         <img src="/logo.png" alt="Cosquin Joven" className="logo-img" />
+
+        {/* --- NUEVO: GESTIÓN MÓVIL (AL LADO DEL LOGO) --- */}
+        {isAuthenticated && isPortal && (
+          <div className="mobile-portal-nav">
+            {showLeftArrow && <div className="scroll-arrow left"></div>}
+            
+            <div className="mobile-tabs-scroll" ref={scrollRef} onScroll={checkScroll}>
+              {portalLinks.filter(link => link.roles.includes(user?.rol)).map(link => (
+                <button 
+                  key={link.id} 
+                  className={`m-tab-btn ${currentTab === link.id ? "active" : ""}`}
+                  onClick={() => setSearchParams({ tab: link.id })}
+                >
+                  {link.label}
+                </button>
+              ))}
+            </div>
+
+            {showRightArrow && <div className="scroll-arrow right"></div>}
+          </div>
+        )}
 
         <button className={`hamburger-btn ${isOpen ? "open" : ""}`} onClick={toggleMenu}>
           <span className="hamburger-line"></span>
@@ -62,7 +98,7 @@ export default function Navbar() {
             </NavLink>
           </li>
 
-          {/* INFO DE USUARIO Y SALIR (AHORA EN EL NAV SUPERIOR) */}
+          {/* INFO DE USUARIO Y SALIR */}
           {isAuthenticated && (
             <li className="nav-user-top-info">
               <div className="user-pill-nav">
@@ -77,9 +113,9 @@ export default function Navbar() {
         </ul>
       </div>
 
-      {/* EL DOCK COLGANTE (SOLO PESTAÑAS DE GESTIÓN) */}
+      {/* EL DOCK COLGANTE (SOLO DESKTOP) */}
       {isAuthenticated && isPortal && (
-        <div className="portal-hanging-dock anim-fade-in">
+        <div className="portal-hanging-dock desktop-only anim-fade-in">
           <div className="dock-container">
             <div className="dock-links">
               {portalLinks.filter(link => link.roles.includes(user?.rol)).map(link => (
@@ -95,6 +131,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </nav>
-  );
-}
+      </nav>
+    );
+  }

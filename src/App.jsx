@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 // Componentes Globales
 import Navigation from "./components/Navigation.jsx";
@@ -18,16 +18,23 @@ import NewsDetailPage from "./pages/NewsDetailPage.jsx";
 import ContactPage from "./pages/ContactPage.jsx";
 import BonoPage from "./pages/BonoPage.jsx";
 import Mantenimiento from "./pages/Mantenimiento.jsx";
-// PORTAL DE GESTIÓN (Nuevas)
+
+// PORTAL DE GESTIÓN
 import LoginPage from "./pages/Portal/LoginPage.jsx";
 import PortalLayout from "./pages/Portal/PortalLayout.jsx"; 
 
 import "./index.css";
 import "./GlobalScaler.css";
 
-export default function App() {
+// --- SUB-COMPONENTE PARA MANEJAR LA LÓGICA DE RUTA ---
+function AppContent() {
+  const location = useLocation();
+
+  // Detectamos si estamos en el portal o en el login para ocultar cosas
+  const isPortalZone = location.pathname.startsWith("/gestion-bono") || location.pathname === "/portal";
+
   return (
-    <BrowserRouter>
+    <>
       {/* Manejador de Scroll Global */}
       <RouteScrollHandler />
 
@@ -48,10 +55,7 @@ export default function App() {
           {/* --- ACCESO AL PORTAL (LOGIN) --- */}
           <Route path="/portal" element={<LoginPage />} />
 
-          {/* --- PORTAL DE GESTIÓN PROTEGIDO --- 
-              Usamos PortalLayout que es el que tiene las pestañas 
-              de Monitoreo, IA, Bonos y Perfil.
-          */}
+          {/* --- PORTAL DE GESTIÓN PROTEGIDO --- */}
           <Route 
             path="/gestion-bono" 
             element={
@@ -62,9 +66,20 @@ export default function App() {
           />
         </Routes>
       </div>
+
+      {/* SOLO MOSTRAR INFOCARD SI NO ESTAMOS EN EL PORTAL O LOGIN */}
+      {!isPortalZone && <InfoCard />}
       
-      <InfoCard />
       <PageFooter />
+    </>
+  );
+}
+
+// --- COMPONENTE PRINCIPAL ---
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }

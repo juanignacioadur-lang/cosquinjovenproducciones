@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom";
 import React, { useState, useEffect, useMemo } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { getBonds, registerSale } from "../../../services/api";
@@ -138,7 +139,7 @@ export default function MasterBonos() {
     );
   };
 
-  return (
+ return (
     <div className="master-bonos-root">
       {loading ? (
         <div className="loader-tech"><center>CARGANDO DATOS...</center></div>
@@ -146,7 +147,8 @@ export default function MasterBonos() {
         user?.rol === "DUEÑO" ? renderOwnerView() : renderDelegateView()
       )}
 
-      {activeDelegateData && (
+      {/* --- 1. MODAL INSPECTOR (DUEÑO) --- */}
+      {activeDelegateData && ReactDOM.createPortal(
         <div className="inspector-overlay" onClick={() => setSelectedDelegate(null)}>
            <div className="inspector-card-centered anim-scale-up" onClick={e => e.stopPropagation()}>
               <header className="ins-header">
@@ -154,10 +156,9 @@ export default function MasterBonos() {
                     <h3>ACADEMIA: <span>{activeDelegateData.academia}</span></h3>
                     <p>Responsable: {activeDelegateData.nombre}</p>
                  </div>
-                 <button className="btn-close-x" onClick={() => setSelectedDelegate(null)}>×</button>
+                 <button className="btn-close-x" onClick={() => setSelectedDelegate(null)}>&times;</button>
               </header>
               <div className="ins-grid-scroll">
-                 {/* BUCLE DINÁMICO SEGÚN LA CANTIDAD DEL DELEGADO */}
                  {Array.from({length: activeDelegateData.totalAsignados}, (_, i) => {
                     const id = activeDelegateData.start + i;
                     const sale = activeDelegateData.sales.find(s => s.id_bono.toString() === id.toString());
@@ -170,13 +171,15 @@ export default function MasterBonos() {
                  })}
               </div>
            </div>
-        </div>
+        </div>,
+        document.body
       )}
 
-      {liveBonoData && (
+      {/* --- 2. MODAL FICHA TÉCNICA (DETALLE) --- */}
+      {liveBonoData && ReactDOM.createPortal(
         <div className="detail-overlay" onClick={() => setDetailedBono(null)}>
           <div className="detail-card-pro anim-scale-up" onClick={e => e.stopPropagation()}>
-            <button className="btn-close-x" onClick={() => setDetailedBono(null)}>×</button>
+            <button className="btn-close-x" onClick={() => setDetailedBono(null)}>&times;</button>
             <header className="detail-header">
               <span className="detail-tag">FICHA TÉCNICA DE VENTA</span>
               <h4>BONO # {liveBonoData.n_bono} <small>({liveBonoData.id_bono})</small></h4>
@@ -196,12 +199,14 @@ export default function MasterBonos() {
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
-      {selectedBono && (
-        <div className="form-modal-overlay">
-           <div className="form-modal-card anim-scale-up">
+      {/* --- 3. MODAL REGISTRAR VENTA --- */}
+      {selectedBono && ReactDOM.createPortal(
+        <div className="form-modal-overlay" onClick={() => setSelectedBono(null)}>
+           <div className="form-modal-card anim-scale-up" onClick={e => e.stopPropagation()}>
               <h3>REGISTRAR VENTA: BONO #{selectedBono.idGlobal}</h3>
               <form onSubmit={handleRegister} className="form-tech-grid">
                  <input type="text" placeholder="NOMBRE COMPRADOR" required value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} />
@@ -209,12 +214,13 @@ export default function MasterBonos() {
                  <input type="tel" placeholder="WHATSAPP" required value={form.tel} onChange={e => setForm({...form, tel: e.target.value})} />
                  <input type="text" placeholder="DIRECCIÓN / CIUDAD" required value={form.dir} onChange={e => setForm({...form, dir: e.target.value})} />
                  <div className="form-tech-actions">
-                    <button type="button" onClick={() => setSelectedBono(null)}>CANCELAR</button>
-                    <button type="submit" disabled={loading}>CONFIRMAR CARGA</button>
+                    <button type="button" className="btn-modal-tech cancel" onClick={() => setSelectedBono(null)}>CANCELAR</button>
+                    <button type="submit" className="btn-modal-tech save" disabled={loading}>CONFIRMAR CARGA</button>
                  </div>
               </form>
            </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );

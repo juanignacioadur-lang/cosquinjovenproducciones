@@ -130,7 +130,12 @@
 
 @media (max-width: 950px) {
   .nav-container { padding: 0 20px; }
-  .hamburger-btn { display: block; }
+    .hamburger-btn {
+    margin-left: auto !important; /* Esto lo empuja magnéticamente a la derecha */
+    display: block !important;
+    position: relative !important;
+    z-index: 3100;
+  }
 
   .nav-links {
     position: fixed;
@@ -401,4 +406,97 @@
   .user-name-nav {
     font-size: 1.2rem;
   }
+}
+/* ============================================================
+   MOBILE PORTAL INTERFACE - ALINEACIÓN PRO AL LOGO
+   ============================================================ */
+
+/* Ocultamos el dock viejo en móvil para usar el nuevo */
+@media (min-width: 951px) {
+  .mobile-portal-nav { display: none; }
+}
+
+@media (max-width: 950px) {
+  .desktop-only { display: none !important; }
+
+  .nav-container {
+    justify-content: flex-start; /* Logo a la izquierda */
+    gap: 15px;
+    padding: 0 15px;
+  }
+
+  .logo-img {
+    height: 45px; /* Un poco más chico en móvil para dar espacio */
+    flex-shrink: 0;
+  }
+
+  /* --- CONTENEDOR DE TABS MÓVIL --- */
+  .mobile-portal-nav {
+    flex: 1; /* Ocupa todo el centro entre logo y burger */
+    position: relative;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    height: 100%;
+    /* Degradado en los bordes para indicar scroll */
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+  }
+
+  .mobile-tabs-scroll {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Oculta scrollbar */
+    gap: 15px;
+    padding: 0 20px;
+    align-items: center;
+    height: 100%;
+  }
+  .mobile-tabs-scroll::-webkit-scrollbar { display: none; }
+
+  .m-tab-btn {
+    background: transparent;
+    border: none;
+    color: #444;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    white-space: nowrap; /* Prohibido romper línea */
+    text-transform: uppercase;
+    transition: 0.3s;
+    padding: 10px 5px;
+  }
+
+  .m-tab-btn.active {
+    color: #fff;
+    border-bottom: 2px solid #d00000;
+  }
+
+  /* --- LAS FLECHAS ROJAS (INDICADORES) --- */
+  .scroll-arrow {
+    position: absolute;
+    width: 0; 
+    height: 0; 
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    z-index: 10;
+    pointer-events: none;
+    animation: arrowBlink 1s infinite alternate;
+  }
+
+  .scroll-arrow.left {
+    left: 5px;
+    border-right: 8px solid #d00000; /* Flecha apuntando a la izq */
+  }
+
+  .scroll-arrow.right {
+    right: 5px;
+    border-left: 8px solid #d00000; /* Flecha apuntando a la der */
+  }
+}
+
+@keyframes arrowBlink {
+  from { opacity: 0.2; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1.1); }
 }

@@ -20,7 +20,8 @@
 
 @media (max-width: 950px) {
   .portal-viewport {
-    padding-top: 150px !important;
+    /* En móvil lo pegamos casi al Navbar (85px aprox) */
+    padding-top: 100px !important; 
   }
 }
 
