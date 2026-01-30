@@ -513,3 +513,20 @@
     font-size: 1.1rem !important;
   }
 }
+.node-header-meta {
+  text-align: right;
+}
+
+.node-range {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem !important; /* Un poco más grande ya que está solo */
+  color: #555; 
+  letter-spacing: 1px;
+}
+
+/* El número grande de abajo (Cantidad) */
+.stat-value {
+  font-size: 2.5rem !important; /* Más impacto visual */
+  color: #d00000;
+  text-shadow: 0 0 20px rgba(208, 0, 0, 0.4);
+}

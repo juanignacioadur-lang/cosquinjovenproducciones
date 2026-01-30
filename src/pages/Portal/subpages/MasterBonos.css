@@ -225,18 +225,7 @@
 .form-tech-actions button[type="submit"]:hover { background: #ff0000; transform: scale(1.02); }
 
 /* --- INSPECTOR PANEL (DUEÑO) --- */
-.inspector-overlay {
-  position: fixed !important;
-  inset: 0 !important;
-  background: rgba(0, 0, 0, 0.96) !important;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  z-index: 9999999 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  padding: 20px;
-}
+
 
 .inspector-panel {
   width: 100%; max-width: 550px;
@@ -248,10 +237,6 @@
   box-shadow: -20px 0 60px rgba(0,0,0,1);
 }
 
-.ins-header { border-bottom: 1px solid #111; padding-bottom: 30px; margin-bottom: 40px; position: relative; }
-.ins-header h3 { font-family: 'Oswald'; color: #fff; font-size: 1.5rem; text-transform: uppercase; }
-.ins-header h3 span { color: #d00000; }
-.ins-header p { color: #444; font-size: 0.8rem; margin-top: 5px; letter-spacing: 2px; }
 
 .close-btn {
   position: absolute; top: -10px; right: 0;
@@ -265,20 +250,173 @@
   gap: 10px;
 }
 
-.ins-slot {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid #1a1a1a;
-  padding: 15px 5px;
-  border-radius: 10px;
-  text-align: center;
+
+.ins-num {
+  font-family: 'Oswald';
+  font-size: 1.4rem !important;
+  color: #fff !important;
+  line-height: 1;
+}
+
+.ins-status {
+  font-size: 0.6rem !important;
+  color: var(--accent-cj) !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px;
+  margin-top: 5px;
+}
+
+/* ============================================================
+   INSPECTOR V6.0 - DISEÑO MONUMENTAL (OBLIGATORIO)
+   ============================================================ */
+
+/* 1. EL FONDO: Negro absoluto con desenfoque */
+.inspector-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(0, 0, 0, 0.98) !important;
+  backdrop-filter: blur(20px);
+  z-index: 2147483647 !important;
+  display: grid !important;
+  place-items: center !important;
+  padding: 20px;
+}
+
+/* 2. LA TARJETA: Grande e Imponente */
+.inspector-card-centered {
+  background: #050505 !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-top: 4px solid #d00000 !important; /* Línea roja superior de mando */
+  border-radius: 24px !important;
+  
+  /* ANCHO MONUMENTAL EN PC */
+  width: 95% !important;
+  max-width: 1000px !important; 
+  height: 85vh !important;
+  
+  padding: 50px !important;
+  box-shadow: 0 50px 150px rgba(0,0,0,1), 0 0 50px rgba(208, 0, 0, 0.1) !important;
+  display: flex;
+  flex-direction: column;
+  position: relative !important;
+  animation: modalImpactV6 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* 3. CABECERA: Títulos Pro */
+.ins-header {
+  border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  margin-bottom: 30px !important;
+  padding-bottom: 25px !important;
+}
+
+.ins-header h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.9rem !important;
+  color: #444 !important;
+  letter-spacing: 5px !important;
+  text-transform: uppercase;
+}
+
+.ins-header h3 span {
+  display: block;
+  font-size: 2.2rem !important;
+  color: #fff !important;
+  letter-spacing: 1px !important;
+  margin-top: 2px;
+  text-shadow: 0 0 20px rgba(255,255,255,0.1);
+}
+
+/* 4. LA GRILLA: Los bonos como "Chips" tecnológicos */
+.ins-grid-scroll {
+  flex: 1;
+  overflow-y: auto !important;
+  display: grid !important;
+  /* En PC: Tarjetas de 220px de ancho */
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important;
+  gap: 15px !important;
+  padding: 10px !important;
+  align-content: start !important; /* EL TRUCO: Empuja todo hacia arriba, evita que se estiren */
+  margin-top: 10px;
+}
+
+.ins-slot.sold {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-left: 3px solid #d00000 !important;
+  
+  /* Altura fija para que no sean largos */
+  height: 70px !important; 
+  
+  padding: 0 20px !important;
+  border-radius: 8px !important;
+  
+  /* Alineación horizontal */
+  display: flex !important;
+  flex-direction: row !important; 
+  align-items: center !important;
+  justify-content: space-between !important;
+  
   transition: 0.3s;
   cursor: pointer;
 }
-.ins-slot:hover { border-color: #d00000; background: rgba(208,0,0,0.05); }
-.ins-slot.sold { border-color: rgba(208, 0, 0, 0.4); background: rgba(208, 0, 0, 0.05); }
-.ins-slot span { font-family: 'Oswald'; color: #fff; }
-.ins-slot small { font-size: 0.6rem; color: #333; margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ins-slot.sold small { color: #d00000; font-weight: bold; }
+
+.ins-slot.sold:hover {
+  background: #0a0a0a !important;
+  border-color: #d00000 !important;
+  transform: scale(1.02);
+}
+
+.ins-num {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem !important; /* Número grande a la izquierda */
+  color: #fff !important;
+}
+
+.ins-status {
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.7rem !important;
+  color: #d00000 !important;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* 5. BOTÓN CERRAR (X) */
+.btn-close-x {
+  position: absolute !important;
+  top: 30px;
+  right: 35px;
+  background: transparent !important;
+  border: none !important;
+  color: #333 !important;
+  font-size: 3rem !important;
+  cursor: pointer;
+  line-height: 0.5;
+}
+.btn-close-x:hover { color: #d00000; transform: rotate(90deg); }
+
+/* --- RESPONSIVE MÓVIL (APP MODE) --- */
+@media (max-width: 900px) {
+  .ins-grid-scroll {
+    grid-template-columns: 1fr !important; /* Una sola columna para que sea cómodo */
+    gap: 10px !important;
+  }
+  
+  .ins-slot.sold {
+    height: 60px !important; /* Más bajitos en móvil */
+  }
+
+  .ins-num { font-size: 1.2rem !important; }
+}
+
+@keyframes modalImpactV6 {
+  from { opacity: 0; transform: scale(1.05); filter: blur(10px); }
+  to { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+/* Scrollbar roja fina */
+.ins-grid-scroll::-webkit-scrollbar { width: 4px; }
+.ins-grid-scroll::-webkit-scrollbar-thumb { background: #d00000; border-radius: 10px; }
 
 /* ============================================================
    RESPONSIVE MÓVIL
@@ -292,45 +430,6 @@
   .form-modal-card { padding: 40px 20px; }
 }
 
-/* --- NUEVO DISEÑO CENTRADO (DUEÑO) --- */
-.inspector-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0, 0, 0, 0.95);
-  z-index: 5000;
-  display: flex;
-  justify-content: center; /* CENTRADO HORIZONTAL */
-  align-items: center;     /* CENTRADO VERTICAL */
-  backdrop-filter: blur(10px);
-}
-
-.inspector-card-centered {
-  background: #080808 !important;
-  border: 1px solid #d00000 !important;
-  border-radius: 24px;
-  width: 95%;
-  /* CAMBIO CLAVE: Aumentamos a 900px para que en PC se vea ancho */
-  max-width: 900px !important; 
-  max-height: 85vh;
-  padding: 45px;
-  box-shadow: 0 40px 120px rgba(0, 0, 0, 1);
-  position: relative !important;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  animation: modalRevealV72 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-.ins-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 30px;
-  border-bottom: 1px solid #1a1a1a;
-  padding-bottom: 20px;
-}
-
-.ins-header h3 { font-family: 'Oswald'; font-size: 1.8rem; color: #fff; text-transform: uppercase; }
-.ins-header h3 span { color: #d00000; }
 
 /* BOTÓN X DE CIERRE */
 .btn-close-x {
@@ -344,16 +443,6 @@
 }
 .btn-close-x:hover { color: #d00000; transform: rotate(90deg); }
 
-.ins-grid-scroll {
-  flex: 1;
-  overflow-y: auto;
-  display: grid;
-  /* En PC entrarán unos 8 bonos por fila */
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important;
-  gap: 12px;
-  padding-right: 10px;
-  margin-top: 20px;
-}
 
 /* --- TARJETA DE DETALLE PRO --- */
 .detail-overlay {
@@ -409,106 +498,136 @@
   to { transform: scale(1); opacity: 1; }
 }
 .anim-scale-up { animation: scaleUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
-/* ============================================================
-   INSPECTOR DE ACADEMIA - DISEÑO UEFI COMPACTO (V43)
-   ============================================================ */
 
 
-
-
-
-/* 3. CABECERA DEL INSPECTOR */
-.ins-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 25px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  padding-bottom: 15px;
-}
-
-.ins-header h3 { font-family: 'Oswald'; font-size: 1.5rem; color: #fff; text-transform: uppercase; margin: 0; }
-.ins-header h3 span { color: #d00000; }
-.ins-header p { font-size: 0.75rem; color: #555; margin-top: 5px; text-transform: uppercase; letter-spacing: 1px; }
-
-
-
-/* Estilo del cuadrito de bono individual */
-
-
-.ins-slot.sold {
-  border-color: rgba(208, 0, 0, 0.4);
-  background: rgba(208, 0, 0, 0.05);
-}
-
-.ins-num { font-family: 'Oswald'; font-size: 1.1rem; color: #fff; display: block; }
-.ins-status { font-size: 0.6rem; color: #444; text-transform: uppercase; letter-spacing: 1px; }
-.sold .ins-status { color: #d00000; font-weight: bold; }
-
-/* 5. BARRA DE SCROLL TÉCNICA */
-.ins-grid-scroll::-webkit-scrollbar { width: 4px; }
-.ins-grid-scroll::-webkit-scrollbar-thumb { background: #d00000; border-radius: 10px; }
 
 /* ============================================================
-   FIX DE PRECISIÓN MÓVIL: INSPECTOR (V45)
+   DISEÑO "BLACK OPS" PARA GESTIÓN DE DELEGADOS (V5.1)
    ============================================================ */
 
-@media (max-width: 950px) {
-  /* 1. EL FONDO: Bajamos el inicio para no chocar con el Navbar */
-  .inspector-overlay {
-    align-items: flex-start !important; /* Empieza arriba */
-    padding-top: 140px !important; /* ESPACIO PARA NAVBAR + SUBNAV */
-    padding-bottom: 40px !important;
-    overflow-y: auto !important; /* Permite mover el fondo si es necesario */
-  }
-
-  /* 2. LA TARJETA: Más compacta y con límite de altura */
-  .inspector-card-centered {
-    width: 95% !important;
-    max-height: 65vh !important; /* ALTURA CORTA: Ocupa solo el 65% de la pantalla */
-    padding: 20px 15px !important;
-    border-radius: 16px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    box-shadow: 0 10px 50px rgba(0,0,0,0.8) !important;
-  }
-
-  /* 3. CABECERA DEL MODAL: Texto más pequeño */
-  .ins-header {
-    margin-bottom: 15px !important;
-    padding-bottom: 10px !important;
-  }
-  .ins-header h3 { font-size: 1.1rem !important; }
-  .ins-header p { font-size: 0.6rem !important; }
-
-  /* 4. LA GRILLA INTERNA: Es la que tiene el SCROLL ahora */
-  .ins-grid-scroll {
-    flex: 1 !important;
-    overflow-y: auto !important; /* ACTIVAMOS EL SCROLL SOLO AQUÍ */
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)) !important; /* 4 por fila */
-    gap: 8px !important;
-    padding-right: 5px !important;
-  }
-
-  /* 5. CUADRITOS MINI (Para que entren muchos) */
-  .ins-slot {
-    padding: 8px 2px !important;
-    border-radius: 6px !important;
-    background: rgba(255,255,255,0.02) !important;
-  }
-  .ins-num { font-size: 0.8rem !important; }
-  .ins-status { font-size: 0.45rem !important; }
-
-  /* 6. BOTÓN CERRAR (X): Lo hacemos más fácil de tocar */
-  .btn-close-x {
-    font-size: 2rem !important;
-    color: #d00000 !important;
-    line-height: 1 !important;
-  }
+.delegate-slots-view {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-/* Ajuste para pantallas muy cortas (iPhone SE) */
-@media (max-height: 680px) and (max-width: 950px) {
-  .inspector-overlay { padding-top: 130px !important; }
-  .inspector-card-centered { max-height: 60vh !important; }
+/* --- ENCABEZADO TÁCTICO --- */
+.slots-header {
+  text-align: left !important; /* Alineación profesional */
+  border-left: 5px solid var(--accent-cj);
+  padding-left: 30px;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.slots-header h3 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 2.5rem !important;
+  letter-spacing: 2px;
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.slots-header p {
+  font-family: 'Roboto', sans-serif;
+  color: #666;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.slots-header p strong {
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+/* --- BOTÓN DE CARGA DE GALA --- */
+.btn-add-manual {
+  margin-top: 25px;
+  background: var(--accent-cj);
+  color: #fff;
+  border: none;
+  padding: 15px 35px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.4s;
+  border-radius: 4px;
+  box-shadow: 0 4px 15px rgba(208, 0, 0, 0.3);
+}
+
+.btn-add-manual:hover {
+  background: #ff0000;
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(208, 0, 0, 0.5);
+}
+
+/* --- ESTADO VACÍO (NO HAY VENTAS) --- */
+.mnt-empty {
+  grid-column: 1 / -1;
+  padding: 100px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.01);
+  border: 1px dashed #222;
+  border-radius: 20px;
+  color: #333;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+/* --- GRILLA DE VENTAS (SINCRO) --- */
+.slots-grid-pro {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 40px;
+}
+
+.slot-card-v28.sold {
+  background: #080808;
+  border: 1px solid #1a1a1a;
+  border-top: 2px solid var(--accent-cj);
+  padding: 25px;
+  transition: 0.3s;
+}
+
+.slot-card-v28.sold:hover {
+  background: #0f0f0f;
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+}
+
+.s-id {
+  font-size: 1.5rem !important;
+  color: #fff !important;
+  margin-bottom: 10px;
+}
+
+.s-buyer {
+  display: block;
+  font-family: 'Oswald';
+  color: var(--accent-cj);
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+
+/* --- AJUSTE MÓVIL --- */
+@media (max-width: 900px) {
+  .slots-header {
+    padding-left: 20px;
+    margin-bottom: 30px;
+  }
+  .slots-header h3 { font-size: 1.8rem !important; }
+  .btn-add-manual { width: 100%; }
+  
+  .slots-grid-pro {
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas en móvil */
+    gap: 12px;
+  }
 }

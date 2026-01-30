@@ -10,6 +10,7 @@ export default function MasterBonos() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedDelegate, setSelectedDelegate] = useState(null); 
+  const [numeroManual, setNumeroManual] = useState("");
   const [detailedBono, setDetailedBono] = useState(null); 
   const [selectedBono, setSelectedBono] = useState(null); 
   const [form, setForm] = useState({ nombre: "", dni: "", tel: "", dir: "" });
@@ -23,54 +24,51 @@ export default function MasterBonos() {
     setLoading(false);
   };
 
-  const handleRegister = async (e) => {
+const handleRegister = async (e) => {
     e.preventDefault();
     setLoading(true);
+    
     const res = await registerSale({
-      n_bono: selectedBono.n,
+      id_bono: numeroManual, // <--- Ahora leemos de aquí
       vendedor_dni: user.dni,
       vendedor_nombre: user.nombre,
       comprador_nombre: form.nombre,
       comprador_dni: form.dni,
       telefono: form.tel,
       direccion: form.dir,
-      academia: user.academia,
-      id_bono: selectedBono.idGlobal
+      academia: user.academia
     });
+
     if (res.status === "success") {
-      alert("¡Bono Registrado!");
+      alert(`¡BONO #${numeroManual} REGISTRADO!`);
       setSelectedBono(null);
+      setNumeroManual(""); // Limpiamos para la próxima
       setForm({ nombre: "", dni: "", tel: "", dir: "" });
       fetchAll();
+    } else {
+      alert(res.message);
     }
     setLoading(false);
   };
 
+  // --- 1. PROCESAMIENTO DE DATOS FEDERALES ---
   const delegatesWithStats = useMemo(() => {
     return data.delegates.map((d) => {
-      // 1. Convertimos a números reales los datos del Excel
-      const start = Number(d.de);
-      const end = Number(d.hasta);
-      const asignados = Number(d.cantidad) || (end - start + 1); // Si no hay cantidad, la calcula
-      
-      // 2. Filtramos las ventas de este delegado específico
+      const asignados = Number(d.cantidad) || 0;
+      // Filtramos solo las ventas que le pertenecen a este DNI
       const sales = data.sales.filter(s => s.vendedor.toString() === d.dni.toString());
-      
       return { 
         ...d, 
-        start, 
-        end, 
-        totalAsignados: asignados, // <--- Guardamos el total real
-        soldCount: sales.length,   // <--- Cantidad vendida real
-        sales 
+        totalAsignados: asignados,
+        soldCount: sales.length, 
+        sales: sales.sort((a,b) => a.id_bono - b.id_bono) 
       };
     });
   }, [data]);
 
-  // --- VARIABLES DE SELECCIÓN EN VIVO (CORREGIDAS DE POSICIÓN) ---
   const activeDelegateData = selectedDelegate ? delegatesWithStats.find(d => d.dni === selectedDelegate.dni) : null;
-  const liveBonoData = detailedBono ? data.sales.find(s => s.id_bono.toString() === detailedBono.id_bono.toString()) : null;
 
+  // --- 2. VISTA DUEÑO: TABLERO DE CONTROL ---
   const renderOwnerView = () => (
     <div className="owner-master-grid anim-fade-in">
       <header className="owner-header-tools">
@@ -78,7 +76,7 @@ export default function MasterBonos() {
           <span>🔍</span>
           <input type="text" placeholder="BUSCAR POR ACADEMIA O DELEGADO..." onChange={e => setSearchTerm(e.target.value)} />
         </div>
-        <div className="global-counter">TOTAL DE VENTAS: {data.sales.length}</div>
+        <div className="global-counter">TOTAL VENTAS NACIONAL: {data.sales.length}</div>
       </header>
 
       <div className="delegates-grid">
@@ -91,111 +89,106 @@ export default function MasterBonos() {
                <h4>{d.nombre}</h4>
             </div>
             <div className="d-card-stats">
-               <div className="d-progress"><div className="fill" style={{width: `${(d.soldCount/32)*100}%`}}></div></div>
+               {/* BARRA DE PROGRESO BASADA EN CUPO REAL */}
+               <div className="d-progress">
+                  <div className="fill" style={{width: `${(d.soldCount / (d.totalAsignados || 1)) * 100}%`}}></div>
+               </div>
                <span>{d.soldCount} / {d.totalAsignados} VENDIDOS</span>
             </div>
-            <div className="d-card-footer">RANGO: {d.start} - {d.end}</div>
           </div>
         ))}
       </div>
     </div>
   );
 
+  // --- 3. VISTA DELEGADO: MI HISTORIAL ---
   const renderDelegateView = () => {
-    // Buscamos nuestra propia info en la lista de delegados
     const me = delegatesWithStats.find(d => d.dni.toString() === user.dni.toString());
-    if (!me) return <div className="loader-tech">ERROR: NO TIENES RANGO ASIGNADO. CONTACTA AL ADMINISTRADOR.</div>;
-
-    const slots = [];
-    // Creamos la grilla dinámicamente desde nuestro 'inicio' hasta nuestro 'fin'
-    for (let i = me.start; i <= me.end; i++) {
-      const sale = data.sales.find(s => s.id_bono.toString() === i.toString());
-      slots.push({ idGlobal: i, nRelativo: (i - me.start) + 1, data: sale });
-    }
+    if (!me) return <div className="loader-tech">ERROR DE IDENTIDAD TÉCNICA.</div>;
 
     return (
       <div className="delegate-slots-view anim-fade-in">
         <header className="slots-header">
-   <h3>GESTIÓN DE MIS BONOS</h3>
-   <p>Progreso: <strong>{me.soldCount} vendidos</strong> de <strong>{me.totalAsignados}</strong></p>
-   <div className="d-progress" style={{maxWidth: '300px', margin: '15px auto'}}>
-      <div className="fill" style={{width: `${(me.soldCount / me.totalAsignados) * 100}%`}}></div>
-   </div>
-</header>
+           <h3>MIS VENTAS REGISTRADAS</h3>
+           <p>Cupo utilizado: <strong>{me.soldCount}</strong> de <strong>{me.totalAsignados}</strong></p>
+           <button className="btn-add-manual" onClick={() => setSelectedBono("prompt")}>+ REGISTRAR NUEVO BONO</button>
+        </header>
+
         <div className="slots-grid-pro">
-           {slots.map(slot => (
-             <div 
-              key={slot.idGlobal} 
-              className={`slot-card-v28 ${slot.data ? 'sold' : 'free'}`}
-              onClick={() => slot.data ? setDetailedBono(slot.data) : setSelectedBono({n: slot.nRelativo, idGlobal: slot.idGlobal})}
-             >
-                <span className="s-id">#{slot.idGlobal}</span>
-                <span className="s-status">{slot.data ? "VENDIDO" : "LIBRE"}</span>
-                {slot.data && <span className="s-buyer">{slot.data.comprador.split(' ')[0]}</span>}
-             </div>
-           ))}
+           {me.sales.length === 0 ? (
+             <p className="mnt-empty">No has registrado ventas todavía.</p>
+           ) : (
+             me.sales.map(sale => (
+               <div key={sale.id_bono} className="slot-card-v28 sold" onClick={() => setDetailedBono(sale)}>
+                  <span className="s-id">#{sale.id_bono}</span>
+                  <span className="s-status">VER INFO</span>
+                  <span className="s-buyer">{sale.comprador.split(' ')[0]}</span>
+               </div>
+             ))
+           )}
         </div>
       </div>
     );
   };
 
- return (
+  return (
     <div className="master-bonos-root">
       {loading ? (
-        <div className="loader-tech"><center>CARGANDO DATOS...</center></div>
+        <div className="loader-tech"><center>SINCRONIZANDO DATOS...</center></div>
       ) : (
         user?.rol === "DUEÑO" ? renderOwnerView() : renderDelegateView()
       )}
 
-      {/* --- 1. MODAL INSPECTOR (DUEÑO) --- */}
+      {/* --- MODAL INSPECTOR (DUEÑO) --- */}
       {activeDelegateData && ReactDOM.createPortal(
         <div className="inspector-overlay" onClick={() => setSelectedDelegate(null)}>
-           <div className="inspector-card-centered anim-scale-up" onClick={e => e.stopPropagation()}>
+           <div className="inspector-card-centered" onClick={e => e.stopPropagation()}>
               <header className="ins-header">
-                 <div className="ins-header-content">
-                    <h3>ACADEMIA: <span>{activeDelegateData.academia}</span></h3>
-                    <p>Responsable: {activeDelegateData.nombre}</p>
-                 </div>
-                 <button className="btn-close-x" onClick={() => setSelectedDelegate(null)}>&times;</button>
-              </header>
+   <div className="ins-header-content">
+      <h3>REPORTE FEDERAL DE VENTAS <span>{activeDelegateData.academia}</span></h3>
+      <p>RESPONSABLE: {activeDelegateData.nombre}</p>
+   </div>
+   <button className="btn-close-x" onClick={() => setSelectedDelegate(null)}>&times;</button>
+</header>
+              
               <div className="ins-grid-scroll">
-                 {Array.from({length: activeDelegateData.totalAsignados}, (_, i) => {
-                    const id = activeDelegateData.start + i;
-                    const sale = activeDelegateData.sales.find(s => s.id_bono.toString() === id.toString());
-                    return (
-                      <div key={id} className={`ins-slot ${sale ? 'sold' : 'free'}`} onClick={() => sale && setDetailedBono(sale)}>
-                         <span className="ins-num">#{id}</span>
-                         <span className="ins-status">{sale ? "VER INFO" : "LIBRE"}</span>
+                 {activeDelegateData.sales.length === 0 ? (
+                   <div className="mnt-empty" style={{gridColumn: '1/-1', padding: '50px'}}>ESTA ACADEMIA NO TIENE VENTAS</div>
+                 ) : (
+                   activeDelegateData.sales.map((sale) => (
+                      <div key={sale.id_bono} className="ins-slot sold" onClick={() => setDetailedBono(sale)}>
+                         <span className="ins-num">#{sale.id_bono}</span>
+                         <span className="ins-status">VER INFO</span>
                       </div>
-                    );
-                 })}
+                   ))
+                 )}
               </div>
            </div>
         </div>,
         document.body
       )}
 
-      {/* --- 2. MODAL FICHA TÉCNICA (DETALLE) --- */}
-      {liveBonoData && ReactDOM.createPortal(
+      {/* --- MODAL FICHA TÉCNICA (DETALLE) --- */}
+      {detailedBono && ReactDOM.createPortal(
         <div className="detail-overlay" onClick={() => setDetailedBono(null)}>
           <div className="detail-card-pro anim-scale-up" onClick={e => e.stopPropagation()}>
             <button className="btn-close-x" onClick={() => setDetailedBono(null)}>&times;</button>
             <header className="detail-header">
               <span className="detail-tag">FICHA TÉCNICA DE VENTA</span>
-              <h4>BONO # {liveBonoData.n_bono} <small>({liveBonoData.id_bono})</small></h4>
+              <h4>BONO #{detailedBono.id_bono}</h4>
             </header>
             <div className="detail-body">
               <div className="detail-section">
                 <h5>DATOS DEL COMPRADOR</h5>
-                <p><span>NOMBRE:</span> {liveBonoData.comprador}</p>
-                <p><span>DNI:</span> {liveBonoData.dni_comp || '---'}</p>
-                <p><span>TEL:</span> {liveBonoData.tel || '---'}</p>
-                <p><span>DIR:</span> {liveBonoData.dir || '---'}</p>
+                <p><span>NOMBRE:</span> {detailedBono.comprador}</p>
+                <p><span>DNI:</span> {detailedBono.dni_comp || '---'}</p>
+                <p><span>TEL:</span> {detailedBono.tel || '---'}</p>
+                <p><span>DIR:</span> {detailedBono.dir || '---'}</p>
               </div>
               <div className="detail-section">
-                <h5>GESTIÓN DE VENTA</h5>
-                <p><span>DEL:</span>{" "} {liveBonoData.vendedor_nombre}</p>
-                <p><span>ESTADO:</span> <strong className={liveBonoData.estado.toLowerCase()}>{liveBonoData.estado}</strong></p>
+                <h5>GESTIÓN</h5>
+                <p><span>ACADEMIA:</span> {detailedBono.vendedor_nombre}</p>
+                <p><span>ESTADO:</span> <strong className={detailedBono.estado.toLowerCase()}>{detailedBono.estado}</strong></p>
               </div>
             </div>
           </div>
@@ -203,19 +196,27 @@ export default function MasterBonos() {
         document.body
       )}
 
-      {/* --- 3. MODAL REGISTRAR VENTA --- */}
-      {selectedBono && ReactDOM.createPortal(
+      {/* --- MODAL CARGA MANUAL (DELEGADO) --- */}
+      {selectedBono === "prompt" && ReactDOM.createPortal(
         <div className="form-modal-overlay" onClick={() => setSelectedBono(null)}>
-           <div className="form-modal-card anim-scale-up" onClick={e => e.stopPropagation()}>
-              <h3>REGISTRAR VENTA: BONO #{selectedBono.idGlobal}</h3>
+           <div className="form-modal-card" onClick={e => e.stopPropagation()}>
+              <button className="btn-close-x" onClick={() => setSelectedBono(null)}>&times;</button>
+              <h3>NUEVA VENTA</h3>
               <form onSubmit={handleRegister} className="form-tech-grid">
+                 <input 
+  type="number" 
+  placeholder="NÚMERO DE BONO (1-1000)" 
+  required 
+  value={numeroManual}
+  onChange={e => setNumeroManual(e.target.value)} // <--- CAMBIO CLAVE
+/>
                  <input type="text" placeholder="NOMBRE COMPRADOR" required value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} />
                  <input type="number" placeholder="DNI COMPRADOR" required value={form.dni} onChange={e => setForm({...form, dni: e.target.value})} />
                  <input type="tel" placeholder="WHATSAPP" required value={form.tel} onChange={e => setForm({...form, tel: e.target.value})} />
-                 <input type="text" placeholder="DIRECCIÓN / CIUDAD" required value={form.dir} onChange={e => setForm({...form, dir: e.target.value})} />
+                 <input type="text" placeholder="CIUDAD" required value={form.dir} onChange={e => setForm({...form, dir: e.target.value})} />
                  <div className="form-tech-actions">
-                    <button type="button" className="btn-modal-tech cancel" onClick={() => setSelectedBono(null)}>CANCELAR</button>
-                    <button type="submit" className="btn-modal-tech save" disabled={loading}>CONFIRMAR CARGA</button>
+                    <button type="button" className="btn-modal-tech cancel" onClick={() => setSelectedBono(null)}>ABORTAR</button>
+                    <button type="submit" className="btn-modal-tech save">REGISTRAR</button>
                  </div>
               </form>
            </div>

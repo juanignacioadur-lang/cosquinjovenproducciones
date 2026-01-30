@@ -1,47 +1,26 @@
-import React, { useState, useEffect, useRef, useMemo } from "react"; // IMPORTACIÓN CORREGIDA
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { getBonds, registerSale } from "../../services/api";
 import { askCJAssistant } from "../../services/aiService";
-import ReactDOM from "react-dom"; // Necesario para el modal portal
+import ReactDOM from "react-dom";
 import "./GestionBono.css";
 
 export default function GestionBono() {
   const { user, logout } = useAuth();
   
-  // 1. ESTADO INICIAL CORREGIDO (Objeto con sales y delegates)
   const [data, setData] = useState({ sales: [], delegates: [] });
   const [loading, setLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
-  const [selectedBono, setSelectedBono] = useState(null);
+  
+  // --- ESTADOS DE CONTROL ---
+  const [numeroElegido, setNumeroElegido] = useState(""); // Número manual
+  const [isAdding, setIsAdding] = useState(false); // Modo Carga
+  const [detailedBono, setDetailedBono] = useState(null); // Modo Ver Info
   const [form, setForm] = useState({ nombre: "", dni: "", tel: "", dir: "" });
 
-  // --- LÓGICA DINÁMICA ---
-
-  // Obtener mis datos de rango desde la lista federal
-  const myData = useMemo(() => {
-    return data.delegates?.find(d => d.dni.toString() === user.dni.toString());
-  }, [data.delegates, user.dni]);
-
-  // Generar mi grilla de números real
-  const misNumeros = useMemo(() => {
-    if (!myData) return [];
-    const start = Number(myData.de);
-    const end = Number(myData.hasta);
-    const arr = [];
-    for (let i = start; i <= end; i++) {
-      arr.push(i);
-    }
-    return arr;
-  }, [myData]);
-
-  // Contar mis ventas reales
-  const vendidosCount = useMemo(() => {
-    return data.sales.filter(s => s.vendedor.toString() === user.dni.toString()).length;
-  }, [data.sales, user.dni]);
-
-  // --- ESTADOS PARA LA IA ---
+  // --- IA ESTATAL ---
   const [chat, setChat] = useState([
-    { role: 'bot', content: `¡Hola ${user?.nombre}! Soy CJ-PILOT. Estoy listo para gestionar los bonos de ${user?.academia}. ¿Qué necesitás?` }
+    { role: 'bot', content: `Hola ${user?.nombre}. Sistema de Cupo Global Activo. Podés elegir cualquier número del 1 al 1000. ¿En qué te ayudo?` }
   ]);
   const [userInput, setUserInput] = useState("");
   const [aiTyping, setAiTyping] = useState(false);
@@ -55,18 +34,36 @@ export default function GestionBono() {
     try {
       const res = await getBonds();
       setData(res);
-    } catch (e) { console.error("Error cargando datos:", e); }
+    } catch (e) { console.error("Sync Error:", e); }
     setLoading(false);
+  };
+
+  // --- LÓGICA DE DATOS ---
+  const myInfo = useMemo(() => data.delegates?.find(d => d.dni.toString() === user.dni.toString()), [data.delegates]);
+  const mySalesCount = useMemo(() => data.sales?.filter(s => s.vendedor.toString() === user.dni.toString()).length || 0, [data.sales]);
+  const sortedSales = useMemo(() => [...(data.sales || [])].sort((a, b) => a.id_bono - b.id_bono), [data.sales]);
+
+  // --- ACCIONES ---
+  const handleOpenAdd = () => {
+    if (mySalesCount >= (myInfo?.cantidad || 0)) {
+      return alert(`Límite alcanzado: Tu cupo es de ${myInfo?.cantidad} bonos.`);
+    }
+    setIsAdding(true);
   };
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    if (!selectedBono) return;
-    
+    const num = parseInt(numeroElegido);
+
+    if (!num || num < 1 || num > 1000) return alert("Número inválido (1-1000)");
+
+    // Validación de disponibilidad de último segundo
+    const ocupado = data.sales.find(s => s.id_bono.toString() === num.toString());
+    if (ocupado) return alert(`¡ERROR! El bono #${num} acaba de ser vendido por otra academia.`);
+
     setIsSaving(true);
     const res = await registerSale({
-      n_bono: (selectedBono - Number(myData.de)) + 1, // Número relativo (1-32)
-      id_bono: selectedBono, // ID Global (ej: 129)
+      id_bono: num,
       vendedor_dni: user.dni,
       vendedor_nombre: user.nombre,
       comprador_nombre: form.nombre,
@@ -77,12 +74,13 @@ export default function GestionBono() {
     });
 
     if (res.status === "success") {
-      alert("¡Venta registrada con éxito!");
-      setSelectedBono(null);
+      alert("¡VENTA REGISTRADA CON ÉXITO!");
+      setIsAdding(false);
+      setNumeroElegido("");
       setForm({ nombre: "", dni: "", tel: "", dir: "" });
       fetchData();
     } else {
-      alert("Error: " + res.message);
+      alert(res.message);
     }
     setIsSaving(false);
   };
@@ -90,24 +88,21 @@ export default function GestionBono() {
   const askAI = async (e) => {
     e.preventDefault();
     if (!userInput.trim() || aiTyping) return;
-
     const userMsg = userInput;
     setChat(prev => [...prev, { role: 'user', content: userMsg }]);
     setUserInput("");
     setAiTyping(true);
-
     const aiResponse = await askCJAssistant(userMsg, {
       userName: user?.nombre,
       academia: user?.academia,
       rol: user?.rol,
-      soldCount: vendidosCount
+      soldCount: mySalesCount
     });
-
     setAiTyping(false);
     setChat(prev => [...prev, { role: 'bot', content: aiResponse }]);
   };
 
-  if (loading) return <div className="loader-tech"><center>SINCRONIZANDO PANEL...</center></div>;
+  if (loading) return <div className="loader-tech"><center>SINCRONIZANDO SISTEMA FEDERAL...</center></div>;
 
   return (
     <main className="gestion-root">
@@ -121,16 +116,11 @@ export default function GestionBono() {
           <div className="user-stats-pill">
              <div className="stat-box-mini">
                 <span className="s-label">VENDIDOS</span>
-                <span className="s-val">{vendidosCount} / {myData?.cantidad || 0}</span>
+                <span className="s-val">{mySalesCount} / {myInfo?.cantidad || 0}</span>
              </div>
              <button onClick={logout} className="btn-logout">SALIR</button>
           </div>
         </header>
-
-        {/* BARRA DE PROGRESO */}
-        <div className="delegate-progress-bar">
-           <div className="fill" style={{width: `${(vendidosCount / (Number(myData?.cantidad) || 1)) * 100}%`}}></div>
-        </div>
 
         <div className="gestion-grid">
           
@@ -138,46 +128,40 @@ export default function GestionBono() {
             <div className="tool-card ai-assistant">
               <div className="ai-header">
                 <div className={`ai-led ${aiTyping ? 'typing' : ''}`}></div>
-                <span>CJ-PILOT (INTELLIGENCE)</span>
+                <span>CJ-PILOT (IA)</span>
               </div>
-              
               <div className="ai-chat-window">
-                {chat.map((msg, i) => (
-                  <div key={i} className={`ai-bubble ${msg.role}`}>{msg.content}</div>
-                ))}
-                {aiTyping && <div className="ai-bubble bot">Analizando datos...</div>}
+                {chat.map((msg, i) => <div key={i} className={`ai-bubble ${msg.role}`}>{msg.content}</div>)}
                 <div ref={chatEndRef} />
               </div>
-
               <form onSubmit={askAI} className="ai-input-group">
-                <input 
-                  type="text" 
-                  placeholder="Consultar a la IA..." 
-                  value={userInput} 
-                  onChange={(e) => setUserInput(e.target.value)} 
-                />
-                <button type="submit" className="ai-send-btn" disabled={aiTyping}>
-                  {aiTyping ? '...' : 'ENVIAR'}
-                </button>
+                <input type="text" placeholder="Consultar..." value={userInput} onChange={e => setUserInput(e.target.value)} />
+                <button type="submit">OK</button>
               </form>
             </div>
           </aside>
 
           <section className="gestion-main">
             <div className="slots-grid">
-              {misNumeros.map((num) => {
-                const bonoData = data.sales?.find(s => s.id_bono.toString() === num.toString());
-                const isSold = !!bonoData;
-                
+              
+              {/* BOTÓN PARA AGREGAR NUEVO */}
+              <div className="slot-box add-new-btn" onClick={handleOpenAdd}>
+                <span className="slot-id">+</span>
+                <span className="slot-status">VENDER</span>
+              </div>
+
+              {/* GRILLA DE BONOS VENDIDOS GLOBALMENTE */}
+              {sortedSales.map((sale) => {
+                const isMine = sale.vendedor.toString() === user.dni.toString();
                 return (
                   <div 
-                    key={num} 
-                    className={`slot-box ${isSold ? 'sold' : 'available'} ${selectedBono === num ? 'selected' : ''}`}
-                    onClick={() => !isSold && setSelectedBono(num)}
+                    key={sale.id_bono} 
+                    className={`slot-box ${isMine ? 'mine' : 'occupied'}`}
+                    onClick={() => isMine ? setDetailedBono(sale) : null}
                   >
-                    <span className="slot-id">#{num}</span>
-                    <span className="slot-status">{isSold ? "VENDIDO" : "LIBRE"}</span>
-                    {isSold && <span className="slot-owner">{bonoData.comprador.split(' ')[0]}</span>}
+                    <span className="slot-id">#{sale.id_bono}</span>
+                    <span className="slot-status">{isMine ? "VER INFO" : "OCUPADO"}</span>
+                    {isMine && <span className="slot-owner">{sale.comprador.split(' ')[0]}</span>}
                   </div>
                 );
               })}
@@ -185,23 +169,45 @@ export default function GestionBono() {
           </section>
         </div>
 
-        {/* MODAL CON PORTAL PARA EVITAR CORTES EN IPHONE */}
-        {selectedBono && ReactDOM.createPortal(
-          <div className="form-overlay" onClick={() => setSelectedBono(null)}>
+        {/* --- MODAL 1: REGISTRAR VENTA --- */}
+        {isAdding && ReactDOM.createPortal(
+          <div className="form-overlay" onClick={() => setIsAdding(false)}>
             <div className="form-card-pro anim-impact" onClick={e => e.stopPropagation()}>
-              <h3 className="form-modal-title">REGISTRAR VENTA: <span>BONO #{selectedBono}</span></h3>
+              <button className="btn-close-x" onClick={() => setIsAdding(false)}>&times;</button>
+              <h3 className="form-modal-title">NUEVA VENTA</h3>
               <form onSubmit={handleRegister} className="form-grid-pro">
-                <input type="text" placeholder="Nombre Comprador" required value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} />
-                <input type="number" placeholder="DNI Comprador" required value={form.dni} onChange={e => setForm({...form, dni: e.target.value})} />
-                <input type="tel" placeholder="WhatsApp" required value={form.tel} onChange={e => setForm({...form, tel: e.target.value})} />
-                <input type="text" placeholder="Ciudad / Localidad" required value={form.dir} onChange={e => setForm({...form, dir: e.target.value})} />
+                <div className="f-group">
+                  <label>ID DE BONO (1-1000)</label>
+                  <input type="number" placeholder="Número elegido" required value={numeroElegido} onChange={e => setNumeroElegido(e.target.value)} />
+                </div>
+                <input type="text" placeholder="NOMBRE COMPRADOR" required value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} />
+                <input type="number" placeholder="DNI COMPRADOR" required value={form.dni} onChange={e => setForm({...form, dni: e.target.value})} />
+                <input type="tel" placeholder="WHATSAPP" required value={form.tel} onChange={e => setForm({...form, tel: e.target.value})} />
+                <input type="text" placeholder="LOCALIDAD" required value={form.dir} onChange={e => setForm({...form, dir: e.target.value})} />
                 <div className="form-actions">
-                  <button type="button" className="btn-cancel" onClick={() => setSelectedBono(null)}>ABORTAR</button>
-                  <button type="submit" className="btn-confirm" disabled={isSaving}>
-                    {isSaving ? "GUARDANDO..." : "CONFIRMAR"}
-                  </button>
+                  <button type="button" className="btn-cancel" onClick={() => setIsAdding(false)}>ABORTAR</button>
+                  <button type="submit" className="btn-confirm" disabled={isSaving}>CONFIRMAR</button>
                 </div>
               </form>
+            </div>
+          </div>,
+          document.body
+        )}
+
+        {/* --- MODAL 2: FICHA TÉCNICA (DETALLE) --- */}
+        {detailedBono && ReactDOM.createPortal(
+          <div className="detail-overlay" onClick={() => setDetailedBono(null)}>
+            <div className="detail-card-pro anim-impact" onClick={e => e.stopPropagation()}>
+              <button className="btn-close-x" onClick={() => setDetailedBono(null)}>&times;</button>
+              <header className="detail-header">
+                <h4>FICHA TÉCNICA: <span>BONO #{detailedBono.id_bono}</span></h4>
+              </header>
+              <div className="detail-body">
+                <p><strong>COMPRADOR:</strong> {detailedBono.comprador}</p>
+                <p><strong>DNI:</strong> {detailedBono.dni_comp}</p>
+                <p><strong>TEL:</strong> {detailedBono.tel}</p>
+                <p><strong>ESTADO:</strong> <span className={detailedBono.estado.toLowerCase()}>{detailedBono.estado}</span></p>
+              </div>
             </div>
           </div>,
           document.body

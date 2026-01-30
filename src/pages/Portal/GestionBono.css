@@ -203,3 +203,149 @@
   cursor: pointer;
   font-size: 0.7rem;
 }
+.search-section {
+  background: rgba(20, 20, 20, 0.6);
+  padding: 40px;
+  border-radius: 15px;
+  border: 1px solid #1a1a1a;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.search-box-pro label {
+  font-family: 'Oswald';
+  color: #444;
+  letter-spacing: 3px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.input-group input {
+  background: #000;
+  border: 1px solid #222;
+  color: #fff;
+  padding: 20px;
+  font-size: 1.5rem;
+  width: 150px;
+  text-align: center;
+  font-family: 'Oswald';
+}
+
+.input-group button {
+  background: #d00000;
+  color: #fff;
+  border: none;
+  padding: 0 30px;
+  font-family: 'Oswald';
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* LISTA DE VENTAS */
+.sales-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.sale-mini-card {
+  background: #0a0a0a;
+  border-left: 4px solid #d00000;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.s-number { font-family: 'Oswald'; font-size: 1.2rem; color: #fff; }
+.search-section {
+  background: rgba(10, 10, 10, 0.8);
+  padding: 50px 20px;
+  border-radius: 20px;
+  border: 1px solid #1a1a1a;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.search-engine-box label {
+  font-family: 'Oswald';
+  color: #444;
+  letter-spacing: 3px;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.input-row {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.input-row input {
+  background: #000;
+  border: 1px solid #222;
+  color: #fff;
+  padding: 15px;
+  font-size: 1.5rem;
+  width: 120px;
+  text-align: center;
+  font-family: 'Oswald';
+}
+
+.input-row button {
+  background: #d00000;
+  color: #fff;
+  border: none;
+  padding: 0 30px;
+  font-family: 'Oswald';
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.mini-sales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 15px;
+}
+
+.mini-sale-card {
+  background: #0a0a0a;
+  border: 1px solid #1a1a1a;
+  border-left: 4px solid #d00000;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+}
+/* Botón de Agregar */
+.add-new-btn {
+  border: 2px dashed #d00000 !important;
+  background: rgba(208, 0, 0, 0.05) !important;
+}
+.add-new-btn .slot-id { color: #d00000; font-size: 2rem; }
+
+/* Bono de otro delegado */
+.slot-box.occupied {
+  background: #050505 !important;
+  border: 1px solid #111 !important;
+  opacity: 0.4;
+  cursor: not-allowed !important; /* Muestra el círculo de prohibido */
+}
+
+.occupied .slot-id { color: #333; }
+.occupied .slot-status { color: #222; font-weight: normal; }
+
+/* Bono mío vendido */
+.slot-box.sold {
+  border-color: #d00000;
+  background: rgba(208, 0, 0, 0.08);
+}
