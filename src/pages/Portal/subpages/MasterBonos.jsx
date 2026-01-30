@@ -187,7 +187,7 @@ const handleRegister = async (e) => {
               </div>
               <div className="detail-section">
                 <h5>GESTIÓN</h5>
-                <p><span>ACADEMIA:</span> {detailedBono.vendedor_nombre}</p>
+                <p><span>DEL:</span> {detailedBono.vendedor_nombre}</p>
                 <p><span>ESTADO:</span> <strong className={detailedBono.estado.toLowerCase()}>{detailedBono.estado}</strong></p>
               </div>
             </div>

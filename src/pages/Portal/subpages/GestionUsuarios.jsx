@@ -107,7 +107,7 @@ return (
               {/* SECCIÓN DE CUPO ASIGNADO */}
               <div className="node-stats-footer">
                 <div className="stat-item-pro">
-                  <span className="stat-label">CANTIDAD ASIGNADA</span>
+                  <span className="stat-label">BONOS ASIGNADOS</span>
                   <span className="stat-value">{d.cantidad}</span>
                 </div>
               </div>
