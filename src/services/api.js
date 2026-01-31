@@ -2,7 +2,7 @@
    API SERVICE - CONECTOR GOOGLE SHEETS V28
    ============================================================ */
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzN1qalCPnn36WYruW-KLLjla5-S83fhyxB9v5IvuLdXk7GDnRX_0lpBop9qHLtH_QcyQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgA53kTNbq6mQM-Q8ZN9Q9Yke6joRG9BLQdGuBAwP0C3Rk-qQbWjQ7P2bYNKLhdgyzNg/exec";
 
 // --- 1. INICIAR SESIÓN ---
 export const loginUser = async (dni, password) => {
@@ -107,4 +107,16 @@ export const deleteDelegate = async (dni) => {
     body: JSON.stringify({ action: 'delete_delegate', dni }),
   });
   return await response.json();
+};
+
+export const updatePassword = async (dni, newPassword) => {
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'update_password', dni, new_password: newPassword }),
+    });
+    return await response.json();
+  } catch (error) {
+    return { status: 'error', message: 'Fallo de conexión al actualizar' };
+  }
 };

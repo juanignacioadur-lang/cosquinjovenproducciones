@@ -108,10 +108,21 @@ const handleRegister = async (e) => {
 
     return (
       <div className="delegate-slots-view anim-fade-in">
-        <header className="slots-header">
-           <h3>MIS VENTAS REGISTRADAS</h3>
-           <p>Cupo utilizado: <strong>{me.soldCount}</strong> de <strong>{me.totalAsignados}</strong></p>
-           <button className="btn-add-manual" onClick={() => setSelectedBono("prompt")}>+ REGISTRAR NUEVO BONO</button>
+        <header className="slots-header-v2">
+           <h3 className="slots-title-v2">MIS VENTAS REGISTRADAS</h3>
+           
+           <div className="slots-stats-wrapper">
+              <p className="slots-stats-text">
+                CUPO UTILIZADO: <strong>{me.soldCount}</strong> DE <strong>{me.totalAsignados}</strong>
+              </p>
+              <div className="slots-progress-container">
+                 <div className="slots-progress-fill" style={{ width: `${(me.soldCount / me.totalAsignados) * 100}%` }}></div>
+              </div>
+           </div>
+
+           <button className="btn-add-supreme" onClick={() => setSelectedBono("prompt")}>
+              <span className="btn-plus">+</span> REGISTRAR NUEVO BONO
+           </button>
         </header>
 
         <div className="slots-grid-pro">

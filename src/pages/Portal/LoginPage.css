@@ -314,3 +314,22 @@
   .login-main-title { font-size: 3rem; margin-bottom: 20px; }
   .login-glass-card { padding: 20px; }
 }
+@media (max-width: 900px) {
+  .login-portal-logo {
+    display: none !important;
+  }
+}
+.btn-forgot-pass-link {
+  background: transparent;
+  border: none;
+  color: #444;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-forgot-pass-link:hover {
+  color: #d00000;
+}

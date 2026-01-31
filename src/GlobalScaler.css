@@ -600,3 +600,126 @@ body::before, body::after, .about-pilar-central::before, .about-pilar-central::a
         background: #000 !important;
     }
 }
+/* ============================================================
+   DESIGN ARCHITECTURE: THE MONOLITH V1
+   CENTRADO MATEMÁTICO ANTI-GLOBAL SCALER
+   ============================================================ */
+
+.monolith-root {
+  position: fixed !important;
+  inset: 0 !important;
+  /* Anulamos el zoom de 0.75 para ocupar el 100% real del monitor */
+  width: calc(100vw / var(--zoom-factor, 1)) !important;
+  height: calc(100vh / var(--zoom-factor, 1)) !important;
+  background: #000;
+  z-index: 9999999 !important;
+  display: grid !important;
+  place-items: center !important;
+  overflow: hidden;
+}
+
+/* --- VIDEO ENGINE --- */
+.monolith-video {
+  position: absolute !important;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%; min-height: 100%;
+  object-fit: cover; z-index: 1; opacity: 0;
+}
+.monolith-video.online { opacity: 0.5; transition: opacity 2s ease; }
+
+.monolith-filter {
+  position: absolute; inset: 0; z-index: 2;
+  background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.85) 100%);
+}
+
+/* --- EJE CENTRAL --- */
+.monolith-axis {
+  position: relative; z-index: 100;
+  width: 95%; max-width: 1100px; /* DISEÑO ANCHO MONUMENTAL */
+  display: flex; flex-direction: column; align-items: center;
+}
+
+.monolith-frame {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr; /* Lado Branding | Lado Formulario */
+  background: rgba(8, 8, 8, 0.95);
+  backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 60px 150px rgba(0,0,0,1);
+}
+
+/* --- ALA IZQUIERDA: BRANDING --- */
+.monolith-wing-info {
+  padding: 80px 60px;
+  background: linear-gradient(135deg, rgba(208, 0, 0, 0.15) 0%, transparent 100%);
+  display: flex; flex-direction: column; justify-content: space-between;
+  border-right: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.monolith-logo { width: 100%; max-width: 320px; filter: drop-shadow(0 0 20px #000); }
+
+.monolith-tagline {
+  font-family: 'Oswald'; color: #444; letter-spacing: 10px;
+  font-size: 0.8rem; text-transform: uppercase; margin-top: 15px;
+}
+
+.monolith-status-box { display: flex; flex-direction: column; gap: 10px; }
+.status-row { display: flex; align-items: center; gap: 12px; font-family: 'Oswald'; font-size: 0.7rem; color: #333; letter-spacing: 3px; }
+.led { width: 8px; height: 8px; border-radius: 50%; box-shadow: 0 0 10px currentColor; }
+.led.red { background: #d00000; color: #ff0000; animation: ledPulse 1s infinite; }
+.led.white { background: #fff; color: #fff; opacity: 0.3; }
+
+/* --- ALA DERECHA: FORMULARIO --- */
+.monolith-wing-form { padding: 80px 60px; background: #050505; }
+
+.form-title {
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 5rem; color: #fff; line-height: 0.8; margin-bottom: 40px;
+}
+.form-title span {
+  font-family: 'Oswald'; color: #d00000; font-size: 0.9rem;
+  letter-spacing: 5px; display: block; margin-top: 10px;
+}
+
+.monolith-form { display: flex; flex-direction: column; gap: 25px; }
+
+.monolith-input-group { display: flex; flex-direction: column; gap: 8px; }
+.monolith-input-group label { font-family: 'Oswald'; font-size: 0.65rem; color: #444; letter-spacing: 3px; }
+.monolith-input-group input {
+  width: 100%; background: #000 !important; border: 1px solid #1a1a1a;
+  padding: 18px; color: #fff; font-size: 1.1rem; border-radius: 0; transition: 0.3s;
+}
+.monolith-input-group input:focus { border-color: #d00000; background: #080808 !important; }
+
+/* --- BOTÓN ACCIÓN --- */
+.btn-monolith-action {
+  width: 100%; background: #d00000; color: #fff; border: none; padding: 22px;
+  font-family: 'Helvetica Compressed', sans-serif; font-size: 2rem; letter-spacing: 4px;
+  cursor: pointer; transition: 0.4s; margin-top: 15px;
+}
+.btn-monolith-action:hover { background: #fff; color: #000; transform: translateY(-3px); }
+
+/* --- EXTRAS --- */
+.monolith-form-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.m-link { background: transparent; border: none; color: #222; font-family: 'Oswald'; font-size: 0.8rem; cursor: pointer; transition: 0.3s; }
+.m-link:hover { color: #d00000; }
+
+.monolith-alert { background: rgba(208, 0, 0, 0.1); border-left: 4px solid #d00000; padding: 15px; color: #ff3333; font-family: 'Oswald'; font-size: 0.85rem; margin-bottom: 25px; }
+
+.monolith-back-link { margin-top: 50px; color: #1a1a1a; text-decoration: none; font-family: 'Oswald'; letter-spacing: 5px; font-size: 0.8rem; transition: 0.3s; }
+.monolith-back-link:hover { color: #fff; }
+
+.m-success-msg { color: #25D366; font-family: 'Oswald'; letter-spacing: 4px; font-weight: 800; margin-bottom: 20px; }
+
+/* --- RESPONSIVE MÓVIL (COMPACTO) --- */
+@media (max-width: 900px) {
+  .monolith-frame { grid-template-columns: 1fr; }
+  .monolith-wing-info { display: none; } /* Ocultamos branding lateral en móvil */
+  .monolith-wing-form { padding: 50px 30px; }
+  .form-title { font-size: 3.5rem; }
+  .monolith-axis { max-width: 100%; }
+}
+
+@keyframes ledPulse { 50% { opacity: 0.2; } }

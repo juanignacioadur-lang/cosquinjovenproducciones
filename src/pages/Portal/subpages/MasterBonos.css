@@ -631,3 +631,100 @@
     gap: 12px;
   }
 }
+/* ============================================================
+   REDISEÑO DE CABECERA - MIS BONOS (V5.5)
+   ============================================================ */
+
+.slots-header-v2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* CENTRADO TOTAL */
+  text-align: center;
+  margin-bottom: 70px; /* Espacio con los cuadros */
+  gap: 25px;
+}
+
+.slots-title-v2 {
+  font-family: 'Oswald', sans-serif;
+  font-size: 3rem !important;
+  color: #fff;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin: 0;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* --- BARRA DE PROGRESO TÉCNICA --- */
+.slots-stats-wrapper {
+  width: 100%;
+  max-width: 500px;
+}
+
+.slots-stats-text {
+  font-family: 'Roboto', sans-serif;
+  color: #666;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.slots-stats-text strong {
+  color: #d00000; /* Resaltamos los números en rojo */
+  font-size: 1.1rem;
+}
+
+.slots-progress-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.slots-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #600000, #d00000);
+  box-shadow: 0 0 15px #d00000;
+  transition: width 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* --- BOTÓN SUPREME --- */
+.btn-add-supreme {
+  background: #d00000;
+  color: #fff;
+  border: none;
+  padding: 18px 45px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 10px 30px rgba(208, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-add-supreme:hover {
+  background: #fff;
+  color: #000;
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.btn-plus {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 900px) {
+  .slots-title-v2 { font-size: 2rem !important; }
+  .slots-stats-wrapper { width: 90%; }
+  .btn-add-supreme { width: 100%; justify-content: center; }
+}

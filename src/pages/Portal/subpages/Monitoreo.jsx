@@ -108,7 +108,7 @@ export default function Monitoreo() {
         <div className="mnt-a-card glass-v33">
           <span className="mnt-a-tag">TOTAL DE BONOS</span>
           <div className="mnt-a-val">{logs.length} <small>/ 1000</small></div>
-          <div className="mnt-a-bar"><div className="fill" style={{width: `${(logs.length/768)*100}%`}}></div></div>
+          <div className="mnt-a-bar"><div className="fill" style={{width: `${(logs.length/1000)*100}%`}}></div></div>
         </div>
         <div className="mnt-a-card glass-v33 highlight">
           <span className="mnt-a-tag">RECAUDACIÓN BRUTA</span>
@@ -131,7 +131,7 @@ export default function Monitoreo() {
             <span className="mnt-search-icon">🔍</span>
             <input 
               type="text" 
-              placeholder="BUSCADOR DE IDENTIDAD (DNI, NOMBRE, ID_BONO)..." 
+              placeholder="BUSCADOR DE BONOS (NOMBRE, ACADEMIA, BONO, ETC)..." 
               value={searchTerm}
               onChange={e => setSearchTerm(e.target.value)}
             />
@@ -244,7 +244,7 @@ export default function Monitoreo() {
           <div className="mnt-side-block hardware">
              <header className="side-head"><span>SISTEMA DE RED</span></header>
              <div className="hw-info"><span>GATEWAY:</span> <strong>CLOUD_SECURE</strong></div>
-             <div className="hw-info"><span>DB:</span> <strong>CORRECTA.</strong></div>
+             <div className="hw-info"><span>DB:</span> <strong>CONECTADA.</strong></div>
              <div className="hw-info"><span>REGION:</span> <strong>ARG</strong></div>
           </div>
         </aside>
