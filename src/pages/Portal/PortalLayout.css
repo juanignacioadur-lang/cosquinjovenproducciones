@@ -17,6 +17,27 @@
   padding: 173px 20px 100px 20px !important; 
   box-sizing: border-box;
 }
+.portal-viewport:has(.chat-ia-root) {
+  /* Bajamos el chat para que respire debajo del Navbar */
+  padding-top: 155px !important; 
+  /* Eliminamos el padding de abajo para que el chat pueda crecer */
+  padding-bottom: 0 !important; 
+  
+  height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  /* Centrado vertical del contenido en el espacio sobrante */
+  justify-content: center !important; 
+}
+
+/* Forzamos que en móvil el cuerpo no tenga scroll */
+@media (max-width: 900px) {
+    body:has(.chat-ia-root) {
+        overflow: hidden !important;
+        position: fixed;
+        width: 100%;
+    }
+}
 
 @media (max-width: 950px) {
   .portal-viewport {

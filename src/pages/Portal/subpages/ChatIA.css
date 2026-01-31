@@ -1,20 +1,36 @@
+/* ============================================================
+   CJ-PILOT MASTER CONSOLE V7.5 - THE BLACK OPS EDITION
+   SISTEMA DE VIEWPORT BLINDADO (NO OUTER SCROLL)
+   ============================================================ */
+
+/* 1. CONTENEDOR RAÍZ: Bloqueo de dimensiones */
 .chat-ia-root {
   display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 30px;
-  height: calc(100vh - 200px); /* Ajuste para que quepa en el viewport */
+  grid-template-columns: 300px 1fr; /* Proporción ideal para 1080p */
+  gap: 20px;
+  
+  /* CÁLCULO DE PRECISIÓN: Ocupa todo el espacio entre Navbars */
+  height: 100% !important;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  
+  /* MATA EL SCROLL EXTERIOR */
+  overflow: hidden !important; 
   position: relative;
 }
 
-/* --- SIDEBAR DE ESTADO --- */
+/* --- SIDEBAR DE ESTADO (IZQUIERDA) --- */
 .chat-status-sidebar {
   display: flex;
   flex-direction: column;
   gap: 20px;
+  height: 100%;
+  padding-bottom: 20px;
 }
 
 .status-monitor-card {
-  background: rgba(20, 20, 20, 0.8);
+  background: rgba(15, 15, 15, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-top: 3px solid #d00000;
   padding: 25px;
@@ -24,59 +40,59 @@
 .monitor-header {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   font-family: 'Oswald';
   font-size: 0.75rem;
-  letter-spacing: 2px;
-  color: #444;
+  letter-spacing: 3px;
+  color: #555;
   margin-bottom: 20px;
 }
 
 .led-green {
   width: 8px; height: 8px; background: #25D366; border-radius: 50%;
-  box-shadow: 0 0 10px #25D366; animation: ledBlink 1s infinite;
+  box-shadow: 0 0 10px #25D366; animation: ledBlink 1.5s infinite;
 }
 
-.monitor-data { display: flex; flex-direction: column; gap: 10px; }
-.data-row { display: flex; justify-content: space-between; font-size: 0.7rem; color: #666; }
-.data-row strong { color: #fff; }
+.monitor-data { display: flex; flex-direction: column; gap: 12px; }
+.data-row { display: flex; justify-content: space-between; font-size: 0.75rem; color: #444; }
+.data-row strong { color: #fff; font-family: 'Oswald'; }
 
 .chat-suggestions { display: flex; flex-direction: column; gap: 10px; }
-.chat-suggestions p { font-family: 'Oswald'; font-size: 0.7rem; color: #333; letter-spacing: 3px; }
+.chat-suggestions p { font-family: 'Oswald'; font-size: 0.7rem; color: #333; letter-spacing: 4px; text-transform: uppercase; }
 .chat-suggestions button {
-  background: transparent; border: 1px solid #222; color: #888; padding: 10px; text-align: left;
-  border-radius: 6px; cursor: pointer; transition: 0.3s; font-size: 0.8rem;
+  background: #080808; border: 1px solid #1a1a1a; color: #666; padding: 12px; text-align: left;
+  border-radius: 4px; cursor: pointer; transition: 0.3s; font-size: 0.8rem; font-family: 'Oswald';
 }
-.chat-suggestions button:hover { border-color: #d00000; color: #fff; }
+.chat-suggestions button:hover { border-color: #d00000; color: #fff; background: rgba(208, 0, 0, 0.05); }
 
-/* --- CONSOLA CENTRAL --- */
+/* --- CONSOLA CENTRAL (DERECHA) --- */
 .chat-main-console {
-  background: rgba(10, 10, 10, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.03);
-  border-radius: 15px;
   display: flex;
   flex-direction: column;
+  height: 100% !important;
+  background: rgba(10, 10, 10, 0.8) !important;
+  backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
   overflow: hidden;
-  backdrop-filter: blur(10px);
 }
 
+/* ÁREA DE MENSAJES: EL ÚNICO SCROLL PERMITIDO */
 .chat-history {
-  flex: 1;
-  padding: 30px;
-  overflow-y: auto;
+  flex: 1; /* Estira esta zona para ocupar todo el alto */
+  overflow-y: auto !important; 
+  padding: 40px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
-  scrollbar-width: thin;
-  scrollbar-color: #d00000 transparent;
+  gap: 30px;
 }
 
-/* BURBUJAS */
+/* BURBUJAS DE CHAT */
 .msg-wrapper { display: flex; gap: 15px; max-width: 80%; }
 .msg-wrapper.user { align-self: flex-end; flex-direction: row-reverse; }
 
 .msg-avatar {
-  width: 35px; height: 35px; background: #1a1a1a; border: 1px solid #333; border-radius: 50%;
+  width: 35px; height: 35px; background: #111; border: 1px solid #222; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Oswald'; font-size: 0.8rem; color: #d00000; flex-shrink: 0;
 }
@@ -84,62 +100,187 @@
 .msg-bubble {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.05);
-  padding: 15px 20px;
-  border-radius: 0 15px 15px 15px;
+  padding: 18px 25px;
+  border-radius: 2px;
   color: #ccc;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  position: relative;
+  font-size: 1.05rem;
+  line-height: 1.7;
 }
 
 .user .msg-bubble {
-  background: #d00000; color: #fff; border: none; border-radius: 15px 0 15px 15px;
+  background: #d00000 !important;
+  color: #fff !important;
+  border: none;
   box-shadow: 0 10px 30px rgba(208, 0, 0, 0.2);
 }
 
-.msg-time {
-  display: block; font-size: 0.6rem; margin-top: 8px; opacity: 0.4; text-align: right;
-}
+.msg-time { display: block; font-size: 0.6rem; margin-top: 10px; opacity: 0.3; text-align: right; }
 
-/* INPUT AREA */
-.chat-input-area { padding: 30px; background: rgba(0,0,0,0.4); border-top: 1px solid rgba(255,255,255,0.05); }
+/* --- INPUT AREA: TERMINAL DE DESPACHO --- */
+.chat-input-area {
+  padding: 25px 35px;
+  background: rgba(0, 0, 0, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
 
 .input-glow-wrap {
-  display: flex; gap: 15px; background: #050505; border: 1px solid #222; padding: 8px 8px 8px 25px;
-  border-radius: 50px; transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #000 !important;
+  border: 1px solid #1a1a1a;
+  padding: 6px 6px 6px 25px;
+  border-radius: 4px;
+  transition: 0.3s;
 }
-.input-glow-wrap:focus-within { border-color: #d00000; box-shadow: 0 0 20px rgba(208, 0, 0, 0.2); }
+
+.input-glow-wrap:focus-within {
+  border-color: #d00000;
+  box-shadow: 0 0 25px rgba(208, 0, 0, 0.2);
+}
 
 .input-glow-wrap input {
-  flex: 1; background: transparent; border: none; color: #fff; font-family: 'Roboto'; font-size: 0.95rem;
+  flex: 1;
+  background: transparent !important;
+  border: none !important;
+  color: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  outline: none !important;
 }
-.input-glow-wrap input:focus { outline: none; }
 
+/* BOTÓN DESPACHAR (ESTILO TITÁN) */
 .btn-send-tech {
-  background: #d00000; color: #fff; border: none; padding: 12px 30px; border-radius: 40px;
-  font-family: 'Oswald'; font-weight: 700; letter-spacing: 2px; cursor: pointer; transition: 0.3s;
+  background: #d00000 !important;
+  color: #fff !important;
+  border: none !important;
+  padding: 14px 35px;
+  font-family: 'Helvetica Compressed', sans-serif !important;
+  font-size: 1.5rem !important;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.4s;
+  border-radius: 2px;
 }
-.btn-send-tech:hover { background: #ff0000; transform: scale(1.05); }
 
-/* ANIMACIONES */
-.typing-bubble { display: flex; gap: 5px; padding: 12px 20px; }
-.dot { width: 6px; height: 6px; background: #d00000; border-radius: 50%; animation: typing 1.4s infinite; }
-.dot:nth-child(2) { animation-delay: 0.2s; }
-.dot:nth-child(3) { animation-delay: 0.4s; }
-
-@keyframes typing { 0%, 100% { opacity: 0.3; transform: translateY(0); } 50% { opacity: 1; transform: translateY(-5px); } }
-@keyframes ledBlink { 50% { opacity: 0.4; } }
+.btn-send-tech:hover {
+  background: #fff !important;
+  color: #000 !important;
+}
 
 /* ============================================================
-   RESPONSIVE MÓVIL
+   RESPONSIVE MÓVIL (WHATSAPP APP MODE)
    ============================================================ */
 @media (max-width: 900px) {
-  .chat-ia-root { grid-template-columns: 1fr; height: calc(100vh - 180px); }
-  .chat-status-sidebar { display: none; }
-  .chat-main-console { border-radius: 0; border: none; }
-  .chat-history { padding: 15px; }
-  .msg-bubble { font-size: 0.85rem; }
-  .chat-input-area { padding: 15px; }
-  .input-glow-wrap { padding-left: 15px; }
-  .btn-send-tech { padding: 10px 20px; font-size: 0.8rem; }
+  .chat-ia-root {
+    grid-template-columns: 1fr !important;
+    height: 100% !important; /* Ocupa lo que le de el PortalLayout */
+    padding: 0 !important;
+  }
+
+  .chat-status-sidebar { display: none !important; }
+
+  .chat-main-console {
+    border-radius: 0;
+    height: 100% !important;
+    border: none;
+  }
+
+  .chat-history { padding: 20px 15px; }
+
+  .chat-input-area {
+    padding: 12px 15px;
+    background: #050505;
+    /* Ajuste para que el teclado de iOS no tape nada */
+    padding-bottom: env(safe-area-inset-bottom, 15px);
+  }
+
+  .msg-bubble { font-size: 0.95rem; padding: 15px 18px; }
+
+  .btn-send-tech {
+    padding: 10px 20px;
+    font-size: 1.2rem !important;
+  }
+}
+
+/* SCROLLBAR ROJA ESTILO CJ */
+.chat-history::-webkit-scrollbar { width: 4px; }
+.chat-history::-webkit-scrollbar-track { background: transparent; }
+.chat-history::-webkit-scrollbar-thumb { background: #d00000; border-radius: 10px; }
+
+/* Animación del LED */
+@keyframes ledBlink { 50% { opacity: 0.3; } }
+
+/* ============================================================
+   AJUSTES DE PRECISIÓN: MOBILE FOOTER & PC 1080p (V7.8)
+   ============================================================ */
+
+/* --- 1. AJUSTE PARA PC (1080p / Notebooks) --- */
+@media (min-width: 1025px) {
+  .chat-ia-root {
+    /* Aumentamos la altura para que llene más el monitor en 1080p */
+    height: calc(100vh - 165px) !important;
+    max-height: calc(100vh - 165px) !important;
+    
+    /* Aprovechamos todo el ancho del pilar central */
+    max-width: 100% !important; 
+    margin-bottom: 0 !important;
+  }
+
+  .chat-main-console {
+    /* Sombra extra para que no se pierda en el fondo */
+    box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+  }
+}
+
+/* --- 2. AJUSTE PARA MÓVIL (Blindaje de Footer e Input) --- */
+@media (max-width: 900px) {
+  
+  .chat-ia-root {
+    /* Altura dinámica para que el input no se esconda */
+    height: calc(100dvh - 85px) !important; 
+    max-height: calc(100dvh - 85px) !important;
+  }
+
+  .chat-main-console {
+    height: 100% !important;
+    /* Eliminamos cualquier margen que lo baje */
+    margin-bottom: 0 !important;
+  }
+
+  /* SUBIMOS EL CUADRO DE ESCRIBIR */
+  .chat-input-area {
+    /* Agregamos un padding bottom agresivo para que el input 
+       quede por ENCIMA de tu footer negro y el botón Fundación */
+    padding-bottom: 100px !important; 
+    background: linear-gradient(to top, #000 80%, transparent) !important;
+    position: relative;
+    z-index: 100;
+  }
+
+  /* Hacemos que el input sea más visible en el celular */
+  .input-glow-wrap {
+    background: #080808 !important;
+    border: 1px solid #333 !important;
+    height: 50px !important;
+  }
+
+  .btn-send-tech {
+    padding: 0 20px !important;
+    height: 40px !important;
+    font-size: 1.1rem !important; /* Letra más grande para el pulgar */
+  }
+
+  /* Ajuste del historial para que no se tape el último mensaje */
+  .chat-history {
+    padding-bottom: 40px !important;
+  }
+}
+
+/* --- 3. FIX EXTRA PARA EL PILAR MADRE (PortalLayout) --- */
+/* Si estás en el chat, eliminamos el padding bottom de la página 
+   para que no se sume al scroll y cree el error 400 */
+.portal-viewport:has(.chat-ia-root) {
+  padding-bottom: 0 !important;
 }

@@ -2,7 +2,7 @@
    API SERVICE - CONECTOR GOOGLE SHEETS V28
    ============================================================ */
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwgA53kTNbq6mQM-Q8ZN9Q9Yke6joRG9BLQdGuBAwP0C3Rk-qQbWjQ7P2bYNKLhdgyzNg/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzlPFJYfqe85lfBpnUtWa7zclUaloDVsV0cLwW8aAYfWIxfe-RXoI4uLuWboZUnIFSaGA/exec";
 
 // --- 1. INICIAR SESIÓN ---
 export const loginUser = async (dni, password) => {
@@ -28,13 +28,15 @@ export const getAuditLogs = async () => {
 };
 
 // --- 2. OBTENER TODOS LOS BONOS (Público y Privado) ---
-export const getBonds = async () => {
+export const getBonds = async (dni = "") => {
   try {
-    const response = await fetch(SCRIPT_URL);
+    // Si enviamos DNI, lo agregamos a la URL como una consulta (?dni=...)
+    const url = dni ? `${SCRIPT_URL}?dni=${dni}` : SCRIPT_URL;
+    const response = await fetch(url);
     const data = await response.json();
-    return data; // Ahora devuelve { sales: [...], delegates: [...] }
+    return data;
   } catch (error) {
-    return { sales: [], delegates: [] };
+    return { sales: [], delegates: [], history: [] };
   }
 };
 
@@ -119,4 +121,11 @@ export const updatePassword = async (dni, newPassword) => {
   } catch (error) {
     return { status: 'error', message: 'Fallo de conexión al actualizar' };
   }
+};
+
+export const saveChatMessage = async (dni, role, content) => {
+  await fetch(SCRIPT_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action: 'save_chat_msg', dni, role, content }),
+  });
 };
