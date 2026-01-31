@@ -176,7 +176,7 @@ export default function Monitoreo() {
                       <span className="u-id">DNI: {log.vendedor}</span>
                     </div>
                     <div className="log-data-body">
-                      <p>VENTA: <strong>BONO #{log.id_bono}</strong> <small>(R:{log.n_bono})</small></p>
+                      <p>VENTA: <strong>BONO #{log.id_bono}</strong></p>
                       <p>COMPRADOR: <strong>{log.comprador}</strong> | DNI: {log.dni_comp}</p>
                       {/* FECHA Y HORA 24HS EN REGISTRO DE VENTA */}
                       <span className="log-timestamp">
