@@ -333,45 +333,86 @@
 .btn-forgot-pass-link:hover {
   color: #d00000;
 }
+/* ============================================================
+   REFINAMIENTO MÓVIL: AJUSTE NAVBAR Y SCROLL (V6.2)
+   ============================================================ */
+
 @media (max-width: 950px) {
   
-  /* 1. EL CONTENEDOR RAÍZ: Ahora es transparente para dejar ver el video */
+  /* 1. EL CONTENEDOR: Se ancla arriba y permite scroll interno */
   .login-v29-root {
     display: flex !important;
     flex-direction: column !important;
-    justify-content: flex-start !important;
+    justify-content: flex-start !important; /* Lo pega al techo */
     align-items: center !important;
     
-    /* ESPACIO PARA TU NAVBAR */
-    padding-top: 110px !important; 
+    /* Espacio exacto para que empiece debajo del Navbar */
+    padding-top: 105px !important; 
     
-    /* VOLVEMOS A VER EL VIDEO */
-    background: transparent !important; /* CAMBIO CLAVE AQUÍ */
-    
-    overflow-y: auto !important; 
+    overflow-y: auto !important; /* Habilita el scroll si el contenido es largo */
     height: 100vh !important;
+    background: transparent !important; /* Deja ver el video de fondo */
     z-index: 2500 !important; 
   }
 
-  /* 2. EL CUADRO (CARD): Le damos un fondo oscuro pero que deje ver el video atrás */
-  .login-glass-card {
-    padding: 30px 20px !important;
-    /* Fondo negro con 90% de opacidad para que el video se intuya detrás */
-    background: rgba(8, 8, 8, 0.9) !important; 
-    backdrop-filter: blur(15px);
-    border-radius: 8px !important;
-    border: 1px solid rgba(255, 255, 255, 0.05) !important;
-    border-top: 3px solid #d00000 !important;
-  }
-
-  /* 3. MANTENEMOS EL RESTO IGUAL */
+  /* 2. EL EJE CENTRAL: Proporcional al ancho del iPhone */
   .login-central-axis {
     margin: 0 auto !important;
     transform: none !important;
     width: 92% !important;
     max-width: 340px !important;
-    padding-bottom: 120px !important;
+    padding-bottom: 150px !important; /* Margen para no chocar con el footer */
   }
 
-  .login-portal-logo { display: none !important; }
+  /* 3. EL CUADRO (CARD): Negro nítido para lectura HD */
+  .login-glass-card {
+    padding: 30px 20px !important;
+    background: rgba(8, 8, 8, 0.92) !important; /* Más sólido para que se lea mejor */
+    backdrop-filter: blur(20px);
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 3px solid #d00000 !important; /* Línea neón superior */
+    box-shadow: 0 20px 60px rgba(0,0,0,1) !important;
+  }
+
+  /* 4. TÍTULOS: Ajuste de escala móvil */
+  .login-main-title {
+    font-size: 3rem !important;
+    line-height: 0.8 !important;
+    margin-bottom: 10px !important;
+  }
+  .login-main-title span {
+    font-size: 2.5rem !important;
+    margin-bottom: 25px !important;
+  }
+
+  /* 5. OCULTAR LOGO EN MÓVIL (Mata el estorbo superior) */
+  .login-portal-logo {
+    display: none !important;
+  }
+
+  /* 6. INPUTS: Muerte al color celeste y zoom de iPhone */
+  .login-field input {
+    padding: 15px !important;
+    font-size: 16px !important; /* Tamaño mágico: evita el zoom de iOS */
+    background: #000 !important;
+    color: #fff !important;
+    border: 1px solid #222 !important;
+    border-radius: 4px !important;
+  }
+
+  .login-btn-supreme {
+    padding: 18px !important;
+    font-size: 1.5rem !important;
+    margin-top: 10px !important;
+  }
+}
+
+/* --- BLOQUE ANTI-CELESTE (FIX AUTOFILL) --- */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #fff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #000 inset !important;
+  transition: background-color 5000s ease-in-out 0s;
 }

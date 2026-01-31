@@ -137,7 +137,6 @@ return (
                 <button type="submit" disabled={loading} className="login-btn-supreme">
                   {loading ? "AUTENTICANDO..." : "ENTRAR AL SISTEMA"}
                 </button>
-                   <Link to="/" type="button" className="login-back-link" onClick={() => setView("login")} style={{width: '100%', marginTop: '20px', background: 'transparent', border: 'none', color: '#444', cursor: 'pointer', fontSize: '0.9rem'}}>← VOLVER AL INICIO</Link>
               </form>
             )}
 
