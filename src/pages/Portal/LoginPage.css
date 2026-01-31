@@ -333,3 +333,45 @@
 .btn-forgot-pass-link:hover {
   color: #d00000;
 }
+@media (max-width: 950px) {
+  
+  /* 1. EL CONTENEDOR RAÍZ: Ahora es transparente para dejar ver el video */
+  .login-v29-root {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    
+    /* ESPACIO PARA TU NAVBAR */
+    padding-top: 110px !important; 
+    
+    /* VOLVEMOS A VER EL VIDEO */
+    background: transparent !important; /* CAMBIO CLAVE AQUÍ */
+    
+    overflow-y: auto !important; 
+    height: 100vh !important;
+    z-index: 2500 !important; 
+  }
+
+  /* 2. EL CUADRO (CARD): Le damos un fondo oscuro pero que deje ver el video atrás */
+  .login-glass-card {
+    padding: 30px 20px !important;
+    /* Fondo negro con 90% de opacidad para que el video se intuya detrás */
+    background: rgba(8, 8, 8, 0.9) !important; 
+    backdrop-filter: blur(15px);
+    border-radius: 8px !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 3px solid #d00000 !important;
+  }
+
+  /* 3. MANTENEMOS EL RESTO IGUAL */
+  .login-central-axis {
+    margin: 0 auto !important;
+    transform: none !important;
+    width: 92% !important;
+    max-width: 340px !important;
+    padding-bottom: 120px !important;
+  }
+
+  .login-portal-logo { display: none !important; }
+}
