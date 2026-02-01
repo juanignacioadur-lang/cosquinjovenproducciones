@@ -216,7 +216,7 @@ export default function AboutPage() {
                  <div className="h-visual-side">
     {/* PRIMERA IMAGEN */}
     <div className="h-image-canvas">
-        <img src="/Informacion.jpg" alt="Historia Cosquín" className="h-image-render" />
+        <img src="/Informacion.png" alt="Historia Cosquín" className="h-image-render" />
         <div className="h-frame-deco"></div>
     </div>
 
