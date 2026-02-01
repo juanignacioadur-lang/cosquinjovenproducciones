@@ -225,10 +225,23 @@ const handleRegister = async (e) => {
                  <input type="number" placeholder="DNI COMPRADOR" required value={form.dni} onChange={e => setForm({...form, dni: e.target.value})} />
                  <input type="tel" placeholder="WHATSAPP" required value={form.tel} onChange={e => setForm({...form, tel: e.target.value})} />
                  <input type="text" placeholder="DIRECCIÓN COMPLETA" required value={form.dir} onChange={e => setForm({...form, dir: e.target.value})} />
-                 <div className="form-tech-actions">
-                    <button type="button" className="btn-modal-tech cancel" onClick={() => setSelectedBono(null)}>ABORTAR</button>
-                    <button type="submit" className="btn-modal-tech save">REGISTRAR</button>
-                 </div>
+<div className="form-tech-actions">
+   <button 
+     type="button" 
+     className="btn-modal-tech cancel" 
+     onClick={() => setSelectedBono(null)}
+   >
+     ABORTAR
+   </button>
+   
+   <button 
+     type="submit" 
+     className="btn-modal-tech save" 
+     disabled={loading} // <--- ESTO ES LO QUE BLOQUEA EL DOBLE CLIC
+   >
+     {loading ? "PROCESANDO..." : "REGISTRAR"} 
+   </button>
+</div>
               </form>
            </div>
         </div>,
