@@ -26,6 +26,11 @@ export default function MasterBonos() {
 
 const handleRegister = async (e) => {
     e.preventDefault();
+    const numFinal = Number(numeroManual);
+    if (numFinal < 1 || numFinal > 1000) {
+      alert("OPERACIÓN BLOQUEADA: El número de bono debe estar entre 1 y 1000.");
+      return; // Detiene el envío
+    }
     setLoading(true);
     
     const res = await registerSale({
@@ -214,12 +219,21 @@ const handleRegister = async (e) => {
               <button className="btn-close-x" onClick={() => setSelectedBono(null)}>&times;</button>
               <h3>NUEVA VENTA</h3>
               <form onSubmit={handleRegister} className="form-tech-grid">
-                 <input 
+  <input 
   type="number" 
   placeholder="NÚMERO DE BONO (1-1000)" 
   required 
+  min="1" 
+  max="1000"
   value={numeroManual}
-  onChange={e => setNumeroManual(e.target.value)} // <--- CAMBIO CLAVE
+  onChange={e => {
+    const val = e.target.value;
+    // LÓGICA DE BLINDAJE: 
+    // Solo permite el cambio si el valor es menor o igual a 1000
+    if (val === "" || (Number(val) <= 1000)) {
+      setNumeroManual(val);
+    }
+  }}
 />
                  <input type="text" placeholder="NOMBRE COMPRADOR" required value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} />
                  <input type="number" placeholder="DNI COMPRADOR" required value={form.dni} onChange={e => setForm({...form, dni: e.target.value})} />
