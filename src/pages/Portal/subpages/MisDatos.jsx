@@ -1,136 +1,238 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
-import { getBonds } from "../../../services/api";
+import { getBonds, updateFullProfile } from "../../../services/api";
 import "./MisDatos.css";
 
 export default function MisDatos() {
-  const { user } = useAuth();
-  const [delegates, setDelegates] = useState([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isEditing, setIsEditing] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  // Datos para el formulario de edición (Simulado)
+  const { user, login } = useAuth();
+  const [loading, setLoading] = useState(false);
+  
   const [formData, setFormData] = useState({
-    telefono: "+54 9 ...",
-    direccion: "Calle Ficticia 123",
-    email: "docente@ejemplo.com"
+    nombre: user.nombre || "",
+    provincia: user.provincia || "",
+    celular: "",
+    current_password: "",
+    new_password: ""
   });
 
   useEffect(() => {
-    fetchDelegates();
-  }, []);
-
-  const fetchDelegates = async () => {
+    const loadData = async () => {
+      const res = await getBonds(user.dni);
+      const me = res.delegates?.find(d => d.dni.toString() === user.dni.toString());
+      if (me) {
+        setFormData(prev => ({ 
+          ...prev, 
+          nombre: me.nombre || "", 
+          provincia: me.provincia || "", 
+          celular: me.celular || "" 
+        }));
+      }
+    };
+    loadData();
+  }, [user.dni]);
+  const [isEditingPhone, setIsEditingPhone] = useState(false);
+  const handleUpdate = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    // Reutilizamos el fetch de bonos para extraer los nombres de las academias únicas
-    const data = await getBonds();
-    const uniqueDelegates = [];
-    const map = new Map();
     
-    for (const item of data) {
-        if (item.vendedor && item.vendedor !== "Disponible" && !map.has(item.vendedor)) {
-            map.set(item.vendedor, true);
-            uniqueDelegates.push({
-                id: item.vendedor,
-                academia: item.academia,
-                nombre: "PROFESOR ASIGNADO", // En el futuro vendrá del USUARIOS_MASTER
-                provincia: "ARGENTINA"
-            });
-        }
+    const res = await updateFullProfile({
+      dni: user.dni,
+      nombre: formData.nombre,
+      provincia: formData.provincia,
+      celular: formData.celular,
+      current_password: formData.current_password,
+      new_password: formData.new_password || null
+    });
+
+    if (res.status === "success") {
+      alert("NIVEL DE ACCESO ACTUALIZADO: Cambios sincronizados con la Red Federal.");
+      login(res.user, true);
+      setFormData(prev => ({ ...prev, current_password: "", new_password: "" }));
+    } else {
+      alert("ERROR DE PROTOCOLO: " + res.message);
     }
-    setDelegates(uniqueDelegates);
     setLoading(false);
   };
 
-  const handleUpdate = (e) => {
-    e.preventDefault();
-    setIsEditing(false);
-    alert("Protocolo de actualización enviado al servidor central.");
-  };
-
-  const filteredDelegates = delegates.filter(d => 
-    d.academia.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    d.id.toString().includes(searchTerm)
-  );
-
   return (
-    <div className="perfil-root anim-fade-in">
+    <div className="md-titan-root anim-reveal">
       
-      <div className="perfil-grid">
-        
-        {/* COLUMNA 1: MI IDENTIDAD DIGITAL */}
-        <section className="perfil-side-self">
-          <div className="id-card-premium">
-            <div className="id-card-glow"></div>
-            <header className="id-header">
-              <span className="id-serial">SYS_AUTH_ID: {user?.dni}</span>
-              <div className="id-avatar">
-                {user?.nombre?.charAt(0)}
-              </div>
-            </header>
+      {/* HEADER DE SISTEMA */}
+      <header className="md-hardware-header">
+        <div className="md-header-left">
+          <div className="md-led-status active"></div>
+          <div className="md-title-group">
+            <h2 className="md-main-title">GESTIÓN DE <span>IDENTIDAD</span></h2>
+          </div>
+        </div>
+        <div className="md-header-right">
+          <span className="md-access-label">NIVEL DE ACCESO: {user.rol}</span>
+        </div>
+      </header>
 
-            <div className="id-info">
-              <h2 className="id-name">{user?.nombre}</h2>
-              <span className="id-role-badge">{user?.rol}</span>
-              <div className="id-divider"></div>
-              <p className="id-detail"><span>ACADEMIA:</span> {user?.academia}</p>
-              <p className="id-detail"><span>ZONA:</span> {user?.provincia}</p>
+      <div className="md-main-grid">
+        
+        {/* LADO A: CREDENCIAL DE SEGURIDAD */}
+        <aside className="md-sidebar-id">
+          <div className="md-badge-card">
+            <div className="md-card-scanner"></div> {/* Animación de línea de escaneo */}
+            <div className="md-card-glow"></div>
+            
+            <div className="md-badge-inner">
+              
+              <div className="md-avatar-wrap">
+                <div className="md-avatar-frame">
+                  <div className="md-initial">{formData.nombre.charAt(0)}</div>
+                </div>
+                <div className="md-online-pulse"></div>
+              </div>
+
+              <h3 className="md-badge-name">{formData.nombre}</h3>
+              <p className="md-badge-role">{user.rol} CERTIFICADO</p>
+              
+              <div className="md-divider-neon"></div>
+
+              <div className="md-meta-rows">
+                <div className="md-meta-item">
+                  <label>NODE_ID</label>
+                  <span>{user.dni}</span>
+                </div>
+                <div className="md-meta-item">
+                  <label>ACADEMIA</label>
+                  <span>{user.academia}</span>
+                </div>
+                <div className="md-meta-item">
+                  <label>ZONA_ACTIVA</label>
+                  <span className="highlight-red">{formData.provincia || "UNSET"}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="md-security-info">
+            <p><strong>RESTRICCIÓN:</strong> Los datos DNI y ACADEMIA están enlazados a su contrato federal. Para modificaciones críticas, póngase en contacto por WhatsApp.</p>
+          </div>
+        </aside>
+
+        {/* LADO B: TERMINAL DE CONFIGURACIÓN */}
+        <section className="md-config-panel">
+          <form className="md-terminal-form" onSubmit={handleUpdate} autoComplete="off">
+            
+            {/* TRAMPA ANTI-AUTOFILL CHROME */}
+            <input type="text" name="fake_user" style={{display:'none'}} />
+            <input type="password" name="fake_pass" style={{display:'none'}} />
+
+            <div className="md-form-section">
+              <h4 className="md-section-label">01. INFORMACIÓN PÚBLICA</h4>
+              
+              <div className="md-input-field full">
+                <label>NOMBRE COMPLETO DEL OPERADOR</label>
+                <div className="md-input-wrap">
+                  <input 
+                    type="text" 
+                    value={formData.nombre} 
+                    onChange={e => setFormData({...formData, nombre: e.target.value.toUpperCase()})} 
+                    required 
+                  />
+                  <div className="md-input-bar"></div>
+                </div>
+              </div>
+
+              <div className="md-grid-inputs">
+                <div className="md-input-field">
+                  <label>ZONA / PROVINCIA</label>
+                  <div className="md-input-wrap">
+                    <input 
+                      type="text" 
+                      value={formData.provincia} 
+                      onChange={e => setFormData({...formData, provincia: e.target.value.toUpperCase()})} 
+                      required 
+                    />
+                    <div className="md-input-bar"></div>
+                  </div>
+                </div>
+                <div className="md-input-field">
+  <label>WHATSAPP (NÚMERO FEDERAL)</label>
+  <div className={`md-inline-edit-wrap ${isEditingPhone ? 'editing' : ''}`}>
+    
+    {isEditingPhone ? (
+      /* MODO EDICIÓN: El input se activa */
+      <div className="md-input-wrap">
+        <input 
+          type="tel" 
+          autoComplete="new-password"
+          value={formData.celular} 
+          onChange={e => setFormData({...formData, celular: e.target.value})}
+          autoFocus 
+          onBlur={() => !formData.celular && setIsEditingPhone(false)} // Si hace clic afuera y está vacío, se cierra
+        />
+        <button 
+          type="button" 
+          className="md-btn-mini-save" 
+          onClick={() => setIsEditingPhone(false)}
+        >
+          OK
+        </button>
+      </div>
+    ) : (
+      /* MODO VISTA: El número queda fijo y elegante */
+      <div className="md-display-data-row">
+        <span className="md-fixed-value">
+          {formData.celular || "SIN ASIGNAR"}
+        </span>
+        <button 
+          type="button" 
+          className="md-btn-inline-edit" 
+          onClick={() => setIsEditingPhone(true)}
+        >
+          EDITAR
+        </button>
+      </div>
+    )}
+                    <div className="md-input-bar"></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <button 
-              className={`btn-edit-id ${isEditing ? 'active' : ''}`}
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              {isEditing ? "CANCELAR" : "GESTIONAR DATOS"}
-            </button>
-          </div>
-
-          {isEditing && (
-            <form className="edit-form-pro anim-slide-up" onSubmit={handleUpdate}>
-               <div className="f-field">
-                 <label>WHATSAPP PÚBLICO</label>
-                 <input type="tel" value={formData.telefono} onChange={(e)=>setFormData({...formData, telefono: e.target.value})} />
-               </div>
-               <div className="f-field">
-                 <label>DIRECCIÓN POSTAL</label>
-                 <input type="text" value={formData.direccion} onChange={(e)=>setFormData({...formData, direccion: e.target.value})} />
-               </div>
-               <button type="submit" className="btn-save-id">GUARDAR CAMBIOS</button>
-            </form>
-          )}
-        </section>
-
-        {/* COLUMNA 2: RED FEDERAL DE DELEGADOS */}
-        <section className="perfil-side-network">
-          <header className="network-header">
-             <h3 className="network-title">RED FEDERAL DE <span>DELEGADOS</span></h3>
-             <div className="network-search">
-                <input 
-                  type="text" 
-                  placeholder="BUSCAR COLEGAS O ACADEMIAS..." 
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-             </div>
-          </header>
-
-          <div className="network-list">
-            {loading ? (
-              <div className="net-loader">SINCRONIZANDO NODOS...</div>
-            ) : (
-              filteredDelegates.map((d, i) => (
-                <div key={i} className="delegate-mini-card">
-                   <div className="mini-avatar">{d.academia.charAt(0)}</div>
-                   <div className="mini-info">
-                      <h4>{d.academia}</h4>
-                      <p>PROF. ID: {d.id} • {d.provincia}</p>
-                   </div>
-                   <div className="net-status-led"></div>
+            <div className="md-form-section security">
+              <h4 className="md-section-label">02. PROTOCOLOS DE ACCESO</h4>
+              
+              <div className="md-grid-inputs">
+                <div className="md-input-field">
+                  <label>CLAVE ACTUAL</label>
+                  <div className="md-input-wrap">
+                    <input 
+                      type="password" 
+                      placeholder="Contraseña actual"
+                      autoComplete="new-password"
+                      value={formData.current_password} 
+                      onChange={e => setFormData({...formData, current_password: e.target.value})} 
+                    />
+                    <div className="md-input-bar"></div>
+                  </div>
                 </div>
-              ))
-            )}
-          </div>
+                <div className="md-input-field">
+                  <label>NUEVA CLAVE (OPCIONAL)</label>
+                  <div className="md-input-wrap">
+                    <input 
+                      type="password" 
+                      placeholder="Nueva contraseña"
+                      autoComplete="new-password"
+                      value={formData.new_password} 
+                      onChange={e => setFormData({...formData, new_password: e.target.value})} 
+                    />
+                    <div className="md-input-bar"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" className="md-btn-submit" disabled={loading}>
+              {loading ? "TRANSFERIENDO DATOS..." : "GUARDAR DATOS"}
+            </button>
+
+          </form>
         </section>
 
       </div>

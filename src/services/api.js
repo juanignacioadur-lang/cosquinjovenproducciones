@@ -2,7 +2,7 @@
    API SERVICE - CONECTOR GOOGLE SHEETS V28
    ============================================================ */
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbye9-HdCfO7bAuMKcC7WctUexkXtNaNfdS0CG1HeautWv-nupuz8Gc88qUiwg3NaY8tNQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxnsqT7hY6dvb3phaOsuzyGeSNjeRUGQ1Cxbo6hYknpiYsEaS37d0nUcyLM27yMy_n8lA/exec";
 
 // --- 1. INICIAR SESIÓN ---
 export const loginUser = async (dni, password) => {
@@ -128,4 +128,28 @@ export const saveChatMessage = async (dni, role, content) => {
     method: 'POST',
     body: JSON.stringify({ action: 'save_chat_msg', dni, role, content }),
   });
+};
+
+export const updateUserContact = async (dni, celular) => {
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'update_user_contact', dni, celular }),
+    });
+    return await response.json();
+  } catch (error) {
+    return { status: 'error', message: 'Fallo al conectar con la base de datos federal' };
+  }
+};
+
+export const updateFullProfile = async (profileData) => {
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'update_full_profile', ...profileData }),
+    });
+    return await response.json();
+  } catch (error) {
+    return { status: 'error', message: 'Fallo de enlace con el servidor central' };
+  }
 };
