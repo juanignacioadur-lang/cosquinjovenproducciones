@@ -139,7 +139,7 @@ export default function Monitoreo() {
         ) : (
           /* Título de sección cuando no hay buscador para que no quede vacío */
           <div className="mnt-section-label anim-fade-in">
-             REPORTE DE AUDITORÍA DE SISTEMA
+             REPORTE DE REGISTROS
           </div>
         )}
 
