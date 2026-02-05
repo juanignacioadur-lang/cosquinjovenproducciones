@@ -42,21 +42,30 @@ export default function BonoPage() {
   }, [ultimasVentas, data.delegates]);
 
   // 4. RANKING FEDERAL
-  const rankingDelegados = useMemo(() => {
+const rankingDelegados = useMemo(() => {
     const stats = {};
+
     ventasValidadas.forEach(s => {
       const dniVendedor = s.vendedor.toString();
+      
       if (!stats[dniVendedor]) {
+        // Buscamos al delegado en la lista para obtener su cupo total (columna J)
         const infoDelegado = data.delegates.find(d => d.dni.toString() === dniVendedor);
+        
         stats[dniVendedor] = {
           nombre: s.vendedor_nombre,
           academia: infoDelegado ? infoDelegado.academia : "Independiente",
-          cant: 0
+          cant: 0,
+          // Capturamos el cupo total, si no existe ponemos 100 por defecto para evitar división por cero
+          totalCupo: infoDelegado ? Number(infoDelegado.cantidad) : 100 
         };
       }
       stats[dniVendedor].cant += 1;
     });
-    return Object.values(stats).sort((a, b) => b.cant - a.cant).slice(0, 4);
+
+    return Object.values(stats)
+      .sort((a, b) => b.cant - a.cant)
+      .slice(0, 4);
   }, [ventasValidadas, data.delegates]);
 
   if (loading) return <div className="loader-tech">SINCRONIZANDO SISTEMA FEDERAL...</div>;
@@ -193,20 +202,21 @@ export default function BonoPage() {
            <span>0{i + 1}</span>
         </div>
         
-        <div className="leader-info">
-          <div className="leader-identity">
-            <span className="leader-name">{d.nombre}</span>
-            <span className="leader-academy-tag">{d.academia}</span>
-          </div>
-          <div className="leader-bar-container">
-            <div 
-              className="leader-bar-fill" 
-              style={{ width: `${(d.cant / rankingDelegados[0].cant) * 100}%` }}
-            >
-              <div className="bar-glow"></div>
-            </div>
-          </div>
-        </div>
+<div className="leader-info">
+  <div className="leader-identity">
+    <span className="leader-name">{d.nombre}</span>
+    <span className="leader-academy-tag">{d.academia}</span>
+  </div>
+  <div className="leader-bar-container">
+    <div 
+      className="leader-bar-fill" 
+      /* AHORA: Divide las ventas por su cupo real del Excel */
+      style={{ width: `${(d.cant / d.totalCupo) * 100}%` }}
+    >
+      <div className="bar-glow"></div>
+    </div>
+  </div>
+</div>
         
         <div className="leader-stats-badge">
            <span className="l-num">{d.cant}</span>
