@@ -233,7 +233,7 @@ const handleDownloadExcel = async (sheetKey, fileName) => {
           {viewMode === 'ops' ? (
             <div className="mnt-ops-scroll custom-scroll">
               {filteredData.length === 0 ? (
-                <div className="mnt-empty"><center>CARGANDO DATOS...</center></div>
+                <div className="mnt-empty"><center>NO HAY REGISTROS DE VENTAS.</center></div>
               ) : (
                 filteredData.map((log, i) => (
                   <article key={i} className={`mnt-log-entry ${log.estado.toLowerCase()}`}>
