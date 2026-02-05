@@ -1042,3 +1042,37 @@
     background: #d00000;
     border-radius: 10px;
 }
+/* ============================================================
+   FIX DE REGISTROS: TODO EN UN SOLO RENGLÓN (ANTI-BREAK)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    /* 1. Prohibimos que cualquier celda de la tabla salte de línea */
+    .audit-table-v33 th,
+    .audit-table-v33 td {
+        white-space: nowrap !important;
+        word-break: keep-all !important;
+    }
+
+    /* 2. Fix específico para el badge de ACCIÓN (RESET_PASSWORD, etc) */
+    .t-action {
+        display: inline-block !important;
+        white-space: nowrap !important;
+        width: auto !important; /* Que el ancho se adapte al texto */
+        min-width: max-content !important;
+        padding: 4px 10px !important;
+        text-align: center;
+    }
+
+    /* 3. Aumentamos un poquito el ancho mínimo de la tabla para dar aire */
+    .audit-table-v33 {
+        width: 950px !important; /* Un poco más de espacio para los detalles largos */
+        min-width: 950px !important;
+    }
+
+    /* 4. Ajuste de las columnas para que la acción no quede apretada */
+    .audit-table-v33 th:nth-child(3), 
+    .audit-table-v33 td:nth-child(3) { 
+        width: 140px !important; /* Más ancho para la columna ACCIÓN */
+    }
+}

@@ -15,21 +15,28 @@ export default function MisDatos() {
     new_password: ""
   });
 
-  useEffect(() => {
-    const loadData = async () => {
+useEffect(() => {
+  const loadData = async () => {
+    try {
       const res = await getBonds(user.dni);
+      
+      // Buscamos en toda la lista (ahora que el script manda a todos)
       const me = res.delegates?.find(d => d.dni.toString() === user.dni.toString());
+      
       if (me) {
         setFormData(prev => ({ 
           ...prev, 
-          nombre: me.nombre || "", 
-          provincia: me.provincia || "", 
-          celular: me.celular || "" 
+          nombre: me.nombre || prev.nombre, 
+          provincia: me.provincia || prev.provincia, 
+          celular: me.celular || "" // Si en Excel hay algo, lo pone. Si no, queda vacío.
         }));
       }
-    };
-    loadData();
-  }, [user.dni]);
+    } catch (error) {
+      console.error("Error sincronizando perfil:", error);
+    }
+  };
+  loadData();
+}, [user.dni]);
   const [isEditingPhone, setIsEditingPhone] = useState(false);
   const handleUpdate = async (e) => {
     e.preventDefault();
