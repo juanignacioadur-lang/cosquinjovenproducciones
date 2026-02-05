@@ -62,7 +62,7 @@ export default function MisDatos() {
         <div className="md-header-left">
           <div className="md-led-status active"></div>
           <div className="md-title-group">
-            <h2 className="md-main-title">GESTIÓN DE <span>IDENTIDAD</span></h2>
+            <h2 className="md-main-title"><span>MIS DATOS</span></h2>
           </div>
         </div>
         <div className="md-header-right">
