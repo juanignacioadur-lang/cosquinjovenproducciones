@@ -848,3 +848,122 @@
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(1.2); }
 }
+/* ============================================================
+   AUDIT TABLE MOBILE FIX (Para Monitoreo > Registros)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    /* 1. Hacemos que el contenedor permita scroll horizontal si es necesario */
+    .audit-scroll-pane {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        margin: 0 -15px; /* Ganamos espacio lateral */
+    }
+
+    .audit-table-v33 {
+        min-width: 600px; /* Forzamos un ancho mínimo para que las columnas no se pisen */
+        font-size: 0.75rem !important;
+    }
+
+    .audit-table-v33 th, 
+    .audit-table-v33 td {
+        padding: 12px 8px !important;
+        white-space: nowrap; /* Evita que el texto salte de línea y estire la fila */
+    }
+
+    /* Ocultamos detalles muy largos en móvil para simplificar */
+    .t-detail {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* 2. Estilo de celdas específicas */
+    .t-date {
+        color: #d00000 !important; /* Resaltamos la fecha */
+        font-weight: bold;
+    }
+}
+/* ============================================================
+   MONITOREO MOBILE RE-ENGINEERING (AUDITORÍA & TABS)
+   ============================================================ */
+
+/* ============================================================
+   FIX DEFINITIVO: TABLA DE AUDITORÍA MÓVIL (ANTI-CORTE)
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    /* 1. EL CONTENEDOR MAESTRO DE LA SECCIÓN */
+    .mnt-feed-area {
+        width: 100% !important;
+        overflow: visible !important; /* Permitimos que el hijo gestione el scroll */
+        padding: 0 !important;
+    }
+
+    /* 2. EL PANEL DE SCROLL (LA CAJA NEGRA) */
+    .audit-scroll-pane {
+        width: 100vw !important; /* Ocupa todo el ancho del dispositivo */
+        margin-left: -20px !important; /* Compensa el padding del root para ir de borde a borde */
+        margin-right: -20px !important;
+        overflow-x: auto !important; /* HABILITA EL DESLIZAMIENTO LATERAL */
+        overflow-y: hidden;
+        display: block !important;
+        background: #080808 !important;
+        border-top: 1px solid #222 !important;
+        border-bottom: 1px solid #222 !important;
+        -webkit-overflow-scrolling: touch; /* Suavidad extrema en iPhone */
+    }
+
+    /* 3. LA TABLA (EL MOTOR) */
+    .audit-table-v33 {
+        /* Forzamos un ancho de 850px para que las 4 columnas tengan su espacio real */
+        width: 850px !important; 
+        min-width: 850px !important;
+        border-collapse: collapse !important;
+        table-layout: fixed !important; /* Bloquea el ancho de las celdas */
+    }
+
+    /* 4. REPARTO DE ANCHOS DE COLUMNAS (PARA QUE NADA SE CORTE) */
+    .audit-table-v33 th:nth-child(1), .audit-table-v33 td:nth-child(1) { width: 160px; } /* Fecha */
+    .audit-table-v33 th:nth-child(2), .audit-table-v33 td:nth-child(2) { width: 140px; } /* Actor */
+    .audit-table-v33 th:nth-child(3), .audit-table-v33 td:nth-child(3) { width: 120px; } /* Acción */
+    .audit-table-v33 th:nth-child(4), .audit-table-v33 td:nth-child(4) { width: 430px; } /* Detalles (Largo) */
+
+    /* 5. DISEÑO DE CELDAS */
+    .audit-table-v33 th {
+        background: #111 !important;
+        color: #d00000 !important;
+        font-size: 0.7rem !important;
+        text-align: left !important;
+        padding: 15px !important;
+        text-transform: uppercase;
+    }
+
+    .audit-table-v33 td {
+        padding: 15px !important;
+        font-size: 0.8rem !important;
+        color: #888 !important;
+        border-bottom: 1px solid #111 !important;
+        white-space: normal !important; /* Permite que el detalle largo baje de renglón si es necesario */
+        word-break: break-word;
+    }
+
+    /* Resaltados */
+    .t-date { color: #d00000 !important; font-weight: bold; }
+    .t-user { color: #fff !important; font-weight: bold; }
+    .t-action {
+        background: rgba(208, 0, 0, 0.15) !important;
+        padding: 4px 8px !important;
+        border-radius: 4px;
+        font-size: 0.65rem !important;
+    }
+}
+
+/* Ocultar barra de scroll fea en móviles (Android) pero mantener funcionalidad */
+.audit-scroll-pane::-webkit-scrollbar {
+    height: 3px;
+}
+.audit-scroll-pane::-webkit-scrollbar-thumb {
+    background: #d00000;
+}
