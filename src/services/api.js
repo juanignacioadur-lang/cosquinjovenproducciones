@@ -2,7 +2,7 @@
    API SERVICE - CONECTOR GOOGLE SHEETS V28
    ============================================================ */
 
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzmcMvD0Ije6_FGVTvJGuin7a4ByRSLJaMQl8yzZRLNUmMVCSHmrlJ9Ft_7r-cBTMELZQ/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwr0hIZDyLnRgMWaSyJxRkRiyydNnNYEHqt9i6uYoujeaxWw8rZjElyw1b0x44_OybFhw/exec";
 
 // --- 1. INICIAR SESIÓN ---
 export const loginUser = async (dni, password) => {
@@ -151,5 +151,17 @@ export const updateFullProfile = async (profileData) => {
     return await response.json();
   } catch (error) {
     return { status: 'error', message: 'Fallo de enlace con el servidor central' };
+  }
+};
+
+export const exportFullData = async (sheetKey) => {
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'export_full_data', sheet_key: sheetKey }),
+    });
+    return await response.json();
+  } catch (error) {
+    return { status: 'error', message: 'Error de conexión' };
   }
 };

@@ -1076,3 +1076,51 @@
         width: 140px !important; /* Más ancho para la columna ACCIÓN */
     }
 }
+
+.export-section {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.export-label {
+  display: block;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.65rem;
+  color: #444;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.export-btns-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-export-tech {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid #1a1a1a;
+  color: #888;
+  padding: 12px 15px;
+  border-radius: 4px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-export-tech:hover {
+  background: rgba(208, 0, 0, 0.1);
+  border-color: #d00000;
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.btn-export-tech .icon { color: #d00000; }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { getBonds, validateSale, cancelSale, updateSale } from "../../../services/api";
+import { getBonds, validateSale, cancelSale, updateSale, exportFullData } from "../../../services/api";
 import "./Monitoreo.css";
 import ModalBonoEditor from "../../../components/ModalBonoEditor";
 
@@ -56,6 +56,72 @@ export default function Monitoreo() {
       l.vendedor_nombre?.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [logs, searchTerm]);
+
+// --- MOTOR DE EXPORTACIÓN TÉCNICA ---
+const handleDownloadExcel = async (sheetKey, fileName) => {
+    setLoading(true);
+    try {
+      const res = await exportFullData(sheetKey);
+      if (res.status === "success") {
+        
+        // 1. Usamos TAB como separador (es el que mejor entiende Excel para UTF-16)
+        const SEPARATOR = "\t"; 
+
+        const rows = res.data.map(row => {
+          return row.map(cell => {
+            let value = cell;
+            
+            // Formateo de fechas manual para evitar el problema de los #####
+            if (value instanceof Date || (typeof value === "string" && value.includes("T") && value.includes("Z"))) {
+                const date = new Date(value);
+                if (!isNaN(date)) {
+                    const d = date.getDate().toString().padStart(2, '0');
+                    const m = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const y = date.getFullYear();
+                    const h = date.getHours().toString().padStart(2, '0');
+                    const min = date.getMinutes().toString().padStart(2, '0');
+                    value = `${d}/${m}/${y} ${h}:${min}`; // Formato corto para que no se estruje
+                }
+            }
+            // Limpiamos saltos de línea que rompen las filas
+            return String(value).replace(/\n/g, " ").replace(/\r/g, " ");
+          }).join(SEPARATOR);
+        }).join("\r\n"); // Salto de línea estilo Windows
+
+        // 2. EL TRUCO MAESTRO: Codificación UTF-16LE
+        // Esto es lo que hace que las tildes (ó, á, í) se vean perfectas
+        const charCodeArray = new Uint16Array(rows.length + 1);
+        charCodeArray[0] = 0xFEFF; // BOM para UTF-16
+        for (let i = 0; i < rows.length; i++) {
+            charCodeArray[i + 1] = rows.charCodeAt(i);
+        }
+
+        const blob = new Blob([charCodeArray], { type: 'text/csv;charset=utf-16le' });
+        
+        // 3. Disparar descarga
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        const dateStr = new Date().toLocaleDateString().replace(/\//g, '-');
+        link.setAttribute("download", `${fileName}_${dateStr}.csv`);
+        
+        document.body.appendChild(link);
+        link.click();
+        
+        setTimeout(() => {
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+        }, 100);
+        
+      } else {
+        alert("SISTEMA: Error al recuperar datos.");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("SISTEMA: Error crítico en la descarga.");
+    }
+    setLoading(false);
+  };
 
   // --- CRUD TÁCTICO (ACCIONES) ---
   const handleAction = async (action, id_bono, data = {}) => {
@@ -246,18 +312,34 @@ export default function Monitoreo() {
              <div className="hw-info"><span>GATEWAY:</span> <strong>CLOUD_SECURE</strong></div>
              <div className="hw-info"><span>DB:</span> <strong>CONECTADA.</strong></div>
              <div className="hw-info"><span>REGION:</span> <strong>ARG</strong></div>
+
+             {/* SECCIÓN DE EXPORTACIÓN AGREGADA */}
+             <div className="export-section">
+                <span className="export-label">REPORTES FEDERALES (EXCEL)</span>
+                <div className="export-btns-grid">
+                  <button className="btn-export-tech" onClick={() => handleDownloadExcel("SALES", "VENTAS_TOTALES")}>
+                    <span className="icon">⬇</span> REGISTRO VENTAS
+                  </button>
+                  <button className="btn-export-tech" onClick={() => handleDownloadExcel("LOGS", "AUDITORIA_SISTEMA")}>
+                    <span className="icon">⬇</span> AUDITORÍA COMPLETA
+                  </button>
+                  <button className="btn-export-tech" onClick={() => handleDownloadExcel("USERS", "USUARIOS_MASTER")}>
+                    <span className="icon">⬇</span> LISTADO USUARIOS
+                  </button>
+                </div>
+             </div>
           </div>
         </aside>
 
       </div>
 
-{/* Al final, antes de cerrar el div principal y el return */}
+      {/* MODAL EDITOR DE BONOS */}
       <ModalBonoEditor 
-  isOpen={!!editingBono} 
-  data={editingBono} 
-  onClose={() => setEditingBono(null)} 
-  onConfirm={(newData) => handleAction('editar', editingBono.id_bono, newData)}
-/>
+        isOpen={!!editingBono} 
+        data={editingBono} 
+        onClose={() => setEditingBono(null)} 
+        onConfirm={(newData) => handleAction('editar', editingBono.id_bono, newData)}
+      />
     </div>
   );
 }

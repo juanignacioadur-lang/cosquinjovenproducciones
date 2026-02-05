@@ -14,6 +14,64 @@ export default function MasterBonos() {
   const [detailedBono, setDetailedBono] = useState(null); 
   const [selectedBono, setSelectedBono] = useState(null); 
   const [form, setForm] = useState({ nombre: "", dni: "", tel: "", dir: "" });
+  // --- NUEVA FUNCIÓN: DESCARGAR MIS VENTAS (EXCEL) ---
+// --- FUNCIÓN DE DESCARGA SUPREMA (OPCIÓN NUCLEAR UTF-16) ---
+  const handleDownloadUserExcel = (me) => {
+    if (!me || me.sales.length === 0) {
+      alert("No hay ventas registradas para exportar.");
+      return;
+    }
+
+    // 1. Usamos el TAB como separador (es el estándar para archivos Unicode en Excel)
+    const SEPARATOR = "\t"; 
+    
+    // Encabezados
+    let content = ["BONO #", "COMPRADOR", "DNI COMPRADOR", "TELÉFONO", "LOCALIDAD", "FECHA REGISTRO", "ESTADO"].join(SEPARATOR) + "\r\n";
+
+    // Contenido
+    me.sales.forEach(s => {
+      const row = [
+        s.id_bono,
+        s.comprador,
+        s.dni_comp,
+        s.tel,
+        s.dir,
+        new Date(s.fecha).toLocaleString('es-AR'),
+        s.estado
+      ];
+      // Limpiamos los textos y unimos con Tabs
+      content += row.map(cell => String(cell).replace(/\t/g, " ")).join(SEPARATOR) + "\r\n";
+    });
+
+    // 2. EL TRUCO MAESTRO: Convertir a UTF-16 Little Endian
+    // Este formato lo entiende Excel SÍ O SÍ en cualquier computadora del mundo
+    const buffer = new ArrayBuffer(content.length * 2);
+    const view = new Uint16Array(buffer);
+    for (let i = 0; i < content.length; i++) {
+      view[i] = content.charCodeAt(i);
+    }
+
+    // 3. Agregamos el BOM de UTF-16LE (0xFF, 0xFE)
+    const bom = new Uint8Array([0xFF, 0xFE]);
+    const blob = new Blob([bom, buffer], { type: 'text/csv;charset=utf-16le' });
+    
+    // 4. Disparar descarga
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    
+    const dateStr = new Date().toLocaleDateString().replace(/\//g, '-');
+    link.setAttribute("download", `MIS_VENTAS_${user.nombre.replace(/ /g, '_')}_${dateStr}.csv`);
+    
+    document.body.appendChild(link);
+    link.click();
+    
+    // Limpieza
+    setTimeout(() => {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 100);
+  };
 
   useEffect(() => { fetchAll(); }, []);
 
@@ -125,9 +183,15 @@ const handleRegister = async (e) => {
               </div>
            </div>
 
-           <button className="btn-add-supreme" onClick={() => setSelectedBono("prompt")}>
-              <span className="btn-plus">+</span> REGISTRAR NUEVO BONO
-           </button>
+<div className="delegate-actions-row">
+  <button className="btn-add-supreme" onClick={() => setSelectedBono("prompt")}>
+    <span className="btn-plus">+</span> REGISTRAR NUEVO BONO
+  </button>
+  
+  <button className="btn-download-user-excel" onClick={() => handleDownloadUserExcel(me)}>
+     <span className="btn-icon">⬇</span> DESCARGAR MI EXCEL
+  </button>
+</div>
         </header>
 
         <div className="slots-grid-pro">
