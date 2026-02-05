@@ -19,10 +19,6 @@
   animation: revealContent 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-@keyframes revealContent {
-  from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
-  to { opacity: 1; transform: translateY(0); filter: blur(0); }
-}
 
 /* --- DECORACIÓN DE FONDO --- */
 .bono-grid-bg {
@@ -251,7 +247,6 @@
 .section-head-v42 .h-line { width: 50px; height: 4px; background: #d00000; }
 .section-head-v42 h3 { font-family: 'Oswald'; color: #fff; font-size: 1.8rem; letter-spacing: 3px; text-transform: uppercase; }
 
-@keyframes ledPulse { 50% { opacity: 0.3; } }
 }
 
 @media (max-width: 900px) {
@@ -532,10 +527,7 @@
 }
 
 /* --- ANIMACIÓN DE ENTRADA --- */
-@keyframes slideInRight {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
-}
+
 
 .anim-slide-in {
   animation: slideInRight 0.5s ease-out forwards;
@@ -824,4 +816,14 @@
         padding-top: 170px !important; 
         padding-bottom: 250px !important;
     }
+}
+@keyframes revealContent {
+  from { opacity: 0; transform: translateY(30px); filter: blur(10px); }
+  to { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes ledPulse { 50% { opacity: 0.3; } 
 }
