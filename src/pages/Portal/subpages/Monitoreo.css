@@ -967,3 +967,78 @@
 .audit-scroll-pane::-webkit-scrollbar-thumb {
     background: #d00000;
 }
+/* ============================================================
+   SISTEMA DE AUDITORÍA MÓVIL: DOBLE EJE CONTROLADO (V54)
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    /* 1. LIMITAMOS EL CONTENEDOR PARA ACTIVAR SCROLL VERTICAL */
+    .audit-scroll-pane {
+        width: 100vw !important;
+        /* Altura fija: permite ver unas 6 o 7 filas y obliga a scrollear abajo */
+        max-height: 480px !important; 
+        
+        margin-left: -20px !important;
+        margin-right: -20px !important;
+        
+        /* Habilitamos ambos, pero el navegador prioriza el eje que toques primero */
+        overflow-x: auto !important; 
+        overflow-y: auto !important; 
+        
+        background: #080808 !important;
+        border: 1px solid #111 !important;
+        position: relative;
+        -webkit-overflow-scrolling: touch; /* Suavidad táctil */
+    }
+
+    /* 2. LA TABLA: Mantenemos el ancho para el scroll derecho */
+    .audit-table-v33 {
+        width: 850px !important; 
+        min-width: 850px !important;
+        border-collapse: separate !important; /* Necesario para el sticky header */
+        border-spacing: 0;
+    }
+
+    /* 3. CABECERA FIJA (STICKY): No se mueve al bajar */
+    .audit-table-v33 thead th {
+        position: -webkit-sticky !important;
+        position: sticky !important;
+        top: 0 !important; /* SE QUEDA CLAVADA ARRIBA */
+        z-index: 100 !important;
+        background: #111 !important; /* Fondo sólido para que no se transparente el texto de abajo */
+        padding: 15px !important;
+        color: #d00000 !important;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.5); /* Sombra para dar profundidad */
+    }
+
+    /* 4. REPARTO DE COLUMNAS (IGUAL QUE ANTES) */
+    .audit-table-v33 td, .audit-table-v33 th {
+        box-sizing: border-box;
+    }
+    .audit-table-v33 th:nth-child(1), .audit-table-v33 td:nth-child(1) { width: 160px; } 
+    .audit-table-v33 th:nth-child(2), .audit-table-v33 td:nth-child(2) { width: 140px; } 
+    .audit-table-v33 th:nth-child(3), .audit-table-v33 td:nth-child(3) { width: 120px; } 
+    .audit-table-v33 th:nth-child(4), .audit-table-v33 td:nth-child(4) { width: 430px; } 
+
+    /* 5. DISEÑO DE FILAS */
+    .audit-table-v33 td {
+        padding: 18px 15px !important; /* Más aire para el dedo */
+        font-size: 0.85rem !important;
+        border-bottom: 1px solid #151515 !important;
+        color: #777 !important;
+    }
+
+    .t-date { color: #d00000 !important; font-weight: 700; }
+    .t-user { color: #fff !important; font-weight: bold; }
+}
+
+/* Scrollbar roja ultra-fina para no estorbar en el celu */
+.audit-scroll-pane::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+}
+.audit-scroll-pane::-webkit-scrollbar-thumb {
+    background: #d00000;
+    border-radius: 10px;
+}
