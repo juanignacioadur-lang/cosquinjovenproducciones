@@ -284,3 +284,19 @@
 .portal-viewport:has(.chat-ia-root) {
   padding-bottom: 0 !important;
 }
+/* ============================================================
+   AJUSTE DE ALTURA SUPERIOR (SUBIR EL CHAT)
+   ============================================================ */
+
+@media (max-width: 900px) {
+  
+  /* Reducimos el espacio superior de 130px a 105px */
+  :global(.portal-viewport) {
+    padding-top: 105px !important; 
+  }
+
+  /* Ajustamos la altura del chat para que use el nuevo espacio */
+  .chat-ia-root {
+    height: calc(100dvh - 105px) !important;
+  }
+}

@@ -47,15 +47,21 @@ export default function ChatIA() {
   }, [user]);
 
   // 3. ENVÍO DE MENSAJES CON PERSISTENCIA
-  const handleSendMessage = async (e) => {
-    e.preventDefault();
-    if (!input.trim() || isTyping) return;
+const handleSendMessage = async (e) => {
+  e.preventDefault();
+  if (!input.trim() || isTyping) return;
 
-    const userText = input;
-    
-    // Actualizamos UI localmente
-    setMessages(prev => [...prev, { role: 'user', content: userText }]);
-    setInput("");
+  const userText = input;
+  const now = new Date(); // <--- Creamos la hora actual
+
+  // Actualizamos UI localmente incluyendo el timestamp
+  setMessages(prev => [...prev, { 
+    role: 'user', 
+    content: userText, 
+    timestamp: now // <--- Agregamos la hora al mensaje nuevo
+  }]);
+  
+  setInput("");
     
     // GUARDAR EN GOOGLE SHEETS (Mensaje Usuario)
     saveChatMessage(user.dni, 'user', userText);
@@ -112,11 +118,22 @@ export default function ChatIA() {
         <div className="chat-history">
           {messages.map((msg, i) => (
             <div key={i} className={`msg-wrapper ${msg.role}`}>
-              <div className="msg-avatar">{msg.role === 'bot' ? 'CJ' : 'U'}</div>
+              <div className="msg-avatar">
+  {msg.role === 'bot' ? 'CJ' : (user?.nombre?.charAt(0).toUpperCase() || 'U')}
+</div>
               <div className="msg-bubble">
-                {msg.content}
-                <span className="msg-time">{new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
-              </div>
+  {msg.content}
+  <span className="msg-time">
+    {/* 
+       Si el mensaje tiene timestamp (del Excel o nuevo), lo usamos. 
+       Si no, ponemos la hora actual por seguridad.
+    */}
+    {new Date(msg.timestamp || Date.now()).toLocaleTimeString([], {
+      hour: '2-digit', 
+      minute: '2-digit'
+    })}
+  </span>
+</div>
             </div>
           ))}
           {isTyping && (

@@ -6,43 +6,24 @@
   width: 100%;
   min-height: 100vh;
   background: #000;
-  padding-top: 0 !important;
 }
 
 .portal-viewport {
   width: 100%;
   max-width: 1600px;
   margin: 0 auto;
-  /* 85px (Nav) + 48px (SubNav) + 40px (Aire) = 173px */
-  padding: 173px 20px 100px 20px !important; 
+  /* Altura para PC: 85px (Nav) + 50px (SubNav) + 40px (Aire) */
+  padding: 175px 20px 50px 20px; 
   box-sizing: border-box;
-}
-.portal-viewport:has(.chat-ia-root) {
-  /* Bajamos el chat para que respire debajo del Navbar */
-  padding-top: 155px !important; 
-  /* Eliminamos el padding de abajo para que el chat pueda crecer */
-  padding-bottom: 0 !important; 
-  
-  height: 100vh !important;
-  display: flex !important;
-  flex-direction: column !important;
-  /* Centrado vertical del contenido en el espacio sobrante */
-  justify-content: center !important; 
+  min-height: 100vh;
 }
 
-/* Forzamos que en móvil el cuerpo no tenga scroll */
-@media (max-width: 900px) {
-    body:has(.chat-ia-root) {
-        overflow: hidden !important;
-        position: fixed;
-        width: 100%;
-    }
-}
+
 
 @media (max-width: 950px) {
   .portal-viewport {
-    /* En móvil lo pegamos casi al Navbar (85px aprox) */
-    padding-top: 100px !important; 
+    /* Altura para Móvil: 76px (Nav) + 45px (SubNav) */
+    padding: 121px 15px 100px 15px !important; 
   }
 }
 
