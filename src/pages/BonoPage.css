@@ -1,7 +1,7 @@
 /* ============================================================
    BONO SUPREME V42 - INDUSTRIAL GALA DESIGN
    ============================================================ */
-
+.bono-supreme-root { 
 .bono-supreme-root {
   width: 100%;
   min-height: 100vh;
@@ -252,8 +252,11 @@
 .section-head-v42 h3 { font-family: 'Oswald'; color: #fff; font-size: 1.8rem; letter-spacing: 3px; text-transform: uppercase; }
 
 @keyframes ledPulse { 50% { opacity: 0.3; } }
+}
 
 @media (max-width: 900px) {
+  .bono-supreme-root .count-big { font-size: 5rem; }
+  .bono-supreme-root .radar-main-box { padding: 25px; }
   .bono-radar-grid, .titan-prizes-grid, .bono-info-blocks, .bono-final-grid, .titan-prize-subgrid { grid-template-columns: 1fr; }
   .year-glitch { font-size: 5rem; }
   .count-big { font-size: 5rem; }
@@ -262,6 +265,7 @@
   .radar-main-box { padding: 25px; }
 }
 /* --- FILA DEL RANKING --- */
+.bono-supreme-root { 
 .leader-row {
   display: flex;
   align-items: center;
@@ -363,9 +367,11 @@
   font-weight: 900;
   letter-spacing: 2px;
 }
-
+}
 /* --- AJUSTE MÓVIL --- */
 @media (max-width: 900px) {
+  .bono-supreme-root .count-big { font-size: 5rem; }
+  .bono-supreme-root .radar-main-box { padding: 25px; }
   .leader-row {
     padding: 15px;
     gap: 15px;
@@ -375,7 +381,7 @@
   .l-num { font-size: 1.6rem; }
   .leader-pos-hex { font-size: 1.2rem; min-width: 30px; }
 }
-
+.bono-supreme-root { 
 /* --- TICKER BOX RE-DISEÑADO --- */
 .radar-ticker-box {
   background: rgba(5, 5, 5, 0.95);
@@ -534,9 +540,12 @@
 .anim-slide-in {
   animation: slideInRight 0.5s ease-out forwards;
 }
-
+}
 /* --- AJUSTE MÓVIL --- */
 @media (max-width: 900px) {
+    .bono-supreme-root .count-big { font-size: 5rem; }
+  .bono-supreme-root .radar-main-box { padding: 25px; }
+
   .ticker-card { padding: 12px; }
   .t-buyer { font-size: 0.95rem; }
   .t-highlight { font-size: 0.9rem; }
@@ -546,7 +555,9 @@
    ============================================================ */
 
 @media (max-width: 900px) {
-  
+    .bono-supreme-root .count-big { font-size: 5rem; }
+  .bono-supreme-root .radar-main-box { padding: 25px; }
+
   /* 1. CONTENEDOR */
   .bono-header-supreme {
     margin-bottom: 40px !important;
@@ -603,7 +614,214 @@
 
 /* Fix para pantallas extra pequeñas */
 @media (max-width: 380px) {
+      .bono-supreme-root .count-big { font-size: 5rem; }
+  .bono-supreme-root .radar-main-box { padding: 25px; }
+
     .svg-monument { transform: scale(1.1); height: 160px !important; }
     .svg-text-bono { font-size: 110px !important; }
     .year-glitch { font-size: 3.8rem !important; }
+}
+
+/* ============================================================
+   REFUERZO DE ALINEACIÓN MONUMENTAL (V45)
+   ============================================================ */
+
+.bono-supreme-root {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* CENTRADO HORIZONTAL ABSOLUTO */
+    width: 100% !important;
+    min-height: 100vh !important;
+}
+
+/* 1. REFUERZO DEL PILAR (EL CONTENEDOR DE 1200PX) */
+.bono-pilar-v42 {
+    width: 95% !important; /* Deja un pequeño margen en los bordes */
+    max-width: 1200px !important;
+    margin: 0 auto !important; /* CLAVE PARA CENTRAR EL PILAR */
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 80px !important;
+}
+
+/* 2. REFUERZO DEL HEADER (EL TÍTULO) */
+.bono-header-supreme {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.title-monument-stack {
+    width: 100% !important;
+    max-width: 1000px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+/* 3. REFUERZO DE LAS GRILLAS (PARA QUE NO SE ACHIQUEN) */
+.bono-radar-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 380px !important; /* Mantenemos la proporción */
+    gap: 30px !important;
+    width: 100% !important;
+}
+
+.bono-info-blocks {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important; /* FUERZA LAS 3 COLUMNAS */
+    gap: 20px !important;
+    width: 100% !important;
+}
+
+/* 4. REFUERZO DE LOS BLOQUES DE INFO (PRECIO, META, INVERSIÓN) */
+.info-block-item {
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 5. REFUERZO DE LA TABLA DE PREMIOS Y RANKING */
+.bono-prizes-titan, 
+.bono-leaderboard-v42, 
+.bono-final-grid {
+    width: 100% !important;
+}
+
+/* ============================================================
+   FIX PARA EL RESPONSIVE (MÓVIL)
+   ============================================================ */
+@media (max-width: 900px) {
+    .bono-radar-grid, 
+    .bono-info-blocks, 
+    .titan-prizes-grid, 
+    .bono-final-grid {
+        grid-template-columns: 1fr !important; /* Todo en una columna en móvil */
+    }
+
+    .bono-pilar-v42 {
+        gap: 40px !important;
+        padding: 0 10px !important;
+    }
+
+    .arched-top {
+        transform: scale(0.9); /* Ajuste para que el arco entre en el celu */
+    }
+}
+
+/* ============================================================
+   FIX DE POSICIONAMIENTO Y CENTRADO (V46)
+   ============================================================ */
+
+/* 1. BAJAR TODO EL CONTENIDO (Para que no lo tape el Navbar) */
+.bono-supreme-root {
+    /* Aumentamos el padding superior en PC */
+    padding-top: 180px !important; 
+}
+
+/* 2. CENTRADO ABSOLUTO DEL PREMIO DE 5 MILLONES */
+.titan-prize-card.master {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important; /* Centra verticalmente */
+    align-items: center !important;     /* Centra horizontalmente */
+    text-align: center !important;
+    
+    margin: 0 auto !important; /* Lo centra respecto a su columna */
+    width: 100% !important;
+    max-width: 600px !important; /* Tamaño ideal para que luzca el premio */
+    min-height: 400px !important; /* Altura para que el centro se note */
+    
+    /* Reparación del brillo interno para que nazca del centro */
+    background: radial-gradient(circle at center, rgba(150, 0, 0, 0.2) 0%, #050505 80%) !important;
+}
+
+.master-amount {
+    margin: 10px 0 !important;
+    line-height: 1 !important;
+}
+
+/* ============================================================
+   AJUSTES ESPECÍFICOS PARA MÓVIL
+   ============================================================ */
+@media (max-width: 900px) {
+    /* En el celular el navbar es más invasivo, bajamos más */
+    .bono-supreme-root {
+        padding-top: 140px !important; 
+    }
+
+    /* El título arqueado necesita un pequeño margen extra */
+    .bono-header-supreme {
+        margin-top: 20px !important;
+        margin-bottom: 40px !important;
+    }
+
+    /* Centrado del premio en móvil */
+    .titan-prize-card.master {
+        min-height: 300px !important;
+        padding: 40px 15px !important;
+    }
+
+    .master-amount {
+        font-size: 3.5rem !important; /* Ajuste para que entre el número en el iPhone */
+    }
+
+    /* El pilar central debe estar pegado pero con aire a los lados */
+    .bono-pilar-v42 {
+        width: 92% !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* Ajuste para monitores 1080p con el GlobalScaler activo */
+@media (min-width: 1025px) and (max-width: 1920px) {
+    .bono-supreme-root {
+        /* Compensamos el zoom 0.75 del Scaler */
+        padding-top: 220px !important; 
+    }
+}
+/* ============================================================
+   RECALIBRACIÓN DE AIRE Y ESPACIOS (V47)
+   ============================================================ */
+
+.bono-supreme-root {
+    /* 1. EMPEZAR MÁS ARRIBA: Bajamos de 180px a 140px */
+    padding-top: 140px !important; 
+    
+    /* 2. MÁS ESPACIO ABAJO: Subimos de 100px a 200px para que respire al final */
+    padding-bottom: 200px !important; 
+}
+
+/* Ajuste específico para el bloque de Distribución Técnica */
+.bono-final-grid {
+    /* Le damos un margen extra abajo para separarlo del footer visualmente */
+    margin-bottom: 50px !important;
+}
+
+/* ============================================================
+   AJUSTES PARA MÓVIL (EQUILIBRIO)
+   ============================================================ */
+@media (max-width: 900px) {
+    .bono-supreme-root {
+        /* En móvil lo subimos de 140px a 110px */
+        padding-top: 110px !important; 
+        /* Espacio para el pulgar y el footer en el celu */
+        padding-bottom: 160px !important; 
+    }
+
+    .bono-header-supreme {
+        /* Pegamos un poquito más el título al techo */
+        margin-top: 0 !important;
+        margin-bottom: 30px !important;
+    }
+}
+
+/* Ajuste para monitores 1080p con GlobalScaler (Zoom 0.75) */
+@media (min-width: 1025px) and (max-width: 1920px) {
+    .bono-supreme-root {
+        /* Compensación fina del escalado */
+        padding-top: 170px !important; 
+        padding-bottom: 250px !important;
+    }
 }
