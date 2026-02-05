@@ -91,8 +91,10 @@ return (
         </div>
 
         {/* LISTADO DE DELEGADOS CARGADOS */}
-        {delegates.map((d, i) => (
-          <div key={d.dni} className="node-card active">
+            {delegates
+              .filter(d => d.rol !== "DUEÑO") // <--- ESTO QUITA AL DUEÑO DE LA LISTA
+              .map((d, i) => (
+            <div key={d.dni} className="node-card active">
             <div className="node-header">
               <span className="node-id">DEL_{i + 1}</span>
               <div className="node-header-meta">

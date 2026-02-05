@@ -115,10 +115,11 @@ const handleRegister = async (e) => {
   };
 
   // --- 1. PROCESAMIENTO DE DATOS FEDERALES ---
-  const delegatesWithStats = useMemo(() => {
-    return data.delegates.map((d) => {
+const delegatesWithStats = useMemo(() => {
+  return data.delegates
+    .filter(d => d.rol !== "DUEÑO") // <--- FILTRO AGREGADO AQUÍ
+    .map((d) => {
       const asignados = Number(d.cantidad) || 0;
-      // Filtramos solo las ventas que le pertenecen a este DNI
       const sales = data.sales.filter(s => s.vendedor.toString() === d.dni.toString());
       return { 
         ...d, 
@@ -127,7 +128,7 @@ const handleRegister = async (e) => {
         sales: sales.sort((a,b) => a.id_bono - b.id_bono) 
       };
     });
-  }, [data]);
+}, [data]);
 
   const activeDelegateData = selectedDelegate ? delegatesWithStats.find(d => d.dni === selectedDelegate.dni) : null;
 
