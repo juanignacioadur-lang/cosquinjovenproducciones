@@ -94,7 +94,7 @@ export default function MisDatos() {
 
               <div className="md-meta-rows">
                 <div className="md-meta-item">
-                  <label>NODE_ID</label>
+                  <label>DNI </label>
                   <span>{user.dni}</span>
                 </div>
                 <div className="md-meta-item">
@@ -102,7 +102,7 @@ export default function MisDatos() {
                   <span>{user.academia}</span>
                 </div>
                 <div className="md-meta-item">
-                  <label>ZONA_ACTIVA</label>
+                  <label>PROVINCIA</label>
                   <span className="highlight-red">{formData.provincia || "UNSET"}</span>
                 </div>
               </div>
