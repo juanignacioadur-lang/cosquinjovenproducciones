@@ -110,80 +110,91 @@ export const eventsData = [
   },
 
   {
-    id: "e2",
-    title: "COSQUÍN JOVEN – CARTAGENA 2026",
-    shortTitle: "CARTAGENA 2026", 
-    short: "1.ª Edición Internacional en la Perla del Caribe.",
-    date: "22 al 26 de Septiembre 2026",
-    location: "Cartagena de Indias, Colombia",
-    image: "/COSQUIN JOVEN CARTAGENA.jpg",
-    images: ["/COSQUIN JOVEN CARTAGENA.jpg"],
-    instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DROAuSCDN1D/",
-    whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20Cartagena%202026.",
-    longDescription: "¡Llega la 1.ª Edición Internacional! Un encuentro único donde la danza, el canto y la cultura folklórica se unen en Cartagena de Indias. Participan academias, ballets, con cantantes, peñas, escuelas, centros culturales, jubilados, artistas y viajeros.",
-    fullDetails: [
-      { 
-        title: "Pack Experience (Todo Incluido)", 
-        icon: "🛏️", 
-        text: "7 días y 6 noches con pensión completa en Hotel El Nuevo Conquistador.", 
-        list: [
-          "Hospedaje con balcón y vista al mar.",
-          "Pensión completa (Desayuno, Almuerzo, Cena + Bebidas).",
-          "Remera + gorra oficial, credencial y medalla.",
-          "Cursos de capacitación con directores internacionales.",
-          "Traslados internos y Seguro médico obligatorio."
-        ] 
-      },
-      { 
-        title: "Presentaciones Artísticas", 
-        icon: "🎭", 
-        subSections: [
-          { 
-            title: "🎤 Cantantes / Grupos Vocales", 
-            list: ["3 presentaciones en total (2 en una gala, 1 en otra).", "Duración máx: 8 minutos c/u."] 
-          }, 
-          { 
-            title: "💃 Ballets / Danza", 
-            list: ["4 propuestas distintas obligatorias.", "2 presentaciones por gala.", "Duración máx: 10 minutos c/u."] 
-          }
-        ] 
-      },
-      {
-        title: "Reglas y Música",
-        icon: "🎵",
-        list: [
-          "Enviar música 20 días antes.",
-          "Traer pendrive de respaldo.",
-          "Enviar video mensual mostrando progreso de ensayos."
-        ]
-      }
-    ],
-    packs: [
-      { 
-        title: "PLAN 1 (Desde 4 Mar)", 
-        price: "Cuotas USD", 
-        items: [
-          "1ª: USD 200 (45 días tras reserva)", 
-          "2ª: USD 200 (1-15 Julio)", 
-          "Saldo: USD 200 (hasta 21 Agosto)"
-        ] 
-      }, 
-      { 
-        title: "PLAN 2", 
-        price: "Cuotas USD", 
-        items: [
-          "1ª: USD 250 (hasta 15 Mayo)", 
-          "2ª: USD 200 (hasta 15 Junio)", 
-          "Saldo: USD 250 (hasta 21 Agosto)"
-        ] 
-      }
-    ],
-    prizes: [
-      { place: "Experiencias", reward: "Playas, Fuerte histórico, Magia colonial." }, 
-      { place: "Reserva", reward: "Seña de 600.000 COP para asegurar cupo." }
-    ],
-    reglamentoLink: null,
-  },
+  id: "e2",
+  title: "COSQUÍN JOVEN – CARTAGENA 2026",
+  shortTitle: "CARTAGENA 2026", 
+  short: "1.ª Edición Internacional en la Perla del Caribe.",
+  date: "22 al 26 de Septiembre 2026",
+  location: "Cartagena de Indias, Colombia",
+  image: "/COSQUIN JOVEN CARTAGENA.jpg",
+  images: ["/COSQUIN JOVEN CARTAGENA.jpg"],
+  instagramLink: "https://www.instagram.com/cosquinjoven.producciones/p/DROAuSCDN1D/",
+  whatsappLink: "https://wa.me/5493541393487?text=Hola,%20quiero%20más%20información%20sobre%20Cosquín%20Joven%20Cartagena%202026.",
+  longDescription: "¡Llega la 1.ª Edición Internacional! Un encuentro único donde la danza, el canto y la cultura folklórica se unen en Cartagena de Indias. Participan academias, ballets, cantantes, peñas, escuelas, centros culturales, jubilados, artistas y viajeros que buscan vivir una experiencia inolvidable en el Caribe.",
+  fullDetails: [
+    { 
+      title: "Pack Experience (Todo Incluido)", 
+      icon: "🛏️", 
+      text: "7 días y 6 noches con pensión completa en Hotel El Nuevo Conquistador.", 
+      list: [
+        "Hospedaje con balcón y vista al mar.",
+        "Pensión completa (Desayuno, Almuerzo, Cena + Bebidas).",
+        "Remera + gorra oficial, credencial y medalla.",
+        "Cursos de capacitación con directores internacionales.",
+        "Traslados internos y Seguro médico obligatorio."
+      ] 
+    },
+    { 
+      title: "Presentaciones Artísticas", 
+      icon: "🎭", 
+      subSections: [
+        { 
+          title: "🎤 Cantantes / Grupos Vocales", 
+          list: ["3 presentaciones en total (2 en una gala, 1 en otra).", "Duración máx: 8 minutos c/u."] 
+        }, 
+        { 
+          title: "💃 Ballets / Danza", 
+          list: ["4 propuestas distintas obligatorias.", "2 presentaciones por gala.", "Duración máx: 10 minutos c/u."] 
+        }
+      ] 
+    },
+    {
+      title: "Notas e Inclusiones",
+      icon: "📌",
+      text: "Información importante sobre los valores y logística:",
+      list: [
+        "Los montos en USD son estimados según el tipo de cambio actual y pueden variar ligeramente al momento de pagarlos.",
+        "No incluye: Pasajes internacionales ni traslados aéreos.",
+        "No incluye: Gastos personales adicionales.",
+        "📆 Fecha límite: Todos los pagos deben completarse antes del 21 de agosto de 2026."
+      ]
+    }
+  ],
+  packs: [
+    { 
+      title: "🎁 PACK EXPERIENCE (Por Persona)", 
+      price: "$864 USD aprox.", 
+      items: [
+        "Equivalente a $3.150.000 COP",
+        "Incluye hospedaje, comidas y capacitaciones",
+        "Acceso total al festival"
+      ] 
+    }, 
+    { 
+      title: "👤 PACK ACOMPAÑANTE", 
+      price: "$1.027 USD aprox.", 
+      items: [
+        "Equivalente a $3.750.000 COP",
+        "Basado en tasa estimada ~0.000274",
+        "Incluye todas las actividades y estadía completa"
+      ] 
+    },
+    { 
+      title: "🧾 RESERVA INICIAL", 
+      price: "100 USD", 
+      items: [
+        "Pago para asegurar cupo y plaza hotelera",
+        "Este monto se descuenta del valor total del pack elegido",
+        "Pago no reembolsable en caso de cancelación"
+      ] 
+    }
+  ],
+  prizes: [
+    { place: "Experiencias", reward: "Playas, Fuerte histórico, Magia colonial colombiana." }, 
+    { place: "Sincronización", reward: "La música debe enviarse 20 días antes del inicio." }
+  ],
+  reglamentoLink: null,
+},
   {
     id: "e3",
     title: "EL ARGENTINO 2026",
