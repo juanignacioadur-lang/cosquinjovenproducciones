@@ -140,7 +140,7 @@ const delegatesWithStats = useMemo(() => {
           <span>🔍</span>
           <input type="text" placeholder="BUSCAR POR ACADEMIA O DELEGADO..." onChange={e => setSearchTerm(e.target.value)} />
         </div>
-        <div className="global-counter">TOTAL VENTAS NACIONAL: {data.sales.length}</div>
+        <div className="global-counter">TOTAL DE VENTAS: {data.sales.length}</div>
       </header>
 
       <div className="delegates-grid">
