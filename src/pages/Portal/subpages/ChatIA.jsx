@@ -27,7 +27,7 @@ export default function ChatIA() {
         if (res.history && res.history.length > 0) {
           setMessages(res.history);
         } else {
-          setMessages([{ role: 'bot', content: `SISTEMA SINCRONIZADO. Hola ${user.nombre}, soy CJ-PILOT. ¿En qué puedo ayudarte?` }]);
+          setMessages([{ role: 'bot', content: `¡Hola ${user.nombre}, soy IA programada para ayudar a los delegados de Cosquin Joven!. ¿En qué puedo ayudarte?` }]);
         }
         
         // B. Sincronizar Contador de Ventas
