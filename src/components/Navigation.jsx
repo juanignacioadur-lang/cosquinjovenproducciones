@@ -48,7 +48,7 @@ export default function Navbar() {
     { id: "monitoreo", label: "MONITOREO", roles: ["DUEÑO"] },
     { id: "usuarios", label: "USUARIOS", roles: ["DUEÑO"] },
     { id: "bonos", label: "BONOS", roles: ["DUEÑO", "DELEGADO"] },
-    { id: "ia", label: "CJ-PILOT (IA)", roles: ["DUEÑO", "DELEGADO"] },
+    { id: "ia", label: "AYUDA IA", roles: ["DUEÑO", "DELEGADO"] },
     { id: "perfil", label: "MIS DATOS", roles: ["DUEÑO", "DELEGADO"] },
   ];                                
 
