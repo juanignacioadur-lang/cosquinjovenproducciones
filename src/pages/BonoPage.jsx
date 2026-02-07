@@ -197,7 +197,7 @@ return (
           </div>
 
         </div>
-<div className="bono-live-monolith">
+   <div className="bono-live-monolith">
   
   {/* Título del Monolito */}
   <div className="section-head-v42">

@@ -19,7 +19,7 @@ Buscador de ID: Ya no hay cuadritos fijos. El delegado tiene un buscador donde p
 Validación: Si el número está libre, se abre el portal de carga. Si no, se informa quién lo vendió.
 Restricción de Cupo: Cada nodo tiene un Cupo Máximo Asignado. Si el delegado llega a ese número, el sistema se bloquea por seguridad.
 Pestaña MIS DATOS: Donde el delegado verifica su ID de red, su academia y su zona de influencia.
-Pestaña USUARIOS (Dueño): El centro de mando donde Francisco Novas asigna cuántos números puede vender cada delegado (el Cupo).
+Pestaña USUARIOS (Dueño): El centro de mando donde Valentina Zanon asigna cuántos números puede vender cada delegado (el Cupo).
 Pestaña MONITOREO (Dueño): El radar en tiempo real que calcula la recaudación bruta y la ganancia neta (35%) de la productora.
 ECONOMÍA DEL BONO 2026:
 Valor Unitario: $15.000.
