@@ -7,7 +7,7 @@
 .bono-supreme-root {
     width: 100%;
     min-height: 100vh;
-    background: #000;
+    background: #2c0000ec;
     padding-top: 140px; /* Aire para el Navbar */
     padding-bottom: 200px; /* Aire para el Footer */
     position: relative;
@@ -87,6 +87,7 @@
 
 .bono-supreme-root .svg-text-bono {
     font-family: 'Helvetica Compressed', sans-serif;
+    text-shadow: 0 0 40px rgb(228, 228, 228);
     font-size: 135px;
     fill: #fff;
     letter-spacing: -3px;
@@ -165,7 +166,8 @@
     flex-direction: column;
 }
 
-.bono-supreme-root .ticker-title { font-family: 'Oswald'; color: #818181; letter-spacing: 4px; font-size: 0.75rem; margin-bottom: 20px; text-align: center; border-bottom: 1px solid #111; padding-bottom: 10px; }
+.bono-supreme-root .ticker-title { font-family: 'Oswald'; color: #818181; letter-spacing: 4px; font-size: 0.75rem; margin-bottom: 20px; text-align: center; }
+.bono-supreme-root .ticker-subtitle { font-family: 'Oswald'; color: #979797; letter-spacing: 2px; font-size: 0.65rem; margin-bottom: 20px; text-align: center; border-bottom: 1px solid #aa0808; padding-bottom: 10px; }
 
 .bono-supreme-root .ticker-scroll {
     flex: 1;
@@ -278,7 +280,7 @@
         grid-template-columns: 1fr !important; 
     }
 
-    .bono-supreme-root .svg-text-bono { font-size: 125px !important; }
+    .bono-supreme-root .svg-text-bono { font-size: 125px !important; text-shadow: 0 0 40px rgb(228, 228, 228); }
     .bono-supreme-root .year-center-box { margin-top: -75px !important; }
     .bono-supreme-root .year-glitch { font-size: 4.2rem !important; }
 
@@ -777,7 +779,7 @@
 
 .bono-supreme-root .master-desc {
     font-family: 'Oswald', sans-serif !important;
-    color: #444 !important;
+    color: #fddf32 !important;
     letter-spacing: 6px !important;
     font-size: 1rem !important;
     margin-top: 30px !important;
@@ -979,9 +981,9 @@
 }
 
 .bono-supreme-root .master-desc {
-    color: #999999 !important; /* Gris claro para que se lea */
+    color: #ccf146ce !important; /* Gris claro para que se lea */
     font-size: 1.1rem !important;
-    border-top: 1px solid #222;
+    border-top: 1px solid #ff0000;
     padding-top: 20px;
     width: 60%;
 }
@@ -1000,6 +1002,33 @@
         padding: 20px !important;
     }
     
+@media (max-width: 900px) {
+    .bono-supreme-root .master-desc {
+        /* 1. Achicamos la letra para que se vea más fino */
+        font-size: 0.85rem !important; 
+        
+        /* 2. Ampliamos el ancho: en móvil el 60% es muy poco, 
+           usamos el 90% para que el texto respire a lo ancho */
+        width: 90% !important; 
+        
+        /* 3. Reducimos el espacio superior para compactar el cuadro */
+        padding-top: 15px !important; 
+        
+        /* 4. Mantenemos el estilo técnico pero más delicado */
+        letter-spacing: 3px !important;
+        line-height: 1.4 !important;
+        opacity: 0.8;
+    }
+}
+
+/* Ajuste extra para celulares muy pequeños */
+@media (max-width: 380px) {
+    .bono-supreme-root .master-desc {
+        font-size: 0.75rem !important;
+        letter-spacing: 2px !important;
+    }
+}
+
     .bono-supreme-root .sub-prize-card span {
         font-size: 1.4rem !important;
     }
@@ -1208,5 +1237,1366 @@
 @media (max-width: 430px) {
     .bono-pilar-v42 {
         padding: 0 15px !important;
+    }
+}
+
+/* ============================================================
+   CREATIVE RED FRAMES: EDICIÓN TITÁN FORGE (V62)
+   DISEÑO EXCLUSIVO DE MARCOS TÉCNICOS Y NEÓN
+   ============================================================ */
+
+/* 1. MARCO DEL RADAR (ESTILO SISTEMA DE PUNTERÍA) */
+.bono-supreme-root .radar-main-box {
+    border: 1px solid rgba(208, 0, 0, 0.15) !important;
+    position: relative;
+    padding: 60px 40px !important;
+}
+
+/* Esquinas HUD para el Radar */
+.bono-supreme-root .radar-main-box::before,
+.bono-supreme-root .radar-main-box::after {
+    content: "";
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    border: 2px solid #d00000;
+    pointer-events: none;
+}
+
+.bono-supreme-root .radar-main-box::before {
+    top: -1px; left: -1px;
+    border-right: none; border-bottom: none;
+}
+
+.bono-supreme-root .radar-main-box::after {
+    bottom: -1px; right: -1px;
+    border-left: none; border-top: none;
+}
+
+/* 2. MARCO DEL FEED DE VENTAS (ESTILO TERMINAL) */
+.bono-supreme-root .radar-ticker-box {
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-right: 3px solid #d00000 !important; /* Acento lateral fuerte */
+    position: relative;
+}
+
+/* Luz de escaneo que parpadea en la esquina del feed */
+.bono-supreme-root .radar-ticker-box::before {
+    content: "LIVE_FEED";
+    position: absolute;
+    top: -10px; right: 20px;
+    background: #d00000;
+    color: #fff;
+    font-family: 'Oswald';
+    font-size: 0.6rem;
+    padding: 2px 10px;
+    letter-spacing: 2px;
+    border-radius: 2px;
+}
+
+/* 3. MARCOS DE LOS BLOQUES DE INFO (PRECIO / META) */
+.bono-supreme-root .info-block-item {
+    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+    border-bottom: none !important;
+    clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 0 100%); /* Esquina cortada abajo */
+}
+
+.bono-supreme-root .info-block-item::after {
+    content: "";
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, #d00000, transparent);
+    box-shadow: 0 0 15px #d00000;
+}
+
+/* 4. MARCO SUPREMO PARA EL PREMIO DE 5 MILLONES */
+.bono-supreme-root .titan-prize-card.master {
+    border: 1px solid #222 !important;
+    position: relative;
+}
+
+/* Doble remarcado neón para el premio gordo */
+.bono-supreme-root .titan-prize-card.master::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border: 1px solid rgba(208, 0, 0, 0.2);
+    pointer-events: none;
+}
+
+/* Etiquetas técnicas en los bordes del premio */
+.bono-supreme-root .master-rank::before {
+    content: "[ ACCESO PRIORITARIO ]";
+    display: block;
+    font-size: 0.6rem;
+    color: #333;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+}
+
+/* 5. MARCO DEL RANKING (ESTILO BARRA DE CARGA) */
+.bono-supreme-root .leader-row {
+    border: 1px solid rgba(255, 255, 255, 0.02) !important;
+    border-left: 5px solid #d00000 !important;
+    position: relative;
+    background: rgba(255, 255, 255, 0.01) !important;
+}
+
+/* Pequeño detalle de hardware en cada fila del ranking */
+.bono-supreme-root .leader-row::after {
+    content: "";
+    position: absolute;
+    top: 50%; right: 10px;
+    width: 4px; height: 40%;
+    background: #222;
+    transform: translateY(-50%);
+}
+
+/* 6. DISEÑO DE LOS BOTONES FINALES (BENEFICIOS / DISTRO) */
+.bono-supreme-root .benefits-card-v42, 
+.bono-supreme-root .distro-card-v42 {
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 3px solid #d00000 !important;
+    background: linear-gradient(180deg, rgba(208, 0, 0, 0.05) 0%, transparent 100%) !important;
+    position: relative;
+}
+
+/* Punto de unión decorativo */
+.bono-supreme-root .section-head-v42 .h-line {
+    width: 100px !important;
+    background: linear-gradient(90deg, #d00000, transparent) !important;
+    height: 2px !important;
+}
+
+/* ============================================================
+   EFECTO DE "GLOW" EN HOVER PARA TODOS LOS MARCOS
+   ============================================================ */
+.bono-supreme-root .radar-main-box:hover,
+.bono-supreme-root .ticker-card:hover,
+.bono-supreme-root .sub-prize-card:hover {
+    border-color: rgba(208, 0, 0, 0.6) !important;
+    box-shadow: 0 0 30px rgba(208, 0, 0, 0.15) !important;
+}
+
+/* --- FIX MÓVIL PARA MARCOS --- */
+@media (max-width: 900px) {
+    .bono-supreme-root .radar-main-box::before,
+    .bono-supreme-root .radar-main-box::after {
+        width: 15px; height: 15px; /* Más chicos en móvil */
+    }
+    .bono-supreme-root .info-block-item {
+        clip-path: none !important; /* Evitamos cortes raros en pantallas chicas */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    }
+}
+/* ============================================================
+   RE-ESTRUCTURACIÓN DE FLUJO TÁCTICO (V64)
+   ORDEN DE SECCIONES SOLICITADO POR LA ORGANIZACIÓN
+   ============================================================ */
+
+/* 1. ACTIVAMOS EL MOTOR DE ORDENAMIENTO EN EL CONTENEDOR */
+.bono-pilar-v42 {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+/* --- POSICIÓN 1: PREMIOS --- */
+.bono-prizes-titan {
+    order: 1 !important;
+    margin-bottom: 40px !important; /* Espacio para que no se pegue al siguiente */
+}
+
+/* --- POSICIÓN 2: BENEFICIOS Y DISTRIBUCIÓN --- */
+.bono-final-grid {
+    order: 2 !important;
+    margin-top: 0 !important;
+    margin-bottom: 40px !important;
+}
+
+/* --- POSICIÓN 3: BLOQUES DE INFO (PRECIO EN EL MEDIO) --- */
+.bono-info-blocks {
+    order: 3 !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    margin-bottom: 40px !important;
+}
+
+/* Reordenamos los hijos de los bloques de info:
+   Item 1 (Valor) -> al medio (order 2)
+   Item 2 (Meta)  -> al inicio (order 1)
+   Item 3 (Inv)   -> al final  (order 3)
+*/
+.bono-info-blocks article:nth-child(1) { order: 2 !important; } 
+.bono-info-blocks article:nth-child(2) { order: 1 !important; }
+.bono-info-blocks article:nth-child(3) { order: 3 !important; }
+
+/* --- POSICIÓN 4: ESTADO EN VIVO (RADAR) --- */
+.bono-radar-grid {
+    order: 4 !important;
+    margin-bottom: 40px !important;
+}
+
+/* --- POSICIÓN 5: RANKING FEDERAL (AL FINAL) --- */
+.bono-leaderboard-v42 {
+    order: 5 !important;
+    margin-bottom: 0 !important;
+}
+
+/* ============================================================
+   AJUSTES DE COHESIÓN VISUAL (PARA EL NUEVO ORDEN)
+   ============================================================ */
+
+/* Ajustamos el margen del título principal para que no quede tan lejos de los premios */
+.bono-header-supreme {
+    margin-bottom: 50px !important;
+}
+
+/* En móvil, nos aseguramos que el orden se mantenga en vertical */
+@media (max-width: 900px) {
+    .bono-info-blocks {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+    
+    /* En móvil, quizás quieras el Valor ($15.000) primero por impacto */
+    .bono-info-blocks article:nth-child(1) { order: 1 !important; }
+    .bono-info-blocks article:nth-child(2) { order: 2 !important; }
+    
+    .bono-pilar-v42 {
+        gap: 30px !important; /* Menos gap en móvil para que entren más bloques */
+    }
+}
+/* ============================================================
+   DISEÑO DE TÍTULOS MONUMENTALES (V65)
+   ESTILO: ALTO IMPACTO / CENTRADO / SUBRAYADO NEÓN
+   ============================================================ */
+
+/* 1. EL CONTENEDOR (CABECERA DE SECCIÓN) */
+.bono-supreme-root .section-head-v42 {
+    display: flex !important;
+    flex-direction: column !important; /* Apila texto arriba, línea abajo */
+    align-items: center !important;    /* CENTRADO TOTAL */
+    justify-content: center !important;
+    text-align: center !important;
+    margin-bottom: 60px !important;    /* Espacio con el contenido */
+    gap: 15px !important;
+}
+
+/* 2. LA TIPOGRAFÍA (LETRA MÁS ALTA) */
+.bono-supreme-root .section-head-v42 h3 {
+    font-family: 'Helvetica Compressed', sans-serif !important;
+    font-size: 4rem !important;        /* Letra gigante y alta */
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+    letter-spacing: 6px !important;    /* Espaciado técnico */
+    line-height: 1 !important;
+    margin: 0 !important;
+    /* Brillo sutil blanco para que resalte del fondo negro */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* 3. EL SUBRAYADO TÁCTICO (LA LÍNEA ROJA) */
+.bono-supreme-root .section-head-v42 .h-line {
+    width: 150px !important;           /* Ancho de la línea */
+    height: 4px !important;            /* Grosor */
+    background: #d00000 !important;    /* Rojo CJ */
+    position: relative !important;
+    border-radius: 2px !important;
+    
+    /* EFECTO NEÓN: Brillo rojo expansivo */
+    box-shadow: 
+        0 0 15px #ff0000, 
+        0 0 30px rgba(208, 0, 0, 0.4) !important;
+        
+    /* Gradiente para que se desvanezca en las puntas (opcional) */
+    background: linear-gradient(90deg, transparent 0%, #d00000 50%, transparent 100%) !important;
+}
+
+/* --- REFUERZO PARA EL SUB-TÍTULO (EL AÑO EN ROJO) --- */
+.bono-supreme-root .section-head-v42 h3 span {
+    color: #d00000 !important;
+    -webkit-text-stroke: 1px #d00000;
+    margin-left: 10px;
+}
+
+/* ============================================================
+   AJUSTE PARA MÓVILES (EQUILIBRIO VISUAL)
+   ============================================================ */
+@media (max-width: 900px) {
+    .bono-supreme-root .section-head-v42 {
+        margin-bottom: 40px !important;
+    }
+
+    .bono-supreme-root .section-head-v42 h3 {
+        font-size: 2.2rem !important;  /* Letra más manejable en celu */
+        letter-spacing: 3px !important;
+    }
+
+    .bono-supreme-root .section-head-v42 .h-line {
+        width: 100px !important;       /* Línea más corta */
+        height: 3px !important;
+    }
+}
+/* ============================================================
+   DISEÑO DE SUBTÍTULO: RANKING FEDERAL (V67)
+   ============================================================ */
+
+.bono-supreme-root .section-head-v42 .subtitle {
+    display: block !important;
+    font-family: 'Oswald', sans-serif !important;
+    color: #d00000 !important;         /* Rojo CJ vibrante */
+    font-size: 0.85rem !important;      /* Tamaño equilibrado */
+    letter-spacing: 5px !important;     /* Espaciado de "Data Stream" */
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    margin-top: 10px !important;        /* Separación del título blanco */
+    margin-bottom: 5px !important;      /* Separación de la línea roja */
+    
+    /* Efecto Neón sutil */
+    text-shadow: 0 0 12px rgba(208, 0, 0, 0.4);
+    opacity: 0.9;
+    
+    /* Animación sutil de parpadeo (opcional para FOMO) */
+    animation: subtitleFlicker 4s infinite ease-in-out;
+}
+
+/* --- AJUSTE PARA EL CONTENEDOR (PARA QUE EL ORDEN SEA CORRECTO) --- */
+.bono-supreme-root .section-head-v42 {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+/* --- AJUSTE MÓVIL --- */
+@media (max-width: 900px) {
+    .bono-supreme-root .section-head-v42 .subtitle {
+        font-size: 0.65rem !important;  /* Más pequeño en celu */
+        letter-spacing: 3px !important; /* Menos espacio para que no rompa */
+        width: 90% !important;          /* Evita que toque los bordes */
+        margin: 10px auto !important;
+        line-height: 1.4;
+    }
+}
+
+/* Animación de "Sistema Vivo" */
+@keyframes subtitleFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+/* ============================================================
+   DISEÑO INTEGRAL CTA: "¿POR QUÉ TRABAJAR CON NOSOTROS?" (V70)
+   ALINEADO AL TAMAÑO DE LAS DEMÁS SECCIONES
+   ============================================================ */
+
+/* 1. CONTENEDOR DE LA SECCIÓN */
+.bono-supreme-root .bono-cta-federal {
+    order: 2 !important; 
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 0;
+    margin-bottom: 40px;
+}
+
+/* 2. EL TÍTULO (NIVELADO CON LAS OTRAS SECCIONES) */
+.bono-supreme-root .cta-main-title {
+    font-family: 'Helvetica Compressed', sans-serif !important;
+    font-size: 4rem !important;        /* MISMA ESCALA QUE PREMIOS/RANKING */
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+    letter-spacing: 5px !important;    /* Espaciado elegante */
+    line-height: 1 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;    /* Forzamos una sola línea en PC */
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* 3. EL SUBTÍTULO (EN ROJO CJ) */
+.bono-supreme-root .cta-sub-title {
+    display: block !important;
+    font-family: 'Oswald', sans-serif !important;
+    color: #d00000 !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 5px !important;
+    text-transform: uppercase !important;
+    font-weight: 700 !important;
+    margin-top: 10px !important;
+    text-shadow: 0 0 10px rgba(208, 0, 0, 0.3);
+}
+
+/* 4. LA LÍNEA ROJA (ESTILO MONITOREO) */
+.bono-supreme-root .cta-h-line {
+    width: 150px !important;
+    height: 4px !important;
+    margin-top: 15px !important;
+    background: linear-gradient(90deg, transparent 0%, #d00000 50%, transparent 100%) !important;
+    box-shadow: 0 0 15px #ff0000 !important;
+    border-radius: 2px !important;
+}
+
+/* 5. TEXTO DESCRIPTIVO */
+.bono-supreme-root .cta-description {
+    font-family: 'Roboto', sans-serif;
+    color: #666;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 500px;
+    margin: 30px auto 40px auto;
+}
+
+/* 6. BOTÓN WHATSAPP */
+.bono-supreme-root .btn-cta-supreme {
+    background: #d00000;
+    color: #fff;
+    text-decoration: none;
+    padding: 18px 45px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(208, 0, 0, 0.2);
+}
+
+.bono-supreme-root .btn-cta-supreme:hover {
+    background: #fff;
+    color: #000;
+    transform: translateY(-5px);
+}
+
+/* ============================================================
+   AJUSTE PARA MÓVILES (PRECISIÓN)
+   ============================================================ */
+@media (max-width: 1024px) {
+    .bono-supreme-root .cta-main-title {
+        font-size: 2.2rem !important;  /* Achicamos para que no rompa en el iPhone */
+        white-space: normal !important; /* Permitimos saltar renglón si es muy angosto */
+        letter-spacing: 2px !important;
+        width: 90% !important;
+    }
+
+    .bono-supreme-root .cta-sub-title {
+        font-size: 0.7rem !important;
+        letter-spacing: 3px !important;
+    }
+
+    .bono-supreme-root .cta-h-line {
+        width: 100px !important;
+    }
+}
+/* --- FIX: CENTRADO Y SUAVIZADO DE LUZ CTA --- */
+.bono-supreme-root .cta-h-line {
+    width: 150px !important;
+    height: 4px !important;
+    /* Centrado horizontal con margen auto */
+    margin: 20px auto 0 auto !important; 
+    /* Luz suavizada (0.6 de opacidad) para que no sea tan intensa */
+    background: linear-gradient(90deg, transparent 0%, #d00000 50%, transparent 100%) !important;
+    box-shadow: 0 0 15px rgba(208, 0, 0, 0.6) !important; 
+    border-radius: 2px !important;
+    display: block !important;
+}
+
+/* Ajuste móvil */
+@media (max-width: 900px) {
+    .bono-supreme-root .cta-h-line {
+        width: 100px !important;
+        margin: 15px auto 0 auto !important;
+    }
+}
+/* ============================================================
+   FIX DE JERARQUÍA Y BRILLO: TÍTULOS DE SECCIÓN (V71)
+   ORDEN: TÍTULO -> SUBTÍTULO -> LÍNEA ROJA (ABAJO)
+   ============================================================ */
+
+.bono-supreme-root .section-head-v42 {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    gap: 10px !important; /* Espacio uniforme entre piezas */
+    margin-bottom: 60px !important;
+}
+
+/* 1. EL TÍTULO (SIEMPRE ARRIBA) */
+.bono-supreme-root .section-head-v42 h3 {
+    order: 1 !important;
+    font-size: 4rem !important;
+    margin: 0 !important;
+}
+
+/* 2. EL SUBTÍTULO (EN EL MEDIO) */
+.bono-supreme-root .section-head-v42 .subtitle {
+    order: 2 !important;
+    margin: 0 !important;
+    font-size: 0.85rem !important;
+    letter-spacing: 4px !important;
+}
+
+/* 3. LA LÍNEA ROJA (SIEMPRE ABAJO Y SUAVE) */
+.bono-supreme-root .section-head-v42 .h-line {
+    order: 3 !important;
+    width: 150px !important;
+    height: 4px !important;
+    margin: 10px auto 0 auto !important; /* Asegura que baje */
+    background: linear-gradient(90deg, transparent 0%, #d00000 50%, transparent 100%) !important;
+    
+    /* BRILLO SUAVE: Reducido a 0.4 de opacidad para que no sature */
+    box-shadow: 0 0 15px rgba(208, 0, 0, 0.4) !important;
+    border-radius: 2px !important;
+}
+
+/* --- APLICAR MISMO EFECTO A BENEFICIOS Y DISTRO (LOS DE ABAJO) --- */
+
+.bono-supreme-root .benefits-card-v42 h4::after, 
+.bono-supreme-root .distro-card-v42 h4::after {
+    margin-top: 20px !important;
+    box-shadow: 0 0 15px rgba(208, 0, 0, 0.4) !important; /* Brillo suavizado igual al resto */
+}
+
+/* --- AJUSTE MÓVIL --- */
+@media (max-width: 900px) {
+    .bono-supreme-root .section-head-v42 h3 { font-size: 2.2rem !important; }
+    .bono-supreme-root .section-head-v42 .h-line { width: 100px !important; }
+}
+
+/* ============================================================
+   RE-ESTRUCTURACIÓN FINAL: EL MONOLITO Y PREMIOS (V76)
+   ============================================================ */
+
+/* 1. POSICIONAMIENTO DEL MONOLITO EN EL FLUJO */
+.bono-pilar-v42 {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.bono-prizes-titan { order: 1 !important; margin-bottom: 60px !important; }
+.bono-feature-monolith { order: 2 !important; margin-bottom: 60px !important; }
+.bono-radar-grid { order: 3 !important; margin-bottom: 60px !important; }
+.bono-leaderboard-v42 { order: 4 !important; }
+
+/* 2. ORDEN INTERNO DEL MONOLITO (TITULO NUEVO ARRIBA) */
+.bono-feature-monolith {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
+    padding: 60px 40px !important;
+}
+
+.bono-cta-federal { order: 1 !important; } /* Título Nuevo "¿Por qué...?" */
+.bono-final-grid { order: 2 !important; } /* Beneficios y Distribución */
+.bono-info-blocks { order: 3 !important; } /* Meta, Valor, Inversión */
+
+/* --- RE-ORDEN DE LOS BLOQUES DE INFO (VALOR AL MEDIO) --- */
+.bono-info-blocks article:nth-child(1) { order: 2 !important; } /* El de $15.000 va al medio */
+.bono-info-blocks article:nth-child(2) { order: 1 !important; } /* La Meta va a la izquierda */
+.bono-info-blocks article:nth-child(3) { order: 3 !important; } /* La Inversión a la derecha */
+
+/* ============================================================
+   CORRECCIÓN DEL LISTADO DE PREMIOS (VISUAL FIX)
+   ============================================================ */
+
+/* Aseguramos que la grilla de premios menores sea simétrica */
+.bono-supreme-root .titan-prize-subgrid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 15px !important;
+    width: 100% !important;
+}
+
+/* FIX ESPECÍFICO PARA EL PREMIO DE LA ESTADÍA (#07) */
+.bono-supreme-root .sub-prize-card.highlight {
+    grid-column: span 2 !important; /* Lo dejamos a lo largo pero con diseño de ticket */
+    background: linear-gradient(90deg, #080808 0%, #150000 100%) !important;
+    height: auto !important;
+    min-height: 100px !important;
+    padding: 20px 40px !important;
+    border-right: 4px solid #d00000 !important;
+    display: flex !important;
+    flex-direction: row !important; /* Texto a lo largo */
+    justify-content: flex-start !important;
+    align-items: center !important;
+    gap: 30px !important;
+}
+
+.bono-supreme-root .sub-prize-card.highlight p {
+    font-size: 1.6rem !important;
+    margin: 0 !important;
+}
+
+.bono-supreme-root .sub-prize-card.highlight small {
+    font-family: 'Oswald', sans-serif !important;
+    color: #444 !important;
+    letter-spacing: 3px !important;
+    text-transform: uppercase;
+    font-size: 0.85rem !important;
+    border-left: 1px solid #222;
+    padding-left: 20px;
+}
+
+/* ============================================================
+   AJUSTE PARA MÓVILES (PRECISIÓN TOTAL)
+   ============================================================ */
+@media (max-width: 900px) {
+    /* En móvil, la estadía vuelve a ser una tarjeta normal vertical */
+    .bono-supreme-root .sub-prize-card.highlight {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 5px !important;
+        padding: 20px !important;
+    }
+
+    .bono-supreme-root .sub-prize-card.highlight small {
+        border-left: none !important;
+        padding-left: 0 !important;
+        margin-top: 5px;
+    }
+
+    /* Forzamos que los bloques de info en móvil mantengan al Valor arriba por impacto */
+    .bono-info-blocks { display: flex !important; flex-direction: column !important; }
+    .bono-info-blocks article:nth-child(1) { order: 1 !important; }
+    .bono-info-blocks article:nth-child(2) { order: 2 !important; }
+
+    .bono-feature-monolith {
+        padding: 40px 15px !important;
+    }
+}
+/* ============================================================
+   RE-ARQUITECTURA TOTAL: EL MONOLITO Y GRILLA DE PREMIOS (V77)
+   ORDEN: PREMIOS > MONOLITO (CTA+BENEFICIOS+INFO) > RADAR > RANKING
+   ============================================================ */
+
+/* 1. MOTOR DE ORDENAMIENTO GLOBAL */
+.bono-pilar-v42 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 60px !important;
+}
+
+.bono-prizes-titan { order: 1 !important; }
+.bono-feature-monolith { order: 2 !important; }
+.bono-radar-grid { order: 3 !important; }
+.bono-leaderboard-v42 { order: 4 !important; }
+
+/* ============================================================
+   ACTO 1: FIX TOTAL GRILLA DE PREMIOS (02 - 08)
+   ============================================================ */
+
+.bono-supreme-root .titan-prizes-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px !important;
+}
+
+.bono-supreme-root .titan-prize-subgrid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important; /* 2 columnas perfectas */
+    gap: 20px !important;
+}
+
+/* Estilo unificado para todas las tarjetas menores */
+.bono-supreme-root .sub-prize-card {
+    background: rgba(10, 10, 10, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding: 25px 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 25px !important;
+    border-radius: 4px !important;
+    transition: 0.3s !important;
+    height: 100px !important; /* Altura fija para que todas sean iguales */
+}
+
+.bono-supreme-root .sub-prize-card span {
+    font-family: 'Oswald', sans-serif !important;
+    color: #ff0000 !important;
+    font-size: 1.8rem !important;
+    font-weight: 900 !important;
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+}
+
+.bono-supreme-root .sub-prize-card p {
+    font-family: 'Oswald', sans-serif !important;
+    color: #fff !important;
+    font-size: 1.3rem !important;
+    text-transform: uppercase !important;
+    margin: 0 !important;
+    letter-spacing: 1px !important;
+}
+
+/* --- FIX DEL PREMIO 07 (ESTADÍA) --- */
+.bono-supreme-root .sub-prize-card.highlight {
+    grid-column: span 2 !important; /* Ocupa las dos columnas abajo */
+    background: linear-gradient(90deg, #0a0a0a 0%, #1a0000 100%) !important;
+    border-right: 4px solid #d00000 !important;
+    height: 110px !important;
+}
+
+.bono-supreme-root .sub-prize-card.highlight p {
+    color: #ff0000 !important; /* Resaltamos el viaje */
+    font-weight: 800 !important;
+}
+
+.bono-supreme-root .sub-prize-card.highlight small {
+    color: #666 !important;
+    font-family: 'Oswald' !important;
+    letter-spacing: 2px !important;
+    border-left: 1px solid #222;
+    padding-left: 20px;
+    margin-left: 10px;
+}
+
+/* ============================================================
+   ACTO 2: EL MONOLITO (EL CUADRO UNIFICADO)
+   ============================================================ */
+
+.bono-supreme-root .bono-feature-monolith {
+    width: 100% !important;
+    background: rgba(8, 8, 8, 0.5) !important;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 4px solid #d00000 !important;
+    border-radius: 12px;
+    padding: 80px 40px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 40px !important;
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.6);
+}
+
+/* Orden interno del Monolito */
+.bono-cta-federal { order: 1 !important; margin: 0 !important; padding: 0 !important; border: none !important; }
+.bono-final-grid { order: 2 !important; margin: 0 !important; padding: 0 !important; border: none !important; }
+.bono-info-blocks { order: 3 !important; margin: 0 !important; padding: 0 !important; border: none !important; }
+
+/* Separadores entre secciones del Monolito */
+.bono-cta-federal, .bono-final-grid {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding-bottom: 50px !important;
+}
+
+/* Ajuste de los 3 bloques de abajo (Meta/Valor/Inversión) */
+.bono-info-blocks {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+    margin-top: 20px !important;
+}
+
+.bono-info-blocks article:nth-child(1) { order: 2 !important; } /* Valor al medio */
+.bono-info-blocks article:nth-child(2) { order: 1 !important; } /* Meta izq */
+.bono-info-blocks article:nth-child(3) { order: 3 !important; } /* Inv der */
+
+.bono-info-blocks .info-block-item {
+    background: rgba(255, 255, 255, 0.01) !important;
+    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+    min-height: 180px !important;
+    box-shadow: none !important;
+}
+
+/* ============================================================
+   RESPONSIVE MÓVIL (QUIRÚRGICO)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    /* 1. Premios en móvil */
+    .bono-supreme-root .titan-prize-subgrid {
+        grid-template-columns: 1fr !important; /* Todo en una columna */
+    }
+
+    .bono-supreme-root .sub-prize-card {
+        height: 85px !important;
+        padding: 0 20px !important;
+        gap: 15px !important;
+    }
+
+    .bono-supreme-root .sub-prize-card span { font-size: 1.3rem !important; }
+    .bono-supreme-root .sub-prize-card p { font-size: 1rem !important; }
+
+    .bono-supreme-root .sub-prize-card.highlight {
+        grid-column: span 1 !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        height: auto !important;
+        padding: 20px !important;
+    }
+
+    .bono-supreme-root .sub-prize-card.highlight small {
+        border-left: none; padding: 0; margin: 0;
+    }
+
+    /* 2. Monolito en móvil */
+    .bono-feature-monolith {
+        padding: 40px 15px !important;
+        border-radius: 0 !important;
+    }
+
+    .bono-info-blocks {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+}
+/* ============================================================
+   LIMPIEZA DE "PARCHES" EN EL MONOLITO (V78)
+   ============================================================ */
+
+/* 1. Eliminamos cualquier fondo o borde del contenedor del título */
+.bono-supreme-root .bono-cta-federal {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    padding: 0 !important; /* Quitamos padding extra para que no genere bulto */
+}
+
+/* 2. Limpieza del envoltorio interno del texto */
+.bono-supreme-root .cta-content-wrap {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* 3. Aseguramos que el título no tenga un fondo heredado */
+.bono-supreme-root .cta-main-title {
+    background: transparent !important;
+    border: none !important;
+}
+
+/* 4. Ajuste de espaciado para que no parezca un bloque separado */
+.bono-supreme-root .bono-feature-monolith .bono-cta-federal {
+    margin-bottom: 20px !important;
+    padding-bottom: 40px !important;
+    /* Mantenemos solo la línea divisoria si la querés, sino borrá la línea de abajo */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+/* ============================================================
+   DISEÑO "THE LIVE MONOLITH": CENTRO DE DATOS (V79)
+   ============================================================ */
+
+/* 1. EL CUADRO CONTENEDOR (IGUAL AL DE ARRIBA) */
+.bono-supreme-root .bono-live-monolith {
+    width: 100% !important;
+    background: rgba(8, 8, 8, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 4px solid #d00000 !important;
+    border-radius: 12px;
+    padding: 60px 40px !important;
+    margin: 40px 0 !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px !important; /* Todo más apretado y prolijo */
+    box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+    order: 4 !important; /* Asegura que sea lo último antes del footer */
+}
+
+/* 2. LIMPIEZA DE SUB-BLOQUES INTERNOS */
+.bono-supreme-root .bono-live-monolith .radar-main-box,
+.bono-supreme-root .bono-live-monolith .radar-ticker-box {
+    background: rgba(255, 255, 255, 0.01) !important;
+    border: 1px solid rgba(255, 255, 255, 0.03) !important;
+    box-shadow: none !important;
+}
+
+/* 3. JUNTAR EL RANKING CON LOS DATOS DE ARRIBA */
+.bono-supreme-root .bono-leaderboard-v42 {
+    width: 100% !important;
+    margin-top: 20px !important;
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+/* 4. REDUCIR ESPACIO DE CABECERAS DENTRO DEL MONOLITO */
+.bono-live-monolith .section-head-v42 {
+    margin-bottom: 20px !important;
+}
+
+/* 5. FIX PARA LA GRILLA DE RADAR EN PC */
+.bono-live-monolith .bono-radar-grid {
+    width: 100% !important;
+    margin-bottom: 0 !important;
+    gap: 15px !important;
+}
+
+/* Ajuste del Ranking para que ocupe el ancho total del cuadro */
+.bono-live-monolith .leaderboard-wrap {
+    width: 100% !important;
+}
+
+/* 6. EFECTO DE RESPLANDOR SUPERIOR */
+.bono-live-monolith::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 50%; transform: translateX(-50%);
+    width: 100%; height: 300px;
+    background: radial-gradient(circle at top, rgba(208, 0, 0, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* ============================================================
+   OPTIMIZACIÓN MÓVIL (APP LOOK)
+   ============================================================ */
+@media (max-width: 900px) {
+    .bono-live-monolith {
+        padding: 40px 15px !important;
+        border-radius: 0 !important;
+        border-left: none;
+        border-right: none;
+        gap: 20px !important;
+    }
+
+    .bono-live-monolith .radar-main-box {
+        padding: 25px 15px !important;
+    }
+
+    .bono-live-monolith .section-head-v42 h3 {
+        font-size: 1.6rem !important;
+    }
+}
+
+/* ============================================================
+   REDISEÑO QUIRÚRGICO: RANKING MÓVIL COMPACTO (V80)
+   ESTILO: SLIM LINE / VENTAS A LA DERECHA
+   ============================================================ */
+
+@media (max-width: 900px) {
+    
+    /* 1. LA FILA: De columna pasamos a FILA horizontal */
+    .bono-supreme-root .leader-row {
+        display: flex !important;
+        flex-direction: row !important; 
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 12px 15px !important; /* Mucho más fina */
+        gap: 12px !important;
+        min-height: unset !important;
+        margin-bottom: 8px !important;
+    }
+
+    /* 2. POSICIÓN (01, 02...): Más pequeña a la izquierda */
+    .bono-supreme-root .leader-pos-hex {
+        min-width: 30px !important;
+        font-size: 0.9rem !important;
+        margin: 0 !important;
+        opacity: 0.5;
+    }
+
+    /* 3. BLOQUE CENTRAL (NOMBRE Y ACADEMIA) */
+    .bono-supreme-root .leader-info {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 2px !important;
+        padding: 0 !important;
+        text-align: left !important;
+    }
+
+    .bono-supreme-root .leader-identity {
+        flex-direction: column !important; /* Nombre arriba, academia abajo */
+        align-items: flex-start !important;
+        gap: 0 !important;
+    }
+
+    .bono-supreme-root .leader-name {
+        font-size: 0.9rem !important; /* Letra más chica y prolija */
+        line-height: 1.2 !important;
+    }
+
+    .bono-supreme-root .leader-academy-tag {
+        font-size: 0.65rem !important;
+        letter-spacing: 1px !important;
+        opacity: 0.6;
+    }
+
+    /* 4. LA BARRA DE PROGRESO: Ultra fina debajo del nombre */
+    .bono-supreme-root .leader-bar-container {
+        height: 2px !important;
+        margin-top: 4px !important;
+        width: 100% !important;
+        max-width: 120px !important; /* Que no se estire tanto */
+    }
+
+    /* 5. BADGE DE VENTAS: A LA DERECHA ABSOLUTA */
+    .bono-supreme-root .leader-stats-badge {
+        min-width: 65px !important;
+        flex-direction: column !important;
+        align-items: flex-end !important;
+        justify-content: center !important;
+        border: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .bono-supreme-root .l-num {
+        font-size: 1.4rem !important; /* Número destacado pero contenido */
+        line-height: 1 !important;
+        letter-spacing: 0 !important;
+    }
+
+    .bono-supreme-root .l-txt {
+        font-size: 0.5rem !important;
+        letter-spacing: 1px !important;
+        margin-top: 2px !important;
+    }
+
+    /* Reducimos el espacio del título del ranking para ganar aire */
+    .bono-live-monolith .bono-leaderboard-v42 {
+        margin-top: 10px !important;
+    }
+}
+
+/* Ajuste para pantallas muy pequeñas (iPhone SE) */
+@media (max-width: 360px) {
+    .bono-supreme-root .leader-name { font-size: 0.8rem !important; }
+    .bono-supreme-root .leader-bar-container { display: none !important; } /* Ocultamos barra en mini-celus */
+}
+/* ============================================================
+   DISEÑO MOTIVACIONAL Y MONOLITO DE PREMIOS (V81)
+   ============================================================ */
+
+/* 1. EL TEXTO MOTIVADOR (HEADER) */
+.bono-supreme-root .bono-motivation-box {
+    max-width: 700px;
+    margin-top: 40px;
+    text-align: center;
+    position: relative;
+    z-index: 30;
+}
+
+.bono-supreme-root .motivation-text {
+    font-family: 'Causten', sans-serif !important;
+    color: #888;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.bono-supreme-root .motivation-signature {
+    font-family: 'Photograph Signature', cursive !important;
+    color: #d00000;
+    font-size: 3rem;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(208, 0, 0, 0.3));
+    transform: rotate(-1deg);
+}
+
+/* 2. EL MONOLITO DE PREMIOS (ACTO INICIAL) */
+.bono-supreme-root .bono-prizes-monolith {
+    width: 100% !important;
+    background: rgba(10, 10, 10, 0.4) !important; /* Vidrio técnico */
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    border-top: 4px solid #d00000 !important;
+    border-radius: 12px;
+    padding: 80px 40px !important;
+    margin-bottom: 60px !important;
+    box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+    position: relative;
+    overflow: hidden;
+    order: 1 !important; /* Mantiene la primera posición */
+}
+
+/* Decoración interna del Monolito de Premios */
+.bono-prizes-monolith::after {
+    content: "VITRINA_OFICIAL_2026";
+    position: absolute;
+    top: 20px;
+    left: 40px;
+    font-family: 'Oswald';
+    font-size: 0.6rem;
+    color: #222;
+    letter-spacing: 5px;
+}
+
+/* Limpieza de la sección interna */
+.bono-supreme-root .bono-prizes-titan {
+    margin: 0 !important;
+    width: 100% !important;
+    background: transparent !important;
+}
+
+/* ============================================================
+   AJUSTE PARA MÓVILES (EQUILIBRIO)
+   ============================================================ */
+@media (max-width: 900px) {
+    .bono-supreme-root .bono-motivation-box {
+        width: 90%;
+        margin-top: 30px;
+    }
+
+    .bono-supreme-root .motivation-text {
+        font-size: 0.9rem;
+    }
+
+    .bono-supreme-root .motivation-signature {
+        font-size: 2.2rem;
+        line-height: 1.1;
+        margin-top: 10px;
+    }
+
+    .bono-supreme-root .bono-prizes-monolith {
+        padding: 40px 15px !important;
+        border-radius: 0;
+    }
+}
+/* ============================================================
+   FIX FIRMA MOTIVADORA: UNA SOLA LÍNEA PC (V82)
+   ============================================================ */
+
+@media (min-width: 1025px) {
+    .bono-supreme-root .motivation-signature {
+        /* 1. FUERZA EL RENGLÓN ÚNICO */
+        white-space: nowrap !important; 
+        display: block !important;
+        
+        /* 2. AJUSTE DE TAMAÑO PARA QUE ENTRE A LO ANCHO */
+        /* Bajamos de 3rem a 2.6rem para asegurar que no toque los bordes del pilar */
+        font-size: 2.6rem !important; 
+        
+        /* 3. CENTRADO Y FLUJO */
+        width: max-content !important;
+        margin: 10px auto !important;
+        letter-spacing: 1px !important;
+    }
+
+    .bono-supreme-root .bono-motivation-box {
+        /* Expandimos el contenedor para que la firma larga respire */
+        max-width: 900px !important; 
+    }
+}
+
+/* --- RE-AJUSTE PARA NOTEBOOKS (1366px / 1080p con zoom) --- */
+@media (min-width: 1025px) and (max-width: 1400px) {
+    .bono-supreme-root .motivation-signature {
+        font-size: 2.2rem !important; /* Un poco más pequeña en laptops para seguridad */
+    }
+}
+
+/* --- MANTENER MÓVIL (PERMITIR SALTO DE LÍNEA) --- */
+@media (max-width: 1024px) {
+    .bono-supreme-root .motivation-signature {
+        white-space: normal !important; /* En móviles SÍ debe saltar de renglón */
+        font-size: 2.2rem !important;
+        line-height: 1.2;
+        text-align: center;
+        width: 100% !important;
+    }
+}
+/* ============================================================
+   AJUSTE DE COMPACTACIÓN: RITMO VISUAL (V83)
+   REDUCCIÓN DE ESPACIOS ENTRE MONOLITOS
+   ============================================================ */
+
+/* 1. REDUCIMOS EL ESPACIO GLOBAL DEL PILAR */
+.bono-supreme-root .bono-pilar-v42 {
+    /* Bajamos de 80px a 40px el espacio entre los grandes bloques */
+    gap: 40px !important; 
+}
+
+/* 2. RE-AJUSTE DE MÁRGENES DE CADA MONOLITO */
+.bono-supreme-root .bono-prizes-monolith,
+.bono-supreme-root .bono-feature-monolith,
+.bono-supreme-root .bono-live-monolith {
+    /* Bajamos el margen inferior de 60px a 40px para que el siguiente cuadro esté más cerca */
+    margin-bottom: 40px !important; 
+}
+
+/* 3. RE-AJUSTE DE LAS CABECERAS DE SECCIÓN */
+.bono-supreme-root .section-head-v42 {
+    /* Bajamos el espacio entre el título blanco y el contenido de 60px a 45px */
+    margin-bottom: 45px !important; 
+}
+
+/* 4. AJUSTE DE ESPACIO EN EL HEADER */
+.bono-supreme-root .bono-header-supreme {
+    /* Pegamos un poco más el título principal al primer Monolito de premios */
+    margin-bottom: 60px !important; 
+}
+
+/* ============================================================
+   COMPACTACIÓN PARA MÓVIL (QUIRÚRGICO)
+   ============================================================ */
+@media (max-width: 900px) {
+    .bono-supreme-root .bono-pilar-v42 {
+        gap: 30px !important; /* Espacio más corto en celulares */
+    }
+
+    .bono-supreme-root .bono-prizes-monolith,
+    .bono-supreme-root .bono-feature-monolith,
+    .bono-supreme-root .bono-live-monolith {
+        margin-bottom: 30px !important;
+    }
+
+    .bono-supreme-root .section-head-v42 {
+        margin-bottom: 30px !important;
+    }
+}
+/* ============================================================
+   EXPANSIÓN DE FUENTE: GRAN BONO (V85)
+   ESTILO: LETRAS CON MÁS CUERPO Y GROSOR (BOLD TÁCTICO)
+   ============================================================ */
+
+.bono-supreme-root .svg-text-bono {
+    /* 1. EL SECRETO: Agregamos un borde del mismo color para engrosar la letra */
+    stroke: #ffffff !important; 
+    stroke-width: 3px !important; /* Ajustá este número si las querés aún más anchas */
+    text-shadow: 0 0 40px rgb(228, 228, 228);
+    /* 2. Suavizado de bordes para que no se vea "dentado" */
+    stroke-linejoin: round !important;
+    paint-order: stroke fill !important;
+
+    /* 3. Forzamos el peso máximo de la fuente */
+    font-weight: 900 !important;
+    
+    /* 4. Brillo extra para que las letras "irradien" como el 2026 */
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2)) !important;
+}
+
+/* --- AJUSTE PARA MÓVILES (PARA QUE NO SE PISEN) --- */
+@media (max-width: 900px) {
+    .bono-supreme-root .svg-text-bono {
+        /* En móvil bajamos el grosor para que no se junten las letras */
+        stroke-width: 1.5px !important;
+        text-shadow: 0 0 40px rgb(228, 228, 228);
+        font-size: 130px !important; /* Un pelín más grandes para compensar */
+    }
+}
+/* ============================================================
+   FIX SIMETRÍA SUPREMA: PARTY POPPERS 🎉 (V88)
+   ESTILO: ANCLAJE DINÁMICO AL BORDE DEL TEXTO (ANTI-SOLAPE)
+   ============================================================ */
+
+/* 1. EL CONTENEDOR: Debe ser inline-flex para ceñirse al 2026 */
+.bono-supreme-root .year-center-box {
+    position: relative !important;
+    display: inline-flex !important; 
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 2. ESTILO BASE DE LOS EMOJIS */
+.bono-supreme-root .year-center-box::before,
+.bono-supreme-root .year-center-box::after {
+    content: "🎉" !important;
+    position: absolute !important;
+    top: 45% !important; /* Centrado vertical en el número */
+    font-size: 4.5rem !important;
+    z-index: -1 !important; /* Detrás del 2026 */
+    opacity: 0.6 !important;
+    filter: drop-shadow(0 0 15px rgba(255, 0, 0, 0.2)) !important;
+    pointer-events: none !important;
+}
+
+/* 🎉 IZQUIERDO: Pegado al borde izquierdo y empujado hacia afuera */
+.bono-supreme-root .year-center-box::before {
+    left: 0 !important;
+    /* translate(-100%) lo saca del cuadro del texto hacia la IZQUIERDA */
+    transform: translate(-100%, -50%) scaleX(-1) rotate(15deg) !important;
+    margin-left: -20px !important; /* Distancia de respiro con el número 2 */
+}
+
+/* 🎉 DERECHO: Pegado al borde derecho y empujado hacia afuera */
+.bono-supreme-root .year-center-box::after {
+    right: 0 !important;
+    /* translate(100%) lo saca del cuadro del texto hacia la DERECHA */
+    transform: translate(100%, -50%) rotate(15deg) !important;
+    margin-right: -20px !important; /* Distancia de respiro con el número 6 */
+}
+
+/* ============================================================
+   OPTIMIZACIÓN PARA MÓVILES (IPHONE 15 / ANDROID)
+   ============================================================ */
+@media (max-width: 900px) {
+    .bono-supreme-root .year-center-box::before,
+    .bono-supreme-root .year-center-box::after {
+        font-size: 2.8rem !important; /* Tamaño prolijo para móvil */
+        top: 42% !important;
+    }
+
+    /* En móvil reducimos el margen para que entren bien en pantallas angostas */
+    .bono-supreme-root .year-center-box::before {
+        margin-left: -10px !important; 
+        transform: translate(-100%, -50%) scaleX(-1) rotate(10deg) !important;
+    }
+
+    .bono-supreme-root .year-center-box::after {
+        margin-right: -10px !important;
+        transform: translate(100%, -50%) rotate(10deg) !important;
+    }
+}
+
+/* Ajuste fino para pantallas mini (iPhone SE) */
+@media (max-width: 360px) {
+    .bono-supreme-root .year-center-box::before,
+    .bono-supreme-root .year-center-box::after {
+        font-size: 2.2rem !important;
+        /* Si la pantalla es muy chica, los metemos un poquito abajo del número */
+        margin-left: -5px !important;
+        margin-right: -5px !important;
+    }
+}
+/* ============================================================
+   FIX: EMOJIS CERRADITOS Y CALIDAD HD (V91)
+   ESTILO: PROXIMIDAD MÁXIMA Y SATURACIÓN TÉCNICA
+   ============================================================ */
+
+@media (min-width: 1025px) {
+    .bono-supreme-root .year-center-box::before,
+    .bono-supreme-root .year-center-box::after {
+        /* 1. TAMAÑO GIGANTE MANTENIDO */
+        font-size: 6.5rem !important; 
+        
+        /* 2. FILTROS "HD": Subimos contraste, brillo y saturación */
+        filter: 
+            contrast(1.2) 
+            brightness(1.1) 
+            saturate(1.4) 
+            drop-shadow(0 0 20px rgba(208, 0, 0, 0.4)) !important;
+            
+        /* 3. SUAVIZADO DE BORDES PARA RENDERIZADO PRO */
+        image-rendering: -webkit-optimize-contrast;
+        opacity: 0.9 !important; /* Más presencia visual */
+        top: 45% !important;
+    }
+
+    /* 4. EL FIX DE CERCANÍA: Los pegamos al número "2" y "6" */
+    .bono-supreme-root .year-center-box::before {
+        /* Reducimos el margen para que queden bien pegaditos */
+        margin-left: -8px !important; 
+        --tw-x: -100%; --tw-r: 12deg;
+        animation: emojiFloat 3s infinite ease-in-out;
+    }
+
+    .bono-supreme-root .year-center-box::after {
+        /* Reducimos el margen para que queden bien pegaditos */
+        margin-right: -8px !important;
+        --tw-x: 100%; --tw-r: 12deg;
+        animation: emojiFloat 3s infinite ease-in-out;
+    }
+}
+
+/* --- RE-CALIBRACIÓN DE LA ANIMACIÓN DE FLOTADO (MÁS CORTA) --- */
+@keyframes emojiFloat {
+    0%, 100% { 
+        transform: translate(var(--tw-x), -50%) rotate(var(--tw-r)); 
+    }
+    50% { 
+        /* Movimiento de respiración más sutil para no perder la simetría */
+        transform: translate(var(--tw-x), -53%) rotate(var(--tw-r)); 
     }
 }

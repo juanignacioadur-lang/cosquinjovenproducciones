@@ -74,6 +74,14 @@ const handleSubmit = async (e) => {
     setLoading(false);
   };
 
+   const totalYaAsignado = delegates.reduce((acc, d) => acc + Number(d.cantidad || 0), 0);
+// Si estamos editando, no contamos el cupo viejo del delegado que estamos tocando
+const cupoActualDelEditado = modalMode === 'edit' 
+  ? Number(delegates.find(d => d.dni === form.dni)?.cantidad || 0) 
+  : 0;
+
+const restante = 1000 - (totalYaAsignado - cupoActualDelEditado);
+
 return (
     <div className="gestion-user-root anim-fade-in">
       <header className="area-title-tech">
@@ -185,8 +193,18 @@ return (
                   />
                 </div>
               </div>
-              
-              <div className="modal-actions-pro">
+                    <p style={{ 
+        color: (restante - form.cantidad) < 0 ? '#ff0000' : '#444', 
+        fontSize: '0.7rem', 
+        textAlign: 'center', 
+        marginBottom: '15px',
+        letterSpacing: '2px',
+        fontWeight: '800'
+      }}>
+        RESERVA FEDERAL: {restante - (form.cantidad || 0)} BONOS DISPONIBLES
+      </p>
+
+      <div className="modal-actions-pro">
                 <button type="button" className="btn-modal-tech cancel" onClick={() => setModalMode(null)}>ABORTAR</button>
                 <button type="submit" className="btn-modal-tech save">
                   {loading ? "PROCESANDO..." : "CONFIRMAR"}

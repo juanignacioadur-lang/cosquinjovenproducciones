@@ -1124,3 +1124,105 @@
 }
 
 .btn-export-tech .icon { color: #d00000; }
+
+/* ============================================================
+   FIX QUIRÚRGICO: TARJETAS COMPACTAS (ANTI-DEFORMACIÓN)
+   ============================================================ */
+
+@media (max-width: 900px) {
+
+    /* 1. CONTENEDOR SIN DESBORDES */
+    .mnt-ops-scroll {
+        width: 100% !important;
+        padding: 5px !important;
+        overflow-x: hidden !important;
+    }
+
+    /* 2. TARJETA ULTRA-SLIM */
+    .mnt-log-entry {
+        flex-direction: column !important;
+        width: 100% !important;
+        padding: 12px !important; /* Padding reducido al mínimo */
+        margin-bottom: 10px !important;
+        gap: 8px !important; /* Espacio interno apretado */
+        transform: none !important; /* MATAMOS EL DESPLAZAMIENTO */
+        box-sizing: border-box !important;
+        border-radius: 6px !important;
+        background: rgba(15, 15, 15, 0.9) !important;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease !important;
+    }
+
+    /* 3. NUEVO EFECTO: Solo brillo de borde, sin moverse */
+    .mnt-log-entry:hover {
+        transform: none !important; 
+        border-color: #d00000 !important;
+        box-shadow: inset 0 0 10px rgba(208, 0, 0, 0.2) !important;
+    }
+
+    /* 4. CABECERA COMPACTA (NOMBRE Y STATUS EN UNA LÍNEA) */
+    .log-badge-user {
+        display: flex !important;
+        flex-direction: row !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        width: 100% !important;
+        border-bottom: 1px solid #111;
+        padding-bottom: 6px !important;
+        margin: 0 !important;
+    }
+
+    .log-badge-user .u-name { font-size: 0.9rem !important; }
+    .log-badge-user .u-id { font-size: 0.6rem !important; margin: 0 !important; }
+
+    /* 5. CUERPO DE TEXTO (UNA SOLA LÍNEA O APRETADO) */
+    .log-data-body {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .log-data-body p {
+        font-size: 0.8rem !important;
+        margin: 2px 0 !important;
+        color: #888;
+    }
+
+    .log-timestamp {
+        font-size: 0.6rem !important;
+        margin-top: 2px !important;
+    }
+
+    /* 6. BOTONES EN UNA SOLA FILA (TAMAÑO MINI) */
+    .log-actions-panel {
+        width: 100% !important;
+        flex-direction: row !important; /* Volvemos a fila pero compacta */
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 10px !important;
+    }
+
+    .log-status-pill {
+        font-size: 0.55rem !important;
+        padding: 2px 6px !important;
+        margin: 0 !important;
+    }
+
+    .log-btns-group {
+        display: flex !important;
+        gap: 5px !important;
+        flex: 1;
+        justify-content: flex-end;
+    }
+
+    .btn-v33 {
+        padding: 6px 10px !important;
+        font-size: 0.65rem !important;
+        height: 28px !important; /* Altura fija pequeña */
+        min-width: 60px !important;
+    }
+
+    .btn-v33.v {
+        background: #25D366 !important;
+        color: #000 !important;
+        font-weight: 900 !important;
+    }
+}
