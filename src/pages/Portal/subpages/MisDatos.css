@@ -100,8 +100,8 @@
 
 .md-security-info {
   margin-top: 25px; padding: 20px; background: rgba(208, 0, 0, 0.03);
-  border: 1px solid rgba(208, 0, 0, 0.1); border-radius: 4px;
-  color: #666; font-size: 0.8rem; line-height: 1.6;
+  border: 1px solid rgba(208, 0, 0, 0.404); border-radius: 4px;
+  color: #d6d6d6; font-size: 0.8rem; line-height: 1.6;
 }
 
 /* --- TERMINAL FORM --- */
@@ -113,7 +113,7 @@
 }
 
 .md-section-label {
-  font-family: 'Oswald'; color: #333; font-size: 0.85rem;
+  font-family: 'Oswald'; color: #ffffff; font-size: 0.85rem;
   letter-spacing: 5px; margin-bottom: 40px; border-bottom: 1px solid #111;
   padding-bottom: 15px;
 }

@@ -159,7 +159,7 @@ useEffect(() => {
                   </div>
                 </div>
                 <div className="md-input-field">
-  <label>WHATSAPP (NÚMERO FEDERAL)</label>
+  <label>NÚMERO CELULAR</label>
   <div className={`md-inline-edit-wrap ${isEditingPhone ? 'editing' : ''}`}>
     
     {isEditingPhone ? (
