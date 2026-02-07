@@ -2600,3 +2600,73 @@
         transform: translate(var(--tw-x), -53%) rotate(var(--tw-r)); 
     }
 }
+/* ============================================================
+   FIX DE CENTRADO SUPREMO: SECCIÓN "¿POR QUÉ...?" (MÓVIL)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    
+    /* 1. Forzamos que el contenedor sea un eje central perfecto */
+    .bono-supreme-root .bono-cta-federal {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 40px 15px !important;
+    }
+
+    /* 2. El envoltorio de contenido debe ocupar todo el ancho disponible */
+    .bono-supreme-root .cta-content-wrap {
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important; /* Centra los hijos horizontalmente */
+        text-align: center !important;
+    }
+
+    /* 3. Título: Muerte al alineado a la izquierda */
+    .bono-supreme-root .cta-main-title {
+        width: 100% !important;
+        text-align: center !important;
+        font-size: 2.1rem !important; /* Tamaño ajustado para iPhone 15 */
+        white-space: normal !important;
+        margin: 0 auto !important;
+        line-height: 1.1 !important;
+    }
+
+    /* 4. Subtítulo: Centrado y con respiro */
+    .bono-supreme-root .cta-sub-title {
+        width: 100% !important;
+        text-align: center !important;
+        margin: 15px auto 0 auto !important;
+        display: block !important;
+    }
+
+    /* 5. EL FIX DE LA LÍNEA: Forzamos margin: auto para que no se recueste */
+    .bono-supreme-root .cta-h-line {
+        margin: 20px auto !important; /* CLAVE PARA EL CENTRADO DE LA LÍNEA */
+        width: 100px !important;
+        height: 3px !important;
+    }
+
+    /* 6. Descripción y Botón */
+    .bono-supreme-root .cta-description {
+        width: 90% !important;
+        margin: 0 auto 30px auto !important;
+        text-align: center !important;
+    }
+
+    .bono-supreme-root .btn-cta-supreme {
+        margin: 0 auto !important;
+        display: inline-flex !important;
+        justify-content: center !important;
+        width: 85% !important; /* Botón cómodo para el pulgar */
+    }
+}
+
+/* Ajuste para pantallas muy pequeñas */
+@media (max-width: 370px) {
+    .bono-supreme-root .cta-main-title {
+        font-size: 1.8rem !important;
+    }
+}
