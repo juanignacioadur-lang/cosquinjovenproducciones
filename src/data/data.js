@@ -371,7 +371,7 @@ export const newsData = [
     detailImages: ["/tanti1.jpg", "/tanti2.jpg", "/tanti3.jpg"],
     fullContent: [
       "Así vivimos el GRAN DANZABUELOS 2025. 💃🕺 ¡Ya comenzó DanzAbuelos 2025 en Tanti! 🎉",
-      "La jornada abrió con un colorido desfile de academias y agrupaciones, tanto locales como de los países visitantes 🇦🇷🇨🇱🇧🇴🇺🇾🇪🇨.",
+      "La jornada abrió con un colorido desfile de academias y agrupaciones, tanto locales como de los países visitantes.",
       "El cierre estuvo a cargo de las agrupaciones gauchas, que desfilaron a caballo dando fin al recorrido por la Avenida San Martín, para luego continuar la celebración en el Anfiteatro Municipal, colmado de público.",
       "📅 La fiesta sigue sábado y domingo, con toda la alegría, el baile y la cultura del Festival Mundial DanzAbuelos, organizado por Cosquín Producciones.",
       "✨ ¡Tanti vive la danza y el folclore!"

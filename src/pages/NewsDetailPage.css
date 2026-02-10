@@ -1,228 +1,917 @@
-/* --- CONTENEDOR PRINCIPAL --- */
-.news-page-root {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: stretch; /* Estirar para ocupar todo el alto */
-  padding-top: 0; /* QUITAMOS EL PADDING DE AQUÍ */
-  background: linear-gradient(180deg, #2b0f0f 0%, #3d1414 55%, #0b0404 100%);
-  background-attachment: fixed;
-  background-size: cover;
-}
+/* ============================================================
+   NEWS READER TITÁN V100 - EDICIÓN DE GALA MÁXIMA
+   ARQUITECTURA EDITORIAL, CINEMATOGRÁFICA E INDUSTRIAL
+   ============================================================ */
 
-/* --- SUBFONDO GRIS (SOLO PC) --- */
-.news-container-wrapper {
-  width: 100%;
-  max-width: 1200px;
-  background: rgba(0, 0, 0, 0.3); /* Vidrio oscuro */
-  min-height: 100vh;
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 60px rgba(0,0,0,0.6);
-  
-  /* AQUÍ AJUSTAMOS EL ESPACIO EXACTO */
-  padding: 100px 20px 50px 20px; /* 100px para librar el Navbar */
-  
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start; /* Alineado arriba */
-}
-
-/* --- TARJETA DE LECTURA --- */
-.news-reader-container {
-  position: relative;
-  width: 100%;
-  max-width: 900px; 
-  background: #111; 
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-  margin-bottom: 50px;
-  overflow: hidden;
-  animation: fadeUp 0.6s ease-out forwards;
-  height: fit-content;
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* HEADER */
-.news-reader-header {
-  padding: 20px 30px;
-  background: rgba(255, 255, 255, 0.03);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.news-back-btn {
-  background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px 20px;
-  border-radius: 30px;
-  cursor: pointer;
-  text-transform: uppercase;
-  font-family: "Oswald", sans-serif;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
-  transition: 0.3s;
-}
-.news-back-btn:hover { background: #fff; color: #000; }
-
-.news-reader-meta {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-}
-.news-cat-highlight {
-  color: #d00000;
-  font-weight: 700;
-  margin-left: 10px;
-}
-
-/* CONTENIDO */
-.news-reader-content { padding: 40px; }
-
-.news-reader-title {
-  font-family: "Oswald", sans-serif;
-  font-size: 2.5rem;
-  color: #fff;
-  margin-bottom: 30px;
-  line-height: 1.2;
-  border-left: 5px solid #d00000;
-  padding-left: 20px;
-}
-
-/* GALERÍA */
-.news-gallery {
-  display: grid;
-  gap: 15px;
-  margin-bottom: 30px;
-}
-.gallery-single { grid-template-columns: 1fr; }
-.gallery-grid { grid-template-columns: repeat(3, 1fr); }
-
-.news-img-box {
-  width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: #000;
-  max-height: 500px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.news-img-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
-}
-
-/* TEXTO */
-.news-body-text p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #ddd;
-  margin-bottom: 20px;
-  font-weight: 300;
-}
-
-/* BOTÓN WHATSAPP */
-.news-action-wrapper {
-  margin-top: 40px;
-  text-align: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  padding-top: 30px;
-}
-.news-wa-btn {
-  display: inline-block;
-  background: linear-gradient(90deg, #25D366, #128C7E);
-  color: #fff;
-  padding: 15px 35px;
-  border-radius: 50px;
-  font-weight: 700;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-family: "Oswald", sans-serif;
-  letter-spacing: 1px;
-  box-shadow: 0 5px 20px rgba(37, 211, 102, 0.2);
-  transition: 0.3s;
-}
-.news-wa-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
-}
-
-/* === RESPONSIVE (MÓVIL) === */
-@media (max-width: 900px) {
-  
-  .news-container-wrapper {
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 90px 0 0 0; /* Padding solo para navbar en móvil */
-    display: block;
-  }
-
-  .news-reader-container {
+.news-reader-root {
     width: 100%;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    background: transparent;
-    margin-bottom: 0;
-    padding-bottom: 180px; 
-  }
-
-  .news-reader-content {
-    background: #111;
-    border-radius: 12px;
-    margin: 10px;
-    padding: 25px 20px;
-    border: 1px solid rgba(255,255,255,0.1);
-  }
-
-  .news-reader-header {
+    min-height: 100vh;
+    /* Fondo "Pool" Bordó Profundo */
+    background: radial-gradient(circle at 50% 30%, #4a0404 0%, #1a0202 45%, #000000 100%) !important;
+    background-attachment: fixed !important;
+    position: relative;
+    display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 15px;
+    align-items: center;
+    overflow-x: hidden;
+    padding-top: 140px;
+    padding-bottom: 120px;
+    color: #fff;
+}
+
+/* --- CAPAS DE AMBIENTACIÓN --- */
+.news-grid-overlay {
+    position: fixed; inset: 0;
+    background-image: radial-gradient(rgba(208, 0, 0, 0.1) 1.2px, transparent 1.2px);
+    background-size: 35px 35px;
+    z-index: 1; pointer-events: none;
+    opacity: 0.4;
+}
+
+.news-vignette {
+    position: fixed; inset: 0;
+    background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.8) 100%);
+    z-index: 2; pointer-events: none;
+}
+
+/* --- EL PILAR DE LECTURA (CONTENEDOR DE CRISTAL) --- */
+.news-pilar-central {
+    width: 95%;
+    max-width: 1250px;
+    position: relative;
+    z-index: 10;
+    /* Eliminamos cualquier rastro de cuadros negros */
+    background: transparent !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ============================================================
+   ACTO 1: CABECERA MONUMENTAL (EL TÍTULO)
+   ============================================================ */
+
+.article-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.article-main-title {
+    font-family: 'Helvetica Compressed', sans-serif !important;
+    font-size: 6rem; /* TAMAÑO MONUMENTAL */
+    color: #ffffff;
+    text-transform: uppercase;
+    line-height: 0.85;
+    letter-spacing: 2px;
+    margin: 0 0 25px 0 !important;
+    text-shadow: 0 15px 40px rgba(0,0,0,0.8);
+}
+
+.article-header-line {
+    width: 180px;
+    height: 5px;
+    background: linear-gradient(90deg, transparent, #d00000, transparent);
+    box-shadow: 0 0 20px #ff0000;
+    border-radius: 4px;
+}
+
+/* --- METADATOS (FECHA Y CATEGORÍA) --- */
+.news-meta-gala {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+}
+
+.m-date-tag {
+    color: #555;
+    letter-spacing: 4px;
+    font-size: 0.9rem;
+}
+
+.m-divider {
+    color: #d00000;
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.m-category-badge {
+    color: #d00000;
+    letter-spacing: 6px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-shadow: 0 0 10px rgba(208, 0, 0, 0.3);
+}
+
+/* ============================================================
+   ACTO 2: CUERPO DE TEXTO (LEER SOBRE EL FONDO)
+   ============================================================ */
+
+.article-body-text {
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+}
+
+.article-body-text p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.3rem;
+    line-height: 1.9;
+    color: #d1d1d1;
+    margin-bottom: 35px;
+    font-weight: 300;
+    text-align: center;
+    background: transparent !important; /* SELLO ANTI-CUADRO NEGRO */
+}
+
+/* ============================================================
+   ACTO 3: GALERÍA CINEMATOGRÁFICA (ALTO IMPACTO)
+   ============================================================ */
+
+.article-gallery {
+    width: 100%;
+    margin: 40px 0 80px 0;
+    display: grid;
+    gap: 25px;
+}
+
+/* 3 Imágenes: Fila simétrica */
+.article-gallery.triple-mode {
+    grid-template-columns: repeat(3, 1fr) !important;
+}
+
+/* 1 Imagen: Grande y centrada */
+.article-gallery.single-mode {
+    display: flex;
+    justify-content: center;
+}
+
+.article-gallery.single-mode .article-img-frame {
+    width: 100%;
+    max-width: 900px;
+    height: 550px;
+}
+
+/* Estilo de los cuadros de fotos */
+.article-img-frame {
+    height: 420px;
+    background: #000;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+}
+
+.article-img-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.8) contrast(1.1);
+    transition: 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.article-img-frame:hover img {
+    filter: brightness(1) contrast(1.2);
+    transform: scale(1.05);
+}
+
+/* ============================================================
+   ACTO 4: ACCIONES (BOTONES)
+   ============================================================ */
+
+.article-footer-tech {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.btn-wa-editorial {
+    background: #d00000;
+    color: #fff;
+    padding: 22px 60px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-decoration: none;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(208, 0, 0, 0.2);
+    transition: 0.4s;
+}
+
+.btn-wa-editorial:hover {
+    background: #fff;
+    color: #000;
+    transform: translateY(-8px);
+}
+
+.btn-back-minimal {
     background: transparent;
     border: none;
-    padding: 10px 20px;
-  }
+    color: #333;
+    font-family: 'Oswald';
+    letter-spacing: 5px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.btn-back-minimal:hover { color: #fff; }
 
-  .news-reader-title { font-size: 1.8rem; }
-  
-  /* --- CAMBIOS PARA IMÁGENES UNA AL LADO DE LA OTRA EN MÓVIL --- */
-  .gallery-grid { 
-    display: grid;
-    grid-template-columns: 1fr 1fr !important; /* Dos columnas */
-    gap: 10px;
-  }
-  
-  .news-img-box { 
-    max-height: 140px; /* Altura controlada */
-    height: 140px;
-  }
-  
-  .news-img-box img {
-    object-fit: cover; /* Llenar cuadro */
-  }
+/* ============================================================
+   RESPONSIVE MÓVIL (QUIRÚRGICO)
+   ============================================================ */
 
-  /* Excepción: Si es una sola foto, dejarla más grande */
-  .gallery-single .news-img-box {
-    max-height: 250px;
-    height: auto;
-  }
-  
-  .news-back-btn { width: 100%; text-align: center; }
-  .news-wa-btn { width: 100%; }
+@media (max-width: 900px) {
+    .news-reader-root { padding-top: 100px; padding-bottom: 180px; }
+
+    /* RE-ORDENAR MÓVIL: Título -> Texto -> Galería */
+    .article-header { margin-bottom: 30px !important; }
+    .article-main-title { font-size: 3rem !important; }
+
+    .news-meta-gala { gap: 10px; margin-bottom: 40px; }
+    .m-date-tag, .m-category-badge { font-size: 0.75rem; letter-spacing: 2px; }
+
+    /* Galería al final y vertical */
+    .article-gallery { 
+        order: 10 !important; 
+        grid-template-columns: 1fr !important;
+        margin-top: 60px;
+    }
+    
+    .article-gallery.triple-mode {
+        grid-template-columns: 1fr !important; /* En móvil de a una para que luzcan */
+    }
+
+    .article-img-frame { height: 300px !important; border-radius: 8px; }
+
+    .article-body-text p {
+        font-size: 1.15rem;
+        text-align: left;
+        padding: 0 5px;
+    }
+
+    .btn-wa-editorial { width: 100%; text-align: center; font-size: 1.1rem; }
+}
+/* ============================================================
+   REFINAMIENTO NEWS READER: TRANSPARENCIA Y ORDEN (V101)
+   ============================================================ */
+
+/* 1. FORZAMOS EL FONDO BORDÓ EN TODA LA PANTALLA */
+.news-reader-root {
+    background: radial-gradient(circle at 50% 30%, #4a0404 0%, #1a0202 45%, #000000 100%) !important;
+    background-color: transparent !important;
+}
+
+/* 2. LIMPIEZA ABSOLUTA DE CAJAS NEGRAS Y LÍNEAS */
+.news-pilar-central, 
+.news-pilar-central div, 
+.news-pilar-central section, 
+.news-pilar-central article {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important; /* MATA LAS LÍNEAS NEGRAS FINAS */
+    box-shadow: none !important;
+}
+
+/* 3. MOTOR DE ORDENAMIENTO (PC) */
+/* Queremos: Título -> Meta -> Galería -> Texto */
+.news-pilar-central {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.article-header { order: 1 !important; width: 100%; }
+.news-meta-gala { order: 2 !important; width: 100%; margin-bottom: 50px !important; }
+.article-gallery { order: 3 !important; width: 100%; margin-bottom: 60px !important; }
+.article-body-text { order: 4 !important; width: 100%; }
+.article-footer-tech { order: 5 !important; width: 100%; }
+
+/* 4. RE-ESTILO DE LA GALERÍA (FOTOS TIPO MUSEO) */
+.article-img-frame {
+    /* El único lugar con fondo negro para que la foto resalte */
+    background: #000 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.8) !important;
+}
+
+/* Fix para foto única centrada y no gigante */
+.article-gallery.single-mode .article-img-frame {
+    max-width: 800px !important;
+    height: 450px !important;
+    margin: 0 auto;
+}
+
+/* 5. DISEÑO DE TEXTO (LEGIBILIDAD SOBRE BORDÓ) */
+.article-body-text p {
+    color: #eee !important; /* Blanco humo para que brille */
+    font-size: 1.35rem !important;
+    max-width: 850px;
+    margin: 0 auto 35px auto !important;
+    text-shadow: 0 2px 10px rgba(0,0,0,1) !important;
+    line-height: 1.8 !important;
+}
+
+/* ============================================================
+   ESTRUCTURA MÓVIL (EL CAMBIO DE ORDEN)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    /* RE-ORDEN MÓVIL: Título -> Meta -> TEXTO -> GALERÍA */
+    .article-header { order: 1 !important; }
+    .news-meta-gala { order: 2 !important; }
+    .article-body-text { order: 3 !important; margin-top: 20px !important; }
+    .article-gallery { order: 4 !important; margin-top: 50px !important; }
+
+    .news-pilar-central {
+        padding: 0 15px !important;
+    }
+
+    /* Galería vertical elegante en móvil */
+    .article-gallery.triple-mode {
+        display: grid !important;
+        grid-template-columns: 1fr !important; /* Una debajo de otra para que luzcan */
+        gap: 20px !important;
+    }
+
+    .article-img-frame {
+        height: 250px !important;
+        border-radius: 8px !important;
+    }
+
+    .article-body-text p {
+        font-size: 1.15rem !important;
+        text-align: left !important; /* Mejor lectura en iPhone */
+    }
+}
+/* ============================================================
+   FIX: TRANSPARENCIA TOTAL Y DISEÑO DE GALA (V102)
+   ============================================================ */
+
+/* 1. ELIMINACIÓN DEL BLOQUE NEGRO CENTRAL */
+.news-pilar-central, 
+.news-reader-container, 
+.news-article-content,
+.article-body-text {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+/* 2. DISEÑO DE METADATOS (FECHA Y CATEGORÍA) */
+/* Corregimos que no aparezcan pegados y tengan estilo pro */
+.news-meta-gala {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 15px !important;
+    margin: 20px 0 50px 0 !important;
+    font-family: 'Oswald', sans-serif !important;
+}
+
+.m-date-tag {
+    color: #555 !important;
+    letter-spacing: 3px;
+    font-size: 0.9rem;
+}
+
+.m-divider {
+    color: #d00000 !important;
+    font-weight: 900;
+    opacity: 0.8;
+}
+
+.m-category-badge {
+    color: #d00000 !important;
+    letter-spacing: 4px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* 3. RE-AJUSTE DEL TÍTULO (MÁS ALTO Y COMPRIMIDO) */
+.article-main-title {
+    font-family: 'Helvetica Compressed', sans-serif !important;
+    font-size: clamp(3.5rem, 8vw, 6.5rem) !important;
+    letter-spacing: 2px !important;
+    text-align: center !important;
+    color: #fff !important;
+    line-height: 0.85 !important;
+    margin-bottom: 25px !important;
+}
+
+/* 4. AJUSTE DE IMAGEN ÚNICA (NO TAN GIGANTE) */
+.article-gallery.single-mode {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    margin-bottom: 60px !important;
+}
+
+.article-gallery.single-mode .article-img-frame {
+    width: 100% !important;
+    max-width: 850px !important; /* Controlamos el ancho para que no se zarpe */
+    height: 500px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: #000;
+}
+
+/* 5. TEXTO EDITORIAL (BRILLE SOBRE EL BORDÓ) */
+.article-body-text p {
+    color: #e0e0e0 !important;
+    text-align: center !important;
+    max-width: 850px !important;
+    margin: 0 auto 30px auto !important;
+    font-size: 1.3rem !important;
+    line-height: 1.8 !important;
+}
+
+/* ============================================================
+   AJUSTE MÓVIL (QUIRÚRGICO)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .news-reader-root {
+        padding-top: 100px !important;
+    }
+
+    .article-main-title {
+        font-size: 3rem !important;
+        padding: 0 10px;
+    }
+
+    .news-meta-gala {
+        flex-direction: row !important; /* Mantenemos en una línea si el texto es corto */
+        font-size: 0.75rem !important;
+    }
+
+    .article-img-frame {
+        height: 280px !important; /* Fotos más manejables en móvil */
+        width: 95% !important;
+        margin: 0 auto;
+    }
+}
+/* ============================================================
+   NEWS READER TITÁN V103 - ESTRUCTURA MONUMENTAL
+   ============================================================ */
+
+.news-reader-root {
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 30%, #3d0505 0%, #1a0202 45%, #000000 100%) !important;
+    position: relative;
+    padding-top: 140px;
+    padding-bottom: 150px;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- EL CUADRO NEGRO DETRÁS DE TODO (PILAR) --- */
+.news-pilar-central {
+    width: 90%;
+    max-width: 1200px;
+    background: rgba(8, 8, 8, 0.98) !important; /* EL CUADRO NEGRO QUE BUSCABAS */
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 100px rgba(0, 0, 0, 1);
+    padding: 80px 60px;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* --- LIMPIEZA DE "PARCHES" INTERNOS --- */
+.article-body-text, 
+.article-body-text p {
+    background: transparent !important; /* MATA EL CUADRO CHICO NEGRO */
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* --- DISEÑO EDITORIAL --- */
+.article-main-title {
+    font-family: 'Helvetica Compressed', sans-serif !important;
+    font-size: 5.5rem;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 0.9;
+    margin-bottom: 20px;
+}
+
+.article-header-line {
+    width: 150px;
+    height: 4px;
+    background: #d00000;
+    box-shadow: 0 0 15px #ff0000;
+    margin-bottom: 30px;
+}
+
+.news-meta-gala {
+    display: flex;
+    gap: 15px;
+    color: #555;
+    font-family: 'Oswald';
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.m-category-badge { color: #d00000; font-weight: 700; }
+
+/* --- TEXTO (SOBRE EL PILAR NEGRO) --- */
+.article-body-text p {
+    color: #ccc;
+    font-size: 1.3rem;
+    line-height: 1.8;
+    max-width: 900px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* --- GALERÍA (ESTILO MUSEO) --- */
+.article-gallery { width: 100%; margin: 40px 0 60px 0; display: grid; gap: 20px; }
+.article-gallery.triple-mode { grid-template-columns: repeat(3, 1fr) !important; }
+
+.article-img-frame {
+    height: 400px;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+}
+
+.article-img-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+/* --- BOTÓN WHATSAPP --- */
+.btn-wa-editorial {
+    display: inline-block;
+    background: #d00000;
+    color: #fff;
+    padding: 20px 50px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-decoration: none;
+    transition: 0.4s;
+}
+.btn-wa-editorial:hover { background: #fff; color: #000; transform: translateY(-5px); }
+
+/* --- RESPONSIVE MÓVIL --- */
+@media (max-width: 900px) {
+    .news-reader-root { padding-top: 100px; }
+    .news-pilar-central { 
+        width: 100%; 
+        padding: 40px 20px; 
+        background: #000 !important; /* Negro total en móvil */
+    }
+    .article-main-title { font-size: 3rem; }
+    .article-gallery { order: 10; grid-template-columns: 1fr !important; }
+}
+/* ============================================================
+   NEWS READER TITÁN V104 - DISEÑO EDITORIAL COMPACTO
+   ============================================================ */
+
+.news-reader-root {
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 30%, #3d0505 0%, #1a0202 45%, #000000 100%) !important;
+    position: relative;
+    padding-top: 140px;
+    padding-bottom: 120px;
+    display: flex;
+    justify-content: center;
+}
+
+.news-pilar-central {
+    width: 90%;
+    max-width: 1100px;
+    background: rgba(8, 8, 8, 0.98) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px 60px 80px 60px; /* Reducimos padding superior */
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- BOTONES VOLVER --- */
+.news-nav-top-actions {
+    width: 100%;
+    margin-bottom: 30px; /* Espacio corto hacia el título */
+}
+
+.btn-back-minimal {
+    background: transparent;
+    border: none;
+    color: #444;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+.btn-back-minimal:hover { color: #d00000; }
+
+/* --- TÍTULO (BAJAMOS POSICIÓN Y COMPACTAMOS) --- */
+.article-header {
+    width: 100%;
+    margin-top: 20px; /* Bajamos el título del techo */
+    margin-bottom: 30px; /* Menos espacio hacia los metadatos */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.article-main-title {
+    font-family: 'Helvetica Compressed', sans-serif !important;
+    font-size: 5rem;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 0.9;
+    margin: 0 0 15px 0 !important;
+}
+
+.article-header-line {
+    width: 120px;
+    height: 4px;
+    background: #d00000;
+    box-shadow: 0 0 15px #ff0000;
+}
+
+/* --- METADATOS --- */
+.news-meta-gala {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    color: #555;
+    font-family: 'Oswald';
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 35px; /* Reducido */
+}
+
+.m-category-badge { color: #d00000; font-weight: 700; }
+
+/* --- GALERÍA --- */
+.article-gallery { 
+    width: 100%; 
+    margin: 0 0 45px 0; /* Espacio equilibrado */
+    display: grid; 
+    gap: 15px; 
+}
+
+/* --- TEXTO EDITORIAL (ORDENADO) --- */
+.article-body-text {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.article-body-text p {
+    color: #bbb;
+    font-size: 1.2rem; /* Tamaño de lectura pro */
+    line-height: 1.8;
+    margin-bottom: 25px;
+    text-align: justify; /* TEXTO ORDENADO (BLOQUE) */
+    background: transparent !important;
+}
+
+/* --- FOOTER --- */
+.article-footer-tech {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.btn-wa-editorial {
+    background: #d00000;
+    color: #fff;
+    padding: 18px 45px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-decoration: none;
+    transition: 0.4s;
+    border-radius: 4px;
+}
+.btn-wa-editorial:hover { background: #fff; color: #000; transform: translateY(-5px); }
+
+/* --- MÓVIL --- */
+@media (max-width: 900px) {
+    .news-pilar-central { 
+        width: 100%; 
+        padding: 30px 20px; 
+    }
+    .article-main-title { font-size: 2.8rem; }
+    .article-body-text p { text-align: left; font-size: 1.1rem; }
+    .article-gallery { order: 10; margin-top: 30px; }
+}
+/* ============================================================
+   NEWS READER TITÁN V105 - ARQUITECTURA INFINITA
+   ============================================================ */
+
+.news-reader-root {
+    width: 100%;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 30%, #3d0505 0%, #1a0202 45%, #000000 100%) !important;
+    position: relative;
+    /* QUITAMOS EL PADDING SUPERIOR PARA QUE EL CUADRO TOQUE EL TECHO */
+    padding-top: 0 !important; 
+    padding-bottom: 0 !important;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+/* --- EL CUADRO NEGRO (PILAR CENTRAL INFINITO) --- */
+.news-pilar-central {
+    width: 90%;
+    max-width: 1200px;
+    background: rgba(8, 8, 8, 0.98) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+    /* EL SECRETO: El padding-top ocurre adentro del cuadro negro */
+    padding: 160px 60px 100px 60px; 
+    min-height: 100vh;
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 150px rgba(0, 0, 0, 1);
+}
+
+/* --- LIMPIEZA DE CORTES (MATA-LINEAS) --- */
+.news-pilar-central, .article-body-text, .article-body-text p {
+    border-top: none !important;
+    border-bottom: none !important;
+    outline: none !important;
+}
+
+/* --- BOTÓN VOLVER (CLONADO ARRIBA) --- */
+.news-nav-top-actions {
+    width: 100%;
+    max-width: 900px;
+    margin-bottom: 40px;
+    text-align: left;
+}
+
+/* --- TÍTULO (BAJAMOS POSICIÓN Y ESTILO ALTO) --- */
+.article-header {
+    width: 100%;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.article-main-title {
+    font-family: 'Helvetica Compressed', sans-serif !important;
+    font-size: clamp(3.5rem, 8vw, 6rem);
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 0.85;
+    letter-spacing: 2px;
+    margin: 0 0 20px 0 !important;
+    /* Sombra para que no se pegue al fondo */
+    text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.article-header-line {
+    width: 140px;
+    height: 4px;
+    background: #d00000;
+    box-shadow: 0 0 15px #ff0000;
+}
+
+/* --- METADATOS (FECHA Y CATEGORÍA) --- */
+.news-meta-gala {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: #555;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-top: 15px;
+}
+
+.m-category-badge { color: #d00000; font-weight: 700; }
+
+/* --- GALERÍA (PC: 3 EN FILA) --- */
+.article-gallery { 
+    width: 100%; 
+    margin: 40px 0 60px 0; 
+    display: grid; 
+    gap: 20px; 
+}
+
+.article-gallery.triple-mode { grid-template-columns: repeat(3, 1fr) !important; }
+
+.article-img-frame {
+    height: 420px;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+}
+
+.article-img-frame img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.9); }
+
+/* --- TEXTO EDITORIAL (JUSTIFICADO Y ORDENADO) --- */
+.article-body-text {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.article-body-text p {
+    color: #ccc;
+    font-size: 1.25rem;
+    line-height: 1.9;
+    margin-bottom: 35px;
+    text-align: justify; /* TEXTO RECTO Y ORDENADO */
+    background: transparent !important;
+}
+
+/* --- BOTONES --- */
+.article-footer-tech {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+}
+
+.btn-back-minimal {
+    background: transparent;
+    border: none;
+    color: #444;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.btn-back-minimal:hover { color: #d00000; }
+
+.btn-wa-editorial {
+    background: #d00000;
+    color: #fff;
+    padding: 20px 50px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: 0.4s;
+}
+.btn-wa-editorial:hover { background: #fff; color: #000; transform: translateY(-5px); }
+
+/* ============================================================
+   RESPONSIVE MÓVIL (QUIRÚRGICO)
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .news-pilar-central { 
+        width: 100%; 
+        padding: 120px 20px 100px 20px !important; 
+        border: none;
+        background: #000 !important; /* Negro total en móvil */
+    }
+
+    .article-main-title { font-size: 3rem; }
+
+    /* Galería al final en móvil */
+    .article-gallery { order: 10; margin-top: 50px; }
+    .article-gallery.triple-mode { grid-template-columns: 1fr !important; }
+    .article-img-frame { height: 280px !important; }
+
+    .article-body-text p { text-align: left; font-size: 1.15rem; }
 }

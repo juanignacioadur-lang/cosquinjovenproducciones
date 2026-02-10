@@ -9,66 +9,74 @@ export default function NewsDetailPage() {
   const navigate = useNavigate();
   const news = newsData.find((n) => n.id.toString() === id);
 
-  // Al entrar, ir arriba
   useLayoutEffect(() => {
     jumpToTop();
   }, [id]);
 
-  // Al volver, enviamos estado para que EventsPage haga scroll a la sección noticias
   const handleGoBack = () => {
     navigate("/noticias", { state: { targetId: "news-section-anchor" } });
   };
 
-  if (!news) return <div style={{color:'white', padding:100, textAlign:'center'}}>Noticia no encontrada</div>;
+  if (!news) return <div className="news-error">SISTEMA: Noticia no localizada</div>;
 
   return (
-    <div className="news-page-root">
+    <div className="news-reader-root">
+      <div className="news-grid-overlay"></div>
+      <div className="news-vignette"></div>
       
-      {/* WRAPPER NUEVO: Este es el que tendrá el subfondo gris en PC */}
-      <div className="news-container-wrapper">
+      {/* EL PILAR CENTRAL (CUADRO INFINITO) */}
+      <div className="news-pilar-central">
         
-        <div className="news-reader-container">
-          
-          <div className="news-reader-header">
-            <button onClick={handleGoBack} className="news-back-btn">
-              ← Volver
-            </button>
-            <div className="news-reader-meta">
-              <span>{news.date}</span> | <span className="news-cat-highlight">{news.category}</span>
-            </div>
-          </div>
+        {/* ACCIÓN SUPERIOR */}
+        <nav className="news-nav-top-actions">
+          <button onClick={handleGoBack} className="btn-back-minimal">
+            ← VOLVER AL ARCHIVO DE NOTICIAS
+          </button>
+        </nav>
 
-          <div className="news-reader-content">
-            <h1 className="news-reader-title">{news.title}</h1>
+        {/* CABECERA EDITORIAL */}
+        <header className="article-header">
+            <h1 className="article-main-title">{news.title}</h1>
+            <div className="article-header-line"></div>
             
-            {news.detailImages && news.detailImages.length > 0 && (
-              <div className={`news-gallery ${news.detailImages.length > 1 ? 'gallery-grid' : 'gallery-single'}`}>
-                {news.detailImages.map((img, i) => (
-                  <div key={i} className="news-img-box">
-                    <img src={img} alt={`Noticia ${i}`} />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            <div className="news-body-text">
-              {news.fullContent.map((paragraph, idx) => (
-                <p key={idx}>{paragraph}</p>
-              ))}
+            <div className="news-meta-gala">
+                <span className="m-date-tag">{news.date}</span>
+                <span className="m-divider">/</span>
+                <span className="m-category-badge">{news.category}</span>
             </div>
+        </header>
 
-            {news.whatsappLink && (
-              <div className="news-action-wrapper">
-                <a href={news.whatsappLink} target="_blank" rel="noreferrer" className="news-wa-btn">
-                  Quiero Inscribirme / Más Info  
-                </a> 
+        {/* GALERÍA (PC: 3 EN FILA / MÓVIL: ABAJO) */}
+        {news.detailImages && news.detailImages.length > 0 && (
+          <section className={`article-gallery ${news.detailImages.length >= 3 ? 'triple-mode' : 'single-mode'}`}>
+            {news.detailImages.map((img, i) => (
+              <div key={i} className="article-img-frame">
+                <img src={img} alt={`Registro ${i}`} loading="lazy" />
               </div>
-            )}
-          </div>
+            ))}
+          </section>
+        )}
 
-        </div>
+        {/* TEXTO DE LA NOTICIA (ORDENADO Y JUSTIFICADO) */}
+        <section className="article-body-text">
+          {news.fullContent.map((paragraph, idx) => (
+            <p key={idx}>{paragraph}</p>
+          ))}
+        </section>
+
+        {/* ACCIONES FINALES */}
+        <footer className="article-footer-tech">
+          {news.whatsappLink && (
+            <a href={news.whatsappLink} target="_blank" rel="noreferrer" className="btn-wa-editorial">
+              SOLICITAR INFORMACIÓN POR WHATSAPP
+            </a> 
+          )}
+          <button onClick={handleGoBack} className="btn-back-minimal">
+            ← VOLVER AL ARCHIVO DE NOTICIAS
+          </button>
+        </footer>
+        
       </div>
-
     </div>
   );
 }

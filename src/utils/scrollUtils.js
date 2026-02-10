@@ -1,6 +1,6 @@
 /**
  * Busca un elemento por su ID y hace scroll SUAVE hacia él.
- * (Usado para abrir eventos y bajar a la info)
+ * (Optimizado para trabajar con el Global Scaler)
  */
 export const scrollToElement = (elementId) => {
   let attempts = 0;
@@ -30,7 +30,6 @@ export const scrollToElement = (elementId) => {
 
 /**
  * Scroll SUAVE al inicio.
- * (Usado para volver arriba al cerrar eventos)
  */
 export const scrollToTop = () => {
   if ('scrollRestoration' in window.history) {
@@ -40,13 +39,35 @@ export const scrollToTop = () => {
 };
 
 /**
- * SALTO INSTANTÁNEO al inicio (Sin animación).
- * (Usado para abrir Noticias "Leer Más")
+ * SALTO INSTANTÁNEO AL INICIO (FIX DOBLE BARRA)
+ * Esta versión fuerza al navegador a resetear los ejes de scroll 
+ * para evitar la barra fantasma que aparece por el Zoom del GlobalScaler.
  */
 export const jumpToTop = () => {
+  // 1. Bloqueamos la restauración automática del navegador
   if ('scrollRestoration' in window.history) {
     window.history.scrollRestoration = 'manual';
   }
-  // 'instant' fuerza al navegador a no animar, incluso si hay CSS global
-  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  // 2. TÉCNICA NUCLEAR: Forzamos overflow hidden en HTML y Body por un instante
+  // Esto mata cualquier barra de scroll secundaria inmediatamente.
+  const html = document.documentElement;
+  const body = document.body;
+  
+  html.style.overflow = 'hidden';
+  body.style.overflow = 'hidden';
+
+  // 3. Reseteamos todos los punteros de scroll posibles
+  window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  html.scrollTop = 0;
+  body.scrollTop = 0;
+
+  // 4. Devolvemos el control al navegador en el siguiente cuadro de animación
+  // Esto permite que la página se dibuje limpia sin la barra doble.
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      html.style.overflow = '';
+      body.style.overflow = '';
+    }, 10); // 10ms es suficiente para engañar al motor de renderizado
+  });
 };
