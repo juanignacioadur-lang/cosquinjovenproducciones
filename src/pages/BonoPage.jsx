@@ -202,7 +202,7 @@ return (
   {/* Título del Monolito */}
   <div className="section-head-v42">
     <div className="h-line"></div>
-    <h3>¡SIGUE EL GRAN BONO EN VIVO!</h3>
+    <h3>¡SEGUÍ AL GRAN BONO EN VIVO!</h3>
     <small className="subtitle">¡ENTÉRATE DE COMO VA EL SORTEO!.</small>
   </div>
         {/* POSICIÓN 3: EL RADAR (ESTADO EN VIVO) */}

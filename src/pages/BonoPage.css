@@ -2670,3 +2670,295 @@
         font-size: 1.8rem !important;
     }
 }
+/* ============================================================
+   OPERACIÓN LIMPIEZA: ELIMINACIÓN DE BORDES Y FONDOS (V91)
+   ESTILO: CAJAS FLOTANTES SOBRE FONDO BORDÓ INFINITO
+   ============================================================ */
+
+/* 1. MATAMOS LOS BORDES Y FONDOS DE LOS CONTENEDORES GRANDES */
+/* Esto elimina los "cuadros" que encierran las secciones */
+.bono-pilar-v42, 
+.bono-feature-monolith, 
+.bono-prizes-monolith, 
+.bono-live-monolith {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important; /* ELIMINA LAS LÍNEAS NEGRAS FINAS */
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
+/* 2. ELIMINAMOS LAS LÍNEAS DIVISORIAS INTERNAS */
+/* Esas rayitas que separaban "¿Por qué trabajar con nosotros?" de lo de abajo */
+.bono-supreme-root .bono-cta-federal,
+.bono-supreme-root .bono-final-grid,
+.bono-supreme-root .cta-h-line {
+    border-bottom: none !important;
+    border-top: none !important;
+    box-shadow: none !important;
+}
+
+/* 3. RE-DISEÑO DE LAS CABECERAS DE SECCIÓN */
+/* Mantenemos solo el texto y la línea roja neón flotando */
+.section-head-v42 {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+/* 4. MANTENEMOS EL FONDO SOLO EN LOS CUADROS ESPECÍFICOS */
+/* Queremos que estos cuadros resalten pero SIN bordes negros toscos */
+.radar-main-box, 
+.radar-ticker-box, 
+.info-block-item, 
+.titan-prize-card, 
+.sub-prize-card, 
+.leader-row, 
+.benefits-card-v42, 
+.distro-card-v42 {
+    background: rgba(10, 0, 0, 0.6) !important; /* Negro con tinte bordó muy sutil */
+    border: 1px solid rgba(255, 255, 255, 0.03) !important; /* Borde casi invisible */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 5. FIX PARA EL TÍTULO "POR QUÉ TRABAJAR CON NOSOTROS" */
+/* Eliminamos el recuadro negro que a veces queda por herencia */
+.bono-cta-federal {
+    margin: 0 !important;
+    padding: 20px 0 !important;
+}
+
+/* 6. REFUERZO DE LAS LLAMAS LATERALES */
+/* Ahora que no hay bordes, las llamas deben estar bien pegadas al contenido */
+.bono-pilar-v42::before { left: -60px !important; }
+.bono-pilar-v42::after { right: -60px !important; }
+
+/* ============================================================
+   DETALLES DE COLOR (ADIÓS A LOS GRISES OSCUROS)
+   ============================================================ */
+
+.cta-description, .block-p {
+    color: #aaa !important; /* Gris claro para que se lea sobre el bordó */
+}
+
+/* Ajuste para que la línea roja de los títulos brille pero no ensucie */
+.bono-supreme-root .section-head-v42 .h-line {
+    background: linear-gradient(90deg, transparent, #ff0000, transparent) !important;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5) !important;
+    border: none !important;
+}
+/* ============================================================
+   AMBIENTACIÓN ÉPICA: TITAN DEEP RED (V92)
+   ESTILO: FONDO INFINITO BORDÓ + TRANSPARENCIA TOTAL
+   ============================================================ */
+
+/* 1. EL FONDO GLOBAL (RADIAL DEPTH) */
+.bono-supreme-root {
+    /* Crea un foco de luz bordó profundo en la parte superior que se funde a negro */
+    background: radial-gradient(circle at 50% 30%, #4a0404 0%, #1a0202 45%, #000000 100%) !important;
+    background-attachment: fixed !important; /* El fondo se queda quieto al scrollear */
+}
+
+/* 2. LIMPIEZA DE CONTENEDORES (TRANSPARENCIA ABSOLUTA) */
+/* Matamos el fondo negro de todos los "monolitos" y el pilar central */
+.bono-pilar-v42, 
+.bono-feature-monolith, 
+.bono-prizes-monolith, 
+.bono-live-monolith,
+.bono-cta-federal {
+    background: transparent !important;
+    background-color: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* 3. MALLA TÉCNICA (PUNTOS ROJOS) */
+.bono-grid-overlay {
+    opacity: 0.25 !important; /* Un poco más sutil para no ensuciar el bordó */
+    background-image: radial-gradient(rgba(208, 0, 0, 0.15) 1px, transparent 1px) !important;
+}
+
+/* 4. VIÑETA (OSCURECIMIENTO DE BORDES) */
+.bono-vignette {
+    background: radial-gradient(circle, transparent 30%, rgba(0, 0, 0, 0.8) 100%) !important;
+}
+
+/* 5. RESALTADO DE CUADROS (FLOTANTES) */
+/* Solo estas cajas mantienen fondo para que el texto sea legible */
+.radar-main-box, 
+.radar-ticker-box, 
+.info-block-item, 
+.titan-prize-card, 
+.sub-prize-card, 
+.leader-row, 
+.benefits-card-v42, 
+.distro-card-v42 {
+    background: rgba(0, 0, 0, 0.75) !important; /* Negro translúcido premium */
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* 6. RE-POTENCIACIÓN DE LAS LLAMAS */
+/* Al no haber cuadros negros, las llamas se funden con el fondo bordó */
+.bono-pilar-v42::before, 
+.bono-pilar-v42::after {
+    opacity: 0.6 !important;
+    filter: blur(1px) saturate(1.2) !important;
+}
+/* ============================================================
+   BLINDAJE DE TRANSPARENCIA TOTAL (V93)
+   ELIMINACIÓN DE LÍNEAS NEGRAS Y BORDES FANTASMAS
+   ============================================================ */
+
+/* 1. ANULAMOS LAS REGLAS DE "SELLADO" DEL INDEX/SCALER SOLO EN ESTA PÁGINA */
+.bono-supreme-root section, 
+.bono-supreme-root main, 
+.bono-supreme-root div {
+    outline: none !important; /* Mata las líneas de 1px que genera el GlobalScaler */
+    border: none; /* Limpieza base */
+}
+
+/* 2. LIMPIEZA QUIRÚRGICA DE LOS CONTENEDORES MAESTROS */
+.bono-pilar-v42, 
+.bono-feature-monolith, 
+.bono-prizes-monolith, 
+.bono-live-monolith {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important; /* Asegura que no haya bordes negros finos */
+    box-shadow: none !important; /* Elimina sombras que parezcan bordes */
+    outline: none !important;
+}
+
+/* 3. MANTENEMOS EL DISEÑO "TOP" ROJO (Pero sin el resto del marco) */
+/* Queremos la línea roja de arriba pero NADA a los costados ni abajo */
+.bono-feature-monolith, 
+.bono-live-monolith, 
+.bono-prizes-monolith {
+    border-top: 3px solid #d00000 !important; /* Mantenemos solo el acento rojo superior */
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+}
+
+/* 4. LIMPIEZA DE LOS CUADROS INTERNOS (LOS QUE SÍ SON NEGROS) */
+/* Evitamos que el borde de los cuadritos de premios o radar sea negro tosco */
+.radar-main-box, 
+.radar-ticker-box, 
+.info-block-item, 
+.titan-prize-card, 
+.sub-prize-card, 
+.leader-row, 
+.benefits-card-v42, 
+.distro-card-v42 {
+    border: 1px solid rgba(255, 255, 255, 0.05) !important; /* Borde de luz sutil, no negro */
+    background: rgba(8, 8, 8, 0.9) !important; /* Negro translúcido para ver el bordó detrás */
+}
+
+/* 5. ELIMINACIÓN DE SOMBRAS EN LOS TÍTULOS */
+.section-head-v42 h3 {
+    text-shadow: none !important;
+}
+
+/* 6. AJUSTE DE LAS LLAMAS (Para que no queden cortadas por un borde invisible) */
+.bono-pilar-v42::before, 
+.bono-pilar-v42::after {
+    border: none !important;
+    outline: none !important;
+}
+/* ============================================================
+   AJUSTE QUIRÚRGICO: 2026 (V95)
+   ESTILO: MICRO-DESPLAZAMIENTO ÓPTICO
+   ============================================================ */
+
+.bono-supreme-root .year-glitch {
+    /* Bajamos de -15px a solo -5px. Es casi imperceptible pero limpia el eje */
+    transform: translateX(-5px) !important; 
+}
+
+/* La línea neón también se ajusta esos 5px */
+.bono-supreme-root .year-neon-line {
+    transform: translateX(-5px) !important;
+}
+
+/* --- AJUSTE PARA MÓVILES (MICRO-TOQUE) --- */
+@media (max-width: 900px) {
+    .bono-supreme-root .year-glitch,
+    .bono-supreme-root .year-neon-line {
+        /* En el celu con 2px ya es suficiente para equilibrar */
+        transform: translateX(-2px) !important;
+    }
+}
+/* ============================================================
+   FIX DE ANCHO TOTAL: CUADROS FLUIDOS EN MÓVIL (V96)
+   ESTILO: EXPANSIÓN DE BORDE A BORDE
+   ============================================================ */
+
+@media (max-width: 900px) {
+    
+    /* 1. EL PILAR CENTRAL: Quitamos los márgenes que lo comprimen */
+    .bono-pilar-v42 {
+        width: 100% !important;
+        max-width: 100vw !important;
+        padding-left: 10px !important;  /* Solo 10px de respiro lateral */
+        padding-right: 10px !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 2. LOS MONOLITOS (LOS CUADROS GRANDES) */
+    .bono-feature-monolith, 
+    .bono-prizes-monolith, 
+    .bono-live-monolith {
+        width: 100% !important;
+        /* Reducimos el padding interno: si es muy grande, el texto se ve flaco */
+        padding: 40px 15px !important; 
+        border-radius: 8px !important; /* Bordes un poco más curvos para el celu */
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. AJUSTE DE CONTENIDOS INTERNOS (TEXTOS) */
+    .cta-content-wrap, 
+    .radar-main-box, 
+    .radar-ticker-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 4. LA DESCRIPCIÓN: Forzamos a que use casi todo el ancho disponible */
+    .cta-description {
+        width: 95% !important;
+        max-width: 100% !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        font-size: 0.95rem !important;
+    }
+
+    /* 5. TÍTULO DE SECCIÓN: Que no se estruje */
+    .cta-main-title {
+        width: 100% !important;
+        padding: 0 5px !important;
+    }
+
+    /* 6. BOTÓN: Ancho cómodo para el pulgar */
+    .btn-cta-supreme {
+        width: 90% !important;
+        padding: 18px 10px !important;
+    }
+}
+
+/* Ajuste para pantallas extremadamente pequeñas (estilo iPhone SE) */
+@media (max-width: 370px) {
+    .bono-pilar-v42 {
+        padding-left: 5px !important;
+        padding-right: 5px !important;
+    }
+    .bono-feature-monolith {
+        padding: 30px 10px !important;
+    }
+}
